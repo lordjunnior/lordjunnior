@@ -11,7 +11,6 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SystemCarousel } from './components/SystemCarousel';
 import { GameGrid } from './components/GameGrid';
-import { CRTFilter } from './components/CRTFilter';
 import { GameDetailView } from './components/GameDetailView';
 import { EmulatorPlayer } from './components/EmulatorPlayer';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
@@ -107,13 +106,6 @@ export default function App() {
       return localStorage.getItem('retro_muted') === 'true';
     }
     return false;
-  });
-
-  const [isCrtOn, setIsCrtOn] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('retro_crt') !== 'false'; // Default CRT: True!
-    }
-    return true;
   });
 
   const [isSearchActive, setSearchActive] = useState<boolean>(false);
@@ -216,10 +208,6 @@ export default function App() {
     localStorage.setItem('retro_muted', String(isMuted));
   }, [isMuted]);
 
-  useEffect(() => {
-    localStorage.setItem('retro_crt', String(isCrtOn));
-  }, [isCrtOn]);
-
   // URL Hash-based robust SPA Router emulation.
   // Translates '#/system/snes' directly to SNES detail grid, ensuring back-button browser history!
   useEffect(() => {
@@ -272,9 +260,6 @@ export default function App() {
   if (isGameDetailPage && gameMatch) {
     return (
       <div id="retro-game-details" className="relative w-full h-screen bg-zinc-950 text-white font-sans overflow-hidden select-none">
-        {/* Dynamic active CRT Scanline overlay filter */}
-        <CRTFilter active={isCrtOn} />
-
         <GameDetailView
           system={gameMatch.system}
           game={gameMatch.game}
@@ -286,8 +271,6 @@ export default function App() {
           onNavigateToPath={navigateToPath}
           isMuted={isMuted}
           toggleMute={() => setIsMuted(prev => !prev)}
-          isCrtOn={isCrtOn}
-          toggleCrt={() => setIsCrtOn(prev => !prev)}
         />
       </div>
     );
@@ -296,9 +279,6 @@ export default function App() {
   return (
     <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#1b2836] text-white font-sans overflow-hidden flex flex-col justify-between select-none">
       
-      {/* Imbued dynamic retro CRT tv effect */}
-      <CRTFilter active={isCrtOn} />
-
       {/* Cybernetic active wallpaper background */}
       <BackgroundHero systemId={currentSystem.id} />
 
@@ -309,8 +289,6 @@ export default function App() {
       <Header
         isMuted={isMuted}
         toggleMute={() => setIsMuted(prev => !prev)}
-        isCrtOn={isCrtOn}
-        toggleCrt={() => setIsCrtOn(prev => !prev)}
         title={activeScreen === 'gamelist' ? currentSystem.name : undefined}
         onGoBack={activeScreen === 'gamelist' ? handleReturnToCarousel : undefined}
         onSearchClick={() => setIsGlobalSearchOpen(true)}

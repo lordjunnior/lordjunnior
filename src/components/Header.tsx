@@ -4,13 +4,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Monitor, Cpu, Info, ShieldCheck, Search, Cloud } from 'lucide-react';
+import { Volume2, VolumeX, Cpu, Info, ShieldCheck, Search, Cloud } from 'lucide-react';
 
 interface HeaderProps {
   isMuted: boolean;
   toggleMute: () => void;
-  isCrtOn: boolean;
-  toggleCrt: () => void;
   title?: string;
   onGoBack?: () => void;
   onSearchClick: () => void;
@@ -20,8 +18,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   isMuted,
   toggleMute,
-  isCrtOn,
-  toggleCrt,
   title,
   onGoBack,
   onSearchClick,
@@ -89,21 +85,6 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <Search className="w-3.5 h-3.5 text-red-400" />
           <span>BUSCA</span>
-        </button>
-
-        {/* CRT screen switch button */}
-        <button
-          onClick={toggleCrt}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer ${
-            isCrtOn
-              ? 'bg-amber-500/10 border-amber-500 text-amber-400 ring-1 ring-amber-500/20'
-              : 'bg-[#18181b]/60 hover:bg-[#27272a] border-white/5 text-zinc-400'
-          }`}
-          title="Alternar efeito de TV tubo retro de fósforo (Atalho: C)"
-          id="btn-header-crt"
-        >
-          <Monitor className={`w-3.5 h-3.5 ${isCrtOn ? 'text-amber-400 animate-pulse' : 'text-zinc-500'}`} />
-          <span className="hidden sm:inline">CRT {isCrtOn ? 'LIGADO' : 'DESLIGADO'}</span>
         </button>
 
         {/* Audio / Mute feedback */}

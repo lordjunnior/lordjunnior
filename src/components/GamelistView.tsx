@@ -29,8 +29,6 @@ interface GamelistViewProps {
   onBack: () => void;
   isMuted: boolean;
   toggleMute: () => void;
-  isCrtOn: boolean;
-  toggleCrt: () => void;
 }
 
 export const GamelistView: React.FC<GamelistViewProps> = ({
@@ -38,8 +36,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   onBack,
   isMuted,
   toggleMute,
-  isCrtOn,
-  toggleCrt,
 }) => {
   const [selectedGameIndex, setSelectedGameIndex] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -126,9 +122,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       } else if (e.key.toLowerCase() === 'm') {
         toggleMute();
         soundEngine.playToggle();
-      } else if (e.key.toLowerCase() === 'c') {
-        toggleCrt();
-        soundEngine.playToggle();
       }
     };
 
@@ -136,7 +129,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedGameIndex, filteredGames, emulatingGame, selectedGame, isMuted, isCrtOn]);
+  }, [selectedGameIndex, filteredGames, emulatingGame, selectedGame, isMuted]);
 
   return (
     <div id="gamelist-container" className="relative w-full h-screen font-sans text-white overflow-hidden bg-zinc-950 flex flex-col justify-between">
@@ -441,21 +434,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             {/* Simulated Game Loop Screen */}
             <div className="flex-1 flex flex-col justify-center items-center relative bg-zinc-950 overflow-hidden">
               
-              {/* Dynamic decorative scanlines overlay in emulator screen */}
-              {isCrtOn && (
-                <div className="absolute inset-0 z-50 pointer-events-none overflow-hidden">
-                  <div className="absolute inset-0 w-full h-[4px] bg-white/5 opacity-40 scanline-moving" />
-                  <div 
-                    className="absolute inset-0 opacity-[0.25]"
-                    style={{
-                      backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%)',
-                      backgroundSize: '100% 4px',
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-radial pointer-events-none" style={{ boxShadow: 'inset 0 0 120px rgba(0, 0, 0, 0.95)' }} />
-                </div>
-              )}
-
               {emulatorLoading && (
                 <div id="emulator-boot-sequence" className="flex flex-col items-center justify-center space-y-6 max-w-md px-6 text-center">
                   <div className="w-16 h-16 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin" />

@@ -35,8 +35,6 @@ interface GameDetailViewProps {
   onNavigateToPath: (path: string) => void;
   isMuted: boolean;
   toggleMute: () => void;
-  isCrtOn: boolean;
-  toggleCrt: () => void;
 }
 
 const getLogoFileName = (id: string): string => {
@@ -145,8 +143,6 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
   onNavigateToPath,
   isMuted,
   toggleMute,
-  isCrtOn,
-  toggleCrt,
 }) => {
   const { data: rawgData, loading: rawgLoading } = useGameData(game.title);
 

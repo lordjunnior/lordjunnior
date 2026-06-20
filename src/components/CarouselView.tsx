@@ -16,8 +16,6 @@ interface CarouselViewProps {
   onSelectSystem: (system: System) => void;
   isMuted: boolean;
   toggleMute: () => void;
-  isCrtOn: boolean;
-  toggleCrt: () => void;
 }
 
 export const CarouselView: React.FC<CarouselViewProps> = ({
@@ -27,8 +25,6 @@ export const CarouselView: React.FC<CarouselViewProps> = ({
   onSelectSystem,
   isMuted,
   toggleMute,
-  isCrtOn,
-  toggleCrt,
 }) => {
   const [time, setTime] = useState('');
 
@@ -78,9 +74,6 @@ export const CarouselView: React.FC<CarouselViewProps> = ({
       } else if (e.key.toLowerCase() === 'm') {
         toggleMute();
         soundEngine.playToggle();
-      } else if (e.key.toLowerCase() === 'c') {
-        toggleCrt();
-        soundEngine.playToggle();
       }
     };
 
@@ -88,7 +81,7 @@ export const CarouselView: React.FC<CarouselViewProps> = ({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [activeIndex, systems, isMuted, isCrtOn]);
+  }, [activeIndex, systems, isMuted]);
 
   return (
     <div id="carousel-container" className="relative w-full h-screen font-sans text-white overflow-hidden bg-zinc-950 flex flex-col justify-between select-none">
@@ -134,14 +127,6 @@ export const CarouselView: React.FC<CarouselViewProps> = ({
               title={isMuted ? "Desmutar" : "Mutar"}
             >
               {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-emerald-400" />}
-            </button>
-            <button 
-              id="btn-nav-crt"
-              onClick={() => { toggleCrt(); soundEngine.playToggle(); }}
-              className="text-zinc-400 hover:text-white transition duration-150 p-1 rounded hover:bg-white/5"
-              title={isCrtOn ? "Ativar CRT" : "Desativar CRT"}
-            >
-              <Tv className={`w-4 h-4 ${isCrtOn ? 'text-emerald-400' : ''}`} />
             </button>
           </div>
           <span className="text-2xl font-black text-white/90 tabular-nums font-mono tracking-tight">
@@ -268,12 +253,7 @@ export const CarouselView: React.FC<CarouselViewProps> = ({
 
           <div onClick={handleNext} className="flex items-center gap-3 cursor-pointer group">
             <div className="w-6 h-6 rounded-full bg-zinc-900 text-white flex items-center justify-center text-xs font-retro font-bold p-1 border border-zinc-950 group-hover:scale-110 active:scale-90 transition">▶</div>
-            <span className="text-[11px] font-black uppercase tracking-widest text-zinc-800">Próximo</span>
-          </div>
-
-          <div onClick={() => { toggleCrt(); soundEngine.playToggle(); }} className="flex items-center gap-3 cursor-pointer group">
-            <div className="w-6 h-6 rounded-full bg-zinc-900 text-white flex items-center justify-center text-xs font-retro font-bold p-1 border border-zinc-950 group-hover:scale-110 active:scale-90 transition">C</div>
-            <span className="text-[11px] font-black uppercase tracking-widest text-zinc-800">CRT</span>
+            <span className="text-[11px] font-black uppercase tracking-widest text-[#E60012]">Próximo</span>
           </div>
 
           <div onClick={() => { toggleMute(); soundEngine.playToggle(); }} className="flex items-center gap-3 cursor-pointer group">
