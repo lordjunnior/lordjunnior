@@ -1,0 +1,6 @@
+{
+  "name": "LordTecaRetro",
+  "description": "Todos os clássicos da sua infância, direto no navegador. Sem instalar nada.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
