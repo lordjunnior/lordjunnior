@@ -151,14 +151,16 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       </div>
 
       {/* Top Header Panel */}
-      <header className="relative z-10 h-16 flex items-center justify-between px-8 border-b border-white/5 bg-black/30 backdrop-blur-md">
-        <div className="flex items-center gap-4">
+      <header className="relative z-10 h-18 flex items-center justify-between px-4 sm:px-8 border-b border-white/5 bg-black/30 backdrop-blur-md">
+        <div className="flex items-center gap-3 sm:gap-4">
           <button
             id="gamelist-back-btn"
             onClick={handleBack}
-            className="flex items-center gap-2 text-xs font-retro tracking-widest text-zinc-400 hover:text-white transition duration-150 py-1.5 px-3 rounded bg-white/5 border border-white/5 shadow cursor-pointer"
+            className="group flex items-center gap-2 text-[10px] sm:text-xs font-retro tracking-widest text-white bg-[#E60012] hover:bg-red-500 border border-red-400 hover:border-red-300 rounded-lg px-2.5 py-1.5 sm:px-4 sm:py-2 shadow-[0_4px_0_0_#91000B] hover:shadow-[0_2px_0_0_#91000B] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer font-black"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <div className="w-4 h-4 rounded-full bg-zinc-950 text-red-500 flex items-center justify-center text-[10px] font-retro border border-white/25 group-hover:scale-110 transition-transform">
+              B
+            </div>
             <span>VOLTAR</span>
           </button>
           

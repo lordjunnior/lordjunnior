@@ -184,26 +184,27 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
         window.EJS_player = '#emulator-container';
         window.EJS_core = '${ejsCore}';
         window.EJS_gameUrl = '${activeRomUrl}';
-        window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/linuxenjoyer/EmulatorJS@latest/data/';
+        window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
         window.EJS_startOnLoaded = true;
         window.EJS_volume = 0.6;
         window.EJS_AdUrl = '';
 
-        // Capture general load failures
-        window.addEventListener('error', function(e) {
-          if (parent) {
-            parent.postMessage({ type: 'EJS_ERROR', message: e.message || 'Erro ao carregar recurso do Core' }, '*');
-          }
-        }, true);
-      </script>
-      <script src="https://cdn.jsdelivr.net/gh/linuxenjoyer/EmulatorJS@latest/data/loader.js" onerror="handleLoadError()"></script>
-      <script>
         function handleLoadError() {
           if (parent) {
             parent.postMessage({ type: 'EJS_ERROR', message: 'Servidor EmulatorJS CDN indisponível.' }, '*');
           }
         }
+
+        // Capture general load failures
+        window.addEventListener('error', function(e) {
+          // Ignore handleLoadError errors since handled or benign iframe errors
+          if (e.message && e.message.includes('handleLoadError')) return;
+          if (parent) {
+            parent.postMessage({ type: 'EJS_ERROR', message: e.message || 'Erro ao carregar recurso do Core' }, '*');
+          }
+        }, true);
       </script>
+      <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js" onerror="handleLoadError()"></script>
     </body>
     </html>
   `;
