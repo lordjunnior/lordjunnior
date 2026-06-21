@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { EmulatorPlayer } from './EmulatorPlayer';
 import { getGameGameplayVideoUrl } from '../utils/videoResolver';
+import { getRichDescription } from './GamelistView';
 
 interface GameDetailViewProps {
   system: System;
@@ -481,7 +482,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                 </div>
               ) : (
                 <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
-                  {rawgData?.description || game.description}
+                  {rawgData?.description || getRichDescription(game.title, system.name, game.description)}
                 </p>
               )}
 

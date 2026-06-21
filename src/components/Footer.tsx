@@ -42,16 +42,15 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <>
-      <footer className="relative z-50 w-full min-h-[74px] bg-[#121c25] text-zinc-100 border-t border-[#2a4055]/50 overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 md:px-10 py-3 gap-4">
+    <>      <footer className="relative z-50 w-full min-h-[76px] bg-black/80 text-zinc-100 border-t border-white/10 overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 md:px-10 py-3.5 gap-4 shadow-[0_-4px_30px_rgba(0,0,0,0.85)]">
         {/* Dynamic Key bindings legends */}
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
           {/* Dynamic A key action depending on screen */}
           <div className="flex items-center gap-2.5">
-            <div className="w-[24px] h-[24px] rounded-full bg-[#E60012] text-white flex items-center justify-center text-[11px] font-black shadow-[0_0_8px_rgba(230,0,18,0.45)] border border-red-500 font-retro">
+            <div className="w-[24px] h-[24px] rounded-full bg-[#E60012] text-white flex items-center justify-center text-[10px] font-black shadow-[0_0_12px_rgba(230,0,18,0.6)] border border-red-400 font-retro leading-none">
               A
             </div>
-            <span className="text-[11px] font-black uppercase tracking-wider text-[#dee0e8] font-sans">
+            <span className="text-[10px] font-mono font-black uppercase tracking-widest text-zinc-200">
               {activeScreen === 'carousel' ? 'Acessar Console' : 'Lançar Emulador'}
             </span>
           </div>
@@ -61,10 +60,10 @@ export const Footer: React.FC<FooterProps> = ({
             onClick={activeScreen === 'gamelist' ? onGoBack : undefined}
             className={`flex items-center gap-2.5 ${activeScreen === 'gamelist' ? 'cursor-pointer hover:opacity-80 active:scale-95 transition-all' : ''}`}
           >
-            <div className="w-[24px] h-[24px] rounded-full bg-[#eac428] text-zinc-950 flex items-center justify-center text-[11px] font-black shadow-[0_0_8px_rgba(234,196,40,0.35)] border border-yellow-400 font-retro">
+            <div className="w-[24px] h-[24px] rounded-full bg-[#eac428] text-zinc-950 flex items-center justify-center text-[10px] font-black shadow-[0_0_10px_rgba(234,196,40,0.4)] border border-yellow-450 font-retro leading-none">
               B
             </div>
-            <span className="text-[11px] font-black uppercase tracking-wider text-[#dee0e8] font-sans">
+            <span className="text-[10px] font-mono font-black uppercase tracking-widest text-zinc-200">
               {activeScreen === 'carousel' ? 'Voltar' : 'Voltar à Home'}
             </span>
           </div>
@@ -75,10 +74,10 @@ export const Footer: React.FC<FooterProps> = ({
               onClick={onSearchToggle}
               className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-all"
             >
-              <div className="w-[24px] h-[24px] rounded-full bg-emerald-600 text-white flex items-center justify-center text-[11px] font-black shadow-[0_0_8px_rgba(16,185,129,0.35)] border border-emerald-400 font-retro">
+              <div className="w-[24px] h-[24px] rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px] font-black shadow-[0_0_10px_rgba(6,182,212,0.4)] border border-cyan-400 font-retro leading-none">
                 Y
               </div>
-              <span className="text-[11px] font-black uppercase tracking-wider text-[#dee0e8] font-sans">
+              <span className="text-[10px] font-mono font-black uppercase tracking-widest text-zinc-200">
                 Filtrar / Buscar
               </span>
             </button>
@@ -90,22 +89,22 @@ export const Footer: React.FC<FooterProps> = ({
               onClick={onRandomGame}
               className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-all font-sans"
             >
-              <div className="w-[24px] h-[24px] rounded-full bg-blue-600 text-white flex items-center justify-center text-[11px] font-black shadow-[0_0_8px_rgba(59,130,246,0.35)] border border-blue-400 font-retro">
+              <div className="w-[24px] h-[24px] rounded-full bg-blue-650 text-white flex items-center justify-center text-[10px] font-black shadow-[0_0_10px_rgba(59,130,246,0.4)] border border-blue-450 font-retro leading-none">
                 X
               </div>
-              <span className="text-[11px] font-black uppercase tracking-wider text-[#dee0e8]">
+              <span className="text-[10px] font-mono font-black uppercase tracking-widest text-zinc-200">
                 Sugerir Jogo
               </span>
             </button>
           )}
 
           {/* SELECT / START simulation */}
-          <div className="flex items-center gap-4 text-[9px] font-sans font-bold text-zinc-450 uppercase tracking-widest pl-2 border-l border-white/10 hidden xl:flex">
-            <span className="flex items-center gap-1 text-zinc-400">
-              <span className="bg-[#1f2e3d] text-zinc-200 px-1.5 py-0.5 rounded text-[8px] font-mono border border-white/5">←→</span> NAVEGAR
+          <div className="flex items-center gap-4 text-[9px] font-mono font-black text-zinc-400 uppercase tracking-widest pl-3 border-l border-white/10 hidden xl:flex">
+            <span className="flex items-center gap-1">
+              <span className="bg-zinc-900 text-zinc-200 px-2 py-0.5 rounded border border-white/10">←→</span> NAVEGAR
             </span>
-            <span className="flex items-center gap-1 text-zinc-400">
-              <span className="bg-[#1f2e3d] text-zinc-200 px-1.5 py-0.5 rounded text-[8px] font-mono border border-white/5">ENTER</span> CONFIRMAR
+            <span className="flex items-center gap-1">
+              <span className="bg-zinc-900 text-zinc-200 px-2 py-0.5 rounded border border-white/10">ENTER</span> JOGAR
             </span>
           </div>
         </div>
@@ -115,22 +114,22 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Botão Invisível de Alta CTR - Fortalecer o Acervo */}
           <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-2 bg-[#1e2e3d]/60 hover:bg-[#25394d] text-zinc-300 hover:text-white rounded-xl border border-white/10 hover:border-amber-500/30 transition-all duration-300 cursor-pointer text-[10px] font-bold uppercase tracking-wider group hover:scale-[1.02] active:scale-[0.98] shadow-md"
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-90 w/10 hover:bg-red-600/10 text-rose-450 hover:text-white rounded-xl border border-rose-500/15 hover:border-red-500/30 transition-all duration-300 cursor-pointer text-[10px] font-black uppercase tracking-widest group hover:scale-[1.02] active:scale-[0.98] shadow-md"
           >
-            <Sparkles className="w-3.5 h-3.5 text-zinc-400 group-hover:text-amber-500 group-hover:fill-amber-500 transition-colors" />
+            <Sparkles className="w-3.5 h-3.5 text-rose-500 group-hover:text-amber-500 group-hover:fill-amber-500 transition-colors" />
             Fortalecer Acervo
           </button>
 
           <div className="hidden sm:flex flex-col items-end justify-center">
             <span className="text-[8px] font-bold uppercase text-zinc-500 tracking-wider">
-              ESPAÇO DE ARMAZENAMENTO
+              ARMAZENAMENTO SSD
             </span>
-            <span className="text-[11px] font-black text-white">
-              182.4 GB / 256 GB (SSD)
+            <span className="text-[11px] font-mono font-black text-white tracking-wider">
+              182.4 GB / 256 GB (OK)
             </span>
           </div>
-          <div className="w-10 h-10 bg-[#1e2e3d] rounded-lg border border-white/5 shadow-inner flex items-center justify-center" title="Cartão SD pronto para ROMs">
-            <HardDrive className="w-5 h-5 text-emerald-400 glow-active" />
+          <div className="w-10 h-10 bg-zinc-900 rounded-xl border border-white/10 shadow-inner flex items-center justify-center" title="Cartão SD pronto para ROMs">
+            <HardDrive className="w-5 h-5 text-red-500" />
           </div>
         </div>
       </footer>

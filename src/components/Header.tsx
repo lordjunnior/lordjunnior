@@ -38,51 +38,54 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   return (
-    <header className="relative z-50 w-full h-18 px-6 sm:px-10 flex items-center justify-between border-b border-white/5 bg-[#121c25]/85 backdrop-blur-md">
+    <header className="relative z-50 w-full h-20 px-6 sm:px-10 flex items-center justify-between border-b border-white/10 bg-black/65 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
       {/* Brand Launcher Logo */}
       <div className="flex items-center gap-6">
         <button
           onClick={onGoBack}
-          className="flex items-center gap-3 cursor-pointer group select-none"
+          className="flex items-center gap-3.5 cursor-pointer group select-none transition-all duration-300"
         >
-          <div className="w-3.5 h-3.5 rounded-full bg-red-600 border border-red-400 pulse-led" />
+          <div className="relative">
+            <div className="w-3.5 h-3.5 rounded-full bg-red-600 border border-red-500 pulse-led" />
+            <div className="absolute inset-0 rounded-full bg-red-500 filter blur-sm opacity-55 animate-pulse" />
+          </div>
           <div className="flex flex-col text-left">
-            <span className="font-retro text-[9px] tracking-widest text-[#E60012] group-hover:text-red-400 transition-colors">
-              LordTecaRetro
+            <span className="font-retro text-[10px] tracking-widest text-[#E60012] group-hover:text-red-400 transition-colors drop-shadow-[0_2px_4px_rgba(230,0,18,0.3)]">
+              LORDTECARetro
             </span>
-            <span className="text-[9px] font-mono text-zinc-500 font-medium tracking-wide uppercase">
-              {title ? `MÓDULO / ${title}` : 'Sua infância em um clique'}
+            <span className="text-[9px] font-mono text-zinc-400 font-bold tracking-widest uppercase mt-0.5">
+              {title ? `MOD / ${title}` : 'CONSOLE HUB DIRECT'}
             </span>
           </div>
         </button>
 
         {/* Diagnostic indicator */}
-        <div className="hidden md:flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded text-[10px] font-mono font-medium">
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <span>SISTEMA: PRONTO</span>
+        <div className="hidden md:flex items-center gap-2.5 bg-emerald-500/5 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[9px] font-mono tracking-widest">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+          <span className="font-bold">STATUS: HYPER-ENGAGED</span>
         </div>
       </div>
 
       {/* Retro Utility Toolbar Controls */}
-      <div className="flex items-center gap-3 sm:gap-6">
+      <div className="flex items-center gap-3 sm:gap-5">
         {/* Global Search Button */}
         <button
           onClick={onSearchClick}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer bg-red-600/10 hover:bg-red-600/25 border-red-500/30 text-red-400 hover:text-white"
+          className="flex items-center gap-2 px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/60 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
           title="Pesquisa Global de Consoles e Jogos (Atalho: S / F)"
           id="btn-header-search"
         >
-          <Search className="w-3.5 h-3.5 text-red-400" />
+          <Search className="w-3.5 h-3.5 text-zinc-400" />
           <span>BUSCA</span>
         </button>
 
         {/* Audio / Mute feedback */}
         <button
           onClick={toggleMute}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer ${
+          className={`flex items-center gap-2 px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-md ${
             !isMuted
-              ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400'
-              : 'bg-[#18181b]/60 hover:bg-[#27272a] border-white/5 text-zinc-500'
+              ? 'bg-red-500/10 border-red-500/20 text-red-400'
+              : 'bg-zinc-900/50 hover:bg-[#27272a]/60 border-white/10 text-zinc-500'
           }`}
           title="Alternar áudio da retro engine (Atalho: M)"
           id="btn-header-audio"
@@ -90,27 +93,27 @@ export const Header: React.FC<HeaderProps> = ({
           {isMuted ? (
             <VolumeX className="w-3.5 h-3.5" />
           ) : (
-            <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+            <Volume2 className="w-3.5 h-3.5 text-red-400" />
           )}
-          <span className="hidden sm:inline">{isMuted ? 'MUTADO' : 'SOM: ON'}</span>
+          <span className="hidden sm:inline">{isMuted ? 'MUTADO' : 'ÁUDIO: LIGADO'}</span>
         </button>
 
         {/* Settings button */}
         <button
           onClick={onSettingsClick}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer bg-red-650/10 hover:bg-red-600/25 border-red-500/20 text-red-400 hover:text-white"
+          className="flex items-center gap-2 px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/40 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
           title="Ajustes do Painel e Preferências Retro"
           id="btn-header-settings"
         >
-          <Sliders className="w-3.5 h-3.5 text-red-500" />
-          <span>AJUSTES</span>
+          <Sliders className="w-3.5 h-3.5 text-zinc-400" />
+          <span>PAINEL</span>
         </button>
 
         {/* Digital Realtime LCD Clock */}
-        <div className="bg-[#121214] border border-white/5 px-4 py-1.5 rounded-lg shadow-inner">
+        <div className="bg-black/90 border border-white/10 px-4 py-2 rounded-xl shadow-inner flex items-center justify-center">
           <span 
-            className="text-white hover:text-red-500 transition-colors text-base sm:text-lg font-black font-retro tracking-widest cursor-default select-none tabular-nums"
-            style={{ fontSize: '12px' }}
+            className="text-amber-500 hover:text-amber-400 transition-all text-xs font-mono tracking-widest font-bold cursor-default select-none tracking-[2.5px]"
+            title="Relógio do Servidor de Jogos"
           >
             {time}
           </span>

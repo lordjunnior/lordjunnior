@@ -8,6 +8,7 @@ import { Game } from '../types';
 import { Star, Play, Sparkles, Heart, Gamepad2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useCover } from '../hooks/useCover';
+import { getRichDescription } from './GamelistView';
 
 interface GameCardProps {
   game: Game;
@@ -345,7 +346,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
           </div>
 
           <p className="text-zinc-400 text-xs mt-2 line-clamp-2 leading-relaxed">
-            {game.description}
+            {getRichDescription(game.title, systemName, game.description)}
           </p>
         </div>
 

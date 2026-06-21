@@ -299,7 +299,7 @@ export default function App() {
   }
 
   return (
-    <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#1b2836] text-white font-sans overflow-hidden flex flex-col justify-between select-none">
+    <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#050508] text-white font-sans overflow-hidden flex flex-col justify-between select-none">
       
       {/* Cybernetic active wallpaper background */}
       <BackgroundHero systemId={currentSystem.id} />
@@ -308,14 +308,16 @@ export default function App() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-25%,rgba(230,0,18,0.12),transparent_75%)] pointer-events-none" />
 
       {/* Top Banner Panels */}
-      <Header
-        isMuted={isMuted}
-        toggleMute={() => setIsMuted(prev => !prev)}
-        title={activeScreen === 'gamelist' ? currentSystem.name : undefined}
-        onGoBack={activeScreen === 'gamelist' ? handleReturnToCarousel : undefined}
-        onSearchClick={() => setIsGlobalSearchOpen(true)}
-        onSettingsClick={() => setIsSettingsOpen(true)}
-      />
+      {activeScreen === 'carousel' && (
+        <Header
+          isMuted={isMuted}
+          toggleMute={() => setIsMuted(prev => !prev)}
+          title={undefined}
+          onGoBack={undefined}
+          onSearchClick={() => setIsGlobalSearchOpen(true)}
+          onSettingsClick={() => setIsSettingsOpen(true)}
+        />
+      )}
 
       {/* Modular page content switcher using elegant animations */}
       <main className="relative z-10 flex-1 flex flex-col justify-center items-center w-full min-h-0">
