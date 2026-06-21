@@ -68,7 +68,7 @@ const getLogoFileName = (id: string): string => {
   return map[cleanId] || cleanId;
 };
 
-const getRichDescription = (title: string, systemName: string): string => {
+export const getRichDescription = (title: string, systemName: string): string => {
   const cleanKey = title
     .toLowerCase()
     .replace(/\(pt\-br\)/gi, '')

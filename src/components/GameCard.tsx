@@ -346,7 +346,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
           </div>
 
           <p className="text-zinc-400 text-xs mt-2 line-clamp-2 leading-relaxed">
-            {getRichDescription(game.title, systemName, game.description)}
+            {getRichDescription(game.title, systemName)}
           </p>
         </div>
 

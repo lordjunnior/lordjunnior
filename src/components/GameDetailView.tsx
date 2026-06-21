@@ -482,7 +482,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                 </div>
               ) : (
                 <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
-                  {rawgData?.description || getRichDescription(game.title, system.name, game.description)}
+                  {rawgData?.description || getRichDescription(game.title, system.name)}
                 </p>
               )}
 

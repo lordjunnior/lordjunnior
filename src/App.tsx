@@ -11,14 +11,11 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SettingsModal } from './components/SettingsModal';
 import { SystemCarousel } from './components/SystemCarousel';
-import { GameGrid } from './components/GameGrid';
 import { GamelistView } from './components/GamelistView';
 import { GameDetailView } from './components/GameDetailView';
-import { EmulatorPlayer } from './components/EmulatorPlayer';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
 import { getGameSlug, findGameBySlug } from './utils/routeUtils';
 import { soundEngine } from './components/RetroSoundEngine';
-import { Sparkles, Gamepad2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Force synchronous route reset on application init/reload to prevent landing inside emulators
@@ -118,8 +115,6 @@ export default function App() {
 
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isDonateOpen, setIsDonateOpen] = useState<boolean>(false);
-
-  const [isSearchActive, setSearchActive] = useState<boolean>(false);
   const [isGlobalSearchOpen, setIsGlobalSearchOpen] = useState<boolean>(false);
 
   // Global keyboard shortcut for search (S, F, or Ctrl+K)
@@ -159,49 +154,6 @@ export default function App() {
     setCurrentPath(path);
   };
 
-  const handlePlayCustomRom = (systemId: string, gameTitle: string, romBlobUrl: string, romName: string) => {
-    soundEngine.playSelect();
-    const slugifiedTitle = gameTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const customSlug = `${systemId}-${slugifiedTitle}`;
-
-    const tempGame: Game = {
-      id: `drive-play-${Date.now()}`,
-      title: gameTitle,
-      developer: 'Google Drive Rom',
-      publisher: 'Play da Nuvem',
-      year: new Date().getFullYear().toString(),
-      genre: 'Cloud ROM',
-      players: '1-2 Players',
-      rating: 5,
-      description: `ROM carregada dinamicamente do seu Google Drive. Nome original do arquivo: "${romName}".`,
-      image: '/covers/default_cover.jpg',
-      romUrl: romBlobUrl,
-      favorite: false
-    };
-
-    setSystems(prev => {
-      return prev.map(sys => {
-        if (sys.id === systemId) {
-          const otherGames = sys.games.filter(g => g.title !== gameTitle);
-          return {
-            ...sys,
-            gameCount: otherGames.length + 1,
-            games: [tempGame, ...otherGames]
-          };
-        }
-        return sys;
-      });
-    });
-
-    // Directly trigger carousel synchronization to match the console
-    const matchedIndex = systems.findIndex((s) => s.id === systemId);
-    if (matchedIndex !== -1) {
-      setCarouselIndex(matchedIndex);
-    }
-
-    navigateToPath(`/game/${customSlug}`);
-  };
-
   const isGameDetailPage = currentPath.startsWith('/game/');
   const gameSlug = isGameDetailPage ? currentPath.substring(6) : '';
   const gameMatch = isGameDetailPage ? findGameBySlug(gameSlug, systems) : null;
@@ -231,7 +183,6 @@ export default function App() {
   }, []);
 
   // URL Hash-based robust SPA Router emulation.
-  // Translates '#/system/snes' directly to SNES detail grid, ensuring back-button browser history!
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
@@ -287,7 +238,6 @@ export default function App() {
           game={gameMatch.game}
           onBack={() => {
             navigateToPath('/');
-            // Return back exactly to the corresponding catalog grid hash
             window.location.hash = `#/system/${gameMatch.system.id}`;
           }}
           onNavigateToPath={navigateToPath}
@@ -301,25 +251,23 @@ export default function App() {
   return (
     <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#050508] text-white font-sans overflow-hidden flex flex-col justify-between select-none">
       
-      {/* Cybernetic active wallpaper background */}
-      <BackgroundHero systemId={currentSystem.id} />
-
-      {/* Structured grid background overlay for the theme visual depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-25%,rgba(230,0,18,0.12),transparent_75%)] pointer-events-none" />
-
-      {/* Top Banner Panels */}
+      {/* 1. COMPONENTES ESTÁTICOS DE FUNDO SÓ DEIXAM DE RENDERIZAR SE A LISTA DE JOGOS ESTIVER ATIVA (MÁSCARA OCUPA TUDO) */}
       {activeScreen === 'carousel' && (
-        <Header
-          isMuted={isMuted}
-          toggleMute={() => setIsMuted(prev => !prev)}
-          title={undefined}
-          onGoBack={undefined}
-          onSearchClick={() => setIsGlobalSearchOpen(true)}
-          onSettingsClick={() => setIsSettingsOpen(true)}
-        />
+        <>
+          <BackgroundHero systemId={currentSystem.id} />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-25%,rgba(230,0,18,0.12),transparent_75%)] pointer-events-none" />
+          <Header
+            isMuted={isMuted}
+            toggleMute={() => setIsMuted(prev => !prev)}
+            title={undefined}
+            onGoBack={undefined}
+            onSearchClick={() => setIsGlobalSearchOpen(true)}
+            onSettingsClick={() => setIsSettingsOpen(true)}
+          />
+        </>
       )}
 
-      {/* Modular page content switcher using elegant animations */}
+      {/* 2. PROVEDOR DE TELAS RETRO EM TELA CHEIA */}
       <main className="relative z-10 flex-1 flex flex-col justify-center items-center w-full min-h-0">
         <AnimatePresence mode="wait">
           {activeScreen === 'carousel' ? (
@@ -341,10 +289,10 @@ export default function App() {
           ) : (
             <motion.div
               key="gamelist-screen"
-              initial={{ opacity: 0, scale: 0.82 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.82 }}
-              transition={{ type: 'spring', stiffness: 140, damping: 15 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.25 }}
               className="w-full flex-1 flex flex-col min-h-0"
             >
               <GamelistView
@@ -358,17 +306,19 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Interactive bottom bar containing key bindings guides */}
-      <Footer
-        activeScreen={activeScreen}
-        onGoBack={handleReturnToCarousel}
-        systemName={currentSystem.name}
-        onSearchToggle={() => setIsGlobalSearchOpen(true)}
-        isDonateOpen={isDonateOpen}
-        setIsDonateOpen={setIsDonateOpen}
-      />
+      {/* 3. FOOTER AUXILIAR FLUTUANTE SÓ EXIBIDO NA TELA INICIAL */}
+      {activeScreen === 'carousel' && (
+        <Footer
+          activeScreen={activeScreen}
+          onGoBack={handleReturnToCarousel}
+          systemName={currentSystem.name}
+          onSearchToggle={() => setIsGlobalSearchOpen(true)}
+          isDonateOpen={isDonateOpen}
+          setIsDonateOpen={setIsDonateOpen}
+        />
+      )}
 
-      {/* Global Interactive Search Modal Cabinet */}
+      {/* MODAL GLOBAL DE BUSCA */}
       <GlobalSearchModal
         isOpen={isGlobalSearchOpen}
         onClose={() => setIsGlobalSearchOpen(false)}
@@ -391,7 +341,7 @@ export default function App() {
          }}
       />
 
-      {/* Settings Modal containing retrograde preferences */}
+      {/* MODAL GLOBAL DE PREFERÊNCIAS */}
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
