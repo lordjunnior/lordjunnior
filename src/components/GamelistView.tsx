@@ -30,7 +30,7 @@ interface GamelistViewProps {
   toggleMute: () => void;
 }
 
-// Biblioteca Completa de Sinopses e Curiosidades Históricas dos Grandes Clássicos
+// Biblioteca de Sinopses e Curiosidades Históricas dos Grandes Clássicos
 export const gameDescriptions: Record<string, string> = {
   "super mario bros.": "O clássico de plataforma lendário pioneiro que salvou a indústria dos videogames em 1985, estabeleceu as mecânicas de rolagem lateral e definiu o encanador mais famoso do planeta.",
   "super mario bros. 2": "A viciante e inovadora aventura que permitia ao jogador escolher entre Mario, Luigi, Toad ou Princesa Peach, cada um com habilidades exclusivas de salto e velocidade em cenários verticais dinâmicos.",
@@ -42,7 +42,7 @@ export const gameDescriptions: Record<string, string> = {
   "mega man 2": "A aclamada sequência do robô azul, trazendo uma trilha sonora memorável e chefes clássicos extraordinários. É considerado por muitos fãs o melhor título da série clássica de 8-bits.",
   "contra": "Ação cooperativa run-and-gun de ritmo frenético com hordas de inimigos alienígenas e uma trilha marcante. Entrou para a cultura pop com o lendário Código Konami para habilitar 30 vidas adicionais.",
   "ninja gaiden": "A lendária estreia de Ryu Hayabusa no NES, famosa por seu ritmo super veloz, dificuldade extremamente elevada e as inovadoras e belas sequências cinematográficas que contavam uma história profunda.",
-  "double dragon": "O clássico beat 'em up revolucionário que definiu as brigas de rua nos videogames. Controle os irmãos Billy e Jimmy Lee em sua crusade épica para resgatar Marian de uma gangue violenta.",
+  "double dragon": "O clássico beat 'em up revolucionário que definiu as brigas de rua nos videogames. Controle os irmãos Billy e Jimmy Lee em sua cruzada épica para resgatar Marian de uma gangue violenta.",
   "kirbys adventure": "A fantástica estreia em cores do simpático Kirby sugando e absorvendo os poderes dos seus inimigos. Um verdadeiro milagre de programação que extraiu o máximo de poder gráfico e técnico do NES.",
   "punch out": "Guie o determinado jovem Little Mac rumo ao cinturão de ouro dos pesos pesados enfrentando boxeadores caricatos, bizarros e emblemáticos da história dos esportes com auxílio do seu técnico Doc Louis.",
   "duck hunt": "O clássico jogo de tiro que utilizava a famosa pistola de luz NES Zapper. Requer precisão rápida para abater os patos selvagens e divertia gerações enquanto tentávamos impedir o riso sarcástico do audacioso cão retriever.",
@@ -52,7 +52,7 @@ export const gameDescriptions: Record<string, string> = {
   "super metroid": "A obra de arte mais emblemática da ficção espacial 16-bits. Atmosfera sufocante, progresso orgânico primoroso no planeta Zebes e uma narrativa silenciosa que dita o padrão do gênero de exploração."
 };
 
-// TRADUTOR CASE-SENSITIVE: Vincula os IDs à sua pasta de logos locais
+// TRADUTOR DO EMULATIONSTATION ($system): Mapeia o ID do db.json para os seus arquivos reais locais
 const getLogoFileName = (id: string): string => {
   const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
   const map: Record<string, string> = {
@@ -202,7 +202,7 @@ const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> 
 
   if (isFatalError || !src) {
     return (
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 to-black border border-white/5 rounded-xl flex flex-col items-center justify-center p-4 text-center select-none shadow-inner">
+      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 to-black border border-white/5 rounded-xl flex flex-col items-center justify-center p-4 text-center select-none shadow-inner">
         <Gamepad2 className="w-8 h-8 text-zinc-800 stroke-1 mb-2 animate-pulse" />
         <span className="font-retro text-[9px] text-zinc-500 uppercase tracking-widest leading-tight line-clamp-3 px-1">
           {game.title}
@@ -420,7 +420,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           />
         )}
         
-        {/* Caso a ROM não tenha vídeo, exibe a capa perfeitamente contida por baixo da TV */}
+        {/* Fallback de segurança para renderização contida */}
         {(!videoLoaded || videoError) && selectedGame && (
           <div className="absolute inset-0 flex items-center justify-center p-4 bg-zinc-950">
             <GameCover game={selectedGame} systemId={system.id} className="max-h-full max-w-full object-contain rounded" />
@@ -433,13 +433,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         />
       </div>
 
-      {/* CAMADA 2: A SUA MÁSCARA PNG DE SELEÇÃO COM FUNDO VAZADO COMPLETO */}
+      {/* CAMADA 2: OVERLAY DE MÁSCARA DO CONSOLE COLETADO COM CANAL ALFA CORRIGIDO */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
         style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
       />
 
-      {/* PAINEL DE BUSCA E CONTROLE DA INTERFACE (SOBREPOSTO) */}
+      {/* PAINEL DE CONTROLE DE INTERFACE SUPERIOR */}
       <div className="absolute top-4 left-6 right-6 z-40 flex justify-between items-center pointer-events-auto">
         <button 
           onClick={handleBack}
@@ -466,7 +466,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         </div>
       </div>
 
-      {/* CAMADA 3: ESPIRAL DO CARROSSEL EM ARCO DA ROLETA DE JOGOS (DIREITA) */}
+      {/* CAMADA 3: ESPIRAL DE JOGOS NO ESPAÇO DIREITO DA TELA VAZADA */}
       <div className="absolute top-0 right-0 w-[45%] h-full z-30 flex items-center justify-end pr-[6vw]" style={{ perspective: 1000 }}>
         <div ref={listContainerRef} className="relative w-full h-[460px] flex items-center justify-end">
           {filteredGames.map((game, idx) => {
@@ -510,13 +510,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         </div>
       </div>
 
-      {/* RODAPÉ DO CATÁLOGO DE COMANDOS */}
+      {/* RODAPÉ EMULATIONSTATION COMPATÍVEL */}
       <footer className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[10px] font-bold text-zinc-500 tracking-wider">
         <div>▲▼ NAVEGAR • ENTER CONFIRMAR</div>
-        <div className="font-mono text-[9px]">{filteredGames.length} JOGOS NO CATÁLOGO</div>
+        <div className="font-mono text-[9px]">{filteredGames.length} JOGOS NO CATÁLOGOTEC</div>
       </footer>
 
-      {/* EMBED COMPLETO DO PLAYER EMULADOR EM EXECUÇÃO */}
+      {/* PLAYER EMULADOR */}
       <AnimatePresence>
         {emulatingGame && (
           <motion.div
