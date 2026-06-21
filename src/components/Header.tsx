@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Cpu, Info, ShieldCheck, Search, Cloud } from 'lucide-react';
+import { Volume2, VolumeX, Cpu, Info, ShieldCheck, Search, Cloud, Sliders } from 'lucide-react';
 
 interface HeaderProps {
   isMuted: boolean;
@@ -13,6 +13,7 @@ interface HeaderProps {
   onGoBack?: () => void;
   onSearchClick: () => void;
   onDriveClick: () => void;
+  onSettingsClick: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -21,7 +22,8 @@ export const Header: React.FC<HeaderProps> = ({
   title,
   onGoBack,
   onSearchClick,
-  onDriveClick
+  onDriveClick,
+  onSettingsClick
 }) => {
   const [time, setTime] = useState<string>('12:00:00');
 
@@ -104,6 +106,17 @@ export const Header: React.FC<HeaderProps> = ({
             <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
           )}
           <span className="hidden sm:inline">{isMuted ? 'MUTADO' : 'SOM: ON'}</span>
+        </button>
+
+        {/* Settings button */}
+        <button
+          onClick={onSettingsClick}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer bg-red-650/10 hover:bg-red-600/25 border-red-500/20 text-red-400 hover:text-white"
+          title="Ajustes do Painel e Preferências Retro"
+          id="btn-header-settings"
+        >
+          <Sliders className="w-3.5 h-3.5 text-red-500" />
+          <span>AJUSTES</span>
         </button>
 
         {/* Digital Realtime LCD Clock */}

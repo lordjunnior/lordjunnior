@@ -9,6 +9,7 @@ import { System, Game } from './types';
 import { BackgroundHero } from './components/BackgroundHero';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { SettingsModal } from './components/SettingsModal';
 import { SystemCarousel } from './components/SystemCarousel';
 import { GameGrid } from './components/GameGrid';
 import { GameDetailView } from './components/GameDetailView';
@@ -107,6 +108,9 @@ export default function App() {
     }
     return false;
   });
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isDonateOpen, setIsDonateOpen] = useState<boolean>(false);
 
   const [isSearchActive, setSearchActive] = useState<boolean>(false);
   const [isGlobalSearchOpen, setIsGlobalSearchOpen] = useState<boolean>(false);
@@ -208,6 +212,17 @@ export default function App() {
     localStorage.setItem('retro_muted', String(isMuted));
   }, [isMuted]);
 
+  // Forçar sempre a tela inicial (carousel) e a rota raiz no primeiro carregamento do aplicativo ou ao atualizar a página (reload)
+  useEffect(() => {
+    if (window.location.hash) {
+      window.location.hash = '';
+    }
+    if (window.location.pathname !== '/') {
+      window.history.replaceState(null, '', '/');
+      setCurrentPath('/');
+    }
+  }, []);
+
   // URL Hash-based robust SPA Router emulation.
   // Translates '#/system/snes' directly to SNES detail grid, ensuring back-button browser history!
   useEffect(() => {
@@ -293,6 +308,7 @@ export default function App() {
         onGoBack={activeScreen === 'gamelist' ? handleReturnToCarousel : undefined}
         onSearchClick={() => setIsGlobalSearchOpen(true)}
         onDriveClick={() => setIsDriveOpen(true)}
+        onSettingsClick={() => setIsSettingsOpen(true)}
       />
 
       {/* Modular page content switcher using elegant animations */}
@@ -343,6 +359,8 @@ export default function App() {
         onGoBack={handleReturnToCarousel}
         systemName={currentSystem.name}
         onSearchToggle={() => setIsGlobalSearchOpen(true)}
+        isDonateOpen={isDonateOpen}
+        setIsDonateOpen={setIsDonateOpen}
       />
 
       {/* Global Interactive Search Modal Cabinet */}
@@ -375,6 +393,15 @@ export default function App() {
         systems={systems}
         setSystems={setSystems}
         onPlayCustomRom={handlePlayCustomRom}
+      />
+
+      {/* Settings Modal containing retrograde preferences */}
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        isMuted={isMuted}
+        toggleMute={() => setIsMuted(prev => !prev)}
+        onOpenDonateModal={() => setIsDonateOpen(true)}
       />
     </div>
   );
