@@ -5,6 +5,7 @@
 
 import { System, Game } from '../types';
 import rawSystemsDef from '../../public/db.json';
+import { resolveGameRomUrl } from '../utils/romResolver';
 
 // Helper to generate clean, URL-safe game slug matching the asset compiler
 const getGameSlugCustom = (systemId: string, title: string): string => {
@@ -32,7 +33,7 @@ export const parseRawSystems = (rawList: any[]): System[] => {
         rating: idx % 3 === 0 ? 5 : 4,
         description: gd.desc,
         image: gd.coverUrl || `/covers/${slug}.svg`,
-        romUrl: `/roms/${sys.id}/${gd.title.replace(/ /g, '_')}.zip`,
+        romUrl: resolveGameRomUrl(sys.id, gd.title),
         favorite: idx < 3
       };
     });
