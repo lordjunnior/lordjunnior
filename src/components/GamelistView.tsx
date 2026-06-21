@@ -9,7 +9,7 @@ import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
 import { EmulatorPlayer } from './EmulatorPlayer';
 import { getGameGameplayVideoUrl } from '../utils/videoResolver';
-import { ArrowLeft, Search, Volume2, VolumeX, Calendar, Cpu } from 'lucide-react';
+import { ArrowLeft, Search, Volume2, VolumeX } from 'lucide-react';
 
 interface GamelistViewProps {
   system: System;
@@ -18,7 +18,6 @@ interface GamelistViewProps {
   toggleMute: () => void;
 }
 
-// Biblioteca de Sinopses Históricas em PT-BR para Grandes Clássicos
 const gameDescriptions: Record<string, string> = {
   "super mario bros.": "O clássico de plataforma lendário pioneiro que salvou a indústria dos videogames em 1985, estabeleceu as mecânicas de rolagem lateral e definiu o encanador mais famoso do planeta.",
   "super mario bros. 3": "Aclamado como uma das maiores obras-primas da era 8-bits. Introduziu o emblemático mapa-múndi de seleção de fases, inventários de itens e transformações icônicas como a Super Leaf (Mário Guaxinim) e a Tanooki Suit.",
@@ -47,11 +46,13 @@ const getLogoFileName = (id: string): string => {
     sms: 'mastersystem',
     mastersystem: 'mastersystem',
     gamegear: 'gamegear',
-    ps1: 'ps1',
-    psx: 'ps1',
-    playstation: 'ps1',
+    ps1: 'playstation',
+    psx: 'playstation',
+    playstation: 'playstation',
     n64: 'n64',          
     nintendo64: 'n64',
+    atari: 'atari',
+    atari2600: 'atari',
     arcade: 'arcade',    
     mame: 'arcade',
     nds: 'nds',
@@ -65,22 +66,6 @@ const getLogoFileName = (id: string): string => {
     playlist: 'Collections'
   };
   return map[cleanId] || cleanId;
-};
-
-const getSystemThemeColor = (id: string): string => {
-  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
-  const map: Record<string, string> = {
-    nes: '#E60012',
-    snes: '#8B5CF6',
-    n64: '#10B881',
-    megadrive: '#3B82F6',
-    genesis: '#3B82F6',
-    ps1: '#94A3B8',
-    psx: '#94A3B8',
-    arcade: '#F59E0B',
-    '3do': '#EF4444'
-  };
-  return map[cleanId] || '#E60012';
 };
 
 const getRichDescription = (title: string, systemName: string): string => {
@@ -202,7 +187,7 @@ const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> 
       alt=""
       onError={handleError}
       onLoad={() => setLoaded(true)}
-      className={`${className} transition-opacity duration-355 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+      className={`${className} transition-opacity duration-350 ${loaded ? 'opacity-100' : 'opacity-0'}`}
       loading="lazy"
       referrerPolicy="no-referrer"
     />
@@ -236,7 +221,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   }, [system.games, searchTerm, filterFavorites]);
 
   const selectedGame = filteredGames[selectedGameIndex] || null;
-  const themeColor = getSystemThemeColor(system.id);
   const consoleId = getLogoFileName(system.id);
 
   const filteredGamesRef = useRef(filteredGames);
@@ -433,7 +417,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 transition={{ type: 'spring', stiffness: 160, damping: 18 }}
                 className="shrink-0 relative focus:outline-none cursor-pointer flex flex-col items-center select-none"
               >
-                <div className="relative w-36 h-48 rounded-xl overflow-hidden border transition-all duration-300 shadow-2xl" style={isSelected ? { borderColor: themeColor, boxShadow: `0px 10px 30px ${themeColor}35` } : { borderColor: 'rgba(255,255,255,0.05)' }}>
+                <div className="relative w-36 h-48 rounded-xl overflow-hidden border transition-all duration-300 shadow-2xl" style={isSelected ? { borderColor: 'white', boxShadow: `0px 10px 30px rgba(255,255,255,0.15)` } : { borderColor: 'rgba(255,255,255,0.05)' }}>
                   <GameCover game={game} systemId={system.id} className="w-full h-full object-cover" />
                 </div>
               </motion.button>
@@ -448,7 +432,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           {selectedGame && (
             <motion.div key={`meta-text-${selectedGame.id}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
               <div className="flex items-center gap-2 mb-1 text-[9px] font-mono text-zinc-500">
-                <span className="uppercase font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: `${themeColor}20`, color: themeColor }}>{selectedGame.genre}</span>
+                <span className="uppercase font-bold px-1.5 py-0.5 rounded bg-white/10 text-zinc-300">{selectedGame.genre}</span>
                 <span>•</span>
                 <span>{selectedGame.developer.toUpperCase()}</span>
               </div>
@@ -470,11 +454,11 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
               </div>
               <div className="bg-black/50 border border-white/5 rounded-lg px-2.5 py-1.5 h-9 flex flex-col justify-center text-left">
                 <span className="text-[7px] text-zinc-600 uppercase block">CORE</span>
-                <span className="font-bold uppercase tracking-wider mt-0.5" style={{ color: themeColor }}>{system.emulatorCore}</span>
+                <span className="font-bold uppercase tracking-wider mt-0.5 text-zinc-300">{system.emulatorCore}</span>
               </div>
             </div>
 
-            <button onClick={() => selectedGame && handleLaunchGame(selectedGame)} className="h-9 px-8 bg-gradient-to-r hover:brightness-110 text-white font-retro text-[9px] rounded-lg border-t border-white/10 transition-all font-black tracking-widest flex items-center justify-center cursor-pointer shadow-lg active:scale-95" style={{ backgroundColor: themeColor }}>
+            <button onClick={() => selectedGame && handleLaunchGame(selectedGame)} className="h-9 px-8 bg-white text-black font-retro text-[9px] rounded-lg border-t border-white/10 transition-all font-black tracking-widest flex items-center justify-center cursor-pointer shadow-lg active:scale-95 hover:bg-zinc-200">
               ➔ INICIAR JOGO
             </button>
           </>
