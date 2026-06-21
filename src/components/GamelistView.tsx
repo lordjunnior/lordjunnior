@@ -7,19 +7,19 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
-import { getGameGameplayVideoUrl } from '../utils/videoResolver';
-import { getGameLogoUrl } from '../utils/logoResolver';
 import { EmulatorPlayer } from './EmulatorPlayer';
+import { getGameGameplayVideoUrl } from '../utils/videoResolver';
 import { 
   ArrowLeft, 
   Search, 
-  Star, 
-  Calendar, 
-  Users, 
-  Tag, 
   Heart, 
   Play, 
-  Gamepad2
+  Gamepad2,
+  Calendar,
+  Layers,
+  Cpu,
+  User,
+  Star
 } from 'lucide-react';
 
 interface GamelistViewProps {
@@ -29,60 +29,84 @@ interface GamelistViewProps {
   toggleMute: () => void;
 }
 
-const GameLogo: React.FC<{ title: string; imagePath?: string }> = ({ title, imagePath }) => {
-  const [hasError, setHasError] = useState(false);
-  
-  useEffect(() => {
-    setHasError(false);
-  }, [title, imagePath]);
+// Biblioteca de Sinopses Históricas em PT-BR para Grandes Clássicos
+const gameDescriptions: Record<string, string> = {
+  "super mario bros.": "O clássico de plataforma lendário pioneiro que salvou a indústria dos videogames em 1985, estabeleceu as mecânicas de rolagem lateral e definiu o encanador mais famoso do planeta.",
+  "super mario bros. 3": "Aclamado como uma das maiores obras-primas da era 8-bits. Introduziu o emblemático mapa-múndi de seleção de fases, inventários de itens e transformações icônicas como a Super Leaf (Mário Guaxinim) e a Tanooki Suit.",
+  "the legend of zelda": "A obra-prima pioneira de Shigeru Miyamoto que apresentou o reino de Hyrule de forma não-linear. Definiu todo o gênero de Aventura e RPG com seu sistema inovador de exploração livre e salvamento de progresso.",
+  "metroid": "O nascimento do gênero Metroidvania. Apresentou um ambiente alienígena sombrio, isolado e labiríntico na fortaleza de Zebes, culminando na revelação histórica de que a caçadora de recompensas Samus Aran era uma mulher.",
+  "castlevania": "A influente jornada gótica de Simon Belmont empunhando o chicote lendário Vampire Killer na fortaleza do Conde Drácula. Trilha sonora inesquecível e atmosfera medieval de terror magnífica.",
+  "mega man": "O icônico robô azul da Capcom estreia revolucionando a ação em plataformas com seu sistema de escolha livre de fases e a mecânica inovadora de absorver os poderes dos chefes derrotados (Robot Masters).",
+  "sonic the hedgehog": "A resposta veloz e rebelde da Sega que redefiniu os jogos de plataforma nos anos 90. Com loops em alta velocidade, design de fases verticalizado e uma trilha sonora memorável, estabeleceu o ouriço como ícone mundial.",
+  "donkey kong country": "Um marco tecnológico revolucionário que utilizou gráficos pré-renderizados em estações Advanced Computer Modeling (ACM). Transformou o Super Nintendo com física soberba, trilha sonora imersiva e jogabilidade impecável em dupla.",
+  "chrono trigger": "Considerado por muitos o maior RPG de todos os tempos. Desenvolvido pelo 'Dream Team' (Hironobu Sakaguchi, Yuji Horii e Akira Toriyama), revolucionou o gênero com viagens no tempo, múltiplos finais e combate dinâmico sem transição de tela.",
+  "super metroid": "A obra de arte mais emblemática da ficção espacial 16-bits. Atmosfera sufocante, progresso orgânico primoroso no planeta Zebes e uma narrativa silenciosa que dita o padrão do gênero de exploração."
+};
 
-  const wikiLogo = getGameLogoUrl(title);
+// TRADUTOR CASE-SENSITIVE: Mapeamento cirúrgico para a sua pasta local public/logos/
+const getLogoFileName = (id: string): string => {
+  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  const map: Record<string, string> = {
+    snes: 'snes',
+    supernintendo: 'snes',
+    msu1: 'msu1',
+    nes: 'nes',
+    nintendo: 'nes',
+    megadrive: 'segaMD', 
+    genesis: 'segaMD',
+    sega: 'segaMD',
+    msumd: 'msu-md',     
+    sms: 'mastersystem',
+    mastersystem: 'mastersystem',
+    gamegear: 'gamegear',
+    ps1: 'ps1',
+    psx: 'ps1',
+    playstation: 'ps1',
+    n64: 'n64',          
+    nintendo64: 'n64',
+    arcade: 'arcade',    
+    mame: 'arcade',
+    nds: 'nds',
+    pce: 'pcecd',        
+    pcengine: 'pcecd',
+    neogeo: 'neogeo',
+    '3do': '3do',        
+    saturn: 'saturn',
+    segasaturn: 'saturn',
+    collections: 'Collections', 
+    playlist: 'Collections'
+  };
+  return map[cleanId] || cleanId;
+};
 
-  if (imagePath && !hasError) {
-    return (
-      <motion.img
-        key={`local-logo-${title}`}
-        initial={{ opacity: 0, scale: 0.85, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.85, y: -10 }}
-        transition={{ duration: 0.3 }}
-        src={imagePath}
-        alt={`${title} Logo`}
-        className="max-h-[65%] max-w-[85%] object-contain filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
-        onError={() => setHasError(true)}
-      />
-    );
-  }
+// Retorna a cor sólida temática do sistema ativo para iluminar o tema dinamicamente
+const getSystemThemeColor = (id: string): string => {
+  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  const map: Record<string, string> = {
+    nes: '#E60012',
+    snes: '#8B5CF6',
+    n64: '#10B881',
+    megadrive: '#3B82F6',
+    genesis: '#3B82F6',
+    ps1: '#94A3B8',
+    psx: '#94A3B8',
+    arcade: '#F59E0B',
+    '3do': '#EF4444'
+  };
+  return map[cleanId] || '#E60012';
+};
 
-  if (wikiLogo) {
-    return (
-      <motion.img
-        key={`wiki-logo-${title}`}
-        initial={{ opacity: 0, scale: 0.85, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.85, y: -10 }}
-        transition={{ duration: 0.3 }}
-        src={wikiLogo}
-        alt={`${title} Logo`}
-        className="max-h-[65%] max-w-[85%] object-contain filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
-      />
-    );
-  }
+const getRichDescription = (title: string, systemName: string): string => {
+  const cleanKey = title
+    .toLowerCase()
+    .replace(/\(pt\-br\)/gi, '')
+    .replace(/\[pt\-br\]/gi, '')
+    .replace(/\(traduzido\)/gi, '')
+    .replace(/\[traduzido\]/gi, '')
+    .replace(/[^a-z0-9 ]/g, '')
+    .trim();
 
-  return (
-    <motion.div
-      key={`typographical-${title}`}
-      initial={{ opacity: 0, scale: 0.9, y: 10 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: -10 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col items-center justify-center p-6 bg-black/45 backdrop-blur-sm border border-white/5 rounded-2xl max-w-[85%]"
-    >
-      <h2 className="text-lg sm:text-2xl font-display font-black uppercase tracking-tighter text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)] bg-gradient-to-r from-amber-400 via-rose-500 to-red-500 bg-clip-text text-transparent filter saturate-125 text-center px-4 leading-tight">
-        {title}
-      </h2>
-    </motion.div>
-  );
+  return gameDescriptions[cleanKey] || `Redescubra este clássico absoluto do console ${systemName}. Re-experimente a jogabilidade intocada original emulando roms clássicas no LordTecaRetro com velocidade máxima de carregamento.`;
 };
 
 const getLibretroSystemFolderName = (systemId: string): string => {
@@ -120,21 +144,12 @@ const getLibretroCandidates = (title: string, systemId: string): string[] => {
 
   const cleanBase = (t: string, customClean: boolean): string => {
     let s = t;
-    if (customClean) {
-      s = s.replace(/:/g, ' -');
-    }
-    s = s.replace(/\s\x27N\s/g, " 'n ");
-    s = s.replace(/\s\x27n\s/g, " 'n ");
-    s = s.replace(/[/*?"<>|]/g, '');
+    if (customClean) s = s.replace(/:/g, ' -');
+    s = s.replace(/\s\x27N\s/g, " 'n ").replace(/\s\x27n\s/g, " 'n ").replace(/[/*?"<>|]/g, '');
     return s;
   };
 
   const suffixes = ['', ' (USA)', ' (USA, Europe)', ' (Europe)', ' (Japan)', ' (World)'];
-
-  if (baseTitle.toLowerCase() === "the need for speed") {
-    candidates.push("Road _ Track Presents - The Need for Speed (USA)");
-    candidates.push("Need For Speed, The (USA)");
-  }
 
   for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, false));
   for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, true));
@@ -144,17 +159,13 @@ const getLibretroCandidates = (title: string, systemId: string): string[] => {
   );
 };
 
-// Componente de Capa atualizado com a Higienização de Strings PT-BR por Regex para matar o erro 404
 const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> = ({ game, systemId, className }) => {
   const candidates = useMemo(() => {
-    // Sanitização em tempo real das marcas do acervo do Drive antes da busca externa
-    const cleanTitle = game.title
-      .replace(/\(PT-BR\)/gi, '')
-      .replace(/\[PT-BR\]/gi, '')
-      .replace(/\(Traduzido\)/gi, '')
-      .replace(/\[Traduzido\]/gi, '')
-      .trim();
-      
+    let cleanTitle = game.title.replace(/\(PT-BR\)/gi, '').replace(/\[PT-BR\]/gi, '').replace(/\(Traduzido\)/gi, '').replace(/\[Traduzido\]/gi, '').trim();
+    if (cleanTitle.toLowerCase().startsWith('the ')) {
+      const coreName = cleanTitle.substring(4).trim();
+      cleanTitle = `${coreName}, The`;
+    }
     return getLibretroCandidates(cleanTitle, systemId);
   }, [game.title, systemId]);
 
@@ -183,7 +194,6 @@ const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> 
       setSrc(game.image);
       setAttempt(0);
     } else {
-      // Trava estritamente o estado para bloquear requisições infinitas em loop de falha
       setIsFatalError(true);
       setLoaded(true);
     }
@@ -191,9 +201,9 @@ const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> 
 
   if (isFatalError || !src) {
     return (
-      <div className="absolute inset-0 bg-zinc-900 border border-white/5 rounded-xl flex flex-col items-center justify-center p-4 text-center select-none">
-        <Gamepad2 className="w-8 h-8 text-zinc-700 stroke-1 mb-1" />
-        <span className="font-mono text-[9px] text-zinc-500 uppercase font-bold tracking-wider line-clamp-2 px-2">
+      <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 to-black border border-white/5 rounded-xl flex flex-col items-center justify-center p-4 text-center select-none shadow-inner">
+        <Gamepad2 className="w-8 h-8 text-zinc-800 stroke-1 mb-2 animate-pulse" />
+        <span className="font-retro text-[9px] text-zinc-500 uppercase tracking-widest leading-tight line-clamp-3 px-1">
           {game.title}
         </span>
       </div>
@@ -201,19 +211,19 @@ const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> 
   }
 
   return (
-    <div className="relative w-full h-full overflow-hidden flex items-center justify-center bg-zinc-950">
+    <div className="relative w-full h-full overflow-hidden flex items-center justify-center bg-transparent">
       <img
         src={src}
         alt=""
         onError={handleError}
         onLoad={() => setLoaded(true)}
-        className={`${className} transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`${className} transition-opacity duration-350 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         loading="lazy"
         referrerPolicy="no-referrer"
       />
       {!loaded && (
-        <div className="absolute inset-0 bg-neutral-900 flex items-center justify-center">
-          <Gamepad2 className="w-5 h-5 text-zinc-600 animate-pulse" />
+        <div className="absolute inset-0 bg-zinc-950/40 flex items-center justify-center">
+          <Gamepad2 className="w-5 h-5 text-zinc-700 animate-pulse" />
         </div>
       )}
     </div>
@@ -247,8 +257,8 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   }, [system.games, searchTerm, filterFavorites]);
 
   const selectedGame = filteredGames[selectedGameIndex] || null;
+  const themeColor = getSystemThemeColor(system.id);
 
-  // Refs de sincronização contra escopos desatualizados (Stale Closures)
   const filteredGamesRef = useRef(filteredGames);
   const selectedGameIndexRef = useRef(selectedGameIndex);
   const emulatingGameRef = useRef(emulatingGame);
@@ -312,13 +322,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       const currentGames = filteredGamesRef.current;
       const currentIndex = selectedGameIndexRef.current;
 
-      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
         if (currentGames.length > 0) {
           const nextIndex = (currentIndex - 1 + currentGames.length) % currentGames.length;
           selectGame(nextIndex);
         }
-      } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
         if (currentGames.length > 0) {
           const nextIndex = (currentIndex + 1) % currentGames.length;
@@ -327,16 +337,10 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       } else if (e.key === 'Escape' || e.key === 'Backspace') {
         e.preventDefault();
         handleBack();
-      } else if (e.key === 'Enter') {
+      } else if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         const currentGame = currentGames[currentIndex];
-        if (currentGame) {
-          handleLaunchGame(currentGame);
-        }
-      } else if (e.key.toLowerCase() === 'f') {
-        soundEngine.playToggle();
-        setFilterFavorites(prev => !prev);
-        setSelectedGameIndex(0);
+        if (currentGame) handleLaunchGame(currentGame);
       } else if (e.key.toLowerCase() === 'm') {
         toggleMute();
         soundEngine.playToggle();
@@ -365,112 +369,108 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   return (
     <motion.div 
       id="gamelist-container" 
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
+      exit={{ opacity: 0, scale: 0.98 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="relative w-full h-screen font-sans text-white overflow-hidden bg-gradient-to-b from-[#0e0e11] to-[#040405] flex flex-col justify-between"
+      className="relative w-full h-screen font-sans text-white overflow-hidden bg-gradient-to-b from-[#060608] to-[#020203] flex flex-col justify-between select-none"
     >
-      {/* Background decoration - Tratamento com pointer-events-none para liberar cliques */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center opacity-[0.04] blur-2xl scale-105 pointer-events-none"
+          className="absolute inset-0 w-full h-full bg-cover bg-center opacity-[0.04] blur-3xl scale-105 pointer-events-none"
           style={{ backgroundImage: `url(${system.backgroundImage})` }}
         />
-        <div className="absolute inset-0 bg-zinc-950/90 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(230,0,18,0.15),transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[#040406]/95 pointer-events-none" />
+        <div 
+          className="absolute inset-0 pointer-events-none transition-all duration-500"
+          style={{ backgroundImage: `radial-gradient(circle at 50% 0%, ${themeColor}18, transparent 70%)` }}
+        />
       </div>
 
-      {/* Top Console Command Header */}
-      <header className="relative z-30 h-16 flex items-center justify-between px-6 md:px-10 border-b border-white/5 bg-black/40 backdrop-blur-md">
+      <header className="relative z-30 h-16 flex items-center justify-between px-6 md:px-10 border-b border-white/5 bg-black/40 backdrop-blur-xl">
         <div className="flex items-center gap-4">
           <button
-            id="gamelist-back-btn"
             onClick={handleBack}
-            className="group flex items-center gap-2 text-[10px] sm:text-xs font-retro tracking-widest text-white bg-[#E60012] hover:bg-red-500 border border-red-500 hover:border-red-400 rounded-full px-4 py-2 transition-all cursor-pointer font-black shadow-[0_4px_14px_rgba(230,0,18,0.3)] hover:shadow-[0_6px_20px_rgba(230,0,18,0.4)]"
+            className="group flex items-center gap-2 text-[10px] font-retro tracking-widest text-white bg-zinc-900/80 border border-white/5 hover:border-white/15 rounded-full px-4 py-2 transition-all cursor-pointer shadow-md active:scale-95"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-colors" />
             <span>VOLTAR</span>
           </button>
           
           <div className="h-4 w-px bg-white/10" />
           
-          <div className="flex items-center gap-3">
-            <span className="font-retro text-sm text-[11px] text-red-500 font-extrabold px-2 py-0.5 rounded border border-red-500/35 uppercase tracking-widest bg-red-500/5">
-              {system.logo}
+          <div className="flex items-center gap-4">
+            <img 
+              src={`/logos/${getLogoFileName(system.id)}.png`} 
+              alt={system.name} 
+              className="h-8 w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                const fallbackSpan = document.getElementById('header-text-fallback');
+                if (fallbackSpan) fallbackSpan.style.display = 'block';
+              }}
+            />
+            <span id="header-text-fallback" style={{ display: 'none' }} className="font-retro text-[10px] font-black px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest bg-white/5">
+              {system.name}
             </span>
-            <span className="text-[10px] font-mono text-zinc-500 hidden md:inline uppercase tracking-widest">
-              {filteredGames.length} / {system.gameCount} Jogos Mapeados
+            <span className="text-[9px] font-mono text-zinc-500 hidden md:inline uppercase tracking-widest bg-zinc-900/40 px-2 py-0.5 rounded border border-white/5">
+              {filteredGames.length} / {system.gameCount} ROMs Mapeadas
             </span>
           </div>
         </div>
 
-        {/* Global Toolbar */}
         <div className="flex items-center gap-4">
-          <div className="relative flex items-center bg-zinc-900/50 border border-white/5 rounded-full px-4 py-1.5 w-44 sm:w-64 transition-all focus-within:border-red-500/50">
+          <div className="relative flex items-center bg-zinc-950/60 border border-white/5 rounded-full px-4 py-1.5 w-44 sm:w-64 transition-all focus-within:border-white/15 focus-within:bg-black/80">
             <Search className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
             <input
               ref={searchInputRef}
-              id="game-search-input"
               type="text"
-              placeholder="Buscar jogo de retro-escala..."
+              placeholder="Pesquisar título..."
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
                 setSelectedGameIndex(0);
               }}
-              className="bg-transparent border-none text-xs text-white focus:outline-none w-full placeholder-zinc-500 focus:ring-0"
+              className="bg-transparent border-none text-xs text-white focus:outline-none w-full placeholder-zinc-600 focus:ring-0 py-0"
             />
           </div>
 
           <button
-            id="btn-favorites"
             onClick={() => {
               soundEngine.playToggle();
               setFilterFavorites(!filterFavorites);
               setSelectedGameIndex(0);
             }}
-            className={`p-2 rounded-full border transition cursor-pointer flex items-center gap-1.5 text-[10px] font-retro tracking-widest ${
+            className={`p-2 px-3 rounded-full border transition cursor-pointer flex items-center gap-1.5 text-[9px] font-retro tracking-widest ${
               filterFavorites 
-                ? 'bg-red-500 border-red-400 text-white shadow-lg shadow-red-500/35' 
-                : 'bg-zinc-900/50 border-white/5 text-zinc-400 hover:text-white hover:border-white/15'
+                ? 'bg-rose-600 border-rose-500 text-white shadow-lg shadow-rose-600/40' 
+                : 'bg-zinc-900/40 border-white/5 text-zinc-400 hover:text-white'
             }`}
-            title="Filtrar Favoritos"
           >
-            <Heart className={`w-3.5 h-3.5 ${filterFavorites ? 'fill-white text-white' : ''}`} />
+            <Heart className={`w-3 h-3 ${filterFavorites ? 'fill-white text-white' : ''}`} />
             <span className="hidden sm:inline">FAVORITOS</span>
           </button>
         </div>
       </header>
 
-      {/* Main Showcase Layout Grid */}
-      <main className="relative z-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 md:p-8 overflow-hidden max-w-[1700px] w-full mx-auto items-center">
+      <main className="relative z-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 md:p-8 overflow-hidden max-w-[1750px] w-full mx-auto items-center">
         
-        {/* Left Side: Cover Flow Gallery & Metadata */}
-        <div className="lg:col-span-8 flex flex-col justify-center h-full overflow-hidden py-4">
-          
-          <div className="mb-4 flex justify-between items-center px-4">
-            <h3 className="font-retro text-[10px] tracking-[0.25em] text-[#E60012] uppercase font-black">
-              EXPLORAR CATÁLOGO DE ROMS
+        <div className="lg:col-span-8 flex flex-col justify-center h-full overflow-hidden py-4 relative">
+          <div className="mb-2 flex justify-between items-center px-4">
+            <h3 className="font-retro text-[9px] tracking-[0.2em] text-zinc-500 uppercase font-black">
+              SELEÇÃO DE CARTUCHOS • ESFERA 3D
             </h3>
-            <div className="flex gap-2 text-[10px] font-mono text-zinc-500 tracking-wider">
-              <span>Use</span>
-              <span className="text-zinc-300 font-bold bg-zinc-900 border border-white/5 px-1.5 py-0.5 rounded">◀ ▶</span>
-              <span>ou cliques e arrastes</span>
-            </div>
           </div>
 
-          {/* Interactive Cover-Flow Container Track Grid */}
           <div 
             ref={listContainerRef}
             className="flex items-center overflow-x-auto gap-8 py-10 no-scrollbar scroll-smooth snap-x w-full relative z-30"
-            style={{ paddingLeft: '40%', paddingRight: '40%', minHeight: '360px' }}
+            style={{ paddingLeft: '38%', paddingRight: '38%', minHeight: '340px' }}
           >
             {filteredGames.length === 0 ? (
-              <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 text-zinc-500">
-                <Gamepad2 className="w-12 h-12 mb-3 opacity-30 stroke-1 text-red-500 animate-bounce" />
-                <p className="font-retro text-[10px] tracking-widest text-zinc-400">NENHUM JOGO COM ESTE FILTRO</p>
-                <p className="text-xs text-zinc-600 mt-1">Experimente remover filtros ou a pesquisa ativa acima.</p>
+              <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 text-zinc-600">
+                <Gamepad2 className="w-12 h-12 mb-3 opacity-10 text-white animate-pulse" />
+                <p className="font-retro text-[9px] tracking-widest uppercase">Nenhum título encontrado</p>
               </div>
             ) : (
               filteredGames.map((game, idx) => {
@@ -480,38 +480,38 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 return (
                   <motion.button
                     key={game.id}
-                    id={`game-item-${game.id}`}
                     onClick={() => handleGameClick(idx, game)}
-                    className="shrink-0 relative focus:outline-none cursor-pointer outline-none flex flex-col items-center select-none group focus-visible:ring-0 z-30"
+                    className="shrink-0 relative focus:outline-none cursor-pointer outline-none flex flex-col items-center select-none group z-30"
                     style={{ zIndex: 100 - distance }}
                     animate={{
                       scale: isSelected ? 1.05 : 0.82 - Math.min(distance * 0.05, 0.2),
                       opacity: isSelected ? 1 : 0.35 - Math.min(distance * 0.05, 0.2),
-                      x: isSelected ? 0 : (idx < selectedGameIndex ? 25 : -25) * Math.min(distance, 3),
+                      rotateY: isSelected ? 0 : (idx < selectedGameIndex ? 28 : -28), 
+                      x: isSelected ? 0 : (idx < selectedGameIndex ? 20 : -20) * Math.min(distance, 3),
                     }}
-                    transition={{ type: 'spring', stiffness: 180, damping: 18 }}
+                    transition={{ type: 'spring', stiffness: 160, damping: 18 }}
                   >
                     <div 
                       className={`relative w-44 h-60 md:w-48 md:h-64 rounded-xl overflow-hidden transition-all duration-300 ${
                         isSelected 
-                          ? 'border-[3px] border-emerald-500 shadow-[0_0_35px_rgba(16,185,129,0.3)] ring-2 ring-emerald-400/20' 
-                          : 'border border-white/5 hover:border-white/15'
+                          ? 'border-[3px] shadow-[0_20px_45px_rgba(0,0,0,0.85)] ring-2 ring-white/10' 
+                          : 'border border-white/5 hover:border-white/15 shadow-md'
                       }`}
+                      style={isSelected ? { borderColor: themeColor, boxShadow: `0px 10px 40px ${themeColor}25` } : {}}
                     >
                       <div className="absolute inset-x-0 top-0 h-[40%] bg-gradient-to-b from-white/10 to-transparent z-10 pointer-events-none" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10 z-10 pointer-events-none" />
-                      <div className="absolute left-0 inset-y-0 w-2.5 bg-gradient-to-b from-red-600 to-amber-500 z-20 pointer-events-none shadow-[2px_0_4px_rgba(0,0,0,0.5)] opacity-85" />
+                      <div className="absolute left-0 inset-y-0 w-2.5 bg-gradient-to-b from-zinc-800 to-zinc-950 z-20 pointer-events-none shadow-md opacity-80" />
                       
                       <GameCover 
                         game={game} 
                         systemId={system.id} 
                         className="w-full h-full object-cover select-none pointer-events-none" 
                       />
-
-                      <div className="absolute inset-0 pointer-events-none opacity-5 mix-blend-overlay z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,_rgba(0,0,0,0.25)_50%)] bg-[size:100%_4px]" />
                     </div>
-
-                    <span className={`text-[10px] font-mono mt-3 uppercase tracking-widest ${isSelected ? 'text-emerald-400 font-bold' : 'text-zinc-600'}`}>
+                    <span 
+                      className="text-[9px] font-mono mt-3 uppercase tracking-widest font-bold transition-opacity"
+                      style={isSelected ? { color: themeColor, opacity: 1 } : { opacity: 0.15 }}
+                    >
                       {String(idx + 1).padStart(2, '0')}
                     </span>
                   </motion.button>
@@ -520,32 +520,31 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             )}
           </div>
 
-          {/* Active Game Textual Metadata display block */}
-          <div className="mt-4 h-40 flex flex-col justify-start z-30">
+          <div className="mt-4 h-36 flex flex-col justify-start z-30 px-4">
             <AnimatePresence mode="wait">
               {selectedGame && (
                 <motion.div
                   key={`meta-text-${selectedGame.id}`}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.3 }}
-                  className="px-6"
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
+                  className="max-w-2xl text-left"
                 >
-                  <div className="flex items-center gap-3 mb-2.5">
-                    <span className="bg-red-500/10 text-red-500 text-[9px] font-retro px-2.5 py-0.5 rounded border border-red-500/20 uppercase tracking-wider block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span 
+                      className="text-[8.5px] font-retro px-2.5 py-0.5 rounded border uppercase tracking-wider block"
+                      style={{ backgroundColor: `${themeColor}15`, borderColor: `${themeColor}25`, color: themeColor }}
+                    >
                       {selectedGame.genre}
                     </span>
-                    <span className="text-zinc-600">•</span>
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">{selectedGame.developer}</span>
+                    <span className="text-[9px] font-mono text-zinc-600">BY {selectedGame.developer.toUpperCase()}</span>
                   </div>
-
-                  <h1 className="text-2xl md:text-3.5xl font-display font-black tracking-tight text-white uppercase leading-none mb-3">
+                  <h1 className="text-xl md:text-2xl font-display font-black tracking-tight text-white uppercase leading-none mb-2">
                     {selectedGame.title}
                   </h1>
-
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans font-medium line-clamp-3 max-w-2xl">
-                    {selectedGame.description || `Não perca este clássico absoluto do console ${system.name}. Re-experimente a jogabilidade intocada original emulando roms clássicas no LordTecaRetro com velocidade máxima de carregamento.`}
+                  <p className="text-xs text-zinc-400 leading-relaxed font-sans font-medium line-clamp-3">
+                    {getRichDescription(selectedGame.title, system.name)}
                   </p>
                 </motion.div>
               )}
@@ -553,19 +552,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           </div>
         </div>
 
-        {/* Right Side: Curved Retro CRT TV Cabinet Monitor */}
-        <div className="lg:col-span-4 flex flex-col items-center justify-center p-4 bg-zinc-900/10 border border-white/5 rounded-2xl backdrop-blur-sm shadow-inner relative overflow-hidden h-full z-30">
-          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.010] to-transparent pointer-events-none" />
-
+        <div className="lg:col-span-4 flex flex-col items-center justify-center p-5 bg-zinc-950/40 border border-white/5 rounded-2xl backdrop-blur-sm relative overflow-hidden h-full z-30 gap-6">
           {selectedGame ? (
-            <div className="w-full flex flex-col h-full justify-between gap-6 py-2">
+            <div className="w-full flex flex-col h-full justify-between gap-5 py-1">
               
-              <div className="relative w-full aspect-[4/3] bg-[#1a1a23] border-[6px] border-[#292938] rounded-3xl p-4 shadow-2xl flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 z-30 pointer-events-none rounded-2xl" />
-                <div className="absolute inset-[1px] border border-black/80 z-20 pointer-events-none rounded-2xl" />
-                <div className="absolute inset-2 border border-zinc-950 z-20 pointer-events-none rounded-xl" />
-
-                <div className="absolute inset-3 rounded-lg overflow-hidden bg-zinc-950 z-10 flex items-center justify-center">
+              <div className="relative w-full aspect-[4/3] bg-[#121216] border-[6px] border-[#22222b] rounded-3xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.95)] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-3 rounded-xl overflow-hidden bg-black z-10 flex items-center justify-center">
+                  
                   {!videoError && (
                     <video
                       key={`crt-preview-video-${selectedGame.title}`}
@@ -575,7 +568,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                       muted
                       playsInline
                       className={`w-full h-full object-cover absolute inset-0 select-none z-10 filter contrast-125 saturate-110 brightness-105 transition-opacity duration-500 ${
-                        videoLoaded ? 'opacity-90' : 'opacity-0'
+                        videoLoaded ? 'opacity-[0.85]' : 'opacity-0'
                       }`}
                       onPlay={() => setVideoLoaded(true)}
                       onLoadedData={() => setVideoLoaded(true)}
@@ -586,108 +579,79 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                     />
                   )}
 
-                  <div className={`absolute inset-0 z-0 flex items-center justify-center bg-zinc-950 transition-all duration-500 p-2 ${videoLoaded ? 'opacity-25 blur-sm scale-105' : 'opacity-100 scale-100'}`}>
-                    <GameCover 
-                      game={selectedGame} 
-                      systemId={system.id} 
-                      className="max-h-[90%] max-w-[90%] object-contain rounded-md shadow-2xl filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]" 
-                    />
+                  <div className={`absolute inset-0 z-0 bg-zinc-950 transition-all duration-500 ${videoLoaded ? 'opacity-20 blur-sm scale-105' : 'opacity-100 scale-100'}`}>
+                    <div className="absolute inset-0 opacity-35 blur-md scale-110 pointer-events-none overflow-hidden">
+                      <GameCover game={selectedGame} systemId={system.id} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center p-4 z-10 pointer-events-none">
+                      <GameCover game={selectedGame} systemId={system.id} className="max-h-full max-w-full object-contain rounded-md filter brightness-105 contrast-110 drop-shadow-[0_0_25px_rgba(0,0,0,0.95)]" />
+                    </div>
                   </div>
 
                   <div 
-                    className="absolute inset-0 pointer-events-none opacity-45 mix-blend-overlay z-20"
-                    style={{
-                      backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.3) 50%)',
-                      backgroundSize: '100% 6px'
-                    }}
+                    className="absolute inset-0 pointer-events-none opacity-25 mix-blend-overlay z-20"
+                    style={{ backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.4) 50%)', backgroundSize: '100% 6px' }}
                   />
-                  <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(0,185,129,0.05),transparent)] mix-blend-color-dodge z-20" />
-
-                  <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded border border-white/10 flex items-center gap-1 shadow-lg z-25">
-                    <Star className="w-2.5 h-2.5 text-yellow-500 fill-yellow-500" />
-                    <span className="text-[9px] font-bold font-mono text-zinc-300">{selectedGame.rating}.0</span>
-                  </div>
-
-                  <div className="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/55 text-zinc-500 font-retro text-[8px] rounded uppercase tracking-widest border border-white/5 z-25">
-                    {videoLoaded ? 'VIDEO FEED' : 'PREVIEW FEED'}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.78))] pointer-events-none z-22" />
+                  
+                  <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1 bg-black/70 backdrop-blur px-1.5 py-0.5 rounded border border-white/5 z-25 font-mono text-[7.5px] tracking-wider text-zinc-400 leading-none">
+                    <span className={`h-1 w-1 rounded-full ${videoLoaded ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'}`} />
+                    <span>{videoLoaded ? 'VIDEO FEED' : 'PREVIEW FEED'}</span>
                   </div>
                 </div>
-
-                <div className="absolute inset-3 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.65))] pointer-events-none z-15" />
               </div>
 
-              {/* Bento Specs grid table layout */}
-              <div className="grid grid-cols-2 gap-2 w-full font-mono text-xs text-zinc-400">
-                <div className="bg-zinc-900/60 border border-white/5 rounded-xl p-3">
-                  <span className="text-[8px] text-zinc-500 block uppercase tracking-wider mb-0.5">Desenvolvedor</span>
-                  <span className="text-[11px] font-semibold text-zinc-300 block truncate">{selectedGame.developer}</span>
-                </div>
-                <div className="bg-zinc-900/60 border border-white/5 rounded-xl p-3">
-                  <span className="text-[8px] text-zinc-500 block uppercase tracking-wider mb-0.5">Ano Lançamento</span>
-                  <span className="text-[11px] font-semibold text-zinc-300 block flex items-center gap-1 font-mono">
-                    <Calendar className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
-                    {selectedGame.year}
+              <div className="grid grid-cols-2 gap-2 w-full font-mono text-[9px] text-zinc-500">
+                <div className="bg-zinc-950/60 border border-white/5 rounded-xl p-2.5">
+                  <span className="text-[7.5px] text-zinc-600 block uppercase tracking-wider mb-0.5">Ano Lançamento</span>
+                  <span className="text-[10px] font-semibold text-zinc-300 block flex items-center gap-1">
+                    <Calendar className="w-3 h-3 text-zinc-500" /> {selectedGame.year}
                   </span>
                 </div>
-                <div className="bg-zinc-900/60 border border-white/5 rounded-xl p-3">
-                  <span className="text-[8px] text-zinc-500 block uppercase tracking-wider mb-0.5">Controles</span>
-                  <span className="text-[11px] font-semibold text-zinc-300 block flex items-center gap-1 truncate">
-                    <Users className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
-                    {selectedGame.players}
-                  </span>
-                </div>
-                <div className="bg-zinc-900/60 border border-white/5 rounded-xl p-3">
-                  <span className="text-[8px] text-zinc-500 block uppercase tracking-wider mb-0.5">Núcleo RetroArch</span>
-                  <span className="text-[11px] font-semibold text-emerald-400 block flex items-center gap-1 truncate uppercase">
-                    <Tag className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
-                    {system.emulatorCore}
+                <div className="bg-zinc-950/60 border border-white/5 rounded-xl p-2.5">
+                  <span className="text-[7.5px] text-zinc-600 block uppercase tracking-wider mb-0.5">RetroArch Core</span>
+                  <span className="text-[10px] font-semibold text-emerald-400 block truncate uppercase">
+                    <Cpu className="w-3 h-3 text-zinc-500" /> {system.emulatorCore}
                   </span>
                 </div>
               </div>
 
-              {/* Play Button */}
-              <div className="w-full flex items-center justify-center mt-2.5">
+              <div className="w-full flex items-center justify-center mt-1">
                 <button
-                  id="launch-game-btn"
                   onClick={() => handleLaunchGame(selectedGame)}
-                  className="w-full py-4.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-zinc-950 font-retro text-xs rounded-full shadow-[0_8px_30px_rgba(16,185,129,0.35)] border-t border-white/25 active:scale-[0.98] transition-all font-black tracking-widest flex items-center justify-center gap-3 cursor-pointer select-none animate-[pulse_2s_infinite]"
+                  className="w-full py-4.5 bg-gradient-to-r hover:brightness-110 text-white font-retro text-[10px] rounded-full border-t border-white/10 transition-all duration-300 font-black tracking-widest flex items-center justify-center gap-3 cursor-pointer shadow-[0_8px_25px_rgba(0,0,0,0.4)] active:scale-[0.99]"
+                  style={{ backgroundColor: themeColor }}
                 >
-                  <Play className="w-4 h-4 fill-zinc-950 text-zinc-950 animate-bounce" />
-                  <span>PLAY CLASSIC</span>
+                  <Play className="w-3.5 h-3.5 fill-white text-white animate-bounce" />
+                  <span>INICIAR JOGO</span>
                 </button>
               </div>
+
             </div>
-          ) : (
-            <div className="h-full flex flex-col justify-center items-center text-center p-8">
-              <Gamepad2 className="w-12 h-12 text-zinc-600 stroke-1 mb-2 animate-pulse" />
-              <p className="text-zinc-500 text-sm font-medium">Selecione um game na lista para ver detalhes.</p>
-            </div>
-          )}
+          ) : null}
         </div>
 
       </main>
 
-      {/* Retro controller guides footer bar */}
-      <footer className="relative z-30 w-full bg-zinc-950 border-t border-white/5 py-4 px-6 md:px-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-zinc-400 text-[11px] font-mono tracking-wider">
-        <div className="text-zinc-500 text-center sm:text-left font-sans font-medium">
-          Navegue pelo catálogo usando o teclado ou mouse. Pronto para <span className="text-white font-semibold">Retro-Emulação</span>.
-        </div>
-        <div className="flex items-center gap-4 text-[10px] text-zinc-500 font-retro">
-          <span className="flex items-center gap-1"><span className="bg-zinc-900 border border-white/5 text-zinc-200 px-1.5 py-0.5 rounded text-[8px]">◀▶</span> Selecionar</span>
-          <span className="flex items-center gap-1"><span className="bg-zinc-900 border border-white/5 text-zinc-200 px-1.5 py-0.5 rounded text-[8px]">ENTER</span> Iniciar</span>
-          <span className="flex items-center gap-1"><span className="bg-zinc-900 border border-white/5 text-zinc-200 px-1.5 py-0.5 rounded text-[8px]">ESC</span> Voltar</span>
-        </div>
-      </footer>
-
-      {/* Real-time Retro Emulator Interface overlay - Elevado o Z-Index para isolamento absoluto */}
       <AnimatePresence>
         {emulatingGame && (
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
-            className="fixed inset-0 bg-zinc-950/98 z-[9999] flex flex-col justify-between p-2 md:p-6 shadow-2xl"
+            style={{ zIndex: 99999 }}
+            className="fixed inset-0 bg-black flex flex-col justify-between"
           >
+            <div style={{ position: 'fixed', top: '24px', left: '24px', zIndex: 100000 }} className="pointer-events-auto">
+              <button
+                onClick={handleCloseEmulator}
+                className="flex items-center gap-2 text-[10px] font-retro tracking-widest text-white bg-[#E60012] hover:bg-red-500 border border-red-600 rounded-full px-5 py-3 transition-all cursor-pointer font-black shadow-[0_6px_20px_rgba(230,0,18,0.5)] active:scale-95"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>FECHAR EMULADOR / VOLTAR</span>
+              </button>
+            </div>
+
             <EmulatorPlayer
               system={system}
               game={emulatingGame}
