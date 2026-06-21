@@ -1,6 +1,6 @@
 /**
  * @license
- * SPDX-License-Identifier: Apache-2.5
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useEffect, useState, useRef } from 'react';
@@ -15,7 +15,7 @@ interface SystemCarouselProps {
   onSelectSystem: (system: System) => void;
 }
 
-// Mapeamento cirúrgico para bater com as logos da sua pasta public/logos/
+// Mapeamento cirúrgico baseado nas imagens do seu repositório GitHub
 const getLogoFileName = (id: string): string => {
   const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
   const map: Record<string, string> = {
@@ -136,22 +136,22 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
         />
       </div>
 
-      {/* CAMADA 2: A SUA MÁSCARA PNG COM CANAL ALFA COMPLETO TRAZIDA DE BACKGROUNDS/ */}
+      {/* CAMADA 2: OVERLAY DA SUA MÁSCARA PNG TRANSPARENTE DA PASTA BACKGROUNDS */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
         style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
       />
 
-      {/* CAMADA 3: ESPIRAL DE LOGOS DOS EMULADORES (ROLA NO ESPAÇO DIREITO DA TELA VAZADA) */}
-      <div className="absolute top-0 right-0 w-[45%] h-full z-30 flex items-center justify-end pr-[6vw]" style={{ perspective: 1000 }}>
-        <div ref={scrollContainerRef} className="relative w-full h-[460px] flex items-center justify-end">
+      {/* CAMADA 3: ESPIRAL DE LOGOS DOS EMULADORES RECALIBRADO PARA DENTRO DA TELA */}
+      <div className="absolute top-0 right-0 w-[45vw] h-full z-30 flex items-center justify-center overflow-hidden" style={{ perspective: 1000 }}>
+        <div ref={scrollContainerRef} className="relative w-full h-[460px] flex items-center justify-center">
           {systems.map((sys, idx) => {
             const offset = idx - activeIndex;
             const isSelected = idx === activeIndex;
 
             if (Math.abs(offset) > 3) return null;
 
-            // Alinhamento elíptico perfeito idêntico ao do catálogo
+            // Coordenadas calculadas para manter o arco visível e centralizado no terço direito da tela
             const rotateX = offset * -15;
             const translateY = offset * 85;
             const translateX = Math.abs(offset) * 22;
@@ -177,14 +177,14 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                   opacity: isSelected ? 1 : 0.35 - Math.abs(offset) * 0.08,
                 }}
                 transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-                className="absolute right-0 w-80 h-16 flex items-center justify-end cursor-pointer select-none group"
-                style={{ transformOrigin: 'right center' }}
+                className="absolute w-64 h-16 flex items-center justify-center cursor-pointer select-none"
+                style={{ transformOrigin: 'center center' }}
               >
-                <div className="w-full h-full p-2 flex items-center justify-end relative transition-all duration-200">
+                <div className="w-full h-full p-2 flex items-center justify-center relative transition-all duration-200">
                   <img
                     src={`/logos/${getLogoFileName(sys.id)}.png`}
                     alt={sys.name}
-                    className={`max-w-[85%] max-h-full object-contain filter transition-all duration-200 ${
+                    className={`max-w-full max-h-full object-contain filter transition-all duration-200 ${
                       isSelected 
                         ? 'drop-shadow-[0_0_15px_rgba(255,255,255,0.45)] brightness-110' 
                         : 'drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] opacity-35 grayscale contrast-125 group-hover:opacity-65'
