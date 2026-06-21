@@ -291,7 +291,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 <div className="md:col-span-5 relative group border border-white/10 rounded-xl overflow-hidden shadow-2xl aspect-[4/3] md:aspect-square bg-zinc-900 flex items-center justify-center">
                   <img
                     id="game-image-preview"
-                    src={selectedGame.image}
+                    src={selectedGame.image || undefined}
                     alt={selectedGame.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -456,7 +456,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   {/* Real visual placeholder showcasing retro aesthetic */}
                   <img
                     id="active-emulator-view"
-                    src={emulatingGame.image}
+                    src={emulatingGame.image || undefined}
                     alt={emulatingGame.title}
                     className="absolute inset-0 w-full h-full object-cover opacity-70 filter saturate-[1.12]"
                   />

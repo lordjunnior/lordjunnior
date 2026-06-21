@@ -354,7 +354,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
               ) : (
                 <img
                   id="main-cover-image"
-                  src={coverSrc}
+                  src={coverSrc || undefined}
                   alt={game.title}
                   onError={handleCoverError}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -522,7 +522,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                 ) : (
                   <>
                     <img
-                      src={screenshots[activeScreenshot]}
+                      src={screenshots[activeScreenshot] || undefined}
                       alt={`${game.title} screenshot ${activeScreenshot + 1}`}
                       className="w-full h-full object-cover"
                     />
@@ -588,7 +588,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                           : 'border-white/5 opacity-60 hover:opacity-100 hover:border-white/20'
                       }`}
                     >
-                      <img src={shot} alt="Thumb" className="w-full h-full object-cover" />
+                      <img src={shot || undefined} alt="Thumb" className="w-full h-full object-cover" />
                     </div>
                   ))
                 )}
@@ -663,7 +663,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
               initial={{ scale: 0.92 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.92 }}
-              src={zoomedScreenshot}
+              src={zoomedScreenshot || undefined}
               alt="Zoomed Screenshot"
               className="max-h-[85vh] max-w-[90vw] object-contain rounded-xl border border-white/10 shadow-2xl"
             />

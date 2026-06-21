@@ -73,7 +73,7 @@
         "genre": "Puzzle",
         "dev": "Nintendo R&D1",
         "pub": "Nintendo",
-        "desc": "Atire nos patos voando com a pistola Zapper original enquanto desvia das risadas sarcásticas de seu cão retriever."
+        "desc": "Atire nos patos voando com a pistola Zapper originalshift enquanto desvia das risadas sarcásticas de seu cão retriever."
       },
       {
         "title": "Punch-Out!!",
@@ -127,7 +127,7 @@
         "genre": "Plataforma",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "Acompanhe Mario e Luigi na Dinosaur Land para salvar a Princesa Peach com a ajuda do fiel dinossauro Yoshi!"
+        "desc": "Super Mario World — O jogo definitivo de plataforma e o maior clássico do console."
       },
       {
         "title": "Chrono Trigger",
@@ -135,7 +135,7 @@
         "genre": "RPG",
         "dev": "Square",
         "pub": "Square",
-        "desc": "Uma obra-prima absoluta sobre viagem temporal, criada por designers gigantescos como Akira Toriyama."
+        "desc": "Chrono Trigger — Considerado por muitos o melhor RPG de todos os tempos."
       },
       {
         "title": "The Legend of Zelda: A Link to the Past",
@@ -143,7 +143,7 @@
         "genre": "Aventura",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "Link viaja entre mundos da Luz e das Trevas para derrotar Ganon e salvar Hyrule."
+        "desc": "The Legend of Zelda: A Link to the Past — Definiu a fórmula moderna da franquia Zelda."
       },
       {
         "title": "Super Metroid",
@@ -151,15 +151,15 @@
         "genre": "Metroidvania",
         "dev": "Nintendo R&D1",
         "pub": "Nintendo",
-        "desc": "Uma aventura cheia de atmosfera incrível no claustrofóbico Planeta Zebes estabelecendo padrões ao gênero."
+        "desc": "Super Metroid — Uma obra-prima de atmosfera, exploração e o pai do gênero 'Metroidvania'."
       },
       {
-        "title": "Donkey Kong Country",
-        "year": "1994",
+        "title": "Donkey Kong Country 2: Diddy's Kong Quest",
+        "year": "1995",
         "genre": "Plataforma",
         "dev": "Rare",
         "pub": "Nintendo",
-        "desc": "Revolucionários gráficos 3D pré-renderizados num game de plataforma dinâmico com trilha sonora espetacular."
+        "desc": "Donkey Kong Country 2: Diddy's Kong Quest — Gráficos pré-renderizados impressionantes e a melhor trilha sonora do console."
       },
       {
         "title": "Mega Man X",
@@ -167,15 +167,7 @@
         "genre": "Ação",
         "dev": "Capcom",
         "pub": "Capcom",
-        "desc": "Evolução moderna e madura do herói clássico, com saltos na parede e armaduras secretas épicas."
-      },
-      {
-        "title": "Street Fighter II Turbo",
-        "year": "1992",
-        "genre": "Luta",
-        "dev": "Capcom",
-        "pub": "Capcom",
-        "desc": "O auge da pancadaria 16-bit com velocidade fluida e precisão de comandos perfeitos para torneios."
+        "desc": "Mega Man X — Reinventou o robô azul com mecânicas de dash, escalada e tom mais maduro."
       },
       {
         "title": "Final Fantasy VI",
@@ -183,7 +175,39 @@
         "genre": "RPG",
         "dev": "Square",
         "pub": "Square",
-        "desc": "História magnífica com Kefka sendo um dos vilões mais marcantes e cruéis de todos os tempos."
+        "desc": "Final Fantasy VI (FF III no Ocidente) — Uma história madura com um dos vilões mais icônicos dos games (Kefka)."
+      },
+      {
+        "title": "Street Fighter II Turbo",
+        "year": "1992",
+        "genre": "Luta",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Street Fighter II Turbo — Trouxe a experiência perfeita dos fliperamas para dentro de casa."
+      },
+      {
+        "title": "Super Mario World 2: Yoshi's Island",
+        "year": "1995",
+        "genre": "Plataforma",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Super Mario World 2: Yoshi's Island — Visual em estilo de giz de cera e mecânicas de plataforma geniais."
+      },
+      {
+        "title": "Top Gear",
+        "year": "1992",
+        "genre": "Corrida",
+        "dev": "Gremlin Graphics",
+        "pub": "Kemco",
+        "desc": "Top Gear — O jogo de corrida mais nostálgico dos anos 90, com músicas inesquecíveis."
+      },
+      {
+        "title": "Donkey Kong Country",
+        "year": "1994",
+        "genre": "Plataforma",
+        "dev": "Rare",
+        "pub": "Nintendo",
+        "desc": "Donkey Kong Country — Revolucionou a indústria com seus gráficos 3D digitalizados em um console 16-bits."
       },
       {
         "title": "Super Mario Kart",
@@ -191,23 +215,55 @@
         "genre": "Corrida",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "Fundador do subgênero de corrida com mascotes e armadilhas divertidas para festas barulhentas."
+        "desc": "Super Mario Kart — O pioneiro que deu origem a todo o gênero de corrida de mascotes com itens."
       },
       {
-        "title": "Yoshi's Island",
+        "title": "International Superstar Soccer Deluxe",
         "year": "1995",
-        "genre": "Plataforma",
-        "dev": "Nintendo EAD",
-        "pub": "Nintendo",
-        "desc": "Pixel-art desenhada à mão simulando giz de cera. Ajude Yoshi a guiar com segurança o bebê chorão Mario."
+        "genre": "Esporte",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "International Superstar Soccer Deluxe — O melhor jogo de futebol da geração (base para o lendário Campeonato Brasileiro 96)."
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles IV: Turtles in Time",
+        "year": "1992",
+        "genre": "Beat 'em Up",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Teenage Mutant Ninja Turtles IV: Turtles in Time — O melhor beat 'em up (jogo de briga de rua) do console."
+      },
+      {
+        "title": "Mortal Kombat II",
+        "year": "1993",
+        "genre": "Luta",
+        "dev": "Midway",
+        "pub": "Acclaim",
+        "desc": "Mortal Kombat II — Corrigiu as falhas do primeiro jogo e trouxe sangue e fatalities reais para o SNES."
       },
       {
         "title": "EarthBound",
         "year": "1994",
         "genre": "RPG",
-        "dev": "Ape / HAL",
+        "dev": "Ape / HAL Laboratory",
         "pub": "Nintendo",
-        "desc": "Cômico e esquisito RPG ambientado no subúrbio americano com crianças armadas com tacos de beisebol."
+        "desc": "EarthBound (Mother 2) — Um RPG único e bizarro ambientado nos tempos modernos, cheio de humor e crítica social."
+      },
+      {
+        "title": "Sunset Riders",
+        "year": "1993",
+        "genre": "Ação / Run and Gun",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Sunset Riders — O clássico faroeste de tiro e ação cooperativa dos arcades adaptado com maestria."
+      },
+      {
+        "title": "Secret of Mana",
+        "year": "1993",
+        "genre": "RPG",
+        "dev": "Square",
+        "pub": "Square",
+        "desc": "Secret of Mana — Um RPG de ação cooperativo lindo, com combate em tempo real e trilha sonora épica."
       },
       {
         "title": "Ultimate Mortal Kombat 3",
@@ -215,7 +271,39 @@
         "genre": "Luta",
         "dev": "Midway",
         "pub": "Acclaim",
-        "desc": "Fatalities brutais, combos agressivos e lutadores icônicos digitalizados com extremo realismo."
+        "desc": "Ultimate Mortal Kombat 3 — A versão definitiva de MK3, com jogabilidade rápida e muitos personagens."
+      },
+      {
+        "title": "Super Castlevania IV",
+        "year": "1991",
+        "genre": "Ação",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Castlevania IV — Uso espetacular das capacidades sonoras e do efeito Mode 7 (rotação de tela) do SNES."
+      },
+      {
+        "title": "Super Mario All-Stars + Super Mario World",
+        "year": "1994",
+        "genre": "Plataforma",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Coletânea definitiva contendo os remakes de luxo de 16-bits da trilogia clássica do NES junto ao Super Mario World."
+      },
+      {
+        "title": "Donkey Kong Country 3: Dixie Kong's Double Trouble!",
+        "year": "1996",
+        "genre": "Plataforma",
+        "dev": "Rare",
+        "pub": "Nintendo",
+        "desc": "Dixie Kong e Kiddy Kong exploram o Hemisfério Norte para resgatar Donkey e Diddy em um encerramento gráfico espetacular para o console."
+      },
+      {
+        "title": "Breath of Fire",
+        "year": "1993",
+        "genre": "RPG",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "O início da consagrada saga de RPG da Capcom protagonizada por Ryu, um guerreiro capaz de se transformar em dragões poderosos."
       }
     ]
   },
@@ -545,7 +633,7 @@
         "genre": "RPG",
         "dev": "Game Freak",
         "pub": "Nintendo",
-        "desc": "O clássico remake vibrante em Kanto, expandindo a saga inicial com as ilhas Sevii ricas em tesouros."
+        "desc": "O clássico remake vibrante em Kanto, expandindo a saga inicial com as islands Sevii ricas em tesouros."
       }
     ]
   },
@@ -685,7 +773,7 @@
         "genre": "Beat 'em Up",
         "dev": "Sega",
         "pub": "Sega",
-        "desc": "Gráficos gigantes, jogabilidade cirúrgica de brawlers urbanos com trilha sonora house eletrônica clássica."
+        "desc": "Gráficos giants, jogabilidade cirúrgica de brawlers urbanos com trilha sonora house eletrônica clássica."
       },
       {
         "title": "Gunstar Heroes",
@@ -795,7 +883,7 @@
         "genre": "Corrida",
         "dev": "Sega AM3",
         "pub": "Sega",
-        "desc": "Considerado um divisor de águas para jogos focado em terrenos alternados de terra vegetal e asfalto liso."
+        "desc": "Considerado um divisor de águas para jogos focado em terrains alternados de terra vegetal e asfalto liso."
       },
       {
         "title": "Virtua Fighter 2",
@@ -945,7 +1033,7 @@
         "genre": "Survival Horror",
         "dev": "Team Silent",
         "pub": "Konami",
-        "desc": "Terror psicológico angustiante em névoas densas procurando sua filha em cidade abandonada maldita."
+        "desc": "Terror psicológico angstioso em névoas densas procurando sua filha em cidade abandonada maldita."
       },
       {
         "title": "Gran Turismo 2",
@@ -1141,7 +1229,7 @@
         "genre": "Run and Gun",
         "dev": "Konami",
         "pub": "Konami",
-        "desc": "Perseguição a xerifes corruptos e bandidos no faroeste com tiroteios coloridos em 4 pistoleiros."
+        "desc": "Perseguição a xerifes corruptos e bandidos no faroeste com tiroteiros coloridos em 4 pistoleiros."
       },
       {
         "title": "Galaga",
@@ -1222,12 +1310,28 @@
     "emulatorCore": "fbneo",
     "gameDefs": [
       {
-        "title": "The King of Fighters '98",
+        "title": "Metal Slug",
+        "year": "1996",
+        "genre": "Run and Gun",
+        "dev": "Nazca / SNK",
+        "pub": "SNK",
+        "desc": "A Trilogia de Ouro: Metal Slug (do 1 ao 5 e X). São leves, viciantes e visualmente impressionantes no navegador."
+      },
+      {
+        "title": "Metal Slug 2",
         "year": "1998",
-        "genre": "Luta",
+        "genre": "Run and Gun",
         "dev": "SNK",
         "pub": "SNK",
-        "desc": "Equilíbrio máximo em combate tático 3x3 no ápice da prestigiada saga de lutadores da SNK."
+        "desc": "A Trilogia de Ouro: Metal Slug (do 1 ao 5 e X). São leves, viciantes e visualmente impressionantes no navegador."
+      },
+      {
+        "title": "Metal Slug X",
+        "year": "1999",
+        "genre": "Run and Gun",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "A Trilogia de Ouro: Metal Slug (do 1 ao 5 e X). São leves, viciantes e visualmente impressionantes no navegador."
       },
       {
         "title": "Metal Slug 3",
@@ -1235,7 +1339,63 @@
         "genre": "Run and Gun",
         "dev": "SNK",
         "pub": "SNK",
-        "desc": "Aventura absurda contra invasões de alienígenas mutantes, zumbis famintos e robôs gigantes gigantescos."
+        "desc": "A Trilogia de Ouro: Metal Slug (do 1 ao 5 e X). São leves, viciantes e visualmente impressionantes no navegador."
+      },
+      {
+        "title": "Metal Slug 4",
+        "year": "2002",
+        "genre": "Run and Gun",
+        "dev": "Mega Enterprise / SNK",
+        "pub": "SNK",
+        "desc": "A Trilogia de Ouro: Metal Slug (do 1 ao 5 e X). São leves, viciantes e visualmente impressionantes no navegador."
+      },
+      {
+        "title": "Metal Slug 5",
+        "year": "2003",
+        "genre": "Run and Gun",
+        "dev": "SNK Playmore",
+        "pub": "SNK Playmore",
+        "desc": "A Trilogia de Ouro: Metal Slug (do 1 ao 5 e X). São leves, viciantes e visualmente impressionantes no navegador."
+      },
+      {
+        "title": "The King of Fighters '97",
+        "year": "1997",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Jogos de Luta Supremos: The King of Fighters (especialmente '97, '98 e 2002), Samurai Shodown II e IV."
+      },
+      {
+        "title": "The King of Fighters '98",
+        "year": "1998",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Jogos de Luta Supremos: The King of Fighters (especialmente '97, '98 e 2002), Samurai Shodown II e IV."
+      },
+      {
+        "title": "The King of Fighters 2002",
+        "year": "2002",
+        "genre": "Luta",
+        "dev": "Eolith / SNK",
+        "pub": "SNK",
+        "desc": "Jogos de Luta Supremos: The King of Fighters (especialmente '97, '98 e 2002), Samurai Shodown II e IV."
+      },
+      {
+        "title": "Samurai Shodown II",
+        "year": "1994",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Jogos de Luta Supremos: The King of Fighters (especialmente '97, '98 e 2002), Samurai Shodown II e IV."
+      },
+      {
+        "title": "Samurai Shodown IV",
+        "year": "1996",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Jogos de Luta Supremos: The King of Fighters (especialmente '97, '98 e 2002), Samurai Shodown II e IV."
       },
       {
         "title": "Garou: Mark of the Wolves",
@@ -1246,76 +1406,12 @@
         "desc": "Refinadíssimo clássico protagonizado por Rock Howard com animações suntuosas e combates técnicos."
       },
       {
-        "title": "Samurai Shodown II",
-        "year": "1994",
-        "genre": "Luta",
-        "dev": "SNK",
-        "pub": "SNK",
-        "desc": "Duelos mortais precisos sangrentos usando espadas feudais, focando em contra-ataques cirúrgicos."
-      },
-      {
         "title": "Sengoku 3",
         "year": "2001",
         "genre": "Beat 'em Up",
         "dev": "Noise Factory",
         "pub": "SNK",
         "desc": "Controle heróis ninja épicos desferindo combos de espada aéreos contra exércitos fantasmas do mal."
-      },
-      {
-        "title": "Shock Troopers",
-        "year": "1997",
-        "genre": "Run and Gun",
-        "dev": "Saurus",
-        "pub": "SNK",
-        "desc": "Atire em soldados mercenários em visão isométrica escolhendo seu time tático de heróis de elite."
-      },
-      {
-        "title": "Bust-A-Move",
-        "year": "1994",
-        "genre": "Puzzle",
-        "dev": "Taito",
-        "pub": "SNK",
-        "desc": "Dispare bolhas coloridas brilhantes emparelhando trincas de cores idênticas neste viciante quebra-cabeças."
-      },
-      {
-        "title": "Windjammers",
-        "year": "1994",
-        "genre": "Esporte",
-        "dev": "Data East",
-        "pub": "SNK",
-        "desc": "Disputas alucinantes jogando discos de arremesso em quadras fechadas com poderes especiais rápidos."
-      },
-      {
-        "title": "Fatal Fury Special",
-        "year": "1993",
-        "genre": "Luta",
-        "dev": "SNK",
-        "pub": "SNK",
-        "desc": "O clássico de porrada reunindo heróis como Terry Bogard e Mai Shiranui no renomado torneio."
-      },
-      {
-        "title": "Blazing Star",
-        "year": "1998",
-        "genre": "Shoot 'em Up",
-        "dev": "Yumekobo",
-        "pub": "SNK",
-        "desc": "Lindo shoot 'em up horizontal com naves em renderizações pré-renderizadas de efeito futurista exuberante."
-      },
-      {
-        "title": "Neo Turf Masters",
-        "year": "1996",
-        "genre": "Esporte",
-        "dev": "Nazca",
-        "pub": "SNK",
-        "desc": "O game de golfe mais dinâmico e relaxante e rítmico já feito com tacadas espetaculares."
-      },
-      {
-        "title": "Last Blade 2",
-        "year": "1998",
-        "genre": "Luta",
-        "dev": "SNK",
-        "pub": "SNK",
-        "desc": "Duelos dramáticos românticos feudais usando katanas, sob o sistema de luta Repel e Super Desperations."
       }
     ]
   },
@@ -1605,7 +1701,7 @@
         "genre": "FPS",
         "dev": "Studio 3DO",
         "pub": "3DO",
-        "desc": "Engenhoso shooter de terror repleto de fantasmas em vídeos digitalizados dentro de ilhas misteriosas."
+        "desc": "Engenhoso shooter de terror repleto de fantasmas in vídeos digitalizados dentro de islands misteriosas."
       },
       {
         "title": "D",
@@ -1645,7 +1741,7 @@
         "genre": "RPG Tático",
         "dev": "Silent Software",
         "pub": "3DO",
-        "desc": "Conduza tanques, jipes e helicópteros em disputas táticas para capturar bandeiras ao som de música clássica."
+        "desc": "Conduza tanques, jipes e helicópteros em disputas táticas para capturar bandeiras ao som de mudança de música clássica."
       }
     ]
   }

@@ -317,7 +317,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                                 {/* Small visual helper image */}
                                 <div className="w-10 h-10 rounded-lg bg-zinc-900 overflow-hidden relative border border-white/10 flex-shrink-0">
                                   <img 
-                                    src={game.image} 
+                                    src={game.image || undefined} 
                                     alt={game.title} 
                                     className="w-full h-full object-cover"
                                     referrerPolicy="no-referrer"
