@@ -7,6 +7,7 @@ import React, { useState, useMemo } from 'react';
 import { Game, System } from '../types';
 import { GameCard } from './GameCard';
 import { soundEngine } from './RetroSoundEngine';
+import { EmulatorPlayer } from './EmulatorPlayer';
 import { 
   ArrowLeft, Search, SlidersHorizontal, Heart, 
   Gamepad2, Sparkles, Filter, X, Zap, RotateCcw, AlertTriangle
@@ -34,7 +35,6 @@ export const GameGrid: React.FC<GameGridProps> = ({
   
   // Game Emulator simulation states
   const [activeSimulation, setActiveSimulation] = useState<Game | null>(null);
-  const [simLoadingPercent, setSimLoadingPercent] = useState(0);
 
   // Dynamic genres lists
   const availableGenres = useMemo(() => {
@@ -57,26 +57,11 @@ export const GameGrid: React.FC<GameGridProps> = ({
   const handleLaunchGame = (game: Game) => {
     soundEngine.playSelect();
     setActiveSimulation(game);
-    setSimLoadingPercent(0);
-
-    // Simulated ROM Loading sequence ticker
-    let percent = 0;
-    const interval = setInterval(() => {
-      percent += Math.floor(Math.random() * 8) + 4;
-      if (percent >= 100) {
-        percent = 100;
-        setSimLoadingPercent(percent);
-        clearInterval(interval);
-      } else {
-        setSimLoadingPercent(percent);
-      }
-    }, 120);
   };
 
   const closeSimulation = () => {
     soundEngine.playBack();
     setActiveSimulation(null);
-    setSimLoadingPercent(0);
   };
 
   return (
@@ -234,101 +219,20 @@ export const GameGrid: React.FC<GameGridProps> = ({
         )}
       </div>
 
-      {/* Retro Emulator Simulation Popup overlay mockup */}
+      {/* Real Retro Emulator Screen Overlay */}
       <AnimatePresence>
         {activeSimulation && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-[999] flex flex-col items-center justify-center p-6 text-center select-none"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            className="fixed inset-0 bg-zinc-950/98 z-[2500] flex flex-col justify-between p-2 md:p-6"
           >
-            {/* Horizontal scanline simulation */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(0,0,0,0.8)_85%)] pointer-events-none" />
-            
-            <div className="relative z-10 max-w-lg w-full flex flex-col items-center">
-              
-              {/* Spinner loader layout */}
-              <div className="relative w-28 h-28 flex items-center justify-center border-4 border-zinc-800 rounded-full bg-zinc-950 p-2 overflow-hidden mb-8 shadow-2xl">
-                {/* Rotating accent color ring */}
-                <div 
-                  className="absolute inset-0 rounded-full border-4 border-red-500 border-t-transparent animate-spin" 
-                  style={{ animationDuration: '1s' }}
-                />
-                
-                {/* Simulated game logo or favicon */}
-                <Gamepad2 className="w-10 h-10 text-white fill-white animate-bounce" />
-              </div>
-
-              {/* Title specs */}
-              <h1 className="font-retro text-sm text-red-500 tracking-widest uppercase mb-1">
-                LANÇANDO EMULADOR
-              </h1>
-              
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-white px-2 mt-4">
-                {activeSimulation.title}
-              </h2>
-
-              <p className="text-[10px] font-mono text-zinc-500 tracking-wider uppercase mt-1">
-                SISTEMA: {system.name} • PORT: EMULATOR_JS_MOCK
-              </p>
-
-              {/* Loader Slider Bar progress */}
-              <div className="w-full max-w-xs mt-8">
-                <div className="h-1.5 w-full bg-zinc-900 border border-white/5 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-red-600 to-emerald-500 transition-all duration-100 rounded-full" 
-                    style={{ width: `${simLoadingPercent}%` }}
-                  />
-                </div>
-                
-                <div className="flex justify-between items-center text-[10px] font-mono text-zinc-400 mt-2 px-1 tracking-wider">
-                  <span>LOADING ROM...</span>
-                  <span className="font-bold text-emerald-400 tabular-nums">{simLoadingPercent}%</span>
-                </div>
-              </div>
-
-              {/* Simulator info checklist */}
-              <div className="mt-10 p-5 bg-[#121216]/75 border border-white/5 rounded-xl text-left w-full">
-                <h3 className="text-xs font-retro text-zinc-400 tracking-widest uppercase pb-2.5 border-b border-white/5 flex items-center gap-1.5 font-bold">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                  Arquitetura Pronta
-                </h3>
-                
-                <p className="text-zinc-600 text-[11px] mt-3 leading-relaxed font-sans first-letter:uppercase">
-                  Esta aplicação foi arquitetada para integração nativa com o <b className="text-zinc-300">EmulatorJS</b>. No futuro, ao acionar <span className="text-zinc-300">Lançar</span>, o container instanciará a ROM <code className="text-emerald-400">{activeSimulation.romUrl}</code> diretamente no renderizador webAssembly da core <code className="text-[#E60012]">{system.emulatorCore}</code>.
-                </p>
-
-                <div className="flex items-center justify-between mt-5 pt-3.5 border-t border-white/5 text-[9px] font-mono text-zinc-500 tracking-wider uppercase font-medium">
-                  <span>DATABASE: COMPLIANT</span>
-                  <span>OAUTH: IN_PLACE</span>
-                </div>
-              </div>
-
-              {/* Action back */}
-              {simLoadingPercent === 100 ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center gap-3 w-full mt-6"
-                >
-                  <button
-                    onClick={closeSimulation}
-                    className="w-full sm:w-auto px-10 py-3.5 bg-gradient-to-r from-red-600 to-emerald-500 hover:from-red-500 hover:to-emerald-400 text-white font-retro text-[9px] rounded-full border-t border-white/20 shadow-[0_4px_15px_rgba(230,0,18,0.25)] transition-all cursor-pointer font-extrabold uppercase tracking-widest"
-                  >
-                    Encerrar Emulação
-                  </button>
-                  <span className="text-[8px] font-mono text-zinc-600">APOIE O DEDO EM B OU ESC PARA SAIR</span>
-                </motion.div>
-              ) : (
-                <button
-                  onClick={closeSimulation}
-                  className="mt-6 px-6 py-2 border border-white/10 hover:border-red-500 hover:text-red-500 text-zinc-500 text-xs font-mono uppercase font-bold rounded-lg transition-colors cursor-pointer"
-                >
-                  Cancelar
-                </button>
-              )}
-            </div>
+            <EmulatorPlayer
+              system={system}
+              game={activeSimulation}
+              onClose={closeSimulation}
+            />
           </motion.div>
         )}
       </AnimatePresence>

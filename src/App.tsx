@@ -22,6 +22,16 @@ import { initAuth } from './utils/googleDrive';
 import { Sparkles, Gamepad2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+// Force synchronous route reset on application init/reload to prevent landing inside emulators
+if (typeof window !== 'undefined') {
+  if (window.location.hash) {
+    window.location.hash = '';
+  }
+  if (window.location.pathname !== '/') {
+    window.history.replaceState(null, '', '/');
+  }
+}
+
 export default function App() {
   // Dynamic JSON database state
   const [systems, setSystems] = useState<System[]>(systemsData);
@@ -137,7 +147,7 @@ export default function App() {
   }, [isGlobalSearchOpen]);
 
   // Path-based HTML5 Location Router Synchronization
-  const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
+  const [currentPath, setCurrentPath] = useState<string>('/');
 
   useEffect(() => {
     const handlePopState = () => {

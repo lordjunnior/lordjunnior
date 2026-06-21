@@ -7,6 +7,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
+import { EmulatorPlayer } from './EmulatorPlayer';
 import { 
   ArrowLeft, 
   Search, 
@@ -41,8 +42,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [filterFavorites, setFilterFavorites] = useState(false);
   const [emulatingGame, setEmulatingGame] = useState<Game | null>(null);
-  const [emulatorLoading, setEmulatorLoading] = useState(false);
-  const [emulatorActive, setEmulatorActive] = useState(false);
 
   const filteredGames = useMemo(() => {
     return system.games.filter(game => {
@@ -70,21 +69,11 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   const handleLaunchGame = (game: Game) => {
     soundEngine.playSelect();
     setEmulatingGame(game);
-    setEmulatorLoading(true);
-    setEmulatorActive(false);
-
-    // Simulate retro boot sequence
-    setTimeout(() => {
-      setEmulatorLoading(false);
-      setEmulatorActive(true);
-    }, 2200);
   };
 
   const handleCloseEmulator = () => {
     soundEngine.playBack();
     setEmulatingGame(null);
-    setEmulatorActive(false);
-    setEmulatorLoading(false);
   };
 
   // Keyboard navigation for gamelist
@@ -404,131 +393,20 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         </div>
       </footer>
 
-      {/* Retro Game Simulation Pop-over modal - Setup for full customizable EmulatorJS Integration */}
+      {/* Real Retro Emulator Screen Overlay */}
       <AnimatePresence>
         {emulatingGame && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[2000] flex flex-col justify-between"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            className="fixed inset-0 bg-zinc-950/98 z-[2000] flex flex-col justify-between p-2 md:p-6"
           >
-            {/* Emulator Header */}
-            <header className="bg-zinc-950/80 border-b border-white/5 p-4 flex justify-between items-center relative z-10">
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping mr-1" />
-                <span className="font-retro text-[10px] text-zinc-300">EMULANDO VIA EMULATORJS</span>
-                <span className="text-zinc-500">|</span>
-                <span className="text-xs text-white font-bold">{emulatingGame.title} ({system.name})</span>
-              </div>
-              
-              <button
-                id="close-emulator-btn"
-                onClick={handleCloseEmulator}
-                className="px-4 py-1.5 rounded bg-red-600/10 border border-red-500/20 hover:bg-red-600 text-red-400 hover:text-white font-retro text-[9px] transition-colors cursor-pointer"
-              >
-                SAIR DA EMULAÇÃO (ESC)
-              </button>
-            </header>
-
-            {/* Simulated Game Loop Screen */}
-            <div className="flex-1 flex flex-col justify-center items-center relative bg-zinc-950 overflow-hidden">
-              
-              {emulatorLoading && (
-                <div id="emulator-boot-sequence" className="flex flex-col items-center justify-center space-y-6 max-w-md px-6 text-center">
-                  <div className="w-16 h-16 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin" />
-                  <div>
-                    <h5 className="font-retro text-xs text-emerald-400 mb-2">INICIALIZANDO MOTOR</h5>
-                    <p className="text-xs text-zinc-400 font-mono tracking-widest uppercase">Carregando Core: {system.emulatorCore}.so</p>
-                    <p className="text-[10px] text-zinc-600 mt-2 font-mono truncate max-w-xs">{emulatingGame.romUrl}</p>
-                  </div>
-                  <div className="bg-zinc-900 border border-white/5 p-4 rounded-xl text-left w-full text-[11px] font-mono text-zinc-400 space-y-1">
-                    <p className="text-emerald-500">✔ EmulatorJS API loaded.</p>
-                    <p className="text-emerald-500">✔ Rom size calculated (OK)</p>
-                    <p className="text-zinc-500">✔ Mapping digital keyboard triggers...</p>
-                  </div>
-                </div>
-              )}
-
-              {emulatorActive && (
-                <div id="emulator-game-canvas-screen" className="relative w-full h-full max-w-[1200px] aspect-[4/3] flex flex-col justify-center items-center bg-black border border-white/10 rounded-lg shadow-inner z-10 overflow-hidden">
-                  
-                  {/* Real visual placeholder showcasing retro aesthetic */}
-                  <img
-                    id="active-emulator-view"
-                    src={emulatingGame.image || undefined}
-                    alt={emulatingGame.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-70 filter saturate-[1.12]"
-                  />
-
-                  {/* Dark overlay for ambient menu */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/75 flex flex-col justify-between p-8" />
-
-                  {/* Top Game UI HUD representation */}
-                  <div className="relative w-full flex justify-between items-center text-xs font-mono px-4">
-                    <div className="bg-black/60 px-3 py-1.5 rounded-md border border-white/10 text-emerald-400 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      <span>FPS: 60.0</span>
-                    </div>
-                    <div className="bg-black/60 px-3 py-1.5 rounded-md border border-white/10 text-yellow-400 flex items-center gap-1.5">
-                      <Cpu className="w-3.5 h-3.5" />
-                      <span>CORE: {system.emulatorCore.toUpperCase()}</span>
-                    </div>
-                  </div>
-
-                  {/* Center UI Interactive controls info during emulation */}
-                  <div className="relative text-center max-w-lg bg-zinc-950/85 backdrop-blur-md p-6 border border-white/10 rounded-2xl shadow-2xl mx-6">
-                    <h6 className="font-retro text-sm text-emerald-400 mb-2">{emulatingGame.title}</h6>
-                    <p className="text-xs text-zinc-300 leading-relaxed font-mono mt-2 mb-4">
-                      Para emulação ao vivo, faça upload da ROM real do jogo ou configure arquivos no diretório correspondente. A estrutura já possui suporte a mapeamento retro-virtual.
-                    </p>
-
-                    <p className="font-retro text-[9px] text-zinc-500 tracking-wider mb-3">CONTRÓLES DO TECLADO SIMULADO</p>
-                    <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-left max-w-sm mx-auto">
-                      <div className="flex items-center justify-between bg-white/5 py-1 px-2.5 rounded">
-                        <span className="text-zinc-500">DIRECIONAIS:</span>
-                        <span className="text-zinc-200">A, S, D, W</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white/5 py-1 px-2.5 rounded">
-                        <span className="text-zinc-500">BOTÃO A:</span>
-                        <span className="text-zinc-200">K</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white/5 py-1 px-2.5 rounded">
-                        <span className="text-zinc-500">BOTÃO B:</span>
-                        <span className="text-zinc-200">L</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white/5 py-1 px-2.5 rounded">
-                        <span className="text-zinc-500">SELECT:</span>
-                        <span className="text-zinc-200">SPACE</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom UI Bar */}
-                  <div className="relative w-full flex items-center justify-center p-4">
-                    <button
-                      id="close-simulation"
-                      onClick={handleCloseEmulator}
-                      className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-lg font-mono text-xs transition active:scale-95 duration-100 font-bold tracking-wider cursor-pointer shadow-lg"
-                    >
-                      Pausar & Sair
-                    </button>
-                  </div>
-
-                </div>
-              )}
-
-            </div>
-
-            {/* Emulator Footer HUD */}
-            <footer className="bg-zinc-950/80 border-t border-white/5 px-8 py-3 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-zinc-500">
-              <div>
-                ROM carregada: <span className="text-zinc-300">{emulatingGame.title}.gba</span>
-              </div>
-              <div className="flex items-center gap-4 text-[10px] text-zinc-500 font-retro">
-                <span className="flex items-center gap-1"><span className="bg-zinc-900 text-zinc-200 px-1 py-0.5 rounded text-[8px]">ESC</span> Fechar Player</span>
-              </div>
-            </footer>
+            <EmulatorPlayer
+              system={system}
+              game={emulatingGame}
+              onClose={handleCloseEmulator}
+            />
           </motion.div>
         )}
       </AnimatePresence>
