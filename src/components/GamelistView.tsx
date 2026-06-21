@@ -18,7 +18,7 @@ interface GamelistViewProps {
   toggleMute: () => void;
 }
 
-// Biblioteca de Sinopses Histórias em PT-BR para Grandes Clássicos
+// Biblioteca de Sinopses Históricas em PT-BR para Grandes Clássicos
 const gameDescriptions: Record<string, string> = {
   "super mario bros.": "O clássico de plataforma lendário pioneiro que salvou a indústria dos videogames em 1985, estabeleceu as mecânicas de rolagem lateral e definiu o encanador mais famoso do planeta.",
   "super mario bros. 3": "Aclamado como uma das maiores obras-primas da era 8-bits. Introduziu o emblemático mapa-múndi de seleção de fases, inventários de itens e transformações icônicas como a Super Leaf (Mário Guaxinim) e a Tanooki Suit.",
@@ -28,7 +28,7 @@ const gameDescriptions: Record<string, string> = {
   "mega man": "O icônico robô azul da Capcom estreia revolucionando a ação em plataformas com seu sistema de escolha livre de fases e a mecânica inovadora de absorver os poderes dos chefes derrotados (Robot Masters).",
   "sonic the hedgehog": "A resposta veloz e rebelde da Sega que redefiniu os jogos de plataforma nos anos 90. Com loops em alta velocidade, design de fases verticalizado e uma trilha sonora memorável, estabeleceu o ouriço como ícone mundial.",
   "donkey kong country": "Um marco tecnológico revolucionário que utilizou gráficos pré-renderizados em estações Advanced Computer Modeling (ACM). Transformou o Super Nintendo com física soberba, trilha sonora imersiva e jogabilidade impecável em dupla.",
-  "chrono trigger": "Considerado por many o maior RPG de todos os tempos. Desenvolvido pelo 'Dream Team' (Hironobu Sakaguchi, Yuji Horii e Akira Toriyama), revolucionou o gênero com viagens no tempo, múltiplos finais e combate dinâmico sem transição de tela.",
+  "chrono trigger": "Considerado por muitos o maior RPG de todos os tempos. Desenvolvido pelo 'Dream Team' (Hironobu Sakaguchi, Yuji Horii e Akira Toriyama), revolucionou o gênero com viagens no tempo, múltiplos finais e combate dinâmico sem transição de tela.",
   "super metroid": "A obra de arte mais emblemática da ficção espacial 16-bits. Atmosfera sufocante, progresso orgânico primoroso no planeta Zebes e uma narrativa silenciosa que dita o padrão do gênero de exploração."
 };
 
@@ -202,7 +202,7 @@ const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> 
       alt=""
       onError={handleError}
       onLoad={() => setLoaded(true)}
-      className={`${className} transition-opacity duration-350 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+      className={`${className} transition-opacity duration-355 ${loaded ? 'opacity-100' : 'opacity-0'}`}
       loading="lazy"
       referrerPolicy="no-referrer"
     />
@@ -354,7 +354,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       className="fixed inset-0 w-full h-screen font-sans text-white overflow-hidden bg-[#040406] flex flex-col justify-between select-none"
     >
       
-      {/* CAMADA 1: PLAYER DE VÍDEO GAMEPLAY (ATRÁS DO OVERLAY DA TV ARCADIA) */}
+      {/* CAMADA 1: PLAYER DE VÍDEO (EMBAIXO DA MÁSCARA TRANSPARENTE DA TV) */}
       <div className="absolute top-[17.5%] left-[6.8%] w-[33.6vw] aspect-[4/3] bg-black z-10 overflow-hidden rounded-[10px]">
         {selectedGame && !videoError && (
           <video
@@ -364,7 +364,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             loop
             muted={isMuted}
             playsInline
-            className={`w-full h-full object-cover filter contrast-[1.15] saturate-[1.10] brightness-[1.02] transition-opacity duration-300 ${videoLoaded ? 'opacity-90' : 'opacity-0'}`}
+            className="w-full h-full object-cover filter contrast-[1.15] saturate-[1.10] brightness-[1.02]"
             onPlay={() => setVideoLoaded(true)}
             onLoadedData={() => setVideoLoaded(true)}
             onError={() => {
@@ -374,7 +374,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           />
         )}
         
-        {/* Fallback limpo caso o vídeo falhe */}
         {(!videoLoaded || videoError) && selectedGame && (
           <div className="absolute inset-0 flex items-center justify-center p-4 bg-zinc-950">
             <GameCover game={selectedGame} systemId={system.id} className="max-h-full max-w-full object-contain rounded" />
@@ -387,7 +386,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         />
       </div>
 
-      {/* CAMADA 2: OVERLAY MÁSCARA DO CONSOLE COM FUNDO VAZADO TRANSPARENTE */}
+      {/* CAMADA 2: A SUA MÁSCARA PNG TRANSPARENTE DA PASTA BACKGROUNDS */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
         style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
@@ -402,43 +401,23 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Voltar
           </button>
-          
-          <img 
-            src={`/logos/${consoleId}.png`} 
-            alt="" 
-            className="h-6 w-auto object-contain ml-2 filter drop-shadow" 
-            onError={(e) => { e.currentTarget.style.display = 'none'; }}
-          />
+          <img src={`/logos/${consoleId}.png`} alt="" className="h-6 w-auto object-contain ml-2 filter drop-shadow" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
         </div>
-
         <div className="flex items-center gap-3">
           <div className="flex items-center bg-black/50 border border-white/5 rounded-md px-3 py-1 backdrop-blur">
             <Search className="w-3 h-3 text-white/40 mr-1.5" />
-            <input 
-              ref={searchInputRef}
-              type="text"
-              placeholder="Buscar jogo..."
-              value={searchTerm}
-              onChange={(e) => { setSearchTerm(e.target.value); setSelectedGameIndex(0); }}
-              className="bg-transparent border-none text-[10px] text-white focus:outline-none w-32 placeholder-white/20 py-0"
-            />
+            <input ref={searchInputRef} type="text" placeholder="Buscar jogo..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setSelectedGameIndex(0); }} className="bg-transparent border-none text-[10px] text-white focus:outline-none w-32 placeholder-white/20 py-0" />
           </div>
         </div>
       </div>
 
-      {/* CAMADA 3: CARROSSEL HORIZONTAL DE CARTUCHOS EM ESFERA 3D */}
+      {/* CAMADA 3: CARROSSEL DE CARTUCHOS EM ESFERA 3D (CENTRALIZADO EMBAIXO) */}
       <div className="absolute bottom-[20%] left-0 right-0 h-[280px] z-30 flex flex-col justify-end pointer-events-none">
-        <div 
-          ref={listContainerRef} 
-          className="flex items-center overflow-x-auto gap-8 py-4 no-scrollbar scroll-smooth snap-x w-full pointer-events-auto"
-          style={{ paddingLeft: '40%', paddingRight: '40%' }}
-        >
+        <div ref={listContainerRef} className="flex items-center overflow-x-auto gap-8 py-4 no-scrollbar scroll-smooth snap-x w-full pointer-events-auto" style={{ paddingLeft: '40%', paddingRight: '40%' }}>
           {filteredGames.map((game, idx) => {
             const offset = idx - selectedGameIndex;
             const isSelected = idx === selectedGameIndex;
-
             if (Math.abs(offset) > 3) return null;
-
             const distance = Math.abs(offset);
 
             return (
@@ -454,12 +433,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 transition={{ type: 'spring', stiffness: 160, damping: 18 }}
                 className="shrink-0 relative focus:outline-none cursor-pointer flex flex-col items-center select-none"
               >
-                <div 
-                  className="relative w-36 h-48 rounded-xl overflow-hidden border transition-all duration-300 shadow-2xl"
-                  style={isSelected ? { borderColor: themeColor, boxShadow: `0px 10px 30px ${themeColor}35` } : { borderColor: 'rgba(255,255,255,0.05)' }}
-                >
-                  <div className="absolute inset-x-0 top-0 h-[40%] bg-gradient-to-b from-white/10 to-transparent z-10" />
-                  <div className="absolute left-0 inset-y-0 w-2 bg-gradient-to-b from-zinc-800 to-zinc-950 z-20 opacity-80" />
+                <div className="relative w-36 h-48 rounded-xl overflow-hidden border transition-all duration-300 shadow-2xl" style={isSelected ? { borderColor: themeColor, boxShadow: `0px 10px 30px ${themeColor}35` } : { borderColor: 'rgba(255,255,255,0.05)' }}>
                   <GameCover game={game} systemId={system.id} className="w-full h-full object-cover" />
                 </div>
               </motion.button>
@@ -468,36 +442,24 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         </div>
       </div>
 
-      {/* TEXTO DA SINOPSE METADATA (BAIXO ESQUERDA DA TELA) */}
+      {/* TEXTO DA SINOPSE METADATA (BAIXO ESQUERDA) */}
       <div className="absolute bottom-14 left-10 z-30 max-w-xl text-left pointer-events-none">
         <AnimatePresence mode="wait">
           {selectedGame && (
-            <motion.div
-              key={`meta-text-${selectedGame.id}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
+            <motion.div key={`meta-text-${selectedGame.id}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
               <div className="flex items-center gap-2 mb-1 text-[9px] font-mono text-zinc-500">
-                <span className="uppercase font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: `${themeColor}20`, color: themeColor }}>
-                  {selectedGame.genre}
-                </span>
+                <span className="uppercase font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: `${themeColor}20`, color: themeColor }}>{selectedGame.genre}</span>
                 <span>•</span>
                 <span>{selectedGame.developer.toUpperCase()}</span>
               </div>
-              <h2 className="text-xl font-display font-black tracking-tight text-white uppercase mb-1">
-                {selectedGame.title}
-              </h2>
-              <p className="text-[11px] text-zinc-400 font-sans font-medium leading-relaxed line-clamp-2">
-                {getRichDescription(selectedGame.title, system.name)}
-              </p>
+              <h2 className="text-xl font-display font-black tracking-tight text-white uppercase mb-1">{selectedGame.title}</h2>
+              <p className="text-[11px] text-zinc-400 font-sans font-medium leading-relaxed line-clamp-2">{getRichDescription(selectedGame.title, system.name)}</p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* LADO DIREITO INFERIOR: METADADOS BENTO & BOTÃO PLAY EXCLUSIVO */}
+      {/* INFO BENTO & BOTÃO PLAY EXCLUSIVO (BAIXO DIREITA) */}
       <div className="absolute bottom-14 right-10 z-30 flex items-end gap-4 pointer-events-auto">
         {selectedGame && (
           <>
@@ -512,19 +474,15 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
               </div>
             </div>
 
-            <button
-              onClick={() => selectedGame && handleLaunchGame(selectedGame)}
-              className="h-9 px-8 bg-gradient-to-r hover:brightness-110 text-white font-retro text-[9px] rounded-lg border-t border-white/10 transition-all font-black tracking-widest flex items-center justify-center cursor-pointer shadow-lg active:scale-95"
-              style={{ backgroundColor: themeColor }}
-            >
+            <button onClick={() => selectedGame && handleLaunchGame(selectedGame)} className="h-9 px-8 bg-gradient-to-r hover:brightness-110 text-white font-retro text-[9px] rounded-lg border-t border-white/10 transition-all font-black tracking-widest flex items-center justify-center cursor-pointer shadow-lg active:scale-95" style={{ backgroundColor: themeColor }}>
               ➔ INICIAR JOGO
             </button>
           </>
         )}
       </div>
 
-      {/* RODAPÉ DO TEMA RETRO */}
-      <footer className="absolute bottom-0 inset-x-0 h-8 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[9px] font-bold text-zinc-600 tracking-wider">
+      {/* RODAPÉ */}
+      <footer className="absolute bottom-0 inset-x-0 h-8 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[9px] font-bold text-zinc-650 tracking-wider">
         <div>◀▶ SELECIONAR CARTUCHO • ENTER CONFIRMAR</div>
         <div className="font-mono">{filteredGames.length} ROMS DETECTADAS</div>
       </footer>
@@ -551,6 +509,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
