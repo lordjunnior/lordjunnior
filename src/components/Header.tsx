@@ -12,7 +12,6 @@ interface HeaderProps {
   title?: string;
   onGoBack?: () => void;
   onSearchClick: () => void;
-  onDriveClick: () => void;
   onSettingsClick: () => void;
 }
 
@@ -22,7 +21,6 @@ export const Header: React.FC<HeaderProps> = ({
   title,
   onGoBack,
   onSearchClick,
-  onDriveClick,
   onSettingsClick
 }) => {
   const [time, setTime] = useState<string>('12:00:00');
@@ -67,17 +65,6 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Retro Utility Toolbar Controls */}
       <div className="flex items-center gap-3 sm:gap-6">
-        {/* Google Drive Cloud Button */}
-        <button
-          onClick={onDriveClick}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer bg-red-600/10 hover:bg-red-600/25 border-red-500/30 text-red-100 hover:text-white"
-          title="Central de Conexão Nuvem Google Drive"
-          id="btn-header-drive"
-        >
-          <Cloud className="w-3.5 h-3.5 text-red-450 animate-pulse" />
-          <span>NUVEM</span>
-        </button>
-
         {/* Global Search Button */}
         <button
           onClick={onSearchClick}

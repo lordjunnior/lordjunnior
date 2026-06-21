@@ -150,78 +150,92 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
     }
     // Wrap remote external URLs in the backend ROM proxy
     if (url.startsWith('http://') || url.startsWith('https://')) {
-      return `/api/rom-proxy?url=${encodeURIComponent(url)}`;
+      return `${window.location.origin}/api/rom-proxy?url=${encodeURIComponent(url)}`;
     }
-    return url;
+    return `${window.location.origin}${url}`;
   };
+
+  const [iframeSrc, setIframeSrc] = useState<string>('');
+
+  // Build the dynamic self-contained content with perfect variables & loader loaded via Blob URL to preserve origin matching
+  useEffect(() => {
+    if (!activeRomUrl) return;
+
+    const blobHtml = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Emulator Console</title>
+        <base href="${window.location.origin}/">
+        <style>
+          body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #09090b;
+          }
+          #emulator-container {
+            width: 100%;
+            height: 100%;
+          }
+        </style>
+      </head>
+      <body>
+        <div id="emulator-container"></div>
+        <script>
+          window.EJS_player = '#emulator-container';
+          window.EJS_core = '${ejsCore}';
+          window.EJS_gameUrl = '${getEffectiveRomUrl(activeRomUrl)}';
+          window.EJS_pathtodata = 'https://emulatorjs.org/cdn/';
+          window.EJS_startOnLoaded = true;
+          window.EJS_volume = 0.6;
+          window.EJS_AdUrl = '';
+
+          function handleLoadError() {
+            if (parent) {
+              parent.postMessage({ type: 'EJS_ERROR', message: 'Servidor EmulatorJS CDN indisponível.' }, '*');
+            }
+          }
+
+          // Capture general load failures
+          window.addEventListener('error', function(e) {
+            // Ignore handleLoadError errors since handled or benign iframe errors
+            if (e.message && e.message.includes('handleLoadError')) return;
+            if (parent) {
+              parent.postMessage({ type: 'EJS_ERROR', message: e.message || 'Erro ao carregar recurso do Core' }, '*');
+            }
+          }, true);
+        </script>
+        <script src="https://emulatorjs.org/cdn/loader.js" onerror="handleLoadError()"></script>
+      </body>
+      </html>
+    `;
+
+    const blob = new Blob([blobHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    setIframeSrc(url);
+
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [activeRomUrl, ejsCore]);
 
   const reloadEmulator = () => {
     soundEngine.playToggle();
     setIsLoading(true);
     setErrorMessage(null);
-    if (iframeRef.current) {
+    if (iframeRef.current && iframeSrc) {
       // Force iframe re-eval
-      const currentSrc = iframeRef.current.srcdoc;
-      iframeRef.current.srcdoc = '';
+      iframeRef.current.src = '';
       setTimeout(() => {
-        if (iframeRef.current) iframeRef.current.srcdoc = currentSrc;
+        if (iframeRef.current) iframeRef.current.src = iframeSrc;
       }, 50);
     }
   };
-
-  // Build the dynamic self-contained content with perfect variables & loader
-  const iframeSrcDoc = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Emulator Console</title>
-      <style>
-        body, html {
-          margin: 0;
-          padding: 0;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          background: #09090b;
-        }
-        #emulator-container {
-          width: 100%;
-          height: 100%;
-        }
-      </style>
-    </head>
-    <body>
-      <div id="emulator-container"></div>
-      <script>
-        window.EJS_player = '#emulator-container';
-        window.EJS_core = '${ejsCore}';
-        window.EJS_gameUrl = '${getEffectiveRomUrl(activeRomUrl)}';
-        window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
-        window.EJS_startOnLoaded = true;
-        window.EJS_volume = 0.6;
-        window.EJS_AdUrl = '';
-
-        function handleLoadError() {
-          if (parent) {
-            parent.postMessage({ type: 'EJS_ERROR', message: 'Servidor EmulatorJS CDN indisponível.' }, '*');
-          }
-        }
-
-        // Capture general load failures
-        window.addEventListener('error', function(e) {
-          // Ignore handleLoadError errors since handled or benign iframe errors
-          if (e.message && e.message.includes('handleLoadError')) return;
-          if (parent) {
-            parent.postMessage({ type: 'EJS_ERROR', message: e.message || 'Erro ao carregar recurso do Core' }, '*');
-          }
-        }, true);
-      </script>
-      <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js" onerror="handleLoadError()"></script>
-    </body>
-    </html>
-  `;
 
   // Listen to message events from safe sandboxed child iframe
   useEffect(() => {
@@ -310,7 +324,7 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
         <iframe
           ref={iframeRef}
           key={activeRomUrl} 
-          srcDoc={iframeSrcDoc}
+          src={iframeSrc}
           title={`Emulator Screen for ${game.title}`}
           sandbox="allow-scripts allow-same-origin allow-pointer-lock"
           className="w-full h-full border-0 bg-zinc-950 z-10"

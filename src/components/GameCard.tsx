@@ -138,7 +138,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
   const { coverUrl, loading } = useCover(game.title, systemId || '');
 
   const [currentSrc, setCurrentSrc] = useState<string>('');
-  const [imageError, setImageError] = useState<boolean>(true);
+  const [imageError, setImageError] = useState<boolean>(false);
   const [fallbackAttempt, setFallbackAttempt] = useState<number>(0);
 
   const candidates = useMemo(() => {
@@ -146,35 +146,68 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
   }, [game.title, systemId]);
 
   useEffect(() => {
-    if (loading) {
-      setImageError(true);
-      setCurrentSrc('');
+    if (candidates.length > 0) {
+      setCurrentSrc(candidates[0]);
+      setImageError(false);
+      setFallbackAttempt(1);
     } else if (coverUrl) {
       setCurrentSrc(coverUrl);
       setImageError(false);
       setFallbackAttempt(0);
+    } else if (game.image) {
+      setCurrentSrc(game.image);
+      setImageError(false);
+      setFallbackAttempt(0);
     } else {
-      // Se a RAWG API não retornou uma imagem ou ainda não está configurada,
-      // usamos o fallback do libretro-thumbnails para garantir que as capas apareçam!
-      if (candidates.length > 0) {
-        setCurrentSrc(candidates[0]);
-        setImageError(false);
-        setFallbackAttempt(1);
-      } else {
-        setImageError(true);
-      }
+      setImageError(true);
     }
-  }, [coverUrl, loading, candidates]);
+  }, [game.image, coverUrl, candidates]);
 
   const handleImageError = () => {
     const sysId = systemId || '';
     
-    // If we have remaining libretro candidates, try the next one sequentialy
-    if (fallbackAttempt > 0 && fallbackAttempt < candidates.length) {
+    // If our optimized local pre-generated cover fails, try to fall back to RAWG or remote repositories
+    if (game.image && currentSrc === game.image) {
+      if (coverUrl) {
+        setCurrentSrc(coverUrl);
+        setFallbackAttempt(0);
+      } else if (candidates.length > 0) {
+        setCurrentSrc(candidates[0]);
+        setFallbackAttempt(1);
+      } else {
+        // Fallbacks conhecidos para jogos clássicos
+        const lowerTitle = game.title.toLowerCase();
+        let manualFallbackUrl = '';
+
+        if (lowerTitle.includes('zelda') && sysId === 'nes') {
+          manualFallbackUrl = `https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The.png`;
+        } else if (lowerTitle.includes('zelda') && lowerTitle.includes('link to the past') && sysId === 'snes') {
+          manualFallbackUrl = `https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Super_Nintendo_Entertainment_System/master/Named_Boxarts/Legend%20of%20Zelda%2C%20The%20-%20A%20Link%20to%20the%20Past.png`;
+        } else if (lowerTitle.includes('yoshi') && lowerTitle.includes('island') && sysId === 'snes') {
+          manualFallbackUrl = `https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Super_Nintendo_Entertainment_System/master/Named_Boxarts/Super%20Mario%20World%202%20-%20Yoshi%27s%20Island.png`;
+        } else if (lowerTitle.includes('punch-out') && sysId === 'nes') {
+          manualFallbackUrl = `https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/master/Named_Boxarts/Mike%20Tyson%27s%20Punch-Out%21%21.png`;
+        } else if (lowerTitle.includes('double dragon ii') && sysId === 'nes') {
+          manualFallbackUrl = `https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/master/Named_Boxarts/Double%20Dragon%20II%20-%20The%20Revenge.png`;
+        } else if (lowerTitle.includes('metroid') && sysId === 'nes') {
+          manualFallbackUrl = `https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Nintendo_Entertainment_System/master/Named_Boxarts/Metroid.png`;
+        } else if (lowerTitle.includes('street fighter ii turbo') && sysId === 'snes') {
+          manualFallbackUrl = `https://raw.githubusercontent.com/libretro-thumbnails/Nintendo_-_Super_Nintendo_Entertainment_System/master/Named_Boxarts/Street%20Fighter%20II%20Turbo.png`;
+        }
+
+        if (manualFallbackUrl) {
+          setCurrentSrc(manualFallbackUrl);
+          setFallbackAttempt(candidates.length + 1);
+        } else {
+          setImageError(true);
+        }
+      }
+    } else if (fallbackAttempt > 0 && fallbackAttempt < candidates.length) {
+      // If we have remaining libretro candidates, try the next one sequentialy
       setCurrentSrc(candidates[fallbackAttempt]);
       setFallbackAttempt(prev => prev + 1);
     } else if (fallbackAttempt === 0 && candidates.length > 0) {
-      // Transition from RAWG (0) to Libretro (1)
+      // Transition to Libretro (1)
       setCurrentSrc(candidates[0]);
       setFallbackAttempt(1);
     } else {

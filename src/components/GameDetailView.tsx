@@ -27,6 +27,7 @@ import {
   Gamepad
 } from 'lucide-react';
 import { EmulatorPlayer } from './EmulatorPlayer';
+import { getGameGameplayVideoUrl } from '../utils/videoResolver';
 
 interface GameDetailViewProps {
   system: System;
@@ -144,40 +145,32 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
   isMuted,
   toggleMute,
 }) => {
-  const { data: rawgData, loading: rawgLoading } = useGameData(game.title);
+  // RAWG integration has been disabled to prevent mismatching modern game images and descriptions
+  // We strictly load 100% authentic, localized offline-compiled descriptions and vector cards
+  const rawgData = null as any;
+  const rawgLoading = false;
 
-  // Fallbacks support for game cover art
+  const candidates = useMemo(() => {
+    return getLibretroCandidates(game.title, system.id || '');
+  }, [game.title, system.id]);
+
   const [coverSrc, setCoverSrc] = useState<string>('');
   const [fallbackAttempt, setFallbackAttempt] = useState<number>(0);
 
-  const candidates = useMemo(() => {
-    return getLibretroCandidates(game.title, system.id);
-  }, [game.title, system.id]);
-
   useEffect(() => {
-    if (rawgLoading) {
-      setCoverSrc('');
-    } else if (rawgData?.cover) {
-      setCoverSrc(rawgData.cover);
-      setFallbackAttempt(0);
+    if (candidates.length > 0) {
+      setCoverSrc(candidates[0]);
+      setFallbackAttempt(1);
     } else {
-      if (candidates.length > 0) {
-        setCoverSrc(candidates[0]);
-        setFallbackAttempt(1);
-      } else {
-        setCoverSrc(game.image || '');
-        setFallbackAttempt(candidates.length + 1);
-      }
+      setCoverSrc(game.image || '');
+      setFallbackAttempt(0);
     }
-  }, [rawgData, rawgLoading, candidates, game.image]);
+  }, [game, candidates]);
 
   const handleCoverError = () => {
     if (fallbackAttempt > 0 && fallbackAttempt < candidates.length) {
       setCoverSrc(candidates[fallbackAttempt]);
       setFallbackAttempt(prev => prev + 1);
-    } else if (fallbackAttempt === 0 && candidates.length > 0) {
-      setCoverSrc(candidates[0]);
-      setFallbackAttempt(1);
     } else {
       setCoverSrc(game.image || '');
     }
@@ -344,50 +337,64 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
           {/* Left Column: Cover & System (4 columns) */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             
-            {/* Boxart Card Component */}
-            <div id="cover-card" className="relative group border border-white/10 rounded-[32px] overflow-hidden shadow-2xl bg-zinc-900 aspect-[3/4] flex items-center justify-center">
-              {rawgLoading && !coverSrc ? (
-                <div className="absolute inset-0 bg-zinc-900 animate-pulse flex flex-col items-center justify-center gap-2">
-                  <div className="w-10 h-10 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin" />
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">Buscando Capa...</span>
-                </div>
-              ) : (
-                <img
-                  id="main-cover-image"
-                  src={coverSrc || undefined}
-                  alt={game.title}
-                  onError={handleCoverError}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80" />
+            {/* Boxart Widescreen Deck Component */}
+            <div id="cover-card" className="relative group border border-white/10 rounded-3xl overflow-hidden shadow-2xl bg-zinc-950 aspect-[4/3] flex items-stretch">
               
-              {/* Badge Overlays directly on Cover */}
-              <div className="absolute top-4 left-4 bg-zinc-950/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-1.5 shadow-lg">
-                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                <span className="text-xs font-black font-mono">
-                  {rawgLoading ? '...' : (rawgData?.rating ? rawgData.rating.toFixed(1) : `${game.rating}.0`)}
-                </span>
-              </div>
-
-              {/* Console identifier bottom badge */}
-              <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    {!logoError && (
-                      <img 
-                        src={`https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/logos/${getLogoFileName(system.id)}.png`} 
-                        alt={system.name} 
-                        referrerPolicy="no-referrer"
-                        className="h-6 w-auto object-contain brightness-100"
-                        onError={() => {
-                          setLogoError(true);
-                        }}
-                      />
-                    )}
-                    <span className="text-[10px] uppercase font-retro text-emerald-400 glow-active">{system.logo}</span>
+              <div className="flex-1 relative bg-black overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.95)]">
+                {rawgLoading && !coverSrc ? (
+                  <div className="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center gap-2 z-10">
+                    <div className="w-8 h-8 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin" />
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-500">Buscando Capa...</span>
                   </div>
-                  <p className="text-lg font-black font-display text-white mt-1 leading-none">{game.title}</p>
+                ) : (
+                  <>
+                    {/* The Video Stream Gameplay Screen of the Game */}
+                    <video
+                      key={`game-video-${game.title}`}
+                      src={getGameGameplayVideoUrl(system.id, game.title)}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover opacity-90 transition-opacity absolute inset-0 z-10"
+                      onError={(e) => {
+                        // Fallback completely to cover art on error
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
+
+                    {/* Cover poster image as default background or if video fails */}
+                    <img
+                      id="main-cover-image"
+                      src={coverSrc || game.image || undefined}
+                      alt={game.title}
+                      onError={handleCoverError}
+                      className="absolute inset-0 w-full h-full object-cover z-0"
+                    />
+                  </>
+                )}
+
+                {/* Glass Reflection Curve Overlay & vignette */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.02] to-white/[0.08] pointer-events-none z-20" />
+                
+                {/* Modern Inner Bezel Shadow */}
+                <div className="absolute inset-0 shadow-[inset_0_0_25px_rgba(0,0,0,0.85)] pointer-events-none z-20" />
+                
+                {/* Elegant Phosphor Scanlines overlay */}
+                <div 
+                  className="absolute inset-0 pointer-events-none opacity-15 mix-blend-overlay z-20"
+                  style={{
+                    backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.15) 50%)',
+                    backgroundSize: '100% 4px'
+                  }}
+                />
+
+                {/* Star rating overlay indicator */}
+                <div className="absolute top-3 left-3 bg-zinc-950/85 backdrop-blur-sm px-2 py-1 rounded-full border border-white/10 flex items-center gap-1 shadow-lg z-30">
+                  <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                  <span className="text-[10px] font-black font-mono leading-none">
+                    {rawgLoading ? '...' : (rawgData?.rating ? rawgData.rating.toFixed(1) : `${game.rating}.0`)}
+                  </span>
                 </div>
               </div>
             </div>

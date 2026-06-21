@@ -12,13 +12,12 @@ import { Footer } from './components/Footer';
 import { SettingsModal } from './components/SettingsModal';
 import { SystemCarousel } from './components/SystemCarousel';
 import { GameGrid } from './components/GameGrid';
+import { GamelistView } from './components/GamelistView';
 import { GameDetailView } from './components/GameDetailView';
 import { EmulatorPlayer } from './components/EmulatorPlayer';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
-import { GoogleDriveModal } from './components/GoogleDriveModal';
 import { getGameSlug, findGameBySlug } from './utils/routeUtils';
 import { soundEngine } from './components/RetroSoundEngine';
-import { initAuth } from './utils/googleDrive';
 import { Sparkles, Gamepad2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -36,12 +35,6 @@ export default function App() {
   // Dynamic JSON database state
   const [systems, setSystems] = useState<System[]>(systemsData);
   const [isLoadingDb, setIsLoadingDb] = useState<boolean>(true);
-  const [isDriveOpen, setIsDriveOpen] = useState<boolean>(false);
-
-  // Initialize Firebase state listener
-  useEffect(() => {
-    initAuth();
-  }, []);
 
   useEffect(() => {
     fetch('/db.json')
@@ -53,25 +46,29 @@ export default function App() {
       })
       .then((data) => {
         const parsed = parseRawSystems(data);
-        
-        // Merge with any custom games imported from Google Drive inside localStorage
-        const merged = parsed.map(sys => {
-          const custom = localStorage.getItem(`retro_custom_system_${sys.id}`);
+        const parsedMap = new Map<string, System>();
+        parsed.forEach(sys => parsedMap.set(sys.id, sys));
+
+        // Let's iterate through the complete baseline systemsData, updating only the games/details from parsed list if available, keeping everything else fully intact
+        const merged = systemsData.map(initialSys => {
+          const updatedSys = parsedMap.get(initialSys.id) || initialSys;
+          
+          const custom = localStorage.getItem(`retro_custom_system_${initialSys.id}`);
+          let updatedGames = [...updatedSys.games];
           if (custom) {
             try {
               const customGames = JSON.parse(custom);
-              const nonDuplicated = customGames.filter((cg: Game) => !sys.games.some(g => g.id === cg.id));
-              const updatedGames = [...sys.games, ...nonDuplicated];
-              return {
-                ...sys,
-                gameCount: updatedGames.length,
-                games: updatedGames
-              };
+              const nonDuplicated = customGames.filter((cg: Game) => !updatedGames.some(g => g.id === cg.id));
+              updatedGames = [...updatedGames, ...nonDuplicated];
             } catch (e) {
-              console.error('[RetroHub] Erro ao analisar jogos customizados do localStorage de: ' + sys.id, e);
+              console.error('[RetroHub] Erro ao analisar jogos customizados do localStorage de: ' + initialSys.id, e);
             }
           }
-          return sys;
+          return {
+            ...updatedSys,
+            gameCount: updatedGames.length,
+            games: updatedGames
+          };
         });
 
         setSystems(merged);
@@ -84,21 +81,21 @@ export default function App() {
         // Fallback merge
         const mergedFallback = systemsData.map(sys => {
           const custom = localStorage.getItem(`retro_custom_system_${sys.id}`);
+          let updatedGames = [...sys.games];
           if (custom) {
             try {
               const customGames = JSON.parse(custom);
-              const nonDuplicated = customGames.filter((cg: Game) => !sys.games.some(g => g.id === cg.id));
-              const updatedGames = [...sys.games, ...nonDuplicated];
-              return {
-                ...sys,
-                gameCount: updatedGames.length,
-                games: updatedGames
-              };
+              const nonDuplicated = customGames.filter((cg: Game) => !updatedGames.some(g => g.id === cg.id));
+              updatedGames = [...updatedGames, ...nonDuplicated];
             } catch (e) {
               console.error(e);
             }
           }
-          return sys;
+          return {
+            ...sys,
+            gameCount: updatedGames.length,
+            games: updatedGames
+          };
         });
 
         setSystems(mergedFallback);
@@ -317,7 +314,6 @@ export default function App() {
         title={activeScreen === 'gamelist' ? currentSystem.name : undefined}
         onGoBack={activeScreen === 'gamelist' ? handleReturnToCarousel : undefined}
         onSearchClick={() => setIsGlobalSearchOpen(true)}
-        onDriveClick={() => setIsDriveOpen(true)}
         onSettingsClick={() => setIsSettingsOpen(true)}
       />
 
@@ -343,20 +339,17 @@ export default function App() {
           ) : (
             <motion.div
               key="gamelist-screen"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
+              initial={{ opacity: 0, scale: 0.82 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.82 }}
+              transition={{ type: 'spring', stiffness: 140, damping: 15 }}
               className="w-full flex-1 flex flex-col min-h-0"
             >
-              <GameGrid
+              <GamelistView
                 system={currentSystem}
-                onGoBack={handleReturnToCarousel}
-                isSearchActive={isSearchActive}
-                setSearchActive={setSearchActive}
-                onViewDetails={(game) => {
-                  navigateToPath(`/game/${getGameSlug(currentSystem.id, game.title)}`);
-                }}
+                onBack={handleReturnToCarousel}
+                isMuted={isMuted}
+                toggleMute={() => setIsMuted(prev => !prev)}
               />
             </motion.div>
           )}
@@ -393,16 +386,7 @@ export default function App() {
             setCarouselIndex(sysIndex);
             window.location.hash = `#/system/${system.id}`;
           }
-        }}
-      />
-
-      {/* Cybernetic Google Drive cloud coordinator panel */}
-      <GoogleDriveModal
-        isOpen={isDriveOpen}
-        onClose={() => setIsDriveOpen(false)}
-        systems={systems}
-        setSystems={setSystems}
-        onPlayCustomRom={handlePlayCustomRom}
+         }}
       />
 
       {/* Settings Modal containing retrograde preferences */}

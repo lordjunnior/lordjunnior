@@ -8,10 +8,18 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
+import { buildDatabase } from "./src/utils/generateDb";
 
 dotenv.config();
 
 async function startServer() {
+  // Build and compile the local retro db.json with exact titles, links and clean logos
+  try {
+    buildDatabase();
+  } catch (dbErr) {
+    console.error("[DatabaseCompiler] Failure dynamically generating DB:", dbErr);
+  }
+
   const app = express();
   const PORT = 3000;
 

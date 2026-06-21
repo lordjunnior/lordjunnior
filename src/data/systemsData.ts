@@ -4,7 +4,7 @@
  */
 
 import { System, Game } from '../types';
-import rawSystemsDef from '../../public/db.json';
+import rawSystemsDef from './systems.json';
 import { resolveGameRomUrl } from '../utils/romResolver';
 
 // Helper to generate clean, URL-safe game slug matching the asset compiler
@@ -32,8 +32,8 @@ export const parseRawSystems = (rawList: any[]): System[] => {
         players: '1-2 Jogadores',
         rating: idx % 3 === 0 ? 5 : 4,
         description: gd.desc,
-        image: gd.coverUrl || `/covers/${slug}.svg`,
-        romUrl: resolveGameRomUrl(sys.id, gd.title),
+        image: `/covers/${slug}.svg`,
+        romUrl: gd.romUrl || resolveGameRomUrl(sys.id, gd.title),
         favorite: idx < 3
       };
     });
