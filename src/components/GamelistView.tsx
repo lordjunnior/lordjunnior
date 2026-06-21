@@ -33,14 +33,14 @@ interface GamelistViewProps {
 const gameDescriptions: Record<string, string> = {
   "super mario bros.": "O clássico de plataforma lendário pioneiro que salvou a indústria dos videogames em 1985, estabeleceu as mecânicas de rolagem lateral e definiu o encanador mais famoso do planeta.",
   "super mario bros. 3": "Aclamado como uma das maiores obras-primas da era 8-bits. Introduziu o emblemático mapa-múndi de seleção de fases, inventários de itens e transformações icônicas como a Super Leaf (Mário Guaxinim) e a Tanooki Suit.",
-  "the legend of zelda": "A obra-prima pioneira de Shigeru Miyamoto que apresentou o reino de Hyrule de forma não-linear. Definiu todo o gênero de Aventura e RPG com seu sistema inovador de exploração livre e salvamento de progresso.",
+  "the legend of zelda": "A obra-prima pioneira de Shigeru Miyamoto que apresentou o reino de Hyrule de forma não-linear. Definiu todo o gênero de Aventura e RPG com seu system inovador de exploração livre e salvamento de progresso.",
   "metroid": "O nascimento do gênero Metroidvania. Apresentou um ambiente alienígena sombrio, isolado e labiríntico na fortaleza de Zebes, culminando na revelação histórica de que a caçadora de recompensas Samus Aran era uma mulher.",
-  "castlevania": "A influente jornada gótica de Simon Belmont empunhando o chicote lendário Vampire Killer na fortaleza do Conde Drácula. Trilha sonora inesquecível e atmosfera medieval de terror magnífica.",
+  "castlevania": "A influente jornada gótica de Simon Belmont empunhando o chicote lendário Vampire Killer na fortaleza do Conde Drácula. Trilha sonora inesquecível and atmosfera medieval de terror magnífica.",
   "mega man": "O icônico robô azul da Capcom estreia revolucionando a ação em plataformas com seu sistema de escolha livre de fases e a mecânica inovadora de absorver os poderes dos chefes derrotados (Robot Masters).",
   "sonic the hedgehog": "A resposta veloz e rebelde da Sega que redefiniu os jogos de plataforma nos anos 90. Com loops em alta velocidade, design de fases verticalizado e uma trilha sonora memorável, estabeleceu o ouriço como ícone mundial.",
   "donkey kong country": "Um marco tecnológico revolucionário que utilizou gráficos pré-renderizados em estações Advanced Computer Modeling (ACM). Transformou o Super Nintendo com física soberba, trilha sonora imersiva e jogabilidade impecável em dupla.",
   "chrono trigger": "Considerado por muitos o maior RPG de todos os tempos. Desenvolvido pelo 'Dream Team' (Hironobu Sakaguchi, Yuji Horii e Akira Toriyama), revolucionou o gênero com viagens no tempo, múltiplos finais e combate dinâmico sem transição de tela.",
-  "super metroid": "A obra de arte mais emblemática da ficção espacial 16-bits. Atmosfera sufocante, progresso orgânico primoroso no planeta Zebes e uma narrativa silenciosa que dita o padrão do gênero de exploração."
+  "super metroid": "A perfeição absoluta do design de níveis bidimensional. Atmosfera sufocante no planeta Zebes, narrativa puramente visual, trilha sonora fantástica e um mapa perfeitamente interconectado que se tornou o pilar dourado dos Metroidvanias."
 };
 
 // TRADUTOR CASE-SENSITIVE: Mapeamento cirúrgico para a sua pasta local public/logos/
@@ -377,7 +377,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center opacity-[0.04] blur-3xl scale-105 pointer-events-none"
+          className="absolute inset-0 w-full h-full bg-cover bg-center opacity-[0.04] blur-2xl scale-105 pointer-events-none"
           style={{ backgroundImage: `url(${system.backgroundImage})` }}
         />
         <div className="absolute inset-0 bg-[#040406]/95 pointer-events-none" />
