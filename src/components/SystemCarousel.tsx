@@ -15,7 +15,7 @@ interface SystemCarouselProps {
   onSelectSystem: (system: System) => void;
 }
 
-// Mapeamento cirúrgico baseado nas imagens do seu repositório GitHub
+// DICIONÁRIO CORRIGIDO: Casado estritamente com os arquivos reais do seu GitHub
 const getLogoFileName = (id: string): string => {
   const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
   const map: Record<string, string> = {
@@ -49,6 +49,36 @@ const getLogoFileName = (id: string): string => {
     playlist: 'Collections'
   };
   return map[cleanId] || cleanId;
+};
+
+// Componente de renderização segura das logos dos emuladores na roleta
+const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean }> = ({ system, isCompact }) => {
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(false);
+  }, [system.id]);
+
+  if (hasError) {
+    return (
+      <span className="font-retro text-[11px] text-zinc-500 uppercase tracking-widest font-bold">
+        {system.name}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={`/logos/${getLogoFileName(system.id)}.png`}
+      alt={system.name}
+      className={`max-w-full max-h-full object-contain filter transition-all duration-200 ${
+        isCompact 
+          ? 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] opacity-40 grayscale contrast-125' 
+          : 'drop-shadow-[0_0_15px_rgba(255,255,255,0.45)] brightness-110'
+      }`}
+      onError={() => setHasError(true)}
+    />
+  );
 };
 
 export const SystemCarousel: React.FC<SystemCarouselProps> = ({
@@ -136,13 +166,13 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
         />
       </div>
 
-      {/* CAMADA 2: OVERLAY DA SUA MÁSCARA PNG TRANSPARENTE DA PASTA BACKGROUNDS */}
+      {/* CAMADA 2: OVERLAY DA MÁSCARA PNG DA PASTA BACKGROUNDS TRANSPARENTE */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
         style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
       />
 
-      {/* CAMADA 3: ESPIRAL DE LOGOS DOS EMULADORES RECALIBRADO PARA DENTRO DA TELA */}
+      {/* CAMADA 3: ESPIRAL DE LOGOS DOS EMULADORES (ROLA NO ESPAÇO DIREITO DA TELA VAZADA) */}
       <div className="absolute top-0 right-0 w-[45vw] h-full z-30 flex items-center justify-center overflow-hidden" style={{ perspective: 1000 }}>
         <div ref={scrollContainerRef} className="relative w-full h-[460px] flex items-center justify-center">
           {systems.map((sys, idx) => {
@@ -151,7 +181,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
             if (Math.abs(offset) > 3) return null;
 
-            // Coordenadas calculadas para manter o arco visível e centralizado no terço direito da tela
+            // Curvatura elíptica calibrada perfeitamente no terço direito visível
             const rotateX = offset * -15;
             const translateY = offset * 85;
             const translateX = Math.abs(offset) * 22;
@@ -180,17 +210,8 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                 className="absolute w-64 h-16 flex items-center justify-center cursor-pointer select-none"
                 style={{ transformOrigin: 'center center' }}
               >
-                <div className="w-full h-full p-2 flex items-center justify-center relative transition-all duration-200">
-                  <img
-                    src={`/logos/${getLogoFileName(sys.id)}.png`}
-                    alt={sys.name}
-                    className={`max-w-full max-h-full object-contain filter transition-all duration-200 ${
-                      isSelected 
-                        ? 'drop-shadow-[0_0_15px_rgba(255,255,255,0.45)] brightness-110' 
-                        : 'drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] opacity-35 grayscale contrast-125 group-hover:opacity-65'
-                    }`}
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
+                <div className="w-full h-full p-2 flex items-center justify-center relative">
+                  <SafeConsoleLogo system={sys} isCompact={!isSelected} />
                 </div>
               </motion.div>
             );
@@ -200,7 +221,11 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
       {/* RODAPÉ DO MENU PRINCIPAL */}
       <footer className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[10px] font-bold text-zinc-500 tracking-wider">
-        <div>▲▼ MUDAR SISTEMA • ENTER CONFIRMAR</div>
+        <div className="flex items-center gap-4">
+          <span>▲▼ MUDAR SISTEMA</span>
+          <span>•</span>
+          <span>ENTER CONFIRMAR</span>
+        </div>
         <div className="font-mono text-[9px] tracking-widest uppercase text-zinc-600">
           SISTEMA PRONTO
         </div>
