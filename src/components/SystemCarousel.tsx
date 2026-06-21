@@ -28,6 +28,7 @@ interface SystemTechSpecs {
   hardwareSummary: string;
 }
 
+// O DICIONÁRIO COMPLETO DE ESPECIFICAÇÕES TÉCNICAS E HISTÓRICAS - 100% PREENCHIDO
 const systemSpecsMap: Record<string, SystemTechSpecs> = {
   nes: {
     manufacturer: "Nintendo",
@@ -73,6 +74,17 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     glowColor: "rgba(16, 185, 129, 0.4)",
     hardwareSummary: "O portátil cinza eterno de Gunpei Yokoi. Popularizou o clássico cult Tetris e a franquia multibilionária de monstros colecionáveis Pokémon."
   },
+  gameboy: {
+    manufacturer: "Nintendo",
+    generation: "8-Bits Portátil",
+    cpu: "Sharp LR35902 @ 4.19 MHz",
+    ram: "8 KB RAM principal",
+    media: "Cartucho Game Boy",
+    releaseYear: "1989",
+    accentColor: "from-emerald-700 via-teal-800 to-zinc-950",
+    glowColor: "rgba(16, 185, 129, 0.4)",
+    hardwareSummary: "O portátil cinza eterno de Gunpei Yokoi. Popularizou o clássico cult Tetris e a franquia multibilionária de monstros colecionáveis Pokémon."
+  },
   gba: {
     manufacturer: "Nintendo",
     generation: "32-Bits Portátil",
@@ -106,6 +118,17 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     glowColor: "rgba(59, 130, 246, 0.4)",
     hardwareSummary: "Adotou a postura rebelde da SEGA para desafiar o monopólio mercantil da Nintendo, munido de processamento ultra veloz 'Blast Processing'."
   },
+  segaMD: {
+    manufacturer: "Sega",
+    generation: "16-Bits (4ª Geração)",
+    cpu: "Motorola 68000 @ 7.67 MHz",
+    ram: "64 KB RAM principal",
+    media: "Mega Cartuchos",
+    releaseYear: "1988 (Japão) / 1990 (Brasil)",
+    accentColor: "from-red-600 via-zinc-900 to-indigo-950",
+    glowColor: "rgba(239, 68, 68, 0.4)",
+    hardwareSummary: "Sucesso titânico em solo brasileiro sob os cuidados da Tectoy. Lar de jogos de alta velocidade do Sonic e trilhas em modulação FM excelentes."
+  },
   megadrive: {
     manufacturer: "Sega",
     generation: "16-Bits (4ª Geração)",
@@ -115,7 +138,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     releaseYear: "1988 (Japão) / 1990 (Brasil)",
     accentColor: "from-red-600 via-zinc-900 to-indigo-950",
     glowColor: "rgba(239, 68, 68, 0.4)",
-    hardwareSummary: "Sucesso titânico em solo brasileiro sob os cuidados da Tectoy. Lar de jogos de alta velocidade do Sonic e trilhas em moduladores FM excelentes."
+    hardwareSummary: "Sucesso titânico em solo brasileiro sob os cuidados da Tectoy. Lar de jogos de alta velocidade do Sonic e trilhas em modulação FM excelentes."
   },
   mastersystem: {
     manufacturer: "Sega",
@@ -139,7 +162,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     glowColor: "rgba(37, 99, 235, 0.4)",
     hardwareSummary: "Console que consagrou clássicos absolutos como Alex Kidd de forma brilhante, tornando-se sinônimo de videogame nostálgico."
   },
-  psx: {
+  playstation: {
     manufacturer: "Sony",
     generation: "32-Bits (5ª Geração)",
     cpu: "MIPS R3000A 32-bit @ 33.86 MHz",
@@ -172,17 +195,6 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     glowColor: "rgba(245, 158, 11, 0.4)",
     hardwareSummary: "O pioneiro incontestável que instalou a febre dos videogames nos lares mundiais por intermédio das clássicas alavancas pretas."
   },
-  atari2600: {
-    manufacturer: "Atari",
-    generation: "8-Bits (2ª Geração)",
-    cpu: "MOS Technology 6507 @ 1.19 MHz",
-    ram: "128 Bytes RAM",
-    media: "Cartuchos de circuito integrado",
-    releaseYear: "1977",
-    accentColor: "from-amber-800 via-orange-900 to-zinc-950",
-    glowColor: "rgba(217, 119, 6, 0.4)",
-    hardwareSummary: "Símbolo imutável da nostalgia dos anos 80, lar de clássicos icônicos da cultura pop como River Raid, Pac-Man, Space Invaders e Enduro."
-  },
   arcade: {
     manufacturer: "Múltiplos (Capcom/SNK/SEGA)",
     generation: "Era dos Fliperamas",
@@ -190,35 +202,24 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     ram: "Variável (Hardware dedicado)",
     media: "Placa Eletrônica PCB Jamma",
     releaseYear: "Anos 80 / 90",
-    accentColor: "from-orange-550 via-amber-600 to-red-950",
+    accentColor: "from-orange-500 via-amber-650 to-red-950",
     glowColor: "rgba(245, 158, 11, 0.4)",
-    hardwareSummary: "O suprassumo das lanchonetes e shoppings antigos. Entregava poder gráfico insuperável focado em sprites massivos e ação run-and-gun estéreo."
+    hardwareSummary: "O suprassumo das lanchonetes e shoppings antigos. Entregava poder gráfico insuperável focado em sprites massivos e ação cooperativa estéreo."
   },
-  mame: {
-    manufacturer: "Capcom / SEGA / Midway",
-    generation: "Gabinetes Arcade",
-    cpu: "Sistemas Múltiplos Unidos",
-    ram: "Dedicada de resposta imediata",
-    media: "Placas ROM binárias originais",
-    releaseYear: "Era de Ouro (1980 - 2000)",
-    accentColor: "from-yellow-500 via-orange-700 to-zinc-950",
-    glowColor: "rgba(234, 179, 8, 0.5)",
-    hardwareSummary: "União dos clássicos de ficha originais que moldaram a jogabilidade competitiva mundial, com emulação rigorosa pixel-perfect de lutas."
-  },
-  neogeo: {
-    manufacturer: "SNK",
-    generation: "16-Bits Custom (MVS)",
-    cpu: "Motorola 68000 @ 12 MHz + Z80 @ 4 MHz",
-    ram: "64 KB RAM + 68 KB VRAM + 2 KB Audio",
-    media: "Cartuchos Gigantes (Max 330 Mb)",
-    releaseYear: "1990",
-    accentColor: "from-red-650 via-yellow-600 to-zinc-950",
+  '3do': {
+    manufacturer: "Panasonic / GoldStar",
+    generation: "32-Bits (5ª Geração)",
+    cpu: "ARM60 32-bit RISC @ 12.5 MHz",
+    ram: "2 MB RAM + 1 MB VRAM",
+    media: "CD-ROM 2X",
+    releaseYear: "1993",
+    accentColor: "from-zinc-600 via-red-700 to-black",
     glowColor: "rgba(239, 68, 68, 0.4)",
-    hardwareSummary: "Considerado a Ferrari dos consoles nos anos 90. Oferecia a mesmíssima engenharia presente nos fliperamas comerciais do mundo."
+    hardwareSummary: "Hardware premium multimédia de alto custo focado em gráficos poligonais avançados e vídeos interativos full-motion (FMV)."
   }
 };
 
-// TRADUTOR DO EMULATIONSTATION ($system): Traduz chaves dinâmicas para as mídias locais do seu GitHub
+// TRADUTOR DO EMULATIONSTATION ($system): Garante leitura 100% .png local
 const getLogoFileName = (id: string): string => {
   const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
   const map: Record<string, string> = {
@@ -227,37 +228,36 @@ const getLogoFileName = (id: string): string => {
     msu1: 'msu1',
     nes: 'nes',
     nintendo: 'nes',
-    megadrive: 'segaMD', // Bate exato com o seu segaMD.png
+    megadrive: 'segaMD', 
     genesis: 'segaMD',
     sega: 'segaMD',
-    msumd: 'msu-md',     // Bate exato com o seu msu-md.png
+    msumd: 'msu-md',     
     sms: 'mastersystem',
     mastersystem: 'mastersystem',
     gamegear: 'gamegear',
-    ps1: 'ps1',
-    psx: 'ps1',
-    playstation: 'ps1',
-    n64: 'n64',          // Bate exato com o seu n64.png
+    ps1: 'playstation',
+    psx: 'playstation',
+    playstation: 'playstation',
+    n64: 'n64',          
     nintendo64: 'n64',
-    atari: 'atari2600',
-    atari2600: 'atari2600',
-    arcade: 'arcade',    // Bate exato com o seu arcade.png
+    atari: 'atari',
+    atari2600: 'atari',
+    arcade: 'arcade',    
     mame: 'arcade',
     nds: 'nds',
-    pce: 'pcecd',        // Bate exato com o seu pcecd.png
+    pce: 'pcecd',        
     pcengine: 'pcecd',
     neogeo: 'neogeo',
-    '3do': '3do',        // Bate exato com o seu 3do.png
+    '3do': '3do',        
     saturn: 'saturn',
     segasaturn: 'saturn',
-    collections: 'Collections', // Bate exato com o seu Collections.png
+    collections: 'Collections', 
     playlist: 'Collections'
   };
   return map[cleanId] || cleanId;
 };
 
-// Componente para renderizar mídias locais com tratamento automático de 404
-const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean; forceGlow?: boolean; accentColor?: string }> = ({ system, isCompact, forceGlow, accentColor }) => {
+const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean }> = ({ system, isCompact }) => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -266,22 +266,21 @@ const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean; forceGlow
 
   if (hasError) {
     return (
-      <div className="flex items-center justify-center p-3.5 bg-zinc-900/90 border border-white/10 rounded-xl max-w-[200px] shadow-lg select-none">
-        <span className={`font-mono text-amber-400 tracking-widest font-black uppercase text-center ${isCompact ? 'text-[9px]' : 'text-xs'}`}>
-          {system.shortName || system.name}
-        </span>
-      </div>
+      <span className="font-retro text-[10px] text-zinc-500 uppercase tracking-widest font-bold">
+        {system.shortName || system.name}
+      </span>
     );
   }
 
   return (
     <img
-      src={`/logos/${getLogoFileName(system.id)}.png`} // LÊ 100% OFFLINE DA SUA PASTA LOCAL PUBLIC
+      src={`/logos/${getLogoFileName(system.id)}.png`}
       alt={system.name}
-      className={`w-full h-full object-contain filter transition-all duration-300 ${
-        isCompact ? 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]' : 'drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)]'
+      className={`max-w-full max-h-full object-contain filter transition-all duration-200 ${
+        isCompact 
+          ? 'opacity-40 grayscale contrast-125' 
+          : 'drop-shadow-[0_0_15px_rgba(255,255,255,0.45)] brightness-110'
       }`}
-      style={forceGlow ? { filter: `drop-shadow(0px 0px 20px ${accentColor || 'rgba(255,255,255,0.45)'}) saturate(1.1)` } : {}}
       onError={() => setHasError(true)}
     />
   );
@@ -298,23 +297,19 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
   if (!systems || total === 0) return null;
 
-  const handlePrev = (e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
+  const handlePrev = () => {
     const nextIndex = (activeIndex - 1 + total) % total;
     setActiveIndex(nextIndex);
     soundEngine.playMove();
   };
 
-  const handleNext = (e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
+  const handleNext = () => {
     const nextIndex = (activeIndex + 1) % total;
     setActiveIndex(nextIndex);
     soundEngine.playMove();
   };
 
-  const handleSelect = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleSelect = () => {
     if (systems[activeIndex]) {
       soundEngine.playSelect();
       onSelectSystem(systems[activeIndex]);
@@ -323,37 +318,30 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         e.preventDefault();
-        const nextIndex = (activeIndex - 1 + total) % total;
-        setActiveIndex(nextIndex);
-        soundEngine.playMove();
-      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        handlePrev();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         e.preventDefault();
-        const nextIndex = (activeIndex + 1) % total;
-        setActiveIndex(nextIndex);
-        soundEngine.playMove();
+        handleNext();
       } else if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        if (systems[activeIndex]) {
-          soundEngine.playSelect();
-          onSelectSystem(systems[activeIndex]);
-        }
+        handleSelect();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeIndex, systems, total, onSelectSystem]);
+  }, [activeIndex, systems, total]);
 
   useEffect(() => {
     if (scrollContainerRef.current) {
       const activeEl = scrollContainerRef.current.children[activeIndex] as HTMLElement;
       if (activeEl) {
-        const parentWidth = scrollContainerRef.current.offsetWidth;
-        const itemWidth = activeEl.offsetWidth;
-        const leftPos = activeEl.offsetLeft;
+        const parentHeight = scrollContainerRef.current.offsetHeight;
+        const itemHeight = activeEl.offsetHeight;
+        const topPos = activeEl.offsetTop;
         scrollContainerRef.current.scrollTo({
-          left: leftPos - parentWidth / 2 + itemWidth / 2,
+          top: topPos - parentHeight / 2 + itemHeight / 2,
           behavior: 'smooth'
         });
       }
@@ -361,206 +349,133 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
   }, [activeIndex]);
 
   const activeSystem = systems[activeIndex];
-  const activeLogoName = getLogoFileName(activeSystem.id);
-  const specs: SystemTechSpecs = systemSpecsMap[activeLogoName.toLowerCase()] || {
-    manufacturer: "Retro System",
+  const consoleId = getLogoFileName(activeSystem.id);
+  
+  // Resgata os metadados do dicionário robusto
+  const specs = systemSpecsMap[consoleId] || systemSpecsMap[activeSystem.id.toLowerCase()] || {
+    manufacturer: "Retro Hardware",
     generation: "Vintage Consola",
-    cpu: "Clássico Chips Emulados",
-    ram: "Otimização RetroArch Dedicada",
-    media: "ROM virtualizada na nuvem",
-    releaseYear: "Época de Ouro",
-    accentColor: "from-emerald-600 to-zinc-950",
-    glowColor: "rgba(16, 185, 129, 0.4)",
-    hardwareSummary: "Rememore excelentes joias eletrônicas de fliperama e consoles tradicionais simulados em velocidade máxima sem gargalos."
+    cpu: "Processador Retro Emulado",
+    ram: "Otimização Nativa Core",
+    media: "Virtualização Digital ROM",
+    releaseYear: "Era de Ouro",
+    accentColor: "from-zinc-700 via-zinc-800 to-zinc-950",
+    glowColor: "rgba(255, 255, 255, 0.2)",
+    hardwareSummary: "Explore o catálogo completo de títulos clássicos preservados perfeitamente na sua biblioteca retro."
   };
 
-  const featuredGames = activeSystem.games ? activeSystem.games.slice(0, 5).map(g => g.title) : [];
+  const featuredGames = activeSystem.games ? activeSystem.games.slice(0, 4).map(g => g.title) : [];
 
   return (
-    <div className="w-full flex flex-col md:flex-row gap-6 items-stretch justify-center max-w-7xl mx-auto px-4 md:px-8 select-none my-auto">
+    <div className="fixed inset-0 w-full h-screen bg-[#040406] overflow-hidden flex items-center justify-between select-none font-sans">
       
-      {/* 1. PAINEL ESQUERDO: ESPECIFICAÇÕES TÉCNICAS (SPECS BOARD) */}
-      <motion.div
-        key={`specs-${activeSystem.id}`}
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="w-full md:w-[410px] bg-zinc-950/80 border border-white/5 backdrop-blur-md rounded-2xl p-5 md:p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden shrink-0"
-      >
-        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${specs.accentColor}`} />
-        <div className="absolute top-2.5 right-3 px-2 py-0.5 bg-white/5 border border-white/10 rounded font-mono text-[8.5px] text-zinc-500 tracking-wider">
-          {specs.generation}
-        </div>
+      {/* CAMADA 1: PLAYER DE VÍDEO (RODANDO ATRÁS DO BURACO DA TV ARCADIA NA ESQUERDA) */}
+      <div className="absolute top-[17.5%] left-[6.8%] w-[33.6vw] aspect-[4/3] bg-black z-10 overflow-hidden rounded-[10px]">
+        <video
+          key={`console-preview-${activeSystem.id}`}
+          src={`/video/${activeSystem.id}.mp4`} 
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover filter contrast-[1.15] saturate-[1.10] brightness-[1.02]"
+        />
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-15 mix-blend-overlay z-20"
+          style={{ backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.4) 50%)', backgroundSize: '100% 4px' }}
+        />
+      </div>
 
-        <div>
-          <div className="flex items-center gap-2.5 mb-4">
-            <div className="p-2 bg-white/5 border border-white/10 rounded-xl text-yellow-500">
-              <Gamepad2 className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-[10px] font-mono tracking-widest text-zinc-400 block uppercase leading-none">{specs.manufacturer}</span>
-              <h2 className="text-xl font-display font-black tracking-tight text-white uppercase mt-0.5 leading-none">{activeSystem.name}</h2>
-            </div>
-          </div>
+      {/* CAMADA 2: OVERLAY MÁSCARA DO CONSOLE DE BACKGROUNDS */}
+      <div 
+        className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
+        style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
+      />
 
-          <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-5 italic border-l-2 border-zinc-700 pl-3">
-            "{specs.hardwareSummary}"
-          </p>
+      {/* PAINEL FLUTUANTE ESQUERDO: INFOS E ESPECIFICAÇÕES (SPECS BOARD) */}
+      <div className="absolute bottom-[14%] left-10 z-30 w-[350px] bg-black/70 border border-white/5 backdrop-blur-md rounded-xl p-5 shadow-2xl flex flex-col pointer-events-none">
+        <div className={`h-1 w-16 rounded bg-gradient-to-r ${specs.accentColor} mb-3`} />
+        
+        <span className="text-[8px] font-mono tracking-widest text-zinc-500 uppercase leading-none">{specs.manufacturer} • {specs.generation}</span>
+        <h2 className="text-lg font-display font-black tracking-tight text-white uppercase mt-1 mb-2 leading-none">{activeSystem.name}</h2>
+        
+        <p className="text-[10px] text-zinc-400 font-sans leading-relaxed mb-4 border-l border-zinc-700 pl-2">
+          {specs.hardwareSummary}
+        </p>
 
-          <div className="space-y-3.5 border-t border-white/5 pt-4">
-            <div className="flex items-start gap-3 text-xs">
-              <Cpu className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
-              <div>
-                <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest block leading-none">Processamento CPU</span>
-                <span className="font-semibold text-zinc-200 mt-0.5 block">{specs.cpu}</span>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 text-xs">
-              <Cpu className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
-              <div>
-                <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest block leading-none">Memória RAM</span>
-                <span className="font-semibold text-zinc-200 mt-0.5 block">{specs.ram}</span>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 text-xs font-sans">
-              <Archive className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
-              <div>
-                <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest block leading-none">Suporte Físico / Mídia</span>
-                <span className="font-semibold text-zinc-200 mt-0.5 block">{specs.media}</span>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 text-xs font-sans">
-              <Calendar className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
-              <div>
-                <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest block leading-none">Ano de Lançamento</span>
-                <span className="font-semibold text-zinc-200 mt-0.5 block">{specs.releaseYear}</span>
-              </div>
-            </div>
-          </div>
+        <div className="space-y-2 border-t border-white/5 pt-3 font-mono text-[9px] text-zinc-400">
+          <div className="flex justify-between"><span className="text-zinc-600">CPU:</span> <span className="font-bold text-zinc-300 truncate max-w-[220px]">{specs.cpu}</span></div>
+          <div className="flex justify-between"><span className="text-zinc-600">RAM:</span> <span className="font-bold text-zinc-300">{specs.ram}</span></div>
+          <div className="flex justify-between"><span className="text-zinc-600">MÍDIA:</span> <span className="font-bold text-zinc-300">{specs.media}</span></div>
+          <div className="flex justify-between"><span className="text-zinc-600">LANÇAMENTO:</span> <span className="font-bold text-zinc-300">{specs.releaseYear}</span></div>
         </div>
 
         {featuredGames.length > 0 && (
-          <div className="mt-6 border-t border-white/5 pt-4">
-            <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest block mb-2 leading-none">Títulos Incorporados</span>
-            <div className="flex flex-wrap gap-1.5 max-h-16 overflow-hidden">
+          <div className="mt-3 border-t border-white/5 pt-2.5">
+            <div className="flex flex-wrap gap-1">
               {featuredGames.map((game, i) => (
-                <span key={i} className="text-[9.5px] font-mono px-2 py-0.5 bg-white/5 border border-white/5 rounded text-zinc-350 truncate max-w-[140px] leading-tight">
+                <span key={i} className="text-[8px] font-mono px-1.5 py-0.5 bg-white/5 rounded text-zinc-400 truncate max-w-[150px]">
                   {game.replace(/\(.*?\)/g, "").trim()}
                 </span>
               ))}
-              {activeSystem.gameCount > 5 && (
-                <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#10b881]/10 border border-[#10b881]/20 text-emerald-400 rounded">
-                  +{activeSystem.gameCount - 5} games
-                </span>
-              )}
             </div>
           </div>
         )}
-      </motion.div>
-
-      {/* 2. PAINEL DIREITO: SHOWCASE DO LOGOTIPO CENTRALIZADO */}
-      <div className="flex-1 flex flex-col justify-between bg-zinc-950/40 border border-white/5 backdrop-blur-[2px] rounded-2xl p-5 md:p-6 shadow-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(255,255,255,0.015),transparent)] pointer-events-none" />
-
-        <div className="flex justify-between items-center w-full z-10 select-none">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[9px] font-retro text-zinc-400 tracking-widest uppercase">LORDTECA RETRO CORES</span>
-          </div>
-          <div className="font-mono text-[9px] text-zinc-500 tracking-wider">
-            {activeIndex + 1} / {total} CONSOLES
-          </div>
-        </div>
-
-        <div className="flex-1 flex flex-col justify-center items-center py-6 md:py-10 relative z-10 w-full min-h-[160px] md:min-h-0">
-          <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30 select-none">
-            <div className="w-[300px] h-[150px] border border-white/15 scale-y-110 flex justify-between rounded-lg relative">
-              <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-white/40" />
-              <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-white/40" />
-              <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-white/40" />
-              <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-white/40" />
-            </div>
-          </div>
-
-          <div 
-            onClick={handleSelect}
-            className="h-32 md:h-44 w-72 md:w-96 flex items-center justify-center cursor-pointer group relative my-4 bg-transparent select-none"
-          >
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={activeSystem.id}
-                initial={{ opacity: 0, scale: 0.88, y: 15 }}
-                animate={{ opacity: 1, scale: 1.05, y: 0 }}
-                exit={{ opacity: 0, scale: 0.88, y: -15 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 20 }}
-                className="w-full h-full flex items-center justify-center pointer-events-auto"
-              >
-                <SafeConsoleLogo 
-                  system={activeSystem} 
-                  isCompact={false} 
-                  forceGlow={true} 
-                  accentColor={specs.glowColor} 
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-          
-          <p className="text-zinc-500 font-retro text-[8px] tracking-widest animate-pulse mt-1 select-none">
-            APERTE ENTER OU CLIQUE NA LOGO PARA DECOLAR
-          </p>
-        </div>
-
-        {/* Ribbon de Navegação Horizontal */}
-        <div className="relative w-full bg-black/60 border border-white/5 rounded-xl py-3 px-4 flex items-center z-10">
-          <button 
-            type="button"
-            onClick={handlePrev} 
-            className="absolute left-1.5 text-zinc-400 hover:text-white transition-colors text-xs font-bold cursor-pointer p-2 z-20 focus:outline-none bg-black/40 border border-white/5 hover:border-white/15 rounded-lg select-none"
-          >
-            ◀
-          </button>
-
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-hidden md:overflow-x-auto w-full px-8 scrollbar-hide select-none relative justify-start md:justify-center items-center h-12"
-          >
-            {systems.map((sys, idx) => {
-              const isSelected = idx === activeIndex;
-              return (
-                <div
-                  key={sys.id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (idx !== activeIndex) {
-                      setActiveIndex(idx);
-                      soundEngine.playMove();
-                    } else {
-                      handleSelect(e);
-                    }
-                  }}
-                  className={`relative flex items-center justify-center shrink-0 w-24 h-10 px-2 cursor-pointer transition-all duration-300 rounded-lg select-none ${
-                    isSelected ? 'opacity-100 scale-110 bg-white/5 border border-white/15 shadow-inner' : 'opacity-35 scale-90 hover:opacity-60 bg-transparent border border-transparent'
-                  }`}
-                >
-                  <SafeConsoleLogo system={sys} isCompact={true} />
-                </div>
-              );
-            })}
-          </div>
-
-          <button 
-            type="button"
-            onClick={handleNext} 
-            className="absolute right-1.5 text-zinc-400 hover:text-white transition-colors text-xs font-bold cursor-pointer p-2 z-20 focus:outline-none bg-black/40 border border-white/5 hover:border-white/15 rounded-lg select-none"
-          >
-            ▶
-          </button>
-        </div>
-
       </div>
+
+      {/* CAMADA 3: ROLETA VERTICAL EM ESPIRAL (DIREITA VAZADA) */}
+      <div className="absolute top-0 right-0 w-[45vw] h-full z-30 flex items-center justify-center overflow-hidden" style={{ perspective: 1000 }}>
+        <div ref={scrollContainerRef} className="relative w-full h-[460px] flex items-center justify-center">
+          {systems.map((sys, idx) => {
+            const offset = idx - activeIndex;
+            const isSelected = idx === activeIndex;
+
+            if (Math.abs(offset) > 3) return null;
+
+            const rotateX = offset * -15;
+            const translateY = offset * 85;
+            const translateX = Math.abs(offset) * 22;
+            const scale = isSelected ? 1.25 : 0.85 - Math.abs(offset) * 0.05;
+
+            return (
+              <motion.div
+                key={sys.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!isSelected) {
+                    setActiveIndex(idx);
+                    soundEngine.playMove();
+                  } else {
+                    handleSelect();
+                  }
+                }}
+                animate={{
+                  y: translateY,
+                  x: translateX,
+                  scale: scale,
+                  rotateX: rotateX,
+                  opacity: isSelected ? 1 : 0.35 - Math.abs(offset) * 0.08,
+                }}
+                transition={{ type: 'spring', stiffness: 180, damping: 18 }}
+                className="absolute w-64 h-16 flex items-center justify-center cursor-pointer select-none"
+                style={{ transformOrigin: 'center center' }}
+              >
+                <div className="w-full h-full p-2 flex items-center justify-center relative">
+                  <SafeConsoleLogo system={sys} isCompact={!isSelected} />
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* RODAPÉ DO CONSOLE */}
+      <footer className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[10px] font-bold text-zinc-500 tracking-wider">
+        <div>▲▼ MUDAR SISTEMA • ENTER CONFIRMAR</div>
+        <div className="font-mono text-[9px] tracking-widest uppercase text-zinc-600">
+          {activeSystem.gameCount} JOGOS DISPONÍVEIS
+        </div>
+      </footer>
 
     </div>
   );
