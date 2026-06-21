@@ -141,6 +141,20 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
     }
   };
 
+  // Helper to determine if we should proxy the ROM URL (to bypass CORS & redirects)
+  const getEffectiveRomUrl = (url: string): string => {
+    if (!url) return '';
+    // Do not proxy blobs or data URIs
+    if (url.startsWith('blob:') || url.startsWith('data:')) {
+      return url;
+    }
+    // Wrap remote external URLs in the backend ROM proxy
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return `/api/rom-proxy?url=${encodeURIComponent(url)}`;
+    }
+    return url;
+  };
+
   const reloadEmulator = () => {
     soundEngine.playToggle();
     setIsLoading(true);
@@ -183,7 +197,7 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
       <script>
         window.EJS_player = '#emulator-container';
         window.EJS_core = '${ejsCore}';
-        window.EJS_gameUrl = '${activeRomUrl}';
+        window.EJS_gameUrl = '${getEffectiveRomUrl(activeRomUrl)}';
         window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
         window.EJS_startOnLoaded = true;
         window.EJS_volume = 0.6;

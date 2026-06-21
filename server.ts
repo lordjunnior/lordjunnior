@@ -17,6 +17,54 @@ async function startServer() {
 
   app.use(express.json());
 
+  // ROM proxy route to handle CORS and redirect issues with remote ROM files
+  app.get("/api/rom-proxy", async (req, res) => {
+    try {
+      const romUrl = req.query.url as string;
+      if (!romUrl) {
+        return res.status(400).send("API Error: ROM URL is required.");
+      }
+
+      // Safe check to avoid SSRF
+      if (!romUrl.startsWith("http://") && !romUrl.startsWith("https://")) {
+        return res.status(400).send("API Error: Invalid URL scheme.");
+      }
+
+      console.log(`[ROM PROXY] Fetching ROM from source: ${romUrl}`);
+
+      const response = await fetch(romUrl, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        }
+      });
+
+      if (!response.ok) {
+        console.error(`[ROM PROXY] Source returned status: ${response.status} ${response.statusText}`);
+        return res.status(response.status).send(`Failed to fetch ROM from origin: ${response.statusText}`);
+      }
+
+      const contentType = response.headers.get("content-type") || "application/octet-stream";
+      const contentLength = response.headers.get("content-length");
+
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+      res.setHeader("Cache-Control", "public, max-age=86400"); // cache for 1 day for optimal load speed
+      
+      if (contentLength) {
+        res.setHeader("Content-Length", contentLength);
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      console.log(`[ROM PROXY] Successfully fetched and serving ROM (${buffer.length} bytes)`);
+      res.send(buffer);
+    } catch (error: any) {
+      console.error("[ROM PROXY] Error:", error);
+      res.status(500).send(`Internal ROM proxy error: ${error.message || error}`);
+    }
+  });
+
   // Initialize GoogleGenAI with Gemini API key
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
