@@ -28,9 +28,20 @@ async function startServer() {
   // ROM proxy route to handle CORS and redirect issues with remote ROM files
   app.get("/api/rom-proxy", async (req, res) => {
     try {
-      const romUrl = req.query.url as string;
+      let romUrl = req.query.url as string;
       if (!romUrl) {
         return res.status(400).send("API Error: ROM URL is required.");
+      }
+
+      // Convert Google Drive links automatically to direct download URLs
+      if (romUrl.includes("drive.google.com") || romUrl.includes("docs.google.com")) {
+        const dMatch = romUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
+        const idMatch = romUrl.match(/[?&]id=([a-zA-Z0-9-_]+)/);
+        const fileId = (dMatch && dMatch[1]) || (idMatch && idMatch[1]);
+        if (fileId) {
+          romUrl = `https://docs.google.com/uc?export=download&id=${fileId}`;
+          console.log(`[ROM PROXY] Converted Google Drive link to Google direct download: ${romUrl}`);
+        }
       }
 
       // Safe check to avoid SSRF
