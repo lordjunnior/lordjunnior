@@ -40,6 +40,10 @@ const getLogoFileName = (id: string): string => {
     msu1: 'msu1',
     nes: 'nes',
     nintendo: 'nes',
+    gb: 'gameboy',
+    gameboy: 'gameboy',
+    gbc: 'gameboycolor',
+    gameboycolor: 'gameboycolor',
     megadrive: 'segaMD', 
     genesis: 'segaMD',
     sega: 'segaMD',
@@ -56,13 +60,16 @@ const getLogoFileName = (id: string): string => {
     atari2600: 'atari',
     arcade: 'arcade',    
     mame: 'arcade',
-    nds: 'nds',
+    nds: 'nintendods',
     pce: 'pcecd',        
     pcengine: 'pcecd',
     neogeo: 'neogeo',
     '3do': '3do',        
     saturn: 'saturn',
     segasaturn: 'saturn',
+    dreamcast: 'dreamcast',
+    gamecube: 'gamecube',
+    gc: 'gamecube',
     collections: 'Collections', 
     playlist: 'Collections'
   };
@@ -265,11 +272,21 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.08)_0%,transparent_60%)] z-20" />
       </div>
 
-      {/* CAMADA 2: A SUA MÁSCARA PNG TRANSPARENTE DA PASTA BACKGROUNDS */}
-      <div 
-        className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
-        style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
-      />
+      {/* CAMADA 2: A SUA MÁSCARA PNG TRANSPARENTE DA PASTA BACKGROUNDS (Renderiza condicionalmente apenas se o asset real existir para evitar erros 404 no console) */}
+      {consoleId === 'n64' ? (
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
+          style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
+        />
+      ) : (
+        /* Ambient Glow substituto sutil e refinado */
+        <div 
+          className="absolute inset-0 w-full h-full z-20 pointer-events-none"
+          style={{ 
+            background: `radial-gradient(circle at 50% 35%, rgba(255,255,255,0.015) 0%, rgba(4,4,6,0.3) 100%)`
+          }}
+        />
+      )}
 
       {/* PAINEL DE CONTROLE DA INTERFACE SUPERIOR */}
       <div className="absolute top-4 left-6 right-6 z-40 flex justify-between items-center pointer-events-auto">

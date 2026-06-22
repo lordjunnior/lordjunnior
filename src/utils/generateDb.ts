@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { getSystemBadgeColor } from './systemColors';
 
 // Consolidated real game titles for each system from the user's filesystem
 const gbList = [
@@ -1222,7 +1223,7 @@ export function buildDatabase() {
       name: sysMeta.name,
       shortName: sysMeta.shortName,
       logo: sysMeta.logo,
-      badgeColor: sysMeta.badgeColor,
+      badgeColor: getSystemBadgeColor(sysId),
       releaseYear: sysMeta.releaseYear,
       manufacturer: sysMeta.manufacturer,
       backgroundImage: sysMeta.backgroundImage,
@@ -1240,7 +1241,10 @@ export function buildDatabase() {
       originalDb.forEach((sys: any) => {
         if (!MASTER_TEMPLATES.hasOwnProperty(sys.id)) {
           console.log(`[DatabaseCompiler] Restoring un-updated console: ${sys.name} (${sys.id})`);
-          outputDb.push(sys);
+          outputDb.push({
+            ...sys,
+            badgeColor: getSystemBadgeColor(sys.id)
+          });
         }
       });
     }

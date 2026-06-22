@@ -6,6 +6,7 @@
 import { System, Game } from '../types';
 import rawSystemsDef from './systems.json';
 import { resolveGameRomUrl } from '../utils/romResolver';
+import { getSystemBadgeColor } from '../utils/systemColors';
 
 // Helper to generate clean, URL-safe game slug matching the asset compiler
 const getGameSlugCustom = (systemId: string, title: string): string => {
@@ -43,7 +44,7 @@ export const parseRawSystems = (rawList: any[]): System[] => {
       name: sys.name,
       shortName: sys.shortName,
       logo: sys.logo,
-      badgeColor: sys.badgeColor,
+      badgeColor: getSystemBadgeColor(sys.id),
       gameCount: games.length,
       releaseYear: sys.releaseYear,
       manufacturer: sys.manufacturer,

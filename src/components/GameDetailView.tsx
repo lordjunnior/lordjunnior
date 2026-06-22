@@ -44,7 +44,9 @@ const getLogoFileName = (id: string): string => {
     nes: 'nes',
     snes: 'snes',
     n64: 'n64',
-    gb: 'gb',
+    gb: 'gameboy',
+    gbc: 'gameboycolor',
+    gameboycolor: 'gameboycolor',
     gba: 'gba',
     sms: 'mastersystem',
     genesis: 'megadrive',
@@ -53,9 +55,11 @@ const getLogoFileName = (id: string): string => {
     atari: 'atari2600',
     arcade: 'arcade',
     neogeo: 'neogeo',
-    nds: 'nds',
+    nds: 'nintendods',
     pce: 'pcengine',
-    '3do': '3do'
+    '3do': '3do',
+    dreamcast: 'dreamcast',
+    gamecube: 'gamecube'
   };
   return map[id] || id;
 };

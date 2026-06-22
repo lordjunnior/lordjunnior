@@ -43,7 +43,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-red-600 via-rose-700 to-zinc-900",
     glowColor: "rgba(239, 68, 68, 0.5)",
     hardwareSummary: "O lendário console 8-bits da Nintendo que recuperou a indústria de games em 1985 e imortalizou Mario, Zelda e Metroid.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b2/NES-Console-Set.png",
+    consolePhotoUrl: "/logos/consolenes.png",
     backdropUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200"
   },
   snes: {
@@ -56,7 +56,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-purple-600 via-indigo-700 to-zinc-900",
     glowColor: "rgba(139, 92, 246, 0.5)",
     hardwareSummary: "Clássico supremo do design 16-bits. Consolidou lendários RPGs tridimensionais, efeitos de rotação Mode 7 e som estéreo de altíssima qualidade.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/3/31/SNES-Mod1-Console-Set.png",
+    consolePhotoUrl: "/logos/consolesnes.png",
     backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
   },
   n64: {
@@ -69,7 +69,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-green-600 via-emerald-700 to-zinc-900",
     glowColor: "rgba(16, 185, 129, 0.5)",
     hardwareSummary: "Pioneiro absoluto na navegação e câmeras 3D fluidas, analógico preciso por rotação física e disputas cooperativas de 4 jogadores.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/8/82/Nintendo-64-Console-Set.png",
+    consolePhotoUrl: "/logos/consolen64.png",
     backdropUrl: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?q=80&w=1200"
   },
   gb: {
@@ -82,7 +82,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-emerald-700 via-teal-800 to-zinc-950",
     glowColor: "rgba(16, 185, 129, 0.4)",
     hardwareSummary: "O portátil cinza eterno de Gunpei Yokoi. Popularizou o clássico cult Tetris e a franquia multibilionária de monstros colecionáveis Pokémon.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Game-Boy-FL.png",
+    consolePhotoUrl: "/logos/consolegameboy.png",
     backdropUrl: "https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?q=80&w=1200"
   },
   gameboy: {
@@ -95,7 +95,33 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-emerald-700 via-teal-800 to-zinc-950",
     glowColor: "rgba(16, 185, 129, 0.4)",
     hardwareSummary: "O portátil cinza eterno de Gunpei Yokoi. Popularizou o clássico cult Tetris e a franquia multibilionária de monstros colecionáveis Pokémon.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Game-Boy-FL.png",
+    consolePhotoUrl: "/logos/consolegameboy.png",
+    backdropUrl: "https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?q=80&w=1200"
+  },
+  gbc: {
+    manufacturer: "Nintendo",
+    generation: "8-Bits Portátil Colorido",
+    cpu: "Sharp LR35902 8-bit @ 8.388 MHz",
+    ram: "32 KB RAM principal + 16 KB VRAM",
+    media: "Cartucho Game Boy Color",
+    releaseYear: "1998",
+    accentColor: "from-pink-600 via-fuchsia-700 to-zinc-950",
+    glowColor: "rgba(219, 39, 119, 0.4)",
+    hardwareSummary: "O sucessor vibrante em cores do console de bolso eterno. Equipado com processador de velocidade dobrada, infravermelho e tela LCD colorida.",
+    consolePhotoUrl: "/logos/consolegbc.png",
+    backdropUrl: "https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?q=80&w=1200"
+  },
+  gameboycolor: {
+    manufacturer: "Nintendo",
+    generation: "8-Bits Portátil Colorido",
+    cpu: "Sharp LR35902 8-bit @ 8.388 MHz",
+    ram: "32 KB RAM principal + 16 KB VRAM",
+    media: "Cartucho Game Boy Color",
+    releaseYear: "1998",
+    accentColor: "from-pink-600 via-fuchsia-700 to-zinc-950",
+    glowColor: "rgba(219, 39, 119, 0.4)",
+    hardwareSummary: "O sucessor vibrante em cores do console de bolso eterno. Equipado com processador de velocidade dobrada, infravermelho e tela LCD colorida.",
+    consolePhotoUrl: "/logos/consolegbc.png",
     backdropUrl: "https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?q=80&w=1200"
   },
   gba: {
@@ -108,7 +134,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-indigo-650 via-violet-750 to-zinc-950",
     glowColor: "rgba(99, 102, 241, 0.5)",
     hardwareSummary: "Poderoso hardware 32-bits que funciona como um SNES ultra-portátil aperfeiçoado. Apresentou ports divinos e visuais pixel art impecáveis.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Nintendo-Game-Boy-Advance-Purple-FL.png",
+    consolePhotoUrl: "/logos/consolegba.png",
     backdropUrl: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200"
   },
   nds: {
@@ -121,7 +147,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-sky-700 via-blue-850 to-zinc-950",
     glowColor: "rgba(14, 165, 233, 0.4)",
     hardwareSummary: "Inovadora máquina portátil que redefiniu a interatividade através de sua tela de toque (Stylus), displays duplos e comandos por voz.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Nintendo-DS-Lite-Console-Set.png",
+    consolePhotoUrl: "/logos/consoleds.png",
     backdropUrl: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?q=80&w=1200"
   },
   genesis: {
@@ -134,7 +160,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-blue-600 via-red-650 to-zinc-950",
     glowColor: "rgba(59, 130, 246, 0.4)",
     hardwareSummary: "Adotou a postura rebelde da SEGA para desafiar o monopólio mercantil da Nintendo, munido de processamento ultra veloz 'Blast Processing'.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Sega-Genesis-Mod2-Bare.png",
+    consolePhotoUrl: "/logos/consolemega.png",
     backdropUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200"
   },
   segaMD: {
@@ -147,7 +173,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-red-600 via-zinc-900 to-indigo-950",
     glowColor: "rgba(239, 68, 68, 0.4)",
     hardwareSummary: "Sucesso titânico em solo brasileiro sob os cuidados da Tectoy. Lar de jogos de alta velocidade do Sonic e trilhas em modulação FM excelentes.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Sega-Mega-Drive-JP-Mk1-Console-Set.png",
+    consolePhotoUrl: "/logos/consolemega.png",
     backdropUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200"
   },
   megadrive: {
@@ -160,7 +186,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-red-600 via-zinc-900 to-indigo-950",
     glowColor: "rgba(239, 68, 68, 0.4)",
     hardwareSummary: "Sucesso titânico em solo brasileiro sob os cuidados da Tectoy. Lar de jogos de alta velocidade do Sonic e trilhas em modulação FM excelentes.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Sega-Mega-Drive-JP-Mk1-Console-Set.png",
+    consolePhotoUrl: "/logos/consolemega.png",
     backdropUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200"
   },
   mastersystem: {
@@ -173,7 +199,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-cyan-600 via-blue-700 to-zinc-950",
     glowColor: "rgba(6, 182, 212, 0.4)",
     hardwareSummary: "O carismático competidor de 8-bits da SEGA, detentor de hardware robusto capaz de rendering colorido e vibrante muito elogiado.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Sega-Master-System-Set.png",
+    consolePhotoUrl: "/logos/consolemaster.png",
     backdropUrl: "https://images.unsplash.com/photo-1627856013091-fed6e4e30025?q=80&w=1200"
   },
   sms: {
@@ -186,7 +212,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-blue-700 via-indigo-800 to-zinc-950",
     glowColor: "rgba(37, 99, 235, 0.4)",
     hardwareSummary: "Console que consagrou clássicos absolutos como Alex Kidd de forma brilhante, tornando-se sinônimo de videogame nostálgico.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Sega-Master-System-Set.png",
+    consolePhotoUrl: "/logos/consolemaster.png",
     backdropUrl: "https://images.unsplash.com/photo-1627856013091-fed6e4e30025?q=80&w=1200"
   },
   playstation: {
@@ -199,7 +225,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-zinc-400 via-teal-750 to-zinc-950",
     glowColor: "rgba(180, 186, 196, 0.4)",
     hardwareSummary: "O console que destronou os antigos gigantes dos cartuchos, inaugurando com louvor a era moderna do 3D acelerado e sons em CD.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/9/95/PlayStation-Console-Set.png",
+    consolePhotoUrl: "/logos/consoleplaystation.png",
     backdropUrl: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=1200"
   },
   ps1: {
@@ -212,7 +238,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-slate-400 via-sky-800 to-zinc-950",
     glowColor: "rgba(14, 165, 233, 0.4)",
     hardwareSummary: "Estreia fenomenal da Sony consagrando as franquias Crash Bandicoot, Gran Turismo, Final Fantasy VII e Resident Evil.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/9/95/PlayStation-Console-Set.png",
+    consolePhotoUrl: "/logos/consoleplaystation.png",
     backdropUrl: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=1200"
   },
   atari: {
@@ -225,7 +251,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-amber-700 via-orange-800 to-zinc-950",
     glowColor: "rgba(245, 158, 11, 0.4)",
     hardwareSummary: "O pioneiro incontestável que instalou a febre dos videogames nos lares mundiais por intermédio das clássicas alavancas pretas.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Atari-2600-Wood-4-Switch-Set.png",
+    consolePhotoUrl: "/logos/consoleatari.png",
     backdropUrl: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?q=80&w=1200"
   },
   arcade: {
@@ -238,7 +264,7 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-orange-500 via-amber-650 to-red-950",
     glowColor: "rgba(245, 158, 11, 0.4)",
     hardwareSummary: "O suprassumo das lanchonetes e shoppings antigos. Entregava poder gráfico insuperável focado em sprites massivos e ação cooperativa estéreo.",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/d/df/Neo-Geo-MVS-Arcade-Cabinet.png",
+    consolePhotoUrl: "/logos/consolearcade.png",
     backdropUrl: "https://images.unsplash.com/photo-1566241477600-ac026ad43874?q=80&w=1200"
   },
   '3do': {
@@ -251,7 +277,85 @@ const systemSpecsMap: Record<string, SystemTechSpecs> = {
     accentColor: "from-zinc-600 via-red-700 to-black",
     glowColor: "rgba(239, 68, 68, 0.4)",
     hardwareSummary: "Hardware premium multimédia de alto custo focado em gráficos poligonais avançados e vídeos interativos full-motion (FMV).",
-    consolePhotoUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/3DO-FZ1-Console-Set.png",
+    consolePhotoUrl: "/logos/console3do.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
+  },
+  dreamcast: {
+    manufacturer: "Sega",
+    generation: "128-Bits (6ª Geração)",
+    cpu: "Hitachi SH-4 RISC @ 200 MHz",
+    ram: "16 MB RAM + 8 MB VRAM + 2 MB Sound RAM",
+    media: "GD-ROM de 1.2 GB",
+    releaseYear: "1998",
+    accentColor: "from-orange-500 via-rose-600 to-zinc-950",
+    glowColor: "rgba(249, 115, 22, 0.5)",
+    hardwareSummary: "O canto do cisne revolucionário da SEGA. Trouxe gráficos 3D espetaculares à frente do seu tempo, acesso pioneiro à internet integrado via modem e o icônico VMU com tela nos controles.",
+    consolePhotoUrl: "/logos/consoledreamcast.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
+  },
+  gamecube: {
+    manufacturer: "Nintendo",
+    generation: "128-Bits (6ª Geração)",
+    cpu: "IBM PowerPC 'Gekko' @ 485 MHz",
+    ram: "24 MB RAM principal + 16 MB A-RAM",
+    media: "MiniDVD de 8cm (1.5 GB)",
+    releaseYear: "2001",
+    accentColor: "from-indigo-600 via-purple-700 to-zinc-950",
+    glowColor: "rgba(124, 58, 237, 0.5)",
+    hardwareSummary: "O lendário console em formato de cubo da Nintendo. Conhecido por seus controles ergonômicos memoráveis, hardware compacto super poderoso e mídias mini-disco exclusivas.",
+    consolePhotoUrl: "/logos/consolegc.png",
+    backdropUrl: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200"
+  },
+  gc: {
+    manufacturer: "Nintendo",
+    generation: "128-Bits (6ª Geração)",
+    cpu: "IBM PowerPC 'Gekko' @ 485 MHz",
+    ram: "24 MB RAM principal + 16 MB A-RAM",
+    media: "MiniDVD de 8cm (1.5 GB)",
+    releaseYear: "2001",
+    accentColor: "from-indigo-600 via-purple-700 to-zinc-950",
+    glowColor: "rgba(124, 58, 237, 0.5)",
+    hardwareSummary: "O lendário console em formato de cubo da Nintendo. Conhecido por seus controles ergonômicos memoráveis, hardware compacto super poderoso e mídias mini-disco exclusivas.",
+    consolePhotoUrl: "/logos/consolegc.png",
+    backdropUrl: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200"
+  },
+  neogeo: {
+    manufacturer: "SNK",
+    generation: "16-Bits Premium (4ª Geração)",
+    cpu: "Motorola 68000 @ 12 MHz + Zilog Z80 @ 4 MHz",
+    ram: "64 KB Principal + 68 KB VRAM + 2 KB Sound RAM",
+    media: "MVS Cartridges (Max 330 Mb / Giga Power)",
+    releaseYear: "1990",
+    accentColor: "from-yellow-450 via-amber-600 to-zinc-950",
+    glowColor: "rgba(217, 119, 6, 0.45)",
+    hardwareSummary: "A lendária potência original dos arcades e locadoras nos lares da SNK. Com poder bidimensional supremo e um sistema inovador de multi-cartuchos lendários.",
+    consolePhotoUrl: "/logos/neogeomvs.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
+  },
+  pce: {
+    manufacturer: "NEC",
+    generation: "8/16-Bits (4ª Geração)",
+    cpu: "Hudson Soft HuC6280 8-bit @ 7.16 MHz",
+    ram: "8 KB Principal + 64 KB VRAM",
+    media: "HuCard / CD-ROM² (De Alta Densidade)",
+    releaseYear: "1987",
+    accentColor: "from-orange-600 via-red-750 to-zinc-950",
+    glowColor: "rgba(224, 78, 0, 0.45)",
+    hardwareSummary: "O extraordinário concorrente japonês da NEC de tamanho compacto ultra-refinado. Primeiro console do mundo a receber acessório de CD-ROM com áudio digital estéreo de altíssima fidelidade.",
+    consolePhotoUrl: "/logos/consoleturbografx16.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
+  },
+  pcengine: {
+    manufacturer: "NEC",
+    generation: "8/16-Bits (4ª Geração)",
+    cpu: "Hudson Soft HuC6280 8-bit @ 7.16 MHz",
+    ram: "8 KB Principal + 64 KB VRAM",
+    media: "HuCard / CD-ROM² (De Alta Densidade)",
+    releaseYear: "1987",
+    accentColor: "from-orange-600 via-red-750 to-zinc-950",
+    glowColor: "rgba(224, 78, 0, 0.45)",
+    hardwareSummary: "O extraordinário concorrente japonês da NEC de tamanho compacto ultra-refinado. Primeiro console do mundo a receber acessório de CD-ROM com áudio digital estéreo de altíssima fidelidade.",
+    consolePhotoUrl: "/logos/consoleturbografx16.png",
     backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
   }
 };
@@ -265,6 +369,10 @@ const getLogoFileName = (id: string): string => {
     msu1: 'msu1',
     nes: 'nes',
     nintendo: 'nes',
+    gb: 'gameboy',
+    gameboy: 'gameboy',
+    gbc: 'gameboycolor',
+    gameboycolor: 'gameboycolor',
     megadrive: 'segaMD', 
     genesis: 'segaMD',
     sega: 'segaMD',
@@ -281,13 +389,16 @@ const getLogoFileName = (id: string): string => {
     atari2600: 'atari',
     arcade: 'arcade',    
     mame: 'arcade',
-    nds: 'nds',
+    nds: 'nintendods',
     pce: 'pcecd',        
     pcengine: 'pcecd',
     neogeo: 'neogeo',
     '3do': '3do',        
     saturn: 'saturn',
     segasaturn: 'saturn',
+    dreamcast: 'dreamcast',
+    gamecube: 'gamecube',
+    gc: 'gamecube',
     collections: 'Collections', 
     playlist: 'Collections'
   };
@@ -327,7 +438,9 @@ const getCentralConsoleLogoUrl = (id: string): string => {
     n64: '/logos/consolen64.png',
     gb: '/logos/consolegameboy.png',
     gameboy: '/logos/consolegameboy.png',
-    gba: '/logos/gba.png',
+    gbc: '/logos/consolegbc.png',
+    gameboycolor: '/logos/consolegbc.png',
+    gba: '/logos/consolegba.png',
     nds: '/logos/consoleds.png',
     genesis: '/logos/consolemega.png',
     segaMD: '/logos/consolemega.png',
@@ -341,6 +454,9 @@ const getCentralConsoleLogoUrl = (id: string): string => {
     arcade: '/logos/consolearcade.png',
     '3do': '/logos/console3do.png',
     saturn: '/logos/consolesaturn.png',
+    dreamcast: '/logos/consoledreamcast.png',
+    gamecube: '/logos/consolegc.png',
+    gc: '/logos/consolegc.png',
     neogeo: '/logos/neogeomvs.png',
     pce: '/logos/consoleturbografx16.png',
     turbografx: '/logos/consoleturbografx16.png',

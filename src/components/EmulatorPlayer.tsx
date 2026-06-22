@@ -224,6 +224,50 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
     };
   }, [activeRomUrl, ejsCore]);
 
+  // Interceptador e higienizador avançado de event listeners para remover completamente listeners adicionados pelo EmulatorJS no document/window pai
+  useEffect(() => {
+    const registeredWindowListeners: { type: string; listener: any; options?: any }[] = [];
+    const registeredDocumentListeners: { type: string; listener: any; options?: any }[] = [];
+
+    const originalWindowAdd = window.addEventListener;
+    const originalDocumentAdd = document.addEventListener;
+
+    // Sobrescreve temporariamente addEventListener da janela pai
+    window.addEventListener = function (type: string, listener: any, options?: any) {
+      registeredWindowListeners.push({ type, listener, options });
+      return originalWindowAdd.call(this, type, listener, options);
+    };
+
+    // Sobrescreve temporariamente addEventListener do documento pai
+    document.addEventListener = function (type: string, listener: any, options?: any) {
+      registeredDocumentListeners.push({ type, listener, options });
+      return originalDocumentAdd.call(this, type, listener, options);
+    };
+
+    return () => {
+      // Restaura as funções originais imediatamente
+      window.addEventListener = originalWindowAdd;
+      document.addEventListener = originalDocumentAdd;
+
+      // Desregistra meticulosamente todos os listeners que vazaram durante a vida útil do emulador
+      registeredWindowListeners.forEach(({ type, listener, options }) => {
+        try {
+          window.removeEventListener(type, listener, options);
+        } catch (err) {
+          // Falha silenciosa para máxima segurança operacional
+        }
+      });
+
+      registeredDocumentListeners.forEach(({ type, listener, options }) => {
+        try {
+          document.removeEventListener(type, listener, options);
+        } catch (err) {
+          // Falha silenciosa para máxima segurança operacional
+        }
+      });
+    };
+  }, []);
+
   const reloadEmulator = () => {
     soundEngine.playToggle();
     setIsLoading(true);

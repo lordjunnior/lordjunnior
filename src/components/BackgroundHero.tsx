@@ -29,7 +29,9 @@ const getLogoFileName = (id: string): string => {
     '3do': '3do',
     neogeopocket: 'ngp',
     turbografx: 'pcengine',
-    fba_libretro: 'fba'
+    fba_libretro: 'fba',
+    dreamcast: 'dreamcast',
+    gamecube: 'gamecube'
   };
   return map[id] || id;
 };
@@ -40,7 +42,7 @@ const VERIFIED_ARTS = new Set([
   'sg1000', 'psx', 'atari2600', 'atari7800', 'neogeo', 'ngp',
   'mame', 'fba', 'colecovision', 'pcengine', 'pcenginecd',
   'wonderswan', 'wonderswancolor', 'virtualboy', '3do',
-  'msx', 'msx1', 'msx2', 'lynx', 'dreamcast', 'saturn',
+  'msx', 'msx1', 'msx2', 'lynx', 'dreamcast', 'saturn', 'gamecube',
   'atarist', 'c64', 'amiga600', 'amiga1200', 'amstradcpc',
   'zxspectrum', 'vectrex', 'cavestory', 'favorites', 'dos'
 ]);

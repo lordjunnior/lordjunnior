@@ -97,14 +97,38 @@
       { "title": "Metroid II: Return of Samus", "year": "1991", "genre": "Metroidvania", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "A caçada sistemática dos ninhos Metroids no Planeta SR388, culminando na adoção do bebê." },
       { "title": "Pokémon Yellow", "year": "1998", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "Edição especial inspirada no famoso anime com Pikachu seguindo seus passos fora do console." },
       { "title": "Donkey Kong Land", "year": "1995", "genre": "Plataforma", "dev": "Rare", "pub": "Nintendo", "desc": "Adaptação engenhosa com compactos sprites 3D da lendária selva na pequena tela monocromática." },
-      { "title": "Wario Land: Super Mario Land 3", "year": "1994", "genre": "Plataforma", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "A divertida mudança de holofote colocando o ganancioso Wario caçando moedas e tesouros lendários." },
-      { "title": "Dr. Mario", "year": "1990", "genre": "Puzzle", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Elimine vírus coloridos jogando cápsulas de remédios simétricos em partidas desafiadoras." },
-      { "title": "Mega Man V", "year": "1994", "genre": "Plataforma", "dev": "Capcom", "pub": "Capcom", "desc": "Diferente de ports anteriores, apresenta vilões chefes inspirados no zodíaco celestial chamados Stardroids." },
-      { "title": "Castlevania II: Belmont's Revenge", "year": "1991", "genre": "Ação", "dev": "Konami", "pub": "Konami", "desc": "Christopher Belmont deve usar chicotes elementais para combater demônios de Drácula em subsolos de castelo." }
-    ]
-  },
-  {
-    "id": "gba",
+       { "title": "Wario Land: Super Mario Land 3", "year": "1994", "genre": "Plataforma", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "A divertida mudança de holofote colocando o ganancioso Wario caçando moedas e tesouros lendários." },
+       { "title": "Dr. Mario", "year": "1990", "genre": "Puzzle", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Elimine vírus coloridos jogando cápsulas de remédios simétricos em partidas desafiadoras." },
+       { "title": "Mega Man V", "year": "1994", "genre": "Plataforma", "dev": "Capcom", "pub": "Capcom", "desc": "Diferente de ports anteriores, apresenta vilões chefes inspirados no zodíaco celestial chamados Stardroids." },
+       { "title": "Castlevania II: Belmont's Revenge", "year": "1991", "genre": "Ação", "dev": "Konami", "pub": "Konami", "desc": "Christopher Belmont deve usar chicotes elementais para combater demônios de Drácula em subsolos de castelo." }
+     ]
+   },
+   {
+     "id": "gbc",
+     "name": "Game Boy Color",
+     "shortName": "gbc",
+     "logo": "GAME BOY COLOR",
+     "badgeColor": "bg-[#C084FC] border-fuchsia-400 text-white hover:shadow-[0_0_15px_rgba(192,132,252,0.4)]",
+     "releaseYear": "1998",
+     "manufacturer": "Nintendo",
+     "backgroundImage": "/systems/gbc.svg",
+     "themeColor": "from-[#A21CAF] to-[#0F172A]",
+     "emulatorCore": "gambatte",
+     "gameDefs": [
+       { "title": "Pokemon - Crystal Version", "year": "2000", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "A versão definitiva da segunda geração com a primeira protagonista feminina e animações vibrantes de sprites." },
+       { "title": "Pokemon - Gold Version", "year": "1999", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "Explore a região de Johto, descubra novos monstrinhos brilhantes e derrote os líderes de ginásio clássicos." },
+       { "title": "Pokemon - Silver Version", "year": "1999", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "Viva a fantástica aventura para capturar o lendário guardião dos oceanos Lugia na charmosa região de Johto." },
+       { "title": "Shantae", "year": "2002", "genre": "Plataforma / Metroidvania", "dev": "WayForward", "pub": "Capcom", "desc": "Ajude a charmosa meio-gênio Shantae a chicotear cabelos e dançar a dança do ventre para salvar Sequin Land." },
+       { "title": "Wario Land II", "year": "1998", "genre": "Plataforma", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "O icônico anti-herói ganancioso Wario está de volta em uma aventura hilária onde ele é tecnicamente imortal." },
+       { "title": "Resident Evil Gaiden", "year": "2001", "genre": "Aventura / Terror", "dev": "Capcom", "pub": "Capcom", "desc": "Controle Leon S. Kennedy e Barry Burton investigando uma infestação viral terrível a bordo do navio Starlight." },
+       { "title": "Alone in the Dark - The New Nightmare", "year": "2001", "genre": "Survival Horror", "dev": "Spiral House", "pub": "Infogrames", "desc": "Explore mistérios e horror sobrenatural na Ilha das Sombras nesta excelente adaptação de terror portátil." },
+       { "title": "Tetris DX", "year": "1998", "genre": "Puzzle", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "A versão colorida definitiva com novos modos viciantes, perfis de salvamento e IA inteligente aprimorada." },
+       { "title": "Spider-Man 2 - The Sinister Six", "year": "2001", "genre": "Ação / Plataforma", "dev": "Torus Games", "pub": "Activision", "desc": "Ajude o amigão da vizinhança Homem-Aranha a combater o Sexteto Sinistro no topo de arranha-céus." },
+       { "title": "Yu-Gi-Oh! - Dark Duel Stories", "year": "2000", "genre": "Estratégia / Cartas", "dev": "Konami", "pub": "Konami", "desc": "Duele contra personagens do anime clássico com regras e construções de baralhos excelentes." }
+     ]
+   },
+   {
+     "id": "gba",
     "name": "Game Boy Advance",
     "shortName": "gba",
     "logo": "GAME BOY ADVANCE",
@@ -388,5 +412,31 @@
       { "title": "PO'ed", "year": "1995", "genre": "FPS", "dev": "Any Channel", "pub": "3DO", "desc": "Bizarro jogo de tiro onde um cozinheiro voador usa frigideiras contra alienígenas mutantes rústicos." },
       { "title": "Return Fire", "year": "1995", "genre": "RPG Tático", "dev": "Silent Software", "pub": "3DO", "desc": "Conduza tanques, jipes e helicópteros em disputas táticas para capturar bandeiras ao som de música clássica." }
     ]
+  },
+  {
+    "id": "dreamcast",
+    "name": "Sega Dreamcast",
+    "shortName": "dreamcast",
+    "logo": "DREAMCAST",
+    "badgeColor": "bg-[#e55026] border-[#f8704a] text-white hover:shadow-[0_0_15px_rgba(248,112,74,0.4)]",
+    "releaseYear": "1998",
+    "manufacturer": "Sega",
+    "backgroundImage": "/systems/dreamcast.svg",
+    "themeColor": "from-[#e55026] to-black",
+    "emulatorCore": "flycast",
+    "gameDefs": []
+  },
+  {
+    "id": "gamecube",
+    "name": "Nintendo GameCube",
+    "shortName": "gamecube",
+    "logo": "GAMECUBE",
+    "badgeColor": "bg-[#4f3f84] border-[#725fad] text-white hover:shadow-[0_0_15px_rgba(114,95,173,0.4)]",
+    "releaseYear": "2001",
+    "manufacturer": "Nintendo",
+    "backgroundImage": "/systems/gamecube.svg",
+    "themeColor": "from-[#4f3f84] to-black",
+    "emulatorCore": "dolphin",
+    "gameDefs": []
   }
 ]
