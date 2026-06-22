@@ -318,6 +318,99 @@ const getRecalboxFolderName = (id: string): string => {
   return map[id.toLowerCase()] || id.toLowerCase();
 };
 
+const getCentralConsoleLogoUrl = (id: string): string => {
+  const cleanId = id.toLowerCase().trim();
+  const map: Record<string, string> = {
+    nes: '/logos/consolenes.png',
+    snes: '/logos/consolesnes.png',
+    supernintendo: '/logos/consolesnes.png',
+    n64: '/logos/consolen64.png',
+    gb: '/logos/consolegameboy.png',
+    gameboy: '/logos/consolegameboy.png',
+    gba: '/logos/gba.png',
+    nds: '/logos/consoleds.png',
+    genesis: '/logos/consolemega.png',
+    segaMD: '/logos/consolemega.png',
+    megadrive: '/logos/consolemega.png',
+    mastersystem: '/logos/consolemaster.png',
+    sms: '/logos/consolemaster.png',
+    playstation: '/logos/consoleplaystation.png',
+    psx: '/logos/consoleplaystation.png',
+    ps1: '/logos/consoleplaystation.png',
+    atari: '/logos/consoleatari.png',
+    arcade: '/logos/consolearcade.png',
+    '3do': '/logos/console3do.png',
+    saturn: '/logos/consolesaturn.png',
+    neogeo: '/logos/neogeomvs.png',
+    pce: '/logos/consoleturbografx16.png',
+    turbografx: '/logos/consoleturbografx16.png',
+    pcengine: '/logos/consoleturbografx16.png',
+    collections: '/logos/Collections.png',
+    playlist: '/logos/Collections.png',
+  };
+  return map[cleanId] || `/logos/${getLogoFileName(cleanId)}.png`;
+};
+
+const CentralConsoleLogo: React.FC<{ system: System }> = ({ system }) => {
+  const [src, setSrc] = useState<string>('');
+  const [attempt, setAttempt] = useState<number>(0);
+
+  useEffect(() => {
+    setSrc(getCentralConsoleLogoUrl(system.id));
+    setAttempt(0);
+  }, [system.id]);
+
+  const handleError = () => {
+    if (attempt === 0) {
+      // First fallback: classic system logo (e.g. snes.png, playstation.png)
+      const officialLogo = `/logos/${getLogoFileName(system.id)}.png`;
+      setSrc(officialLogo);
+      setAttempt(1);
+    } else if (attempt === 1) {
+      // Second fallback: direct lowercase naming
+      const rawLogo = `/logos/${system.id.toLowerCase()}.png`;
+      setSrc(rawLogo);
+      setAttempt(2);
+    } else {
+      // Last resort: stop loading images and let text render beautifully
+      setSrc('');
+      setAttempt(3);
+    }
+  };
+
+  if (attempt >= 3 || !src) {
+    return (
+      <div className="flex flex-col items-center justify-center p-6 border border-zinc-700 rounded-2xl bg-black/60 backdrop-blur-md">
+        <span className="text-xl font-mono tracking-[0.3em] font-black text-zinc-300 uppercase">
+          {system.shortName || system.name}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <motion.img
+      key={`central-logo-${system.id}-${src}`}
+      src={src}
+      alt={system.name}
+      animate={{ 
+        y: [0, -8, 0], 
+      }}
+      transition={{
+        repeat: Infinity,
+        duration: 5,
+        ease: "easeInOut"
+      }}
+      style={{
+        filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.85)) drop-shadow(0 0 25px rgba(255,255,255,0.15))"
+      }}
+      className="max-h-full w-auto max-w-[280px] md:max-w-[360px] object-contain"
+      onError={handleError}
+      referrerPolicy="no-referrer"
+    />
+  );
+};
+
 const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean }> = ({ system, isCompact }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -485,31 +578,9 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="flex flex-col items-center text-center max-w-2xl px-4"
           >
-            {/* Imagem em alta qualidade do Console Fisico em vez de repetir o logo */}
+            {/* Logotipo do Console Principal (Firme, Vibrante e Autêntico com Fallbacks Automáticos) */}
             <div className="h-44 md:h-52 w-auto flex items-center justify-center mb-5 relative select-none pointer-events-none">
-              {specs.consolePhotoUrl ? (
-                <motion.img
-                  src={specs.consolePhotoUrl}
-                  alt={activeSystem.name}
-                  animate={{ 
-                    y: [0, -8, 0], 
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 5,
-                    ease: "easeInOut"
-                  }}
-                  style={{
-                    filter: "drop-shadow(0 20px 25px rgba(0,0,0,0.85)) drop-shadow(0 4px 6px rgba(0,0,0,0.5))"
-                  }}
-                  className="max-h-full w-auto object-contain"
-                  referrerPolicy="no-referrer"
-                />
-              ) : (
-                <div className="h-28 w-auto max-w-[280px] flex items-center justify-center">
-                  <SafeConsoleLogo system={activeSystem} isCompact={false} />
-                </div>
-              )}
+              <CentralConsoleLogo system={activeSystem} />
             </div>
             
             <p className="text-zinc-400 text-[10px] tracking-widest font-mono uppercase bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md mb-2">
