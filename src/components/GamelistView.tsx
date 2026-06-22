@@ -10,6 +10,7 @@ import { soundEngine } from './RetroSoundEngine';
 import { EmulatorPlayer } from './EmulatorPlayer';
 import { getGameGameplayVideoUrl } from '../utils/videoResolver';
 import { ArrowLeft, Search, Volume2, VolumeX } from 'lucide-react';
+import { GameCover } from './GameCover';
 
 interface GamelistViewProps {
   system: System;
@@ -79,119 +80,6 @@ export const getRichDescription = (title: string, systemName: string): string =>
     .trim();
 
   return gameDescriptions[cleanKey] || `Redescubra este clássico absoluto do console ${systemName}. Re-experimente a jogabilidade intocada original emulando roms clássicas no LordTecaRetro com velocidade máxima de carregamento.`;
-};
-
-const getLibretroSystemFolderName = (systemId: string): string => {
-  const cleanId = (systemId || '').toLowerCase();
-  const map: Record<string, string> = {
-    nes: 'Nintendo_-_Nintendo_Entertainment_System',
-    snes: 'Nintendo_-_Super_Nintendo_Entertainment_System',
-    n64: 'Nintendo_-_Nintendo_64',
-    gb: 'Nintendo_-_Game_Boy',
-    gbc: 'Nintendo_-_Game_Boy_Color',
-    gba: 'Nintendo_-_Game_Boy_Advance',
-    sms: 'Sega_-_Master_System',
-    mastersystem: 'Sega_-_Master_System',
-    genesis: 'Sega_-_Mega_Drive_-_Genesis',
-    megadrive: 'Sega_-_Mega_Drive_-_Genesis',
-    gamegear: 'Sega_-_Game_Gear',
-    ps1: 'Sony_-_PlayStation',
-    psx: 'Sony_-_PlayStation',
-    atari: 'Atari_-_2600',
-    atari2600: 'Atari_-_2600',
-    nds: 'Nintendo_-_Nintendo_DS',
-    pce: 'NEC_-_PC_Engine_-_TurboGrafx-16',
-    pcengine: 'NEC_-_PC_Engine_-_TurboGrafx-16',
-    '3do': 'The_3DO_Company_-_3DO',
-  };
-  return map[cleanId] || '';
-};
-
-const getLibretroCandidates = (title: string, systemId: string): string[] => {
-  const folder = getLibretroSystemFolderName(systemId);
-  if (!folder) return [];
-
-  const candidates: string[] = [];
-  const baseTitle = title.trim();
-
-  const cleanBase = (t: string, customClean: boolean): string => {
-    let s = t;
-    if (customClean) s = s.replace(/:/g, ' -');
-    s = s.replace(/\s\x27N\s/g, " 'n ").replace(/\s\x27n\s/g, " 'n ").replace(/[/*?"<>|]/g, '');
-    return s;
-  };
-
-  const suffixes = ['', ' (USA)', ' (USA, Europe)', ' (Europe)', ' (Japan)', ' (World)'];
-
-  for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, false));
-  for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, true));
-
-  return Array.from(new Set(candidates)).map(c => 
-    `https://raw.githubusercontent.com/libretro-thumbnails/${folder}/master/Named_Boxarts/${encodeURIComponent(c)}.png`
-  );
-};
-
-const GameCover: React.FC<{ game: Game; systemId: string; className?: string }> = ({ game, systemId, className }) => {
-  const candidates = useMemo(() => {
-    let cleanTitle = game.title.replace(/\(PT-BR\)/gi, '').replace(/\[PT-BR\]/gi, '').replace(/\(Traduzido\)/gi, '').replace(/\[Traduzido\]/gi, '').trim();
-    if (cleanTitle.toLowerCase().startsWith('the ')) {
-      const coreName = cleanTitle.substring(4).trim();
-      cleanTitle = `${coreName}, The`;
-    }
-    return getLibretroCandidates(cleanTitle, systemId);
-  }, [game.title, systemId]);
-
-  const [src, setSrc] = useState<string>('');
-  const [attempt, setAttempt] = useState<number>(0);
-  const [loaded, setLoaded] = useState(false);
-  const [isFatalError, setIsFatalError] = useState(false);
-
-  useEffect(() => {
-    setIsFatalError(false);
-    setLoaded(false);
-    if (candidates.length > 0) {
-      setSrc(candidates[0]);
-      setAttempt(1);
-    } else {
-      setSrc(game.image || '');
-      setAttempt(0);
-    }
-  }, [game, candidates]);
-
-  const handleError = () => {
-    if (attempt > 0 && attempt < candidates.length) {
-      setSrc(candidates[attempt]);
-      setAttempt(prev => prev + 1);
-    } else if (src !== game.image && game.image) {
-      setSrc(game.image);
-      setAttempt(0);
-    } else {
-      setIsFatalError(true);
-      setLoaded(true);
-    }
-  };
-
-  if (isFatalError || !src) {
-    return (
-      <div className="absolute inset-0 bg-transparent flex flex-col items-center justify-center p-4 text-center select-none">
-        <span className="font-retro text-[9px] text-zinc-500 uppercase tracking-widest leading-tight line-clamp-3 px-1">
-          {game.title}
-        </span>
-      </div>
-    );
-  }
-
-  return (
-    <img
-      src={src}
-      alt=""
-      onError={handleError}
-      onLoad={() => setLoaded(true)}
-      className={`${className} transition-opacity duration-350 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-      loading="lazy"
-      referrerPolicy="no-referrer"
-    />
-  );
 };
 
 export const GamelistView: React.FC<GamelistViewProps> = ({
@@ -338,36 +226,43 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       className="fixed inset-0 w-full h-screen font-sans text-white overflow-hidden bg-[#040406] flex flex-col justify-between select-none"
     >
       
-      {/* CAMADA 1: PLAYER DE VÍDEO (EMBAIXO DA MÁSCARA TRANSPARENTE DA TV) */}
-      <div className="absolute top-[17.5%] left-[6.8%] w-[33.6vw] aspect-[4/3] bg-black z-10 overflow-hidden rounded-[10px]">
-        {selectedGame && !videoError && (
-          <video
-            key={`crt-video-${selectedGame.title}`}
-            src={getGameGameplayVideoUrl(system.id, selectedGame.title)}
-            autoPlay
-            loop
-            muted={isMuted}
-            playsInline
-            className="w-full h-full object-cover filter contrast-[1.15] saturate-[1.10] brightness-[1.02]"
-            onPlay={() => setVideoLoaded(true)}
-            onLoadedData={() => setVideoLoaded(true)}
-            onError={() => {
-              setVideoError(true);
-              setVideoLoaded(false);
-            }}
-          />
+      {/* CAMADA 0: BACKGROUND FANART FLUIDO DO JOGO SELECIONADO (PREENCHEDOR DO ESPAÇO GIGANTE COM ALTA CREDIBILIDADE PREMIUM CORES) */}
+      <div className="absolute inset-0 z-0 pointer-events-none transition-all duration-700">
+        {selectedGame && selectedGame.image && (
+          <>
+            <img 
+              src={selectedGame.image || ''} 
+              alt="" 
+              className="absolute inset-0 w-full h-full object-cover opacity-[0.14] filter blur-md scale-105" 
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#040406] via-[#040406]/90 to-transparent" />
+          </>
+        )}
+      </div>
+      
+      {/* CAMADA 1: TELA CRT DA TV (EXIBINDO A ARTE DE CAPA DO JOGO COM SCANLINES E REFLEXO RETRO) */}
+      <div className="absolute top-[17.5%] left-[6.8%] w-[33.6vw] aspect-[4/3] bg-black/90 z-10 overflow-hidden rounded-[10px] flex items-center justify-center p-6 relative">
+        {selectedGame && (
+          <>
+            <div className="absolute inset-0 bg-zinc-950/80" />
+            <div className="relative w-full h-full flex items-center justify-center z-15">
+              <GameCover 
+                game={selectedGame} 
+                systemId={system.id} 
+                className="max-h-full max-w-full object-contain rounded shadow-[0_0_20px_rgba(255,255,255,0.1)] transform scale-[0.88]" 
+              />
+            </div>
+          </>
         )}
         
-        {(!videoLoaded || videoError) && selectedGame && (
-          <div className="absolute inset-0 flex items-center justify-center p-4 bg-zinc-950">
-            <GameCover game={selectedGame} systemId={system.id} className="max-h-full max-w-full object-contain rounded" />
-          </div>
-        )}
-
+        {/* Camada Scanlines daltônicas de CRT antigas */}
         <div 
-          className="absolute inset-0 pointer-events-none opacity-15 mix-blend-overlay z-20"
-          style={{ backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.4) 50%)', backgroundSize: '100% 4px' }}
+          className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay z-20"
+          style={{ backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.5) 50%)', backgroundSize: '100% 4px' }}
         />
+        {/* Reflexo radial de tubo de imagem (CRT glass glare) */}
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.08)_0%,transparent_60%)] z-20" />
       </div>
 
       {/* CAMADA 2: A SUA MÁSCARA PNG TRANSPARENTE DA PASTA BACKGROUNDS */}
@@ -395,74 +290,86 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         </div>
       </div>
 
-      {/* CAMADA 3: CARROSSEL DE CARTUCHOS EM ESFERA 3D (CENTRALIZADO EMBAIXO) */}
+      {/* PAINEL DE METADADOS ULTRA PREMIUM DO JOGO (PREENCHE DIRETAMENTE O ESPAÇO GIGANTE ACIMA DO CARROSSEL) */}
+      <div className="absolute top-[17.5%] right-[6.8%] w-[48vw] h-[25.2vw] z-30 flex flex-col justify-between pointer-events-auto bg-black/50 border border-white/10 backdrop-blur-md rounded-[10px] p-5 md:p-6 shadow-2xl">
+        <AnimatePresence mode="wait">
+          {selectedGame && (
+            <motion.div 
+              key={`meta-panel-${selectedGame.id}`} 
+              initial={{ opacity: 0, x: 20 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              exit={{ opacity: 0, x: -20 }} 
+              transition={{ duration: 0.3 }}
+              className="w-full h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center gap-3 mb-2.5 text-[10px] font-mono tracking-wider">
+                  <span className="uppercase font-black px-2.5 py-1 rounded bg-white/10 text-white border border-white/10">
+                    {selectedGame.genre || "RETRO CLASSIC"}
+                  </span>
+                  <span className="text-zinc-500">•</span>
+                  <span className="text-zinc-400 font-bold uppercase">{selectedGame.developer || "Retro Studio"}</span>
+                </div>
+                
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-black tracking-tight text-white uppercase mb-2 md:mb-3 drop-shadow-md leading-tight">
+                  {selectedGame.title}
+                </h2>
+                
+                <p className="text-xs md:text-sm text-zinc-300 font-sans font-normal leading-relaxed overflow-y-auto max-h-[10.5vh] pr-2 scrollbar-thin scrollbar-thumb-white/10">
+                  {getRichDescription(selectedGame.title, system.name)}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-12 gap-3 border-t border-white/10 pt-4 mt-2">
+                <div className="col-span-4 bg-white/5 border border-white/5 rounded-lg p-2.5 flex flex-col justify-center">
+                  <span className="text-[8px] text-zinc-500 uppercase tracking-widest font-mono font-black">LANÇAMENTO</span>
+                  <span className="font-bold text-white text-[11px] md:text-xs font-mono mt-0.5">{selectedGame.year || "Classic"}</span>
+                </div>
+                <div className="col-span-4 bg-white/5 border border-white/5 rounded-lg p-2.5 flex flex-col justify-center">
+                  <span className="text-[8px] text-zinc-500 uppercase tracking-widest font-mono font-black">EMULADOR CORE</span>
+                  <span className="font-bold text-white text-[11px] md:text-xs font-mono mt-0.5 uppercase truncate">{system.emulatorCore || "RetroArch"}</span>
+                </div>
+                <button 
+                  onClick={() => selectedGame && handleLaunchGame(selectedGame)} 
+                  className="col-span-4 bg-emerald-500 hover:bg-emerald-400 text-black font-retro text-[9px] font-black uppercase tracking-widest rounded-lg flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 text-center px-1 py-1 shadow-black/80"
+                >
+                  ➔ JOGAR NOW
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* CAMADA 3: CARROSSEL DE CARTUCHOS PLANO (CENTRALIZADO EMBAIXO) */}
       <div className="absolute bottom-[20%] left-0 right-0 h-[280px] z-30 flex flex-col justify-end pointer-events-none">
-        <div ref={listContainerRef} className="flex items-center overflow-x-auto gap-8 py-4 no-scrollbar scroll-smooth snap-x w-full pointer-events-auto" style={{ paddingLeft: '40%', paddingRight: '40%' }}>
+        <div ref={listContainerRef} className="flex items-center overflow-x-auto gap-8 py-4 no-scrollbar scroll-smooth snap-x w-full pointer-events-auto" style={{ paddingLeft: 'calc(50vw - 72px)', paddingRight: 'calc(50vw - 72px)' }}>
           {filteredGames.map((game, idx) => {
             const offset = idx - selectedGameIndex;
             const isSelected = idx === selectedGameIndex;
-            if (Math.abs(offset) > 3) return null;
             const distance = Math.abs(offset);
+            const isFar = distance > 4;
 
             return (
               <motion.button
                 key={game.id}
                 onClick={() => handleGameClick(idx, game)}
                 animate={{
-                  scale: isSelected ? 1.05 : 0.82 - Math.min(distance * 0.05, 0.2),
-                  opacity: isSelected ? 1 : 0.35 - Math.min(distance * 0.05, 0.2),
-                  rotateY: isSelected ? 0 : (idx < selectedGameIndex ? 28 : -28), 
-                  x: isSelected ? 0 : (idx < selectedGameIndex ? 20 : -20) * Math.min(distance, 3),
+                  scale: isSelected ? 1.10 : 0.82 - Math.min(distance * 0.05, 0.15),
+                  opacity: isSelected ? 1 : isFar ? 0 : 0.40 - Math.min(distance * 0.08, 0.3),
+                  x: isSelected ? 0 : (idx < selectedGameIndex ? 16 : -16) * Math.min(distance, 2.5),
                 }}
-                transition={{ type: 'spring', stiffness: 160, damping: 18 }}
-                className="shrink-0 relative focus:outline-none cursor-pointer flex flex-col items-center select-none"
+                transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+                className={`shrink-0 relative focus:outline-none cursor-pointer flex flex-col items-center select-none ${isFar ? 'pointer-events-none' : 'pointer-events-auto'}`}
+                style={{ width: '144px', visibility: isFar ? 'hidden' : 'visible' }}
               >
-                <div className="relative w-36 h-48 rounded-xl overflow-hidden border transition-all duration-300 shadow-2xl" style={isSelected ? { borderColor: 'white', boxShadow: `0px 10px 30px rgba(255,255,255,0.15)` } : { borderColor: 'rgba(255,255,255,0.05)' }}>
+                <div className="relative w-36 h-48 rounded-xl overflow-hidden border transition-all duration-300 shadow-2xl" style={isSelected ? { borderColor: 'white', boxShadow: `0px 10px 30px rgba(255,255,255,0.22)` } : { borderColor: 'rgba(255,255,255,0.05)' }}>
                   <GameCover game={game} systemId={system.id} className="w-full h-full object-cover" />
                 </div>
               </motion.button>
             );
           })}
         </div>
-      </div>
-
-      {/* TEXTO DA SINOPSE METADATA (BAIXO ESQUERDA) */}
-      <div className="absolute bottom-14 left-10 z-30 max-w-xl text-left pointer-events-none">
-        <AnimatePresence mode="wait">
-          {selectedGame && (
-            <motion.div key={`meta-text-${selectedGame.id}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
-              <div className="flex items-center gap-2 mb-1 text-[9px] font-mono text-zinc-500">
-                <span className="uppercase font-bold px-1.5 py-0.5 rounded bg-white/10 text-zinc-300">{selectedGame.genre}</span>
-                <span>•</span>
-                <span>{selectedGame.developer.toUpperCase()}</span>
-              </div>
-              <h2 className="text-xl font-display font-black tracking-tight text-white uppercase mb-1">{selectedGame.title}</h2>
-              <p className="text-[11px] text-zinc-400 font-sans font-medium leading-relaxed line-clamp-2">{getRichDescription(selectedGame.title, system.name)}</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* INFO BENTO & BOTÃO PLAY EXCLUSIVO (BAIXO DIREITA) */}
-      <div className="absolute bottom-14 right-10 z-30 flex items-end gap-4 pointer-events-auto">
-        {selectedGame && (
-          <>
-            <div className="grid grid-cols-2 gap-1.5 font-mono text-[9px] text-zinc-500">
-              <div className="bg-black/50 border border-white/5 rounded-lg px-2.5 py-1.5 h-9 flex flex-col justify-center text-left">
-                <span className="text-[7px] text-zinc-600 uppercase block">ANO</span>
-                <span className="font-bold text-zinc-300 font-mono mt-0.5">{selectedGame.year}</span>
-              </div>
-              <div className="bg-black/50 border border-white/5 rounded-lg px-2.5 py-1.5 h-9 flex flex-col justify-center text-left">
-                <span className="text-[7px] text-zinc-600 uppercase block">CORE</span>
-                <span className="font-bold uppercase tracking-wider mt-0.5 text-zinc-300">{system.emulatorCore}</span>
-              </div>
-            </div>
-
-            <button onClick={() => selectedGame && handleLaunchGame(selectedGame)} className="h-9 px-8 bg-white text-black font-retro text-[9px] rounded-lg border-t border-white/10 transition-all font-black tracking-widest flex items-center justify-center cursor-pointer shadow-lg active:scale-95 hover:bg-zinc-200">
-              ➔ INICIAR JOGO
-            </button>
-          </>
-        )}
       </div>
 
       {/* RODAPÉ */}
