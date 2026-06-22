@@ -43,7 +43,11 @@ const consoleSpecs = {
   neogeo: { color: '#f59e0b', desc: '16-BIT MULTI VIDEO DECK', cpu: 'MC68000 + Z80A', chip: 'SNK MAX 330 MEGA' },
   nds: { color: '#0ea5e9', desc: 'DUAL SCREEN GRAPHICS', cpu: 'ARM9 67MHz + ARM7', chip: 'TOUCH / DISPLAY S/W' },
   pce: { color: '#f43f5e', desc: 'TURBOGRAFX-16 TURBO', cpu: 'HuC6280 7.16Mhz', chip: 'NEC DUAL AUDIO/GFX' },
-  '3do': { color: '#8b5cf6', desc: '32-BIT INTERACTIVE DEC', cpu: 'ARM60 12.5MHz RISC', chip: 'CUSTOM CLIO / ANVIL' }
+  '3do': { color: '#8b5cf6', desc: '32-BIT INTERACTIVE DEC', cpu: 'ARM60 12.5MHz RISC', chip: 'CUSTOM CLIO / ANVIL' },
+  gamecube: { color: '#4F3F84', desc: '128-BIT COMPACT CUBE', cpu: 'IBM Broadway 485MHz', chip: 'ATI Flipper 162MHz' },
+  dreamcast: { color: '#e55026', desc: '128-BIT SWIRL ADVENTURE', cpu: 'Hitachi SH-4 200MHz', chip: 'NEC PowerVR2 CLX2' },
+  playstation2: { color: '#003087', desc: '128-BIT EMOTION ENGINE', cpu: 'EE @ 294MHz', chip: 'Graphics Synthesizer' },
+  playstation3: { color: '#1f1f1f', desc: 'CELL BROADBAND MACHINE', cpu: 'Cell @ 3.2GHz', chip: 'NVIDIA RSX @ 550MHz' }
 };
 
 // --- A. GENERATE CONSOLE WALLPAPERS ---

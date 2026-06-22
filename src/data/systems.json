@@ -424,7 +424,88 @@
     "backgroundImage": "/systems/dreamcast.svg",
     "themeColor": "from-[#e55026] to-black",
     "emulatorCore": "flycast",
-    "gameDefs": []
+    "gameDefs": [
+      {
+        "title": "Sonic Adventure 2",
+        "year": "2001",
+        "genre": "Aventura / Plataforma",
+        "dev": "Sonic Team",
+        "pub": "Sega",
+        "desc": "A icônica e emocionante aventura em alta velocidade que dividiu a saga entre heróis e vilões, estreando Shadow the Hedgehog."
+      },
+      {
+        "title": "SoulCalibur",
+        "year": "1999",
+        "genre": "Luta 3D",
+        "dev": "Project Soul",
+        "pub": "Namco",
+        "desc": "Considerado um divisor de águas nos jogos de luta 3D por sua fluidez absoluta nas 8 direções e gráficos que superavam o arcade."
+      },
+      {
+        "title": "Shenmue",
+        "year": "1999",
+        "genre": "Aventura / RPG",
+        "dev": "Sega AM2",
+        "pub": "Sega",
+        "desc": "Obra-prima visionária de Yu Suzuki que definiu o gênero mundo aberto e interativo em busca de vingança pela morte do pai."
+      },
+      {
+        "title": "Jet Set Radio",
+        "year": "2000",
+        "genre": "Ação / Esportes",
+        "dev": "Smilebit",
+        "pub": "Sega",
+        "desc": "Revolucionou a estética gamer com visual cel-shaded vibrante, trilha sonora funk-eletrônica marcante e grafites nos patins."
+      },
+      {
+        "title": "Crazy Taxi",
+        "year": "2000",
+        "genre": "Corrida / Arcade",
+        "dev": "Hitmaker",
+        "pub": "Sega",
+        "desc": "Leve passageiros a destinos malucos com manobras insanas em alta velocidade ao som punk rock enérgico."
+      },
+      {
+        "title": "Phantasy Star Online",
+        "year": "2000",
+        "genre": "RPG / Online",
+        "dev": "Sonic Team",
+        "pub": "Sega",
+        "desc": "O pioneiro absoluto dos RPGs de ação online para consoles com cooperação futurista épica em tempo real."
+      },
+      {
+        "title": "Resident Evil Code: Veronica",
+        "year": "2000",
+        "genre": "Survival Horror",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "O primeiro Resident Evil a apresentar cenários tridimensionais poligonais completos seguindo a aventura de Claire Redfield."
+      },
+      {
+        "title": "Marvel vs. Capcom 2: New Age of Heroes",
+        "year": "2000",
+        "genre": "Luta 2D",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "O ápice dos jogos de luta tag-team com um massivo elenco de 56 personagens clássicos e combos de proporções colossais."
+      },
+      {
+        "title": "Skies of Arcadia",
+        "year": "2000",
+        "genre": "RPG",
+        "dev": "Overworks",
+        "pub": "Sega",
+        "desc": "Um dos RPGs mais amados de todos os tempos, focado em piratas do ar navegando pelas nuvens e explorando ilhas fantásticas."
+      },
+      {
+        "title": "Ikaruga",
+        "year": "2002",
+        "genre": "Shoot 'em up",
+        "dev": "Treasure",
+        "pub": "Sega",
+        "desc": "Um cult-classic brilhante baseado na alternância de polaridades (preto e branco) para absorver tiros inimigos e contra-atacar."
+      }
+    ]
   },
   {
     "id": "gamecube",
@@ -437,6 +518,275 @@
     "backgroundImage": "/systems/gamecube.svg",
     "themeColor": "from-[#4f3f84] to-black",
     "emulatorCore": "dolphin",
-    "gameDefs": []
+    "gameDefs": [
+      {
+        "title": "Super Smash Bros. Melee",
+        "year": "2001",
+        "genre": "Luta 3D",
+        "dev": "HAL Laboratory",
+        "pub": "Nintendo",
+        "desc": "O mais icônico e frenético jogo de luta competitivo de crossovers da Nintendo de todos os tempos."
+      },
+      {
+        "title": "The Legend of Zelda: The Wind Waker",
+        "year": "2002",
+        "genre": "Aventura 3D",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Uma incrível jornada em estilo cel-shaded pelos vastos oceanos, com exploração náutica maravilhosa e muita magia."
+      },
+      {
+        "title": "Resident Evil 4",
+        "year": "2005",
+        "genre": "Survival Horror",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Revolucionou a indústria de ação em terceira pessoa com sua fantástica câmera sobre o ombro e aventura tensa na Europa."
+      },
+      {
+        "title": "Metroid Prime",
+        "year": "2002",
+        "genre": "Aventura / FPS",
+        "dev": "Retro Studios",
+        "pub": "Nintendo",
+        "desc": "A genial transição tridimensional em primeira pessoa de Samus Aran em um planeta hostil repleto de segredos profundos."
+      },
+      {
+        "title": "Super Mario Sunshine",
+        "year": "2002",
+        "genre": "Plataforma 3D",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Mario viaja para a ilha tropical Delfino e faz uso da engenhoca de água F.L.U.D.D. para limpar a sujeira e recuperar Shines."
+      },
+      {
+        "title": "The Legend of Zelda: Twilight Princess",
+        "year": "2006",
+        "genre": "Aventura 3D",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Uma narrativa sombria onde Link se transforma em lobo para salvar Hyrule invasão da sinistra dimensão do Crepúsculo."
+      },
+      {
+        "title": "Paper Mario: The Thousand-Year Door",
+        "year": "2004",
+        "genre": "RPG",
+        "dev": "Intelligent Systems",
+        "pub": "Nintendo",
+        "desc": "Considerado o ápice dos RPGs de papel do Mario, trazendo humor incomparável, combate teatral refinado e companheiros únicos."
+      },
+      {
+        "title": "Luigi's Mansion",
+        "year": "2001",
+        "genre": "Aventura / Terror",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "O game de estreia do console focado em Luigi caçando fantasmas com o aspirador Poltergust 3000 em uma mansão mal-assombrada."
+      },
+      {
+        "title": "F-Zero GX",
+        "year": "2003",
+        "genre": "Corrida",
+        "dev": "Amusement Vision",
+        "pub": "Nintendo",
+        "desc": "Velocidade surrealista em pistas desafiadoras futuristas a mais de 1000 km/h, exigindo reflexos dignos de um supercarro ninja."
+      },
+      {
+        "title": "Pikmin 2",
+        "year": "2004",
+        "genre": "Estratégia",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Comande hordas de criaturinhas coloridas Pikmin junto aos exploradores Olimar e Louie para resgatar tesouros alienígenas incríveis."
+      }
+    ]
+  },
+  {
+    "id": "playstation2",
+    "name": "Sony PlayStation 2",
+    "shortName": "PS2",
+    "logo": "PLAYSTATION2",
+    "badgeColor": "bg-[#003087] border-[#005cff] text-white hover:shadow-[0_0_15px_rgba(0,92,255,0.4)]",
+    "releaseYear": "2000",
+    "manufacturer": "Sony",
+    "backgroundImage": "/systems/playstation2.svg",
+    "themeColor": "from-[#003087] to-black",
+    "emulatorCore": "pcsx2",
+    "gameDefs": [
+      {
+        "title": "Grand Theft Auto: San Andreas",
+        "year": "2004",
+        "genre": "Ação / Mundo Aberto",
+        "dev": "Rockstar North",
+        "pub": "Rockstar Games",
+        "desc": "O jogo de mundo aberto definitivo da geração, com ricas mecânicas RPG e história inesquecível no estado de San Andreas."
+      },
+      {
+        "title": "Resident Evil 4",
+        "year": "2005",
+        "genre": "Survival Horror / Ação",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "A clássica jornada de resgate de Leon S. Kennedy na Europa rural que revolucionou o gênero shooter com perspectiva em terceira pessoa."
+      },
+      {
+        "title": "God of War II",
+        "year": "2007",
+        "genre": "Hack and Slash",
+        "dev": "Santa Monica Studio",
+        "pub": "Sony Computer Entertainment",
+        "desc": "Kratos desafia o Rei dos Deuses Zeus em uma jornada épica com combates colossais e o ápice visual do console."
+      },
+      {
+        "title": "Shadow of the Colossus",
+        "year": "2005",
+        "genre": "Aventura / Épico",
+        "dev": "Team Ico",
+        "pub": "Sony Computer Entertainment",
+        "desc": "Uma poética e solitária aventura minimalista onde você deve rastrear e escalar 16 colossos majestosos para salvar uma garota."
+      },
+      {
+        "title": "Metal Gear Solid 3: Snake Eater",
+        "year": "2004",
+        "genre": "Ação / Stealth",
+        "dev": "Kojima Productions",
+        "pub": "Konami",
+        "desc": "A fascinante origem do lendário Big Boss nas selvas da Guerra Fria com inovador sistema de camuflagem e sobrevivência militar."
+      },
+      {
+        "title": "Kingdom Hearts II",
+        "year": "2005",
+        "genre": "Action RPG",
+        "dev": "Square Enix",
+        "pub": "Square Enix",
+        "desc": "Fusão brilhante e mágica entre os heróis de Final Fantasy e os mundos clássicos da Disney sob o comando de Sora e sua Keyblade."
+      },
+      {
+        "title": "Final Fantasy X",
+        "year": "2001",
+        "genre": "RPG",
+        "dev": "Square",
+        "pub": "Square",
+        "desc": "Uma emocionante jornada em busca de derrotar a destrutiva entidade Sin em um mundo aquático tropical deslumbrante e melancólico."
+      },
+      {
+        "title": "Silent Hill 2",
+        "year": "2001",
+        "genre": "Survival Horror",
+        "dev": "Team Silent",
+        "pub": "Konami",
+        "desc": "Uma obra de arte do terror psicológico envolvendo luto, culpa inconsciente e símbolos macabros na misteriosa cidade sob a névoa."
+      },
+      {
+        "title": "Devil May Cry 3: Dante's Awakening",
+        "year": "2005",
+        "genre": "Hack and Slash / Ação",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "A aventura prequel que estabeleceu a jogabilidade estilosa, combos acrobáticos, humor sarcástico de Dante e seu desafiador irmão Vergil."
+      },
+      {
+        "title": "Gran Turismo 4",
+        "year": "2004",
+        "genre": "Corrida / Simulador",
+        "dev": "Polyphony Digital",
+        "pub": "Sony Computer Entertainment",
+        "desc": "O auge da simulação de automobilismo com mais de 700 carros realistas, pistas lendárias do mundo inteiro e física ultra-precisa."
+      }
+    ]
+  },
+  {
+    "id": "playstation3",
+    "name": "Sony PlayStation 3",
+    "shortName": "PS3",
+    "logo": "PLAYSTATION3",
+    "badgeColor": "bg-[#1f1f1f] border-[#444444] text-white hover:shadow-[0_0_15px_rgba(68,68,68,0.4)]",
+    "releaseYear": "2006",
+    "manufacturer": "Sony",
+    "backgroundImage": "/systems/playstation3.svg",
+    "themeColor": "from-[#1a1a1a] to-black",
+    "emulatorCore": "rpcs3",
+    "gameDefs": [
+      {
+        "title": "The Last of Us",
+        "year": "2013",
+        "genre": "Aventura / Drama",
+        "dev": "Naughty Dog",
+        "pub": "Sony Computer Entertainment",
+        "desc": "A emocionante e crua jornada cinematográfica de Joel e Ellie em um belíssimo mundo pós-apocalíptico devastado por fungos cordyceps."
+      },
+      {
+        "title": "Grand Theft Auto V",
+        "year": "2013",
+        "genre": "Ação / Mundo Aberto",
+        "dev": "Rockstar North",
+        "pub": "Rockstar Games",
+        "desc": "Três criminosos muito diferentes se unem em golpes ousados pelas dinâmicas e ensolaradas ruas do sul da Califórnia (Los Santos)."
+      },
+      {
+        "title": "Uncharted 2: Among Thieves",
+        "year": "2009",
+        "genre": "Ação / Aventura",
+        "dev": "Naughty Dog",
+        "pub": "Sony Computer Entertainment",
+        "desc": "Uma espetacular montanha-russa de ação e tiroteios com Nathan Drake em busca do lendário reino mítico de Shambhala no Himalaia."
+      },
+      {
+        "title": "Metal Gear Solid 4: Guns of the Patriots",
+        "year": "2008",
+        "genre": "Stealth / Ação",
+        "dev": "Kojima Productions",
+        "pub": "Konami",
+        "desc": "O desfecho épico, emocionante e repleto de revelações e tecnologia militar futurista para a lendária história do envelhecido Solid Snake."
+      },
+      {
+        "title": "Red Dead Redemption",
+        "year": "2010",
+        "genre": "Aventura / Faroeste",
+        "dev": "Rockstar San Diego",
+        "pub": "Rockstar Games",
+        "desc": "Uma melancólica e profunda história de redenção e pistoleiros nas vastas fronteiras norte-americanas do Velho Oeste moribundo."
+      },
+      {
+        "title": "God of War III",
+        "year": "2010",
+        "genre": "Hack and Slash / Ação",
+        "dev": "Santa Monica Studio",
+        "pub": "Sony Computer Entertainment",
+        "desc": "O clímax cinematográfico de vingança onde Kratos escala o Monte Olimpo com a ajuda dos Titãs para trucidar todos os deuses gregos."
+      },
+      {
+        "title": "Batman: Arkham City",
+        "year": "2011",
+        "genre": "Aventura / Ação",
+        "dev": "Rocksteady Studios",
+        "pub": "Warner Bros. Interactive",
+        "desc": "Batman voa e distribui justiça em uma super-prisão a céu aberto repleta de seus criminosos e arqui-inimigos mais brilhantes."
+      },
+      {
+        "title": "Dark Souls",
+        "year": "2011",
+        "genre": "Action RPG / Fantasia",
+        "dev": "FromSoftware",
+        "pub": "Bandai Namco",
+        "desc": "Inaugurou uma geração com seu combate extremamente deliberado, desafiador, design de níveis interconectados brilhante e rica lore sombria."
+      },
+      {
+        "title": "BioShock",
+        "year": "2007",
+        "genre": "Aventura / FPS",
+        "dev": "2K Boston",
+        "pub": "2K Games",
+        "desc": "Uma distópica imersão nas profundezas da cidade subaquática em ruínas Rapture, debatendo filosofia, livre-arbítrio e mutações."
+      },
+      {
+        "title": "LittleBigPlanet",
+        "year": "2008",
+        "genre": "Plataforma / Criativo",
+        "dev": "Media Molecule",
+        "pub": "Sony Computer Entertainment",
+        "desc": "O cativante e acolhedor universo de Sackboy focado na célebre premissa 'Jogar, Criar e Compartilhar' de infinitos níveis coloridos."
+      }
+    ]
   }
 ]
