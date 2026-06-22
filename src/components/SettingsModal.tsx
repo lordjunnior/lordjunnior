@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Sliders, Volume2, VolumeX, Zap, Sparkles, FolderHeart, Info, Check } from 'lucide-react';
+import { X, Sliders, Volume2, VolumeX, Zap, Sparkles, FolderHeart, Info, Check, Tv } from 'lucide-react';
 import { soundEngine } from './RetroSoundEngine';
 
 interface SettingsModalProps {
@@ -13,6 +13,8 @@ interface SettingsModalProps {
   onClose: () => void;
   isMuted: boolean;
   toggleMute: () => void;
+  isCrtEnabled: boolean;
+  toggleCrt: () => void;
   onOpenDonateModal: () => void;
 }
 
@@ -21,6 +23,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onClose,
   isMuted,
   toggleMute,
+  isCrtEnabled,
+  toggleCrt,
   onOpenDonateModal
 }) => {
   const [showTestConfirm, setShowTestConfirm] = useState(false);
@@ -28,6 +32,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const handleToggleSound = () => {
     toggleMute();
     // Use a timeout to play sound AFTER toggle state applies
+    setTimeout(() => {
+      soundEngine.playSelect();
+    }, 50);
+  };
+
+  const handleToggleCrt = () => {
+    toggleCrt();
     setTimeout(() => {
       soundEngine.playSelect();
     }, 50);
@@ -134,6 +145,39 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     </button>
                   </div>
                 )}
+              </div>
+
+              {/* Opção Nova: Filtro de Tela CRT (Tubo) */}
+              <div className="bg-[#0b1118]/80 border border-white/5 rounded-2xl p-4 transition-all duration-300 hover:border-red-500/10">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2.5">
+                    <Tv className={`w-4.5 h-4.5 shrink-0 ${isCrtEnabled ? 'text-cyan-400 animate-pulse' : 'text-zinc-400'}`} />
+                    <div>
+                      <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+                        Filtro Retro CRT (Tubo)
+                      </h3>
+                      <p className="text-[10px] text-zinc-400 font-medium">
+                        Simula as clássicas linhas de varredura e brilho de TV de tubo
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Toggle Retro CRT */}
+                  <button
+                    onClick={handleToggleCrt}
+                    className={`relative w-12 h-6 rounded-full transition-all duration-300 p-0.5 cursor-pointer ${
+                      isCrtEnabled 
+                        ? 'bg-cyan-600 shadow-[0_0_8px_rgba(34,211,238,0.35)]' 
+                        : 'bg-zinc-800'
+                    }`}
+                  >
+                    <div
+                      className={`w-5 h-5 rounded-full bg-white shadow-md transform transition-all duration-300 ${
+                        isCrtEnabled ? 'translate-x-6' : 'translate-x-0'
+                      }`}
+                    />
+                  </button>
+                </div>
               </div>
 
               {/* Opção 2: Preservação Livre e Soberana */}

@@ -68,15 +68,22 @@ const genreTranslations: Record<string, string> = {
 
 const translateText = async (text: string): Promise<string> => {
   if (!text) return '';
-  const shortened = text.slice(0, 500); // limita para não estourar
+  const shortened = text.slice(0, 1000); // Aumentou de 500 para 1000 graças ao poder do Gemini
   try {
-    const res = await fetch(
-      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(shortened)}&langpair=en|pt-BR`
-    );
+    const res = await fetch('/api/translate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: shortened }),
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
     const data = await res.json();
-    return data.responseData.translatedText || text;
+    return data.translatedText || text;
   } catch (error) {
-    console.error('MyMemory API error:', error);
+    console.error('Translation server error, falling back to original text:', error);
     return text;
   }
 };

@@ -113,6 +113,13 @@ export default function App() {
     return false;
   });
 
+  const [isCrtEnabled, setIsCrtEnabled] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('retro_crt') === 'true';
+    }
+    return false;
+  });
+
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isDonateOpen, setIsDonateOpen] = useState<boolean>(false);
   const [isGlobalSearchOpen, setIsGlobalSearchOpen] = useState<boolean>(false);
@@ -170,6 +177,11 @@ export default function App() {
     soundEngine.setMuted(isMuted);
     localStorage.setItem('retro_muted', String(isMuted));
   }, [isMuted]);
+
+  // Synchronize CRT configuration
+  useEffect(() => {
+    localStorage.setItem('retro_crt', String(isCrtEnabled));
+  }, [isCrtEnabled]);
 
   // Forçar sempre a tela inicial (carousel) e a rota raiz no primeiro carregamento do aplicativo ou ao atualizar a página (reload)
   useEffect(() => {
@@ -244,6 +256,38 @@ export default function App() {
           isMuted={isMuted}
           toggleMute={() => setIsMuted(prev => !prev)}
         />
+
+        {/* CRT Scanline Filter Overlay */}
+        {isCrtEnabled && (
+          <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden select-none">
+            {/* Thin scanlines layer */}
+            <div 
+              className="absolute inset-0 opacity-[0.14]" 
+              style={{
+                backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%)',
+                backgroundSize: '100% 4px',
+              }}
+            />
+            {/* Phosphor filter vertical mask */}
+            <div 
+              className="absolute inset-0 opacity-[0.03]" 
+              style={{
+                backgroundImage: 'linear-gradient(90deg, rgba(255, 0, 0, 0.6), rgba(0, 255, 0, 0.2), rgba(0, 0, 255, 0.6))',
+                backgroundSize: '6px 100%',
+              }}
+            />
+            {/* Curved tube vignette shadow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.45)_100%)] opacity-85" />
+            
+            {/* Scrolling scanline glow bar */}
+            <div className="absolute inset-0 bg-transparent overflow-hidden">
+              <div className="w-full h-32 bg-white/[0.015] blur-md scanline-moving pointer-events-none" />
+            </div>
+            
+            {/* TV glass screen reflection glare */}
+            <div className="absolute top-0 right-0 w-[45%] h-[35%] rounded-full bg-white/[0.015] blur-[80px] pointer-events-none transform translate-x-12 -translate-y-12" />
+          </div>
+        )}
       </div>
     );
   }
@@ -347,8 +391,42 @@ export default function App() {
         onClose={() => setIsSettingsOpen(false)}
         isMuted={isMuted}
         toggleMute={() => setIsMuted(prev => !prev)}
+        isCrtEnabled={isCrtEnabled}
+        toggleCrt={() => setIsCrtEnabled(prev => !prev)}
         onOpenDonateModal={() => setIsDonateOpen(true)}
       />
+
+      {/* CRT Scanline Filter Overlay */}
+      {isCrtEnabled && (
+        <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden select-none">
+          {/* Thin scanlines layer */}
+          <div 
+            className="absolute inset-0 opacity-[0.14]" 
+            style={{
+              backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%)',
+              backgroundSize: '100% 4px',
+            }}
+          />
+          {/* Phosphor filter vertical mask */}
+          <div 
+            className="absolute inset-0 opacity-[0.03]" 
+            style={{
+              backgroundImage: 'linear-gradient(90deg, rgba(255, 0, 0, 0.6), rgba(0, 255, 0, 0.2), rgba(0, 0, 255, 0.6))',
+              backgroundSize: '6px 100%',
+            }}
+          />
+          {/* Curved tube vignette shadow */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.45)_100%)] opacity-85" />
+          
+          {/* Scrolling scanline glow bar */}
+          <div className="absolute inset-0 bg-transparent overflow-hidden">
+            <div className="w-full h-32 bg-white/[0.015] blur-md scanline-moving pointer-events-none" />
+          </div>
+          
+          {/* TV glass screen reflection glare */}
+          <div className="absolute top-0 right-0 w-[45%] h-[35%] rounded-full bg-white/[0.015] blur-[80px] pointer-events-none transform translate-x-12 -translate-y-12" />
+        </div>
+      )}
     </div>
   );
 }
