@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { Game } from '../types';
+import { EXACT_ROM_MAPPINGS } from '../utils/romResolver';
 
 const getLibretroSystemFolderName = (systemId: string): string => {
   const cleanId = (systemId || '').toLowerCase();
@@ -45,6 +46,14 @@ const getLibretroCandidates = (title: string, systemId: string): string[] => {
     s = s.replace(/\s\x27N\s/g, " 'n ").replace(/\s\x27n\s/g, " 'n ").replace(/[/*?"<>|]/g, '');
     return s;
   };
+
+  // Add the high-precision mapped No-Intro filename as candidates if present
+  const exactFile = EXACT_ROM_MAPPINGS[systemId.toLowerCase()]?.[baseTitle];
+  if (exactFile) {
+    const cleanFileName = exactFile.replace(/\.(zip|7z|bin|sfc|nes|gba|gb|gbc)$/i, '');
+    candidates.push(cleanFileName);
+    candidates.push(cleanBase(cleanFileName, true));
+  }
 
   const suffixes = ['', ' (USA)', ' (USA, Europe)', ' (Europe)', ' (Japan)', ' (World)'];
 

@@ -190,7 +190,7 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
           window.EJS_player = '#emulator-container';
           window.EJS_core = '${ejsCore}';
           window.EJS_gameUrl = '${getEffectiveRomUrl(activeRomUrl)}';
-          window.EJS_pathtodata = 'https://emulatorjs.org/cdn/';
+          window.EJS_pathtodata = 'https://emulatorjs.github.io/cdn/';
           window.EJS_startOnLoaded = true;
           window.EJS_volume = 0.6;
           window.EJS_AdUrl = '';
@@ -210,7 +210,7 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
             }
           }, true);
         </script>
-        <script src="https://emulatorjs.org/cdn/loader.js" onerror="handleLoadError()"></script>
+        <script src="https://emulatorjs.github.io/cdn/loader.js" onerror="handleLoadError()"></script>
       </body>
       </html>
     `;

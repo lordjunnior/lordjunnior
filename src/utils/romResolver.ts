@@ -26,7 +26,7 @@ const CONSOLE_FOLDERS: Record<string, string> = {
 
 // Hand-curated exact filename mapping for popular games to prevent any "404 Not Found"
 // Files are zipped inside the Archive.org ni-romsets collection.
-const EXACT_ROM_MAPPINGS: Record<string, Record<string, string>> = {
+export const EXACT_ROM_MAPPINGS: Record<string, Record<string, string>> = {
   nes: {
     'Super Mario Bros.': 'Super Mario Bros. (World).zip',
     'Super Mario Bros. 3': 'Super Mario Bros. 3 (USA).zip',
