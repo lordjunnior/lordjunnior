@@ -405,14 +405,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             style={{ zIndex: 99999 }}
             className="fixed inset-0 bg-black flex flex-col justify-between"
           >
-            <div style={{ position: 'fixed', top: '20px', left: '20px', zIndex: 100000 }}>
-              <button
-                onClick={handleCloseEmulator}
-                className="flex items-center gap-1.5 text-[9px] font-retro text-white bg-[#E60012] border border-red-600 rounded-full px-4 py-2 cursor-pointer font-black shadow-lg"
-              >
-                ➔ VOLTAR
-              </button>
-            </div>
             <EmulatorPlayer system={system} game={emulatingGame} onClose={handleCloseEmulator} />
           </motion.div>
         )}

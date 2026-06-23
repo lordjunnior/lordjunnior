@@ -50,7 +50,9 @@ const PRESET_TEST_ROMS: Record<string, { name: string; url: string }[]> = {
 
 // Maps our core format to EmulatorJS official short/core names
 const getEmulatorJSCore = (shortName: string, emulatorCore: string): string => {
-  const normalized = shortName.toLowerCase();
+  const normalized = (shortName || '').toLowerCase();
+  const coreInput = (emulatorCore || '').toLowerCase();
+
   if (normalized === 'nes') return 'nes';
   if (normalized === 'snes') return 'snes';
   if (normalized === 'gba') return 'gba';
@@ -61,6 +63,9 @@ const getEmulatorJSCore = (shortName: string, emulatorCore: string): string => {
   if (normalized === 'megadrive' || normalized === 'genesis') return 'segaMD';
   if (normalized === 'sms') return 'sms';
   if (normalized === 'gg' || normalized === 'gamegear') return 'gg';
+  if (normalized === 'atari' || normalized === 'atari2600' || coreInput === 'stella') return 'atari2600';
+  if (normalized === 'nds' || normalized === 'ds') return 'nds';
+  
   return emulatorCore || normalized;
 };
 
@@ -148,11 +153,21 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
     if (url.startsWith('blob:') || url.startsWith('data:')) {
       return url;
     }
-    // Wrap remote external URLs in the backend ROM proxy
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return `${window.location.origin}/api/rom-proxy?url=${encodeURIComponent(url)}`;
+
+    let targetUrl = url;
+
+    // Detect Google Drive sharing links and convert them to direct download links
+    const gdriveMatch = url.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=)|docs\.google\.com\/file\/d\/)([a-zA-Z0-9_-]{25,})/);
+    if (gdriveMatch && gdriveMatch[1]) {
+      const fileId = gdriveMatch[1];
+      targetUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
     }
-    return `${window.location.origin}${url}`;
+
+    // Wrap remote external URLs in the backend ROM proxy
+    if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) {
+      return `${window.location.origin}/api/rom-proxy?url=${encodeURIComponent(targetUrl)}`;
+    }
+    return `${window.location.origin}${targetUrl}`;
   };
 
   const [iframeSrc, setIframeSrc] = useState<string>('');
@@ -353,10 +368,10 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
               soundEngine.playBack();
               onClose();
             }}
-            className="p-1.5 rounded-lg bg-red-600/10 hover:bg-red-600 border border-red-500/20 text-red-400 hover:text-white transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-650 hover:bg-red-600 border border-red-500/30 text-white font-retro text-[9px] uppercase font-black tracking-widest shadow-lg transition cursor-pointer"
             title="Sair da Emulação"
           >
-            <X className="w-4 h-4" />
+            <span>➔ Voltar</span>
           </button>
         </div>
       </div>
@@ -451,21 +466,63 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
       </div>
 
       {/* Bottom control room dashboard bar */}
-      <div className="bg-zinc-950 p-4 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center z-20">
+      <div className="bg-zinc-950 p-5 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-5 z-20">
         
-        {/* Left Column: Preset ROM Selector (4 columns) */}
-        <div id="preset-selector" className="lg:col-span-4 space-y-1.5">
-          <label className="text-[10px] font-retro text-zinc-500 uppercase tracking-widest block">
+        {/* Column 1: Game Metadata & G-Drive Atari Link (4 columns) */}
+        <div className="lg:col-span-4 space-y-3">
+          <div className="space-y-1">
+            <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
+              Ficha do Jogo
+            </span>
+            <div className="bg-white/5 border border-white/5 rounded-xl p-3 space-y-2">
+              <div className="flex flex-wrap gap-2 text-[10px] font-mono text-zinc-400">
+                <span className="bg-zinc-800 px-2 py-0.5 rounded text-zinc-300">{game.genre}</span>
+                <span className="bg-zinc-850 px-2 py-0.5 rounded text-zinc-400">{game.year}</span>
+                <span className="text-zinc-500">• {game.developer || game.publisher || 'Retro'}</span>
+              </div>
+              <p className="text-xs text-zinc-300 leading-relaxed max-h-[60px] overflow-y-auto pr-1">
+                {game.description || 'Nenhum resumo disponível para este título de console clássico.'}
+              </p>
+            </div>
+          </div>
+
+          {/* User's Atari Google Drive Folder Link */}
+          {system.id.toLowerCase().includes('atari') && (
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 space-y-1">
+              <span className="text-[9px] font-retro text-emerald-400 block tracking-wider uppercase flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-emerald-400" />
+                Sua Pasta Atari no G-Drive
+              </span>
+              <p className="text-[10px] text-zinc-400 leading-snug">
+                Você enviou seus jogos! Copie o link de compartilhamento de qualquer arquivo no seu Drive e use a ferramenta de Link Customizado ao lado.
+              </p>
+              <div className="pt-1">
+                <a 
+                  href="https://drive.google.com/drive/folders/1PScgOL0WKO0Jo8rDTYywuzsUB3fAb5Ap" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-black hover:underline cursor-pointer"
+                >
+                  Abrir G-Drive Atari ➔
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Column 2: Preset ROM Selector (3 columns) */}
+        <div id="preset-selector" className="lg:col-span-3 space-y-1.5">
+          <label className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
             ROMs de Teste Rápidas
           </label>
           
           {presets.length > 0 ? (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               {presets.map((preset, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSelectPreset(preset.url, preset.name)}
-                  className={`px-3 py-1.5 rounded-lg border text-left text-xs transition truncate cursor-pointer flex items-center justify-between ${
+                  className={`px-3 py-2 rounded-xl border text-left text-xs transition truncate cursor-pointer flex items-center justify-between ${
                     activeRomUrl === preset.url 
                       ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 font-semibold' 
                       : 'bg-white/5 border-white/5 hover:bg-white/10 text-zinc-300'
@@ -477,15 +534,19 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
               ))}
             </div>
           ) : (
-            <div className="text-[10px] text-zinc-500 italic py-1">
-              Nenhuma ROM de teste pré-configurada para este console.
+            <div className="text-[10px] text-zinc-500 leading-relaxed py-3 px-3 bg-white/5 rounded-xl border border-white/5">
+              <p className="font-semibold text-zinc-400 mb-1">Dica de Emulação:</p>
+              Clique no botão do Google Drive à esquerda para visualizar sua biblioteca de Atari, ou envie sua antiga ROM baixada à direita.
             </div>
           )}
         </div>
 
-        {/* Center Column: Drag-and-drop Upload Area (4 columns) */}
-        <div id="local-upload-area" className="lg:col-span-4">
-          <div className="relative group rounded-xl border-2 border-dashed border-white/10 hover:border-emerald-500/40 bg-white/5 hover:bg-white/10 p-4 text-center cursor-pointer transition">
+        {/* Column 3: Drag-and-drop Upload Area (3 columns) */}
+        <div id="local-upload-area" className="lg:col-span-3 space-y-1.5">
+          <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
+            Carregar ROM Local
+          </span>
+          <div className="relative group rounded-xl border-2 border-dashed border-white/10 hover:border-emerald-500/40 bg-white/5 hover:bg-white/10 p-5 text-center cursor-pointer transition min-h-[100px] flex flex-col justify-center">
             <input 
               type="file" 
               accept=".zip,.nes,.sfc,.smc,.bin,.gba,.gbc,.gb,.n64,.z64" 
@@ -495,15 +556,15 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
             <div className="space-y-1 relative z-2">
               <Upload className="w-5 h-5 text-zinc-400 group-hover:text-emerald-400 mx-auto transition" />
               <p className="text-xs font-semibold text-zinc-200">Arraste ou envie sua ROM</p>
-              <p className="text-[9px] text-zinc-500 font-mono">Suporta .zip, .nes, .sfc, .gba, .z64</p>
+              <p className="text-[9px] text-zinc-500 font-mono">Suporta .zip, .nes, .sfc, .gba</p>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Custom URL and Info Tips (4 columns) */}
-        <div id="custom-link-options" className="lg:col-span-4 space-y-1.5">
-          <span className="text-[10px] font-retro text-zinc-500 uppercase tracking-widest block">
-            Entrada de Link Customizado
+        {/* Column 4: Custom URL and Keyboard Shortcuts (2 columns) */}
+        <div id="custom-link-options" className="lg:col-span-2 space-y-2">
+          <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
+            Link Externo/G-Drive
           </span>
 
           {!isUrlInputActive ? (
@@ -512,40 +573,42 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
                 soundEngine.playToggle();
                 setIsUrlInputActive(true);
               }}
-              className="w-full px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg text-xs text-zinc-300 flex items-center justify-center gap-2 transition cursor-pointer"
+              className="w-full px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl text-xs text-zinc-300 flex items-center justify-center gap-2 transition cursor-pointer"
             >
               <Link2 className="w-3.5 h-3.5 text-zinc-400" />
-              <span>Inserir URL de ROM (.zip)</span>
+              <span>Inserir Link de ROM (.zip)</span>
             </button>
           ) : (
-            <form onSubmit={handleCustomUrlSubmit} className="flex gap-1">
+            <form onSubmit={handleCustomUrlSubmit} className="flex flex-col gap-1.5">
               <input
                 type="url"
                 required
-                placeholder="https://site.com/game.zip"
+                placeholder="Insira link do Drive ou Direct Link"
                 value={customUrlInput}
                 onChange={(e) => setCustomUrlInput(e.target.value)}
-                className="flex-1 px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/15 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/15 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
               />
-              <button
-                type="submit"
-                className="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-lg text-xs font-bold transition cursor-pointer"
-              >
-                Ativar
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsUrlInputActive(false)}
-                className="px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white rounded-lg text-xs transition cursor-pointer"
-              >
-                Voltar
-              </button>
+              <div className="flex gap-1">
+                <button
+                  type="submit"
+                  className="flex-1 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-lg text-[10px] font-bold transition cursor-pointer"
+                >
+                  Ativar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsUrlInputActive(false)}
+                  className="px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white rounded-lg text-[10px] transition cursor-pointer"
+                >
+                  Voltar
+                </button>
+              </div>
             </form>
           )}
 
-          <div className="flex gap-2 text-[9px] leading-relaxed text-zinc-500 mt-1">
-            <HelpCircle className="w-3.5 h-3.5 text-zinc-600 flex-shrink-0" />
-            <p>Controles padrão no teclado: Setas direcionais movem, botões de ação mapeados para Z, X, C, V, A, S, D, Q, Enter, Shift.</p>
+          <div className="flex gap-1.5 text-[9px] leading-relaxed text-zinc-500 border-t border-white/5 pt-2">
+            <HelpCircle className="w-3.5 h-3.5 text-zinc-650 flex-shrink-0" />
+            <p className="leading-snug">Setas movem. Ação mapiada para Z, X, C, V, Q, Enter, Shift.</p>
           </div>
         </div>
 
