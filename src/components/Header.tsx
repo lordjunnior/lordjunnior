@@ -13,6 +13,7 @@ interface HeaderProps {
   onGoBack?: () => void;
   onSearchClick: () => void;
   onSettingsClick: () => void;
+  glowColor?: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -21,7 +22,8 @@ export const Header: React.FC<HeaderProps> = ({
   title,
   onGoBack,
   onSearchClick,
-  onSettingsClick
+  onSettingsClick,
+  glowColor
 }) => {
   const [time, setTime] = useState<string>('12:00:00');
 
@@ -46,8 +48,18 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex items-center gap-3.5 cursor-pointer group select-none transition-all duration-300"
         >
           <div className="relative">
-            <div className="w-3.5 h-3.5 rounded-full bg-red-600 border border-red-500 pulse-led" />
-            <div className="absolute inset-0 rounded-full bg-red-500 filter blur-sm opacity-55 animate-pulse" />
+            <div 
+              className="w-3.5 h-3.5 rounded-full border transition-all duration-300 pulse-led"
+              style={{
+                backgroundColor: glowColor || '#E60012',
+                borderColor: glowColor || '#ff4d4d',
+                boxShadow: `0 0 10px ${glowColor || 'rgba(230,0,18,0.6)'}`
+              }}
+            />
+            <div 
+              className="absolute inset-0 rounded-full filter blur-sm opacity-55 animate-pulse transition-all duration-300"
+              style={{ backgroundColor: glowColor || '#ff4d4d' }}
+            />
           </div>
           <div className="flex flex-col text-left">
             <span className="font-retro text-[10px] tracking-widest text-[#E60012] group-hover:text-red-400 transition-colors drop-shadow-[0_2px_4px_rgba(230,0,18,0.3)]">
@@ -58,12 +70,6 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
         </button>
-
-        {/* Diagnostic indicator */}
-        <div className="hidden md:flex items-center gap-2.5 bg-emerald-500/5 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[9px] font-mono tracking-widest">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-          <span className="font-bold">STATUS: HYPER-ENGAGED</span>
-        </div>
       </div>
 
       {/* Retro Utility Toolbar Controls */}

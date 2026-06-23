@@ -28,6 +28,40 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const [recentlyPlayed, setRecentlyPlayed] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadHistory = () => {
+      try {
+        const raw = localStorage.getItem('retro_recently_played');
+        if (raw) {
+          setRecentlyPlayed(JSON.parse(raw));
+        } else {
+          setRecentlyPlayed([]);
+        }
+      } catch (e) {
+        console.error('[RetroHub] Erro ao carregar histórico:', e);
+      }
+    };
+    
+    if (isOpen) {
+      loadHistory();
+    }
+    
+    window.addEventListener('retro_recently_played_updated', loadHistory);
+    return () => window.removeEventListener('retro_recently_played_updated', loadHistory);
+  }, [isOpen]);
+
+  const handleSelectRecent = (recentItem: any) => {
+    const system = systems.find(s => s.id === recentItem.systemId);
+    if (system) {
+      const game = system.games.find(g => g.title === recentItem.title);
+      if (game) {
+        onSelectGame(system, game);
+        handleClose();
+      }
+    }
+  };
 
   // Play close sound on unmount/close
   const handleClose = () => {
@@ -206,21 +240,73 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
               className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 no-scrollbar"
             >
               {!query.trim() ? (
-                /* Empty state / instructions */
-                <div className="text-center py-12 px-6 flex flex-col justify-center items-center">
-                  <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(230,0,18,0.1)]">
-                    <Command className="w-8 h-8 text-red-400 animate-pulse" />
-                  </div>
-                  <h3 className="font-display font-black text-lg text-white">Central de Busca LordTecaRetro</h3>
-                  <p className="text-xs text-zinc-400 max-w-sm mt-2 leading-relaxed">
-                    Comece a digitar o nome de um jogo, gênero (ex: <em className="text-emerald-400 not-italic font-mono">RPG</em>), desenvolvedor ou o nome do console para pesquisar em toda a estação.
-                  </p>
+                /* Empty state / instructions & Recently Played history */
+                <div className="space-y-6">
+                  {recentlyPlayed.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 px-2 text-zinc-400 font-retro text-[10px] tracking-widest uppercase">
+                        <Gamepad2 className="w-4 h-4 text-red-500 animate-pulse" />
+                        <span>JOGADOS RECENTEMENTE (ÚLTIMOS JOGADOS)</span>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        {recentlyPlayed.slice(0, 4).map((item) => {
+                          const realSystem = systems.find(s => s.id === item.systemId);
+                          return (
+                            <div
+                              key={`${item.systemId}::${item.title}`}
+                              onClick={() => handleSelectRecent(item)}
+                              className="p-3 bg-zinc-950/60 hover:bg-zinc-900/90 hover:border-red-500/40 border border-white/5 rounded-xl cursor-pointer transition-all duration-200 group flex items-center justify-between"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-white/5 flex-shrink-0 overflow-hidden relative">
+                                  <img 
+                                    src={item.image} 
+                                    alt={item.title} 
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform" 
+                                    referrerPolicy="no-referrer"
+                                  />
+                                  <div className="absolute inset-0 bg-black/15" />
+                                </div>
+                                <div className="min-w-0">
+                                  <h4 className="text-xs font-black text-white font-display uppercase truncate group-hover:text-red-400 transition-colors">
+                                    {item.title}
+                                  </h4>
+                                  <p className="text-[9px] text-zinc-500 font-mono mt-0.5 uppercase truncate">
+                                    {item.systemName} • {item.genre}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1.5 shrink-0 ml-2 font-semibold">
+                                {realSystem && (
+                                  <span className={`font-retro text-[7px] px-1.5 py-0.5 rounded border ${realSystem.badgeColor} scale-90`}>
+                                    {realSystem.logo}
+                                  </span>
+                                )}
+                                <ArrowRight className="w-3.5 h-3.5 text-zinc-600 group-hover:text-red-500 group-hover:translate-x-0.5 transition-all" />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
 
-                  {/* Hotkeys Quick Legend */}
-                  <div className="flex flex-wrap gap-4 mt-8 bg-zinc-950/60 p-4 border border-white/5 rounded-xl text-[10px] font-mono text-zinc-500 max-w-md w-full justify-center">
-                    <span className="flex items-center gap-1.5"><kbd className="bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded text-[9px] border border-white/5">↑↓</kbd> Navegar</span>
-                    <span className="flex items-center gap-1.5"><kbd className="bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded text-[9px] border border-white/5">ENTER</kbd> Abrir</span>
-                    <span className="flex items-center gap-1.5"><kbd className="bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded text-[9px] border border-white/5">ESC</kbd> Sair</span>
+                  <div className="text-center py-10 px-6 flex flex-col justify-center items-center bg-zinc-950/30 border border-white/5 rounded-2xl">
+                    <div className="w-14 h-14 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(230,0,18,0.1)]">
+                      <Command className="w-7 h-7 text-red-400" />
+                    </div>
+                    <h3 className="font-display font-black text-md text-white">Central de Busca LordTecaRetro</h3>
+                    <p className="text-[11px] text-zinc-400 max-w-sm mt-2 leading-relaxed">
+                      Comece a digitar o nome de um jogo, gênero (ex: <em className="text-emerald-400 not-italic font-mono">RPG</em>), desenvolvedor ou o nome do console para pesquisar em toda a estação.
+                    </p>
+
+                    {/* Hotkeys Quick Legend */}
+                    <div className="flex flex-wrap gap-4 mt-6 bg-zinc-950/60 p-3.5 border border-white/5 rounded-xl text-[9px] font-mono text-zinc-500 max-w-md w-full justify-center">
+                      <span className="flex items-center gap-1"><kbd className="bg-zinc-800 text-zinc-300 px-1 py-0.5 rounded text-[8px] border border-white/5">↑↓</kbd> Navegar</span>
+                      <span className="flex items-center gap-1"><kbd className="bg-zinc-800 text-zinc-300 px-1 py-0.5 rounded text-[8px] border border-white/5">ENTER</kbd> Abrir</span>
+                      <span className="flex items-center gap-1"><kbd className="bg-zinc-800 text-zinc-300 px-1 py-0.5 rounded text-[8px] border border-white/5">ESC</kbd> Sair</span>
+                    </div>
                   </div>
                 </div>
               ) : totalResults === 0 ? (
@@ -348,7 +434,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                                   {realSystem.logo}
                                 </span>
                                 <div className={`px-2 py-1 bg-white/5 rounded-lg text-[10px] font-black tracking-widest text-zinc-400 group-hover:text-white transition uppercase flex items-center gap-1 ${isSelected ? 'text-red-400 bg-red-500/10 border border-red-500/20' : ''}`}>
-                                  <span>LAUNCH</span>
+                                  <span>JOGAR</span>
                                   <ArrowRight className="w-3 h-3" />
                                 </div>
                               </div>

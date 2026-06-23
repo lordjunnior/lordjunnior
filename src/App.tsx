@@ -10,7 +10,7 @@ import { BackgroundHero } from './components/BackgroundHero';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SettingsModal } from './components/SettingsModal';
-import { SystemCarousel } from './components/SystemCarousel';
+import { SystemCarousel, systemSpecsMap } from './components/SystemCarousel';
 import { GamelistView } from './components/GamelistView';
 import { GameDetailView } from './components/GameDetailView';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
@@ -32,6 +32,87 @@ export default function App() {
   // Dynamic JSON database state
   const [systems, setSystems] = useState<System[]>(systemsData);
   const [isLoadingDb, setIsLoadingDb] = useState<boolean>(true);
+
+  // Helper function to sync favorites from localStorage or initialize with defaults
+  const applySavedFavorites = (systemsList: System[]): System[] => {
+    try {
+      const raw = localStorage.getItem('retro_favorites');
+      if (!raw) {
+        // Create initial favorites array using defaults
+        const initialFavs: string[] = [];
+        systemsList.forEach(sys => {
+          sys.games.forEach(g => {
+            if (g.favorite) {
+              initialFavs.push(`${sys.id}::${g.title}`);
+            }
+          });
+        });
+        localStorage.setItem('retro_favorites', JSON.stringify(initialFavs));
+        return systemsList;
+      }
+
+      const favoriteKeys: string[] = JSON.parse(raw);
+      return systemsList.map(sys => ({
+        ...sys,
+        games: sys.games.map(g => ({
+          ...g,
+          favorite: favoriteKeys.includes(`${sys.id}::${g.title}`)
+        }))
+      }));
+    } catch (e) {
+      console.error('[RetroHub] Erro ao aplicar favoritos salvos:', e);
+      return systemsList;
+    }
+  };
+
+  const handleToggleFavorite = (systemId: string, gameTitle: string) => {
+    try {
+      const raw = localStorage.getItem('retro_favorites');
+      let favoriteKeys: string[] = [];
+      const compositeKey = `${systemId}::${gameTitle}`;
+
+      if (raw) {
+        favoriteKeys = JSON.parse(raw);
+      } else {
+        const currentFavs: string[] = [];
+        systems.forEach(sys => {
+          sys.games.forEach(g => {
+            if (g.favorite) {
+              currentFavs.push(`${sys.id}::${g.title}`);
+            }
+          });
+        });
+        favoriteKeys = currentFavs;
+      }
+
+      if (favoriteKeys.includes(compositeKey)) {
+        favoriteKeys = favoriteKeys.filter(k => k !== compositeKey);
+      } else {
+        favoriteKeys.push(compositeKey);
+      }
+
+      localStorage.setItem('retro_favorites', JSON.stringify(favoriteKeys));
+
+      // Update state
+      setSystems(prevSystems => 
+        prevSystems.map(sys => {
+          if (sys.id !== systemId) return sys;
+          return {
+            ...sys,
+            games: sys.games.map(g => {
+              if (g.title !== gameTitle) return g;
+              return {
+                ...g,
+                favorite: !g.favorite
+              };
+            })
+          };
+        })
+      );
+    } catch (e) {
+      console.error('[RetroHub] Erro ao alternar favorito:', e);
+    }
+  };
 
   useEffect(() => {
     fetch('/db.json')
@@ -68,7 +149,7 @@ export default function App() {
           };
         });
 
-        setSystems(merged);
+        setSystems(applySavedFavorites(merged));
         setIsLoadingDb(false);
         console.log('[RetroHub] Banco de dados JSON de consoles e jogos carregado dinamicamente com sucesso!');
       })
@@ -95,7 +176,7 @@ export default function App() {
           };
         });
 
-        setSystems(mergedFallback);
+        setSystems(applySavedFavorites(mergedFallback));
         setIsLoadingDb(false); // fallback to initial imported systemsData
       });
   }, []);
@@ -255,6 +336,7 @@ export default function App() {
           onNavigateToPath={navigateToPath}
           isMuted={isMuted}
           toggleMute={() => setIsMuted(prev => !prev)}
+          onToggleFavorite={handleToggleFavorite}
         />
 
         {/* CRT Scanline Filter Overlay */}
@@ -296,20 +378,30 @@ export default function App() {
     <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#050508] text-white font-sans overflow-hidden flex flex-col justify-between select-none">
       
       {/* 1. COMPONENTES ESTÁTICOS DE FUNDO SÓ DEIXAM DE RENDERIZAR SE A LISTA DE JOGOS ESTIVER ATIVA (MÁSCARA OCUPA TUDO) */}
-      {activeScreen === 'carousel' && (
-        <>
-          <BackgroundHero systemId={currentSystem.id} />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-25%,rgba(230,0,18,0.12),transparent_75%)] pointer-events-none" />
-          <Header
-            isMuted={isMuted}
-            toggleMute={() => setIsMuted(prev => !prev)}
-            title={undefined}
-            onGoBack={undefined}
-            onSearchClick={() => setIsGlobalSearchOpen(true)}
-            onSettingsClick={() => setIsSettingsOpen(true)}
-          />
-        </>
-      )}
+      {activeScreen === 'carousel' && (() => {
+        const currentConsoleKey = currentSystem ? currentSystem.id.toLowerCase().trim().replace(/[\s\-_]/g, '') : 'nes';
+        const activeGlowColor = systemSpecsMap[currentConsoleKey]?.glowColor;
+        return (
+          <>
+            <BackgroundHero systemId={currentSystem.id} glowColor={activeGlowColor} />
+            <div 
+              className="absolute inset-0 pointer-events-none transition-all duration-700" 
+              style={{
+                backgroundImage: `radial-gradient(circle at 50% -25%, ${activeGlowColor || 'rgba(230,0,18,0.12)'}, transparent 75%)`
+              }}
+            />
+            <Header
+              isMuted={isMuted}
+              toggleMute={() => setIsMuted(prev => !prev)}
+              title={undefined}
+              onGoBack={undefined}
+              onSearchClick={() => setIsGlobalSearchOpen(true)}
+              onSettingsClick={() => setIsSettingsOpen(true)}
+              glowColor={activeGlowColor}
+            />
+          </>
+        );
+      })()}
 
       {/* 2. PROVEDOR DE TELAS RETRO EM TELA CHEIA */}
       <main className="relative z-10 flex-1 flex flex-col justify-center items-center w-full min-h-0">

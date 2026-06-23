@@ -17,7 +17,7 @@ interface SystemCarouselProps {
   onSelectSystem: (system: System) => void;
 }
 
-interface SystemTechSpecs {
+export interface SystemTechSpecs {
   manufacturer: string;
   generation: string;
   cpu: string;
@@ -32,7 +32,7 @@ interface SystemTechSpecs {
 }
 
 // O DICIONÁRIO COMPLETO DE ESPECIFICAÇÕES TÉCNICAS E HISTÓRICAS
-const systemSpecsMap: Record<string, SystemTechSpecs> = {
+export const systemSpecsMap: Record<string, SystemTechSpecs> = {
   nes: {
     manufacturer: "Nintendo",
     generation: "8-Bits (3ª Geração)",
@@ -608,10 +608,10 @@ const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean }> = ({ sy
     <img
       src={`/logos/${getLogoFileName(system.id)}.png`}
       alt={system.name}
-      className={`max-w-full max-h-full object-contain filter transition-all duration-200 ${
+      className={`h-7 max-w-[130px] object-contain filter transition-opacity duration-200 ${
         isCompact 
-          ? 'opacity-40 grayscale contrast-125' 
-          : 'drop-shadow-[0_0_15px_rgba(255,255,255,0.45)] brightness-110'
+          ? 'opacity-70 brightness-90 saturate-100' 
+          : 'drop-shadow-[0_0_12px_rgba(255,255,255,0.35)] brightness-115'
       }`}
       onError={() => setHasError(true)}
     />
@@ -629,22 +629,80 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
   if (!systems || total === 0) return null;
 
+  // Para garantir rolagem circular sem fim, duplicamos a lista de consoles 5 vezes.
+  // A cópia centralizada (Copy 2) fica na faixa: total * 2 até total * 3 - 1.
+  const [virtualActive, setVirtualActive] = useState(() => total * 2 + activeIndex);
+
+  // Sincroniza o virtualActive se o index pai mudar de fora (ex: busca global)
+  useEffect(() => {
+    const currentReal = ((virtualActive % total) + total) % total;
+    if (currentReal !== activeIndex) {
+      setVirtualActive(total * 2 + activeIndex);
+    }
+  }, [activeIndex, total]);
+
+  // Propaga o índice virtual ativo de volta para o estado do pai
+  useEffect(() => {
+    const realIdx = ((virtualActive % total) + total) % total;
+    if (realIdx !== activeIndex) {
+      setActiveIndex(realIdx);
+    }
+  }, [virtualActive, total, activeIndex, setActiveIndex]);
+
+  // Snap silencioso (sem animação) ao atingir os extremos (Copy 0 ou Copy 4)
+  // mantendo a rolagem sempre infinita nas duas direções
+  useEffect(() => {
+    if (virtualActive < total || virtualActive >= total * 4) {
+      const realIdx = ((virtualActive % total) + total) % total;
+      const newVirtual = total * 2 + realIdx;
+      
+      if (listRef.current) {
+        const activeEl = listRef.current.children[newVirtual] as HTMLElement;
+        if (activeEl) {
+          const parentWidth = listRef.current.offsetWidth;
+          const itemWidth = activeEl.offsetWidth;
+          const leftPos = activeEl.offsetLeft;
+          listRef.current.scrollTo({
+            left: leftPos - parentWidth / 2 + itemWidth / 2,
+            behavior: 'auto' // Snap instantâneo
+          });
+        }
+      }
+      setVirtualActive(newVirtual);
+    }
+  }, [virtualActive, total]);
+
+  // Executa rolagem física suave para centralizar o item selecionado
+  useEffect(() => {
+    if (listRef.current) {
+      const activeEl = listRef.current.children[virtualActive] as HTMLElement;
+      if (activeEl) {
+        const parentWidth = listRef.current.offsetWidth;
+        const itemWidth = activeEl.offsetWidth;
+        const leftPos = activeEl.offsetLeft;
+        listRef.current.scrollTo({
+          left: leftPos - parentWidth / 2 + itemWidth / 2,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [virtualActive]);
+
   const handlePrev = () => {
-    const nextIndex = (activeIndex - 1 + total) % total;
-    setActiveIndex(nextIndex);
+    setVirtualActive(prev => prev - 1);
     soundEngine.playMove();
   };
 
   const handleNext = () => {
-    const nextIndex = (activeIndex + 1) % total;
-    setActiveIndex(nextIndex);
+    setVirtualActive(prev => prev + 1);
     soundEngine.playMove();
   };
 
   const handleSelect = () => {
-    if (systems[activeIndex]) {
+    const realIdx = ((virtualActive % total) + total) % total;
+    if (systems[realIdx]) {
       soundEngine.playSelect();
-      onSelectSystem(systems[activeIndex]);
+      onSelectSystem(systems[realIdx]);
     }
   };
 
@@ -663,22 +721,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeIndex, systems, total]);
-
-  useEffect(() => {
-    if (listRef.current) {
-      const activeEl = listRef.current.children[activeIndex] as HTMLElement;
-      if (activeEl) {
-        const parentWidth = listRef.current.offsetWidth;
-        const itemWidth = activeEl.offsetWidth;
-        const leftPos = activeEl.offsetLeft;
-        listRef.current.scrollTo({
-          left: leftPos - parentWidth / 2 + itemWidth / 2,
-          behavior: 'smooth'
-        });
-      }
-    }
-  }, [activeIndex]);
+  }, [virtualActive, systems, total]);
 
   const activeSystem = systems[activeIndex];
   const consoleId = getLogoFileName(activeSystem.id);
@@ -688,7 +731,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
     manufacturer: "Retro Hardware",
     generation: "Vintage Consola",
     cpu: "Processador Retro Emulado",
-    ram: "Otimização Nativa Core",
+    ram: "Otimização Nativa do Núcleo",
     media: "Virtualização Digital ROM",
     releaseYear: "Era de Ouro",
     accentColor: "from-zinc-700 via-zinc-800 to-zinc-950",
@@ -699,52 +742,18 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
   // Coleta as capas dos principais jogos do sistema ativo
   const topGames = activeSystem.games ? activeSystem.games.slice(0, 4) : [];
 
+  // Duplicamos a lista de sistemas 5 vezes para habilitar a rolagem infinita contínua
+  const extendedSystems = [
+    ...systems,
+    ...systems,
+    ...systems,
+    ...systems,
+    ...systems
+  ];
+
   return (
-    <div className="fixed inset-0 w-full h-screen bg-[#07070a] overflow-hidden flex flex-col justify-between select-none font-sans">
+    <div className="fixed inset-0 w-full h-screen bg-transparent overflow-hidden flex flex-col justify-between select-none font-sans">
       
-      {/* CAMADA DE BACKGROUND ART DE ALTA FIDELIDADE RECALBOX-THEME */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        {/* Imagem de Fundo (Backdrop do Console Ativo) */}
-        <motion.img 
-          key={`backdrop-${activeSystem.id}`}
-          src={`https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${getRecalboxFolderName(activeSystem.id)}.jpg`}
-          alt=""
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.45, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.6 }}
-          className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
-          onError={(e) => {
-            // fallback para favorites se o específico falhar
-            (e.target as HTMLImageElement).src = `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/favorites.jpg`;
-          }}
-          referrerPolicy="no-referrer"
-        />
-        
-        {/* Gradiente escuro para garantir contraste supremo da interface */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-zinc-950/80 to-zinc-950" />
-        
-        {/* Glow radial personalizado de cor do console */}
-        <div 
-          className="absolute inset-0 transition-all duration-700 opacity-20"
-          style={{
-            background: `radial-gradient(circle at 50% 35%, ${specs.glowColor} 0%, transparent 70%)`
-          }}
-        />
-
-        {/* Linhas de grade digital retro (scanlines / matrix grid) */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #ffffff 1px, transparent 1px),
-              linear-gradient(to bottom, #ffffff 1px, transparent 1px)
-            `,
-            backgroundSize: '24px 24px'
-          }}
-        />
-      </div>
-
       {/* PAINEL SUPERIOR: INFOS RESUMIDAS & IMAGEM DE ALTA QUALIDADE DO CONSOLE (DESIGN PREMIUM) */}
       <div className="relative z-20 w-full flex-1 flex flex-col items-center justify-center pt-20 px-6 max-h-[50vh]">
         <AnimatePresence mode="wait">
@@ -785,18 +794,18 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
           className="w-full flex items-center overflow-x-auto gap-10 py-3 no-scrollbar scroll-smooth snap-x pointer-events-auto"
           style={{ paddingLeft: 'calc(50vw - 96px)', paddingRight: 'calc(50vw - 96px)' }}
         >
-          {systems.map((sys, idx) => {
-            const isSelected = idx === activeIndex;
+          {extendedSystems.map((sys, idx) => {
+            const isSelected = idx === virtualActive;
             const consoleKey = getLogoFileName(sys.id);
             const activeSpecs = systemSpecsMap[consoleKey] || { glowColor: 'rgba(255,255,255,0.2)' };
 
             return (
               <motion.div
-                key={sys.id}
+                key={`${sys.id}-${idx}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   if (!isSelected) {
-                    setActiveIndex(idx);
+                    setVirtualActive(idx);
                     soundEngine.playMove();
                   } else {
                     handleSelect();
@@ -804,8 +813,8 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                 }}
                 className="shrink-0 w-48 h-14 flex items-center justify-center cursor-pointer relative"
                 animate={{
-                  scale: isSelected ? 1.15 : 0.8,
-                  opacity: isSelected ? 1 : 0.4,
+                  scale: isSelected ? 1.15 : 0.88,
+                  opacity: isSelected ? 1 : 0.72,
                 }}
                 transition={{ type: 'spring', stiffness: 220, damping: 20 }}
               >
@@ -816,7 +825,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                     style={{ backgroundColor: activeSpecs.glowColor }}
                   />
                 )}
-                <div className={`w-full h-full p-2 flex items-center justify-center rounded-lg transition-all border ${
+                <div className={`w-full h-full p-2 flex items-center justify-center rounded-lg border ${
                   isSelected ? 'border-white/10 bg-white/5' : 'border-transparent'
                 }`}>
                   <SafeConsoleLogo system={sys} isCompact={!isSelected} />

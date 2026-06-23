@@ -111,26 +111,14 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Right Stats & PNL Value-For-Value Channel */}
         <div className="flex items-center gap-6 ml-0 md:ml-auto text-xs font-mono select-none">
-          {/* Botão Invisível de Alta CTR - Fortalecer o Acervo */}
+          {/* Botão de Alta CTR - Fortalecer o Acervo */}
           <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-90 w/10 hover:bg-red-600/10 text-rose-450 hover:text-white rounded-xl border border-rose-500/15 hover:border-red-500/30 transition-all duration-300 cursor-pointer text-[10px] font-black uppercase tracking-widest group hover:scale-[1.02] active:scale-[0.98] shadow-md"
+            className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-rose-600/10 text-rose-400 hover:text-white rounded-xl border border-rose-500/15 hover:border-red-500/30 transition-all duration-300 cursor-pointer text-[10px] font-black uppercase tracking-widest group hover:scale-[1.02] active:scale-[0.98] shadow-md"
           >
             <Sparkles className="w-3.5 h-3.5 text-rose-500 group-hover:text-amber-500 group-hover:fill-amber-500 transition-colors" />
             Fortalecer Acervo
           </button>
-
-          <div className="hidden sm:flex flex-col items-end justify-center">
-            <span className="text-[8px] font-bold uppercase text-zinc-500 tracking-wider">
-              ARMAZENAMENTO SSD
-            </span>
-            <span className="text-[11px] font-mono font-black text-white tracking-wider">
-              182.4 GB / 256 GB (OK)
-            </span>
-          </div>
-          <div className="w-10 h-10 bg-zinc-900 rounded-xl border border-white/10 shadow-inner flex items-center justify-center" title="Cartão SD pronto para ROMs">
-            <HardDrive className="w-5 h-5 text-red-500" />
-          </div>
         </div>
       </footer>
 
@@ -227,7 +215,7 @@ export const Footer: React.FC<FooterProps> = ({
               {/* Rodapé do Modal com Vibe Bitcoin Soberano */}
               <div className="mt-6 pt-3.5 border-t border-white/5 flex items-center justify-center gap-1.5 text-[9px] font-mono text-zinc-500 tracking-wider uppercase select-none">
                 <Zap className="w-3 h-3 text-amber-500 fill-amber-500" />
-                <span>Powered by Bitcoin Lightning, Preservação Direta Sem Intermediários</span>
+                <span>Movido a Bitcoin Lightning, Preservação Direta Sem Intermediários</span>
               </div>
 
             </motion.div>

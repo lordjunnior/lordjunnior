@@ -218,7 +218,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             {/* Rodapé Interno */}
             <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-600 select-none">
               <span>SISTEMA: V1.5.0</span>
-              <span>ESTADO DO CORE: PRONTO</span>
+              <span>ESTADO DO NÚCLEO: PRONTO</span>
             </div>
           </motion.div>
         </div>

@@ -27,8 +27,9 @@ import {
   Gamepad
 } from 'lucide-react';
 import { EmulatorPlayer } from './EmulatorPlayer';
-import { getGameGameplayVideoUrl } from '../utils/videoResolver';
 import { getRichDescription } from './GamelistView';
+import { GameCover } from './GameCover';
+import { systemSpecsMap } from './SystemCarousel';
 
 interface GameDetailViewProps {
   system: System;
@@ -37,31 +38,55 @@ interface GameDetailViewProps {
   onNavigateToPath: (path: string) => void;
   isMuted: boolean;
   toggleMute: () => void;
+  onToggleFavorite?: (systemId: string, gameTitle: string) => void;
 }
 
 const getLogoFileName = (id: string): string => {
+  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
   const map: Record<string, string> = {
-    nes: 'nes',
     snes: 'snes',
-    n64: 'n64',
+    supernintendo: 'snes',
+    msu1: 'snes',
+    nes: 'nes',
+    nintendo: 'nes',
     gb: 'gameboy',
+    gameboy: 'gameboy',
     gbc: 'gameboycolor',
     gameboycolor: 'gameboycolor',
-    gba: 'gba',
+    megadrive: 'segaMD', 
+    genesis: 'segaMD',
+    sega: 'segaMD',
+    msumd: 'msu-md',     
     sms: 'mastersystem',
-    genesis: 'megadrive',
-    saturn: 'saturn',
-    ps1: 'psx',
-    atari: 'atari2600',
-    arcade: 'arcade',
-    neogeo: 'neogeo',
+    mastersystem: 'mastersystem',
+    gamegear: 'gamegear',
+    ps1: 'playstation',
+    psx: 'playstation',
+    playstation: 'playstation',
+    playstation2: 'playstation2',
+    ps2: 'playstation2',
+    playstation3: 'playstation3',
+    ps3: 'playstation3',
+    n64: 'n64',          
+    nintendo64: 'n64',
+    atari: 'atari',
+    atari2600: 'atari',
+    arcade: 'arcade',    
+    mame: 'arcade',
     nds: 'nintendods',
-    pce: 'pcengine',
-    '3do': '3do',
+    pce: 'pcecd',        
+    pcengine: 'pcecd',
+    neogeo: 'neogeo',
+    '3do': '3do',        
+    saturn: 'saturn',
+    segasaturn: 'saturn',
     dreamcast: 'dreamcast',
-    gamecube: 'gamecube'
+    gamecube: 'gamecube',
+    gc: 'gamecube',
+    collections: 'Collections', 
+    playlist: 'Collections'
   };
-  return map[id] || id;
+  return map[cleanId] || cleanId;
 };
 
 const getLibretroSystemFolderName = (systemId: string): string => {
@@ -149,6 +174,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
   onNavigateToPath,
   isMuted,
   toggleMute,
+  onToggleFavorite,
 }) => {
   // RAWG integration has been disabled to prevent mismatching modern game images and descriptions
   // We strictly load 100% authentic, localized offline-compiled descriptions and vector cards
@@ -187,7 +213,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
 
   const [activeScreenshot, setActiveScreenshot] = useState(0);
   const [zoomedScreenshot, setZoomedScreenshot] = useState<string | null>(null);
-  const [isFavorite, setIsFavorite] = useState(game.favorite);
+  const isFavorite = game.favorite;
   const [isPlayingMock, setIsPlayingMock] = useState(false);
   const [mockScore, setMockScore] = useState(0);
   const [mockLives, setMockLives] = useState(3);
@@ -217,8 +243,11 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
 
   const handleToggleFavorite = () => {
     soundEngine.playToggle();
-    setIsFavorite(!isFavorite);
-    game.favorite = !game.favorite; // Mutate local reference for the mock instance
+    if (onToggleFavorite) {
+      onToggleFavorite(system.id, game.title);
+    } else {
+      game.favorite = !game.favorite; // Fallback mutation
+    }
   };
 
   const handlePlayMock = () => {
@@ -270,7 +299,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isPlayingMock, zoomedScreenshot, isFavorite, screenshots]);
+  }, [isPlayingMock, zoomedScreenshot, game.favorite, screenshots]);
 
   return (
     <div id="game-detail-parent" className="relative w-full h-screen font-sans text-white overflow-y-auto bg-zinc-950 flex flex-col justify-between">
@@ -290,7 +319,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
           <button
             id="btn-back-gamelist"
             onClick={handleBack}
-            className="group flex items-center gap-2 text-[10px] sm:text-xs font-retro tracking-widest text-white bg-[#E60012] hover:bg-red-500 border border-red-400 hover:border-red-300 rounded-lg px-2.5 py-1.5 sm:px-4 sm:py-2 shadow-[0_4px_0_0_#91000B] hover:shadow-[0_2px_0_0_#91000B] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer font-black"
+            className="group flex items-center gap-2 text-[10px] sm:text-xs font-retro tracking-widest text-white bg-[#E60012] hover:bg-red-500 border border-red-400 hover:border-red-300 rounded-lg px-2.5 py-1.5 sm:px-4 sm:py-2 shadow-[0_4px_0_0_#91000B] hover:shadow-[0_2px_0_0_#91000B] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer font-black shrink-0"
           >
             <div className="w-4 h-4 rounded-full bg-zinc-950 text-red-500 flex items-center justify-center text-[10px] font-retro border border-white/25 group-hover:scale-110 transition-transform">
               B
@@ -298,7 +327,17 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
             <span>VOLTAR</span>
           </button>
           
-          <div className="h-4 w-px bg-white/15" />
+          <div className="h-5 w-px bg-white/10 ml-1" />
+          
+          <img 
+            id="retro-console-logo-detail"
+            src={`/logos/${getLogoFileName(system.id)}.png`} 
+            alt={system.name} 
+            className="h-7 w-auto object-contain ml-2 filter drop-shadow hover:scale-105 transition-transform" 
+            onError={(e) => { e.currentTarget.style.display = 'none'; }} 
+          />
+
+          <div className="h-4 w-px bg-white/15 ml-1" />
           
           <div className="flex items-center gap-2">
             <span className="text-xs uppercase font-bold text-zinc-500 font-mono tracking-wider">{system.name}</span>
@@ -311,7 +350,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
           {/* Quick Stats Indicator Badge */}
           <div className="hidden md:flex items-center gap-1.5 bg-zinc-900 border border-white/10 px-3 py-1 rounded-full text-xs text-zinc-400">
             <Sparkles className="w-3.5 h-3.5 text-yellow-500" />
-            <span>Core: {system.emulatorCore.toUpperCase()}</span>
+            <span>Núcleo: {system.emulatorCore.toUpperCase()}</span>
           </div>
           
           <button
@@ -342,64 +381,51 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
           {/* Left Column: Cover & System (4 columns) */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             
-            {/* Boxart Widescreen Deck Component */}
-            <div id="cover-card" className="relative group border border-white/10 rounded-3xl overflow-hidden shadow-2xl bg-zinc-950 aspect-[4/3] flex items-stretch">
+            {/* Symmetrical Left Column Retro TV CRT Display */}
+            <div className="w-full aspect-[4/3] bg-[#1d1d1f] border-[10px] border-[#2f2f32] rounded-3xl p-3 md:p-3.5 shadow-[0_22px_50px_rgba(0,0,0,0.85)] relative overflow-hidden flex flex-col justify-between">
+              {/* TV Bezel design grooves */}
+              <div className="absolute top-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#131315] rounded-full opacity-50" />
               
-              <div className="flex-1 relative bg-black overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.95)]">
-                {rawgLoading && !coverSrc ? (
-                  <div className="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center gap-2 z-10">
-                    <div className="w-8 h-8 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin" />
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-500">Buscando Capa...</span>
-                  </div>
-                ) : (
-                  <>
-                    {/* The Video Stream Gameplay Screen of the Game */}
-                    <video
-                      key={`game-video-${game.title}`}
-                      src={getGameGameplayVideoUrl(system.id, game.title)}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="w-full h-full object-cover opacity-90 transition-opacity absolute inset-0 z-10"
-                      onError={(e) => {
-                        // Fallback completely to cover art on error
-                        (e.target as HTMLElement).style.display = 'none';
-                      }}
-                    />
-
-                    {/* Cover poster image as default background or if video fails */}
-                    <img
-                      id="main-cover-image"
-                      src={coverSrc || game.image || undefined}
-                      alt={game.title}
-                      onError={handleCoverError}
-                      className="absolute inset-0 w-full h-full object-cover z-0"
-                    />
-                  </>
-                )}
-
-                {/* Glass Reflection Curve Overlay & vignette */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.02] to-white/[0.08] pointer-events-none z-20" />
+              {/* Inner tube container */}
+              <div className="flex-1 w-full bg-black rounded-xl overflow-hidden relative shadow-[inset_0_0_25px_rgba(0,0,0,1)] flex items-center justify-center p-2">
                 
-                {/* Modern Inner Bezel Shadow */}
-                <div className="absolute inset-0 shadow-[inset_0_0_25px_rgba(0,0,0,0.85)] pointer-events-none z-20" />
+                {/* High quality cover display inside TV */}
+                <div className="relative w-full h-full flex items-center justify-center z-10">
+                  <GameCover 
+                    game={game} 
+                    systemId={system.id} 
+                    className="max-h-full max-w-full object-contain rounded shadow-[0_0_20px_rgba(255,255,255,0.12)] transition-transform duration-300 hover:scale-105" 
+                  />
+                </div>
                 
-                {/* Elegant Phosphor Scanlines overlay */}
+                {/* Scanlines layer for deep retro CRT monitor feeling */}
                 <div 
-                  className="absolute inset-0 pointer-events-none opacity-15 mix-blend-overlay z-20"
-                  style={{
-                    backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.15) 50%)',
-                    backgroundSize: '100% 4px'
-                  }}
+                  className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay z-20"
+                  style={{ backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.45) 50%)', backgroundSize: '100% 4px' }}
                 />
-
-                {/* Star rating overlay indicator */}
-                <div className="absolute top-3 left-3 bg-zinc-950/85 backdrop-blur-sm px-2 py-1 rounded-full border border-white/10 flex items-center gap-1 shadow-lg z-30">
-                  <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                  <span className="text-[10px] font-black font-mono leading-none">
-                    {rawgLoading ? '...' : (rawgData?.rating ? rawgData.rating.toFixed(1) : `${game.rating}.0`)}
-                  </span>
+                {/* Curved screen reflection overlay */}
+                <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.06)_0%,transparent_55%),radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.60)_100%)] z-20" />
+              </div>
+              
+              {/* TV base bar details containing glowing Power LED */}
+              <div className="h-5 mt-1 flex items-center justify-between px-1.5 text-[8px] font-mono text-zinc-500">
+                <span className="tracking-widest">LORDTECA CRT-430</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[7px] text-zinc-600">ENERGIA</span>
+                  {(() => {
+                    const cleanId = system.id.toLowerCase().trim().replace(/[\s\-_]/g, '');
+                    const specs = systemSpecsMap[cleanId] || { glowColor: 'rgba(52, 211, 153, 0.6)' };
+                    const rawColor = specs.glowColor || 'rgba(52, 211, 153, 0.6)';
+                    return (
+                      <div 
+                        className="w-1.5 h-1.5 rounded-full animate-pulse transition-all duration-500" 
+                        style={{
+                          backgroundColor: rawColor,
+                          boxShadow: `0 0 6px ${rawColor}`
+                        }}
+                      />
+                    );
+                  })()}
                 </div>
               </div>
             </div>

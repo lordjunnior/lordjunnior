@@ -83,10 +83,42 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
 
   const ejsCore = getEmulatorJSCore(system.shortName || system.id, system.emulatorCore);
 
-  // Trigger sound feedback on mount
+  // Trigger sound feedback on mount and record to recently played list
   useEffect(() => {
     soundEngine.playSelect();
-  }, []);
+
+    // Persist to "Últimos Jogados" (Recently Played) in localStorage
+    try {
+      const raw = localStorage.getItem('retro_recently_played');
+      let list: any[] = raw ? JSON.parse(raw) : [];
+
+      // Remove existing occurrence to place it at the top
+      list = list.filter((item: any) => !(item.systemId === system.id && item.title === game.title));
+
+      // Unshift the newly played game
+      list.unshift({
+        systemId: system.id,
+        systemName: system.name,
+        gameId: game.id,
+        title: game.title,
+        image: game.image,
+        genre: game.genre,
+        year: game.year,
+        developer: game.developer,
+        timestamp: Date.now()
+      });
+
+      // Cap at 12 entries
+      list = list.slice(0, 12);
+
+      localStorage.setItem('retro_recently_played', JSON.stringify(list));
+
+      // Dispatch event to inform other active components (e.g. search / carousel)
+      window.dispatchEvent(new Event('retro_recently_played_updated'));
+    } catch (e) {
+      console.error('[RetroHub] Erro ao gravar histórico de reprodução:', e);
+    }
+  }, [system.id, game.id, game.title]);
 
   // Update URL if the base game prop changes
   useEffect(() => {

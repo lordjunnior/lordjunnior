@@ -159,10 +159,13 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
     return (
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-850 to-zinc-950 flex flex-col justify-between p-3.5 text-center select-none border border-white/5 shadow-2xl overflow-hidden rounded-md">
         {/* Top retro striped ribbon */}
-        <div className="w-full flex flex-col items-center gap-1">
-          <div className="h-1 w-full bg-gradient-to-r from-red-500 via-amber-400 via-emerald-400 to-indigo-500 rounded-full opacity-80" />
-          <span className="font-mono text-[6px] text-zinc-500 uppercase tracking-widest">
-            ★ ORIGINAL SYSTEM CART ★
+        <div className="w-full flex flex-col items-center gap-0.5">
+          <span className="font-mono text-[7px] text-red-500 font-black tracking-widest">
+            [ ARTE ORIGINAL INDISPONÍVEL ]
+          </span>
+          <div className="h-0.5 w-full bg-gradient-to-r from-red-500 via-amber-400 via-emerald-400 to-indigo-500 rounded-full opacity-60 mt-0.5" />
+          <span className="font-mono text-[5.5px] text-zinc-500 uppercase tracking-widest mt-0.5">
+            ★ CARTUCHO SUPORTE EMULADOR ★
           </span>
         </div>
 
@@ -172,28 +175,28 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
             {game.title}
           </span>
           <div className="w-8 h-[1px] bg-white/10" />
-          <span className="font-mono text-[7px] text-zinc-450 font-medium">
+          <span className="font-mono text-[7px] text-zinc-400 font-bold uppercase">
             {game.genre || 'CLASSIC ROM'}
           </span>
         </div>
 
         {/* Brand new Classic Quality / Warranty Seal mimicking vintage badges */}
         <div className="flex flex-col items-center">
-          <div className="relative w-12 h-12 flex flex-col items-center justify-center rounded-full bg-gradient-to-br from-amber-600 via-yellow-400 via-amber-500 to-amber-700 shadow-lg border border-yellow-300/30 p-0.5 animate-[pulse_3s_infinite]">
+          <div className="relative w-11 h-11 flex flex-col items-center justify-center rounded-full bg-gradient-to-br from-amber-600 via-yellow-400 via-amber-500 to-amber-700 shadow-lg border border-yellow-300/30 p-0.5 animate-[pulse_3s_infinite]">
             {/* Dashed outer alignment ring */}
             <div className="absolute inset-0.5 rounded-full border border-dashed border-amber-900/40" />
             
             <div className="flex flex-col items-center justify-center z-10 text-amber-950">
               <span className="text-[5px] font-sans font-extrabold uppercase tracking-tight leading-none scale-90">
-                OFFICIAL
+                OFICIAL
               </span>
               <div className="flex items-center justify-center my-0.5">
                 <span className="text-[5px] text-amber-950 leading-none">★</span>
                 <span className="text-[6px] font-mono font-bold leading-none mx-0.5">TECA</span>
                 <span className="text-[5px] text-amber-950 leading-none">★</span>
               </div>
-              <span className="text-[4px] font-sans font-bold uppercase tracking-tight leading-none scale-75 opacity-90">
-                SEAL OF QUALITY
+              <span className="text-[4.5px] font-sans font-bold uppercase tracking-tight leading-none scale-75 opacity-90">
+                SELO RETRO
               </span>
             </div>
           </div>

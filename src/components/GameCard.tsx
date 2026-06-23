@@ -266,7 +266,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
           />
         ) : (
           /* Premium Fallback CSS custom retro card */
-          <div className={`w-full h-full flex flex-col items-center justify-between p-4 bg-gradient-to-br ${consoleColorClass} relative overflow-hidden`}>
+          <div className={`w-full h-full flex flex-col items-center justify-between p-3 bg-gradient-to-br ${consoleColorClass} relative overflow-hidden`}>
             {/* Ambient shadow gradient */}
             <div className="absolute inset-0 bg-black/25 mix-blend-overlay pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-white/10 pointer-events-none" />
@@ -280,15 +280,20 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
               }}
             />
 
+            {/* Elegant Fallback Text */}
+            <span className="font-mono text-[7px] text-white/50 tracking-wider uppercase font-bold z-10">
+              [ ARTE ORIGINAL INDISPONÍVEL ]
+            </span>
+
             {/* Glowing Gamepad badge */}
-            <div className="flex-1 flex flex-col items-center justify-center">
-              <div className="p-2.5 bg-white/10 rounded-full border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group-hover:scale-110 transition-transform duration-300">
-                <Gamepad2 className="w-6 h-6 text-white drop-shadow-[0_2px_4px_rgba(255,255,255,0.3)]" />
+            <div className="flex-1 flex flex-col items-center justify-center -mt-1">
+              <div className="p-2 bg-white/10 rounded-full border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group-hover:scale-110 transition-transform duration-300">
+                <Gamepad2 className="w-5 h-5 text-white drop-shadow-[0_2px_4px_rgba(255,255,255,0.3)]" />
               </div>
             </div>
 
             {/* Centered Game Title details */}
-            <div className="w-full text-center z-10 px-1 pb-1">
+            <div className="w-full text-center z-10 px-1">
               <span className="font-display font-black text-white text-xs uppercase tracking-wide line-clamp-2 leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
                 {game.title}
               </span>
@@ -373,7 +378,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
               }}
               className="flex items-center gap-1 text-[9px] font-retro text-zinc-500 hover:text-emerald-400 transition-colors uppercase cursor-pointer"
             >
-              Info
+              Ficha
             </button>
             <button
               onClick={(e) => {
@@ -382,7 +387,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
               }}
               className="flex items-center gap-1 text-[9px] font-retro text-zinc-400 group-hover:text-red-400 tracking-wider font-bold transition-colors uppercase cursor-pointer"
             >
-              <span>Lançar</span>
+              <span>Jogar</span>
               <Play className="w-2.5 h-2.5 fill-current" />
             </button>
           </div>

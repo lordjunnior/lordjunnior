@@ -89,6 +89,32 @@ export const getRichDescription = (title: string, systemName: string): string =>
   return gameDescriptions[cleanKey] || `Redescubra este clássico absoluto do console ${systemName}. Re-experimente a jogabilidade intocada original emulando roms clássicas no LordTecaRetro com velocidade máxima de carregamento.`;
 };
 
+const getRecalboxFolderName = (id: string): string => {
+  const map: Record<string, string> = {
+    nes: 'nes',
+    snes: 'snes',
+    n64: 'n64',
+    gb: 'gb',
+    gba: 'gba',
+    sms: 'mastersystem',
+    genesis: 'megadrive',
+    saturn: 'saturn',
+    ps1: 'psx',
+    ps2: 'ps2',
+    ps3: 'ps3',
+    atari: 'atari2600',
+    arcade: 'mame',
+    neogeo: 'neogeo',
+    nds: 'nds',
+    pce: 'pcengine',
+    '3do': '3do',
+    neogeopocket: 'ngp',
+    turbografx: 'pcengine',
+    fba_libretro: 'fba'
+  };
+  return map[id.toLowerCase()] || id.toLowerCase();
+};
+
 export const GamelistView: React.FC<GamelistViewProps> = ({
   system,
   onBack,
@@ -398,22 +424,29 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       className="fixed inset-0 w-full h-screen font-sans text-white overflow-hidden bg-[#050508] flex flex-col justify-between select-none"
     >
       
-      {/* CAMADA 0: BACKGROUND FANART FLUIDO DO JOGO SELECIONADO AMBIENTADO */}
+      {/* CAMADA 0: BACKGROUND DINÂMICO ESPECÍFICO DO CONSOLE ATIVO */}
       <div className="absolute inset-0 z-0 pointer-events-none transition-all duration-700">
+        <img 
+          src={`https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${getRecalboxFolderName(system.id)}.jpg`}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.16] select-none scale-105 transition-opacity duration-700 filter blur-[1px]"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/favorites.jpg`;
+          }}
+          referrerPolicy="no-referrer"
+        />
         {selectedGame && selectedGame.image && (
-          <>
-            <img 
-              src={selectedGame.image || ''} 
-              alt="" 
-              className="absolute inset-0 w-full h-full object-cover opacity-[0.11] filter blur-md scale-105" 
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#050508] via-[#050508]/92 to-transparent" />
-          </>
+          <img 
+            src={selectedGame.image || ''} 
+            alt="" 
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.09] filter blur-xl scale-110 transition-opacity duration-700" 
+            referrerPolicy="no-referrer"
+          />
         )}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-[#050508]/94 to-[#050508]" />
       </div>
 
-      {/* CAMADA 1: DECORAÇÃO DE FUNDO ESPECÍFICA DO CONSOLE */}
+      {/* CAMADA 1: DECORAÇÃO DE FUNDO VETORIAL ESPECÍFICA DO CONSOLE */}
       {themeBackgroundDecoration}
 
       {/* PAINEL DE CONTROLE DA INTERFACE SUPERIOR COM HEADER ROBUSTO */}
@@ -516,7 +549,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             <div className="h-5 mt-1 flex items-center justify-between px-1.5 text-[8px] font-mono text-zinc-500">
               <span className="tracking-widest">LORDTECA CRT-430</span>
               <div className="flex items-center gap-1.5">
-                <span className="text-[7px] text-zinc-600">POWER</span>
+                <span className="text-[7px] text-zinc-600">ENERGIA</span>
                 <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${
                   system.id === 'snes' ? 'bg-purple-500 shadow-[0_0_6px_#c084fc]' :
                   system.id === 'nes' ? 'bg-red-500 shadow-[0_0_6px_#ef4444]' :
@@ -564,7 +597,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                         <span className="font-bold text-zinc-200 mt-0.5 font-mono">{selectedGame.year || "Classic"}</span>
                       </div>
                       <div className="bg-white/5 border border-white/5 rounded-lg p-2 flex flex-col justify-center">
-                        <span className="text-[7px] text-zinc-500 uppercase tracking-widest font-mono font-black">CORE EMULADOR</span>
+                        <span className="text-[7px] text-zinc-500 uppercase tracking-widest font-mono font-black">NÚCLEO EMULADOR</span>
                         <span className="font-bold text-zinc-200 mt-0.5 font-mono uppercase truncate">{system.emulatorCore || "RetroArch"}</span>
                       </div>
                     </div>
@@ -600,7 +633,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             <div 
               ref={listContainerRef} 
               className="flex items-center overflow-x-auto gap-5 py-4 no-scrollbar scroll-smooth snap-x w-full pointer-events-auto" 
-              style={{ paddingLeft: 'calc(50vw - 100px)', paddingRight: 'calc(50vw - 100px)' }}
+              style={{ paddingLeft: 'calc(50% - 62px)', paddingRight: 'calc(50% - 62px)' }}
             >
               {filteredGames.map((game, idx) => {
                 const offset = idx - selectedGameIndex;
