@@ -33,7 +33,7 @@ const getLibretroSystemFolderName = (systemId: string): string => {
   return map[cleanId] || '';
 };
 
-const getLibretroCandidates = (title: string, systemId: string): string[] => {
+const getLibretroCandidates = (title: string, systemId: string, originalTitle?: string): string[] => {
   const folder = getLibretroSystemFolderName(systemId);
   if (!folder) return [];
 
@@ -48,17 +48,52 @@ const getLibretroCandidates = (title: string, systemId: string): string[] => {
   };
 
   // Add the high-precision mapped No-Intro filename as candidates if present
-  const exactFile = EXACT_ROM_MAPPINGS[systemId.toLowerCase()]?.[baseTitle];
+  const exactFile = EXACT_ROM_MAPPINGS[systemId.toLowerCase()]?.[baseTitle] || 
+                    (originalTitle ? EXACT_ROM_MAPPINGS[systemId.toLowerCase()]?.[originalTitle.trim()] : undefined);
   if (exactFile) {
     const cleanFileName = exactFile.replace(/\.(zip|7z|bin|sfc|nes|gba|gb|gbc)$/i, '');
     candidates.push(cleanFileName);
     candidates.push(cleanBase(cleanFileName, true));
+    // Strip revision or master brackets if any
+    const strippedRevision = cleanFileName.replace(/\s*\(Co-Master\)/i, '').replace(/\s*\(Rev\s*[A-Z0-9]+\)/gi, '').trim();
+    if (strippedRevision !== cleanFileName) {
+      candidates.push(strippedRevision);
+      candidates.push(cleanBase(strippedRevision, true));
+    }
+  }
+
+  // Fallback candidate overrides for highly picky top titles
+  const lowerBase = (originalTitle || baseTitle).toLowerCase();
+  if (lowerBase.includes('ocarina of time')) {
+    candidates.push('Legend of Zelda, The - Ocarina of Time (USA)');
+    candidates.push('Legend of Zelda, The - Ocarina of Time');
+  }
+  if (lowerBase.includes("majora's mask") || lowerBase.includes('majoras mask')) {
+    candidates.push("Legend of Zelda, The - Majora's Mask (USA)");
+    candidates.push("Legend of Zelda, The - Majora's Mask (USA) (Co-Master)");
+    candidates.push("Legend of Zelda, The - Majora's Mask");
+  }
+  if (lowerBase.includes('goldeneye') || lowerBase.includes('007')) {
+    candidates.push('GoldenEye 007 (USA)');
+    candidates.push('GoldenEye 007');
+  }
+  if (lowerBase.includes('fifa 99')) {
+    candidates.push('FIFA 99 (Europe) (En,Fr,De,Es,It,Nl,Pt,Sv)');
+    candidates.push('FIFA 99 (Europe)');
+    candidates.push('FIFA 99 (USA) (En,Fr,De,Es,It,Nl,Pt,Sv)');
+    candidates.push('FIFA 99');
   }
 
   const suffixes = ['', ' (USA)', ' (USA, Europe)', ' (Europe)', ' (Japan)', ' (World)'];
 
   for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, false));
   for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, true));
+
+  if (originalTitle) {
+    const cleanOrig = originalTitle.replace(/\(PT-BR\)/gi, '').replace(/\[PT-BR\]/gi, '').replace(/\(Traduzido\)/gi, '').trim();
+    for (const sfx of suffixes) candidates.push(cleanBase(cleanOrig + sfx, false));
+    for (const sfx of suffixes) candidates.push(cleanBase(cleanOrig + sfx, true));
+  }
 
   return Array.from(new Set(candidates)).map(c => 
     `https://raw.githubusercontent.com/libretro-thumbnails/${folder}/master/Named_Boxarts/${encodeURIComponent(c)}.png`
@@ -74,11 +109,12 @@ interface GameCoverProps {
 export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className }) => {
   const candidates = useMemo(() => {
     let cleanTitle = game.title.replace(/\(PT-BR\)/gi, '').replace(/\[PT-BR\]/gi, '').replace(/\(Traduzido\)/gi, '').replace(/\[Traduzido\]/gi, '').trim();
+    const originalCleanTitle = cleanTitle;
     if (cleanTitle.toLowerCase().startsWith('the ')) {
       const coreName = cleanTitle.substring(4).trim();
       cleanTitle = `${coreName}, The`;
     }
-    return getLibretroCandidates(cleanTitle, systemId);
+    return getLibretroCandidates(cleanTitle, systemId, originalCleanTitle);
   }, [game.title, systemId]);
 
   const [src, setSrc] = useState<string>('');

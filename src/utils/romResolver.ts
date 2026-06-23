@@ -227,14 +227,18 @@ export const EXACT_ROM_MAPPINGS: Record<string, Record<string, string>> = {
   n64: {
     'Super Mario 64': 'Super Mario 64 (USA).zip',
     'The Legend of Zelda: Ocarina of Time': 'Legend of Zelda, The - Ocarina of Time (USA).zip',
+    'The Legend of Zelda - Ocarina of Time': 'Legend of Zelda, The - Ocarina of Time (USA).zip',
     'Mario Kart 64': 'Mario Kart 64 (USA).zip',
     'Super Smash Bros.': 'Super Smash Bros. (USA).zip',
     'GoldenEye 007': 'GoldenEye 007 (USA).zip',
+    '007 GoldenEye': 'GoldenEye 007 (USA).zip',
     'Banjo-Kazooie': 'Banjo-Kazooie (USA).zip',
     'Star Fox 64': 'Star Fox 64 (USA).zip',
     'The Legend of Zelda: Majora\'s Mask': 'Legend of Zelda, The - Majora\'s Mask (USA) (Co-Master).zip',
+    'The Legend of Zelda - Majora\'s Mask': 'Legend of Zelda, The - Majora\'s Mask (USA) (Co-Master).zip',
     'Paper Mario': 'Paper Mario (USA).zip',
     'F-Zero X': 'F-Zero X (USA).zip',
+    'FIFA 99': 'FIFA 99 (Europe) (En,Fr,De,Es,It,Nl,Pt,Sv).zip',
   }
 };
 

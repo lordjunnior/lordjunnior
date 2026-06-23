@@ -9,7 +9,7 @@ import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
 import { EmulatorPlayer } from './EmulatorPlayer';
 import { getGameGameplayVideoUrl } from '../utils/videoResolver';
-import { ArrowLeft, Search, Volume2, VolumeX } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
 import { GameCover } from './GameCover';
 
 interface GamelistViewProps {
@@ -37,7 +37,7 @@ const getLogoFileName = (id: string): string => {
   const map: Record<string, string> = {
     snes: 'snes',
     supernintendo: 'snes',
-    msu1: 'msu1',
+    msu1: 'snes',
     nes: 'nes',
     nintendo: 'nes',
     gb: 'gameboy',
@@ -223,6 +223,171 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
     }
   }, [selectedGameIndex]);
 
+  // custom background decoration based on consoleId
+  const themeBackgroundDecoration = useMemo(() => {
+    switch (system.id) {
+      case 'nes':
+        return (
+          <>
+            {/* NES stripes and grid background */}
+            <div className="absolute inset-x-0 top-1/4 h-2 bg-red-600/20 border-y border-red-500/10 pointer-events-none z-0" />
+            <div className="absolute inset-x-0 top-[26%] h-0.5 bg-red-600/10 pointer-events-none z-0" />
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          </>
+        );
+      case 'snes':
+        return (
+          <>
+            {/* SNES four colored buttons and grid dots */}
+            <div className="absolute top-16 right-24 flex gap-2.5 opacity-[0.06] pointer-events-none z-0">
+              <div className="w-8 h-8 rounded-full bg-[#4F46E5] blur-sm animate-pulse" />
+              <div className="w-8 h-8 rounded-full bg-[#E54F4F] blur-sm" />
+              <div className="w-8 h-8 rounded-full bg-[#E5C34F] blur-sm" />
+              <div className="w-8 h-8 rounded-full bg-[#4FE568] blur-sm animate-pulse" style={{ animationDelay: '0.5s' }} />
+            </div>
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none z-0" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
+          </>
+        );
+      case 'n64':
+        return (
+          <>
+            {/* Polygonal 3D shapes representing dawn of 3D polygon generation */}
+            <div className="absolute top-1/4 left-10 w-24 h-24 border border-blue-500/5 rotate-45 pointer-events-none z-0" />
+            <div className="absolute top-1/3 right-10 w-32 h-32 border border-blue-500/5 rotate-12 pointer-events-none z-0 animate-spin" style={{ animationDuration: '40s' }} />
+            <div className="absolute bottom-[28%] left-1/4 w-12 h-12 border border-blue-400/5 -rotate-12 pointer-events-none z-0" />
+          </>
+        );
+      case 'genesis':
+      case 'megadrive':
+        return (
+          <>
+            {/* Sega blue grid matrix design */}
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" style={{ backgroundImage: 'linear-gradient(rgba(0,186,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,186,255,0.1) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+            <div className="absolute inset-x-0 bottom-1/4 h-px bg-[#4338CA]/20 pointer-events-none z-0" />
+          </>
+        );
+      case 'sms':
+      case 'mastersystem':
+        return (
+          <>
+            {/* Master System white graph paper grid backdrop */}
+            <div className="absolute inset-0 opacity-[0.06] pointer-events-none z-0" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
+          </>
+        );
+      case 'atari2600':
+      case 'atari':
+        return (
+          <>
+            {/* Atari Wood panel stripes and grill overlays */}
+            <div className="absolute inset-x-0 top-[38%] h-4 bg-amber-950/20 border-y border-amber-500/10 pointer-events-none z-0" />
+            <div className="absolute top-0 bottom-0 left-[10%] w-0.5 bg-amber-700/5 pointer-events-none z-0" />
+            <div className="absolute top-0 bottom-0 right-[10%] w-0.5 bg-amber-700/5 pointer-events-none z-0" />
+          </>
+        );
+      case 'ps1':
+      case 'psx':
+      case 'playstation':
+        return (
+          <>
+            {/* Classic geometric symbols crossing in deep luxury gray */}
+            <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+            <div className="absolute top-[20%] left-[12%] opacity-[0.03] text-7xl font-sans pointer-events-none z-0 rotate-12">▲</div>
+            <div className="absolute bottom-[22%] right-[12%] opacity-[0.03] text-7xl font-sans pointer-events-none z-0 -rotate-12">●</div>
+          </>
+        );
+      case 'gb':
+      case 'gbc':
+      case 'gba':
+      case 'gameboy':
+      case 'gameboycolor':
+        return (
+          <>
+            {/* Dot matrix handheld pattern */}
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(ellipse, #10b981 1.5px, transparent 1.5px)', backgroundSize: '14px 14px' }} />
+          </>
+        );
+      case 'arcade':
+      case 'mame':
+        return (
+          <>
+            {/* Retro Synthwave Horizon Vector line */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#D97706]/5 via-[#f43f5e]/5 to-transparent pointer-events-none z-0" />
+            <div className="absolute inset-x-0 bottom-[30%] h-px bg-[#f43f5e]/15 pointer-events-none z-0" />
+            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(rgba(244,63,94,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(244,63,94,0.15) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          </>
+        );
+      case 'neogeo':
+        return (
+          <>
+            {/* Double golden yellow stripe borders */}
+            <div className="absolute top-0 inset-x-0 h-1 bg-yellow-600/10 pointer-events-none z-0" />
+            <div className="absolute bottom-0 inset-x-0 h-1 bg-yellow-600/10 pointer-events-none z-0" />
+          </>
+        );
+      default:
+        return null;
+    }
+  }, [system.id]);
+
+  // helper to get stylized physical cartridge shell parameters
+  const getCartridgeStyle = (systemId: string, isSelected: boolean) => {
+    switch (systemId) {
+      case 'snes':
+        return {
+          bg: 'bg-zinc-300',
+          border: isSelected ? 'border-[#4F46E5] ring-2 ring-[#4F46E5]/20' : 'border-zinc-400',
+          innerShadow: 'shadow-[inset_0_4px_10px_rgba(255,255,255,0.55),_0_8px_20px_rgba(0,0,0,0.5)]',
+          labelPadding: 'p-2 pt-5 pb-2',
+          cartridgeType: 'snes'
+        };
+      case 'genesis':
+      case 'megadrive':
+        return {
+          bg: 'bg-zinc-900',
+          border: isSelected ? 'border-[#4338CA] ring-2 ring-[#4338CA]/20' : 'border-zinc-800',
+          innerShadow: 'shadow-[inset_0_3px_6px_rgba(255,255,255,0.15),_0_8px_20px_rgba(0,0,0,0.55)]',
+          labelPadding: 'p-2 pt-4 pb-2',
+          cartridgeType: 'genesis'
+        };
+      case 'n64':
+        return {
+          bg: 'bg-[#cfcfd4]',
+          border: isSelected ? 'border-[#3B82F6] ring-2 ring-[#3B82F6]/20' : 'border-zinc-400',
+          innerShadow: 'shadow-[inset_0_4px_8px_rgba(255,255,255,0.45),_0_8px_20px_rgba(0,0,0,0.4)]',
+          labelPadding: 'p-2 pt-6 pb-2',
+          cartridgeType: 'n64'
+        };
+      case 'nes':
+        return {
+          bg: 'bg-zinc-600',
+          border: isSelected ? 'border-[#E60012] ring-2 ring-[#E60012]/30' : 'border-zinc-700',
+          innerShadow: 'shadow-[inset_0_4px_8px_rgba(255,255,255,0.25),_0_8px_20px_rgba(0,0,0,0.5)]',
+          labelPadding: 'p-2 pt-4 pb-2',
+          cartridgeType: 'nes'
+        };
+      case 'gb':
+      case 'gbc':
+      case 'gba':
+      case 'gameboy':
+      case 'gameboycolor':
+        return {
+          bg: 'bg-[#9ca3af]',
+          border: isSelected ? 'border-emerald-500 ring-2 ring-emerald-500/20' : 'border-zinc-400',
+          innerShadow: 'shadow-[inset_0_4px_8px_rgba(255,255,255,0.35),_0_8px_16px_rgba(0,0,0,0.45)]',
+          labelPadding: 'p-2 pt-4 pb-2',
+          cartridgeType: 'gameboy'
+        };
+      default:
+        return {
+          bg: 'bg-zinc-950/80',
+          border: isSelected ? 'border-white/90 ring-2 ring-white/10' : 'border-white/10',
+          innerShadow: 'shadow-[0_8px_16px_rgba(0,0,0,0.5)]',
+          labelPadding: 'p-0',
+          cartridgeType: 'optical'
+        };
+    }
+  };
+
   return (
     <motion.div 
       id="gamelist-container" 
@@ -230,172 +395,297 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="fixed inset-0 w-full h-screen font-sans text-white overflow-hidden bg-[#040406] flex flex-col justify-between select-none"
+      className="fixed inset-0 w-full h-screen font-sans text-white overflow-hidden bg-[#050508] flex flex-col justify-between select-none"
     >
       
-      {/* CAMADA 0: BACKGROUND FANART FLUIDO DO JOGO SELECIONADO (PREENCHEDOR DO ESPAÇO GIGANTE COM ALTA CREDIBILIDADE PREMIUM CORES) */}
+      {/* CAMADA 0: BACKGROUND FANART FLUIDO DO JOGO SELECIONADO AMBIENTADO */}
       <div className="absolute inset-0 z-0 pointer-events-none transition-all duration-700">
         {selectedGame && selectedGame.image && (
           <>
             <img 
               src={selectedGame.image || ''} 
               alt="" 
-              className="absolute inset-0 w-full h-full object-cover opacity-[0.14] filter blur-md scale-105" 
+              className="absolute inset-0 w-full h-full object-cover opacity-[0.11] filter blur-md scale-105" 
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#040406] via-[#040406]/90 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#050508] via-[#050508]/92 to-transparent" />
           </>
         )}
       </div>
-      
-      {/* CAMADA 1: TELA CRT DA TV (EXIBINDO A ARTE DE CAPA DO JOGO COM SCANLINES E REFLEXO RETRO) */}
-      <div className="absolute top-[17.5%] left-[6.8%] w-[33.6vw] aspect-[4/3] bg-black/90 z-10 overflow-hidden rounded-[10px] flex items-center justify-center p-6 relative">
-        {selectedGame && (
-          <>
-            <div className="absolute inset-0 bg-zinc-950/80" />
-            <div className="relative w-full h-full flex items-center justify-center z-15">
-              <GameCover 
-                game={selectedGame} 
-                systemId={system.id} 
-                className="max-h-full max-w-full object-contain rounded shadow-[0_0_20px_rgba(255,255,255,0.1)] transform scale-[0.88]" 
-              />
-            </div>
-          </>
-        )}
-        
-        {/* Camada Scanlines daltônicas de CRT antigas */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay z-20"
-          style={{ backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.5) 50%)', backgroundSize: '100% 4px' }}
-        />
-        {/* Reflexo radial de tubo de imagem (CRT glass glare) */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.08)_0%,transparent_60%)] z-20" />
-      </div>
 
-      {/* CAMADA 2: A SUA MÁSCARA PNG TRANSPARENTE DA PASTA BACKGROUNDS (Renderiza condicionalmente apenas se o asset real existir para evitar erros 404 no console) */}
-      {consoleId === 'n64' ? (
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center z-20 pointer-events-none"
-          style={{ backgroundImage: `url(/logos/backgrounds/${consoleId}.png)` }}
-        />
-      ) : (
-        /* Ambient Glow substituto sutil e refinado */
-        <div 
-          className="absolute inset-0 w-full h-full z-20 pointer-events-none"
-          style={{ 
-            background: `radial-gradient(circle at 50% 35%, rgba(255,255,255,0.015) 0%, rgba(4,4,6,0.3) 100%)`
-          }}
-        />
-      )}
+      {/* CAMADA 1: DECORAÇÃO DE FUNDO ESPECÍFICA DO CONSOLE */}
+      {themeBackgroundDecoration}
 
-      {/* PAINEL DE CONTROLE DA INTERFACE SUPERIOR */}
-      <div className="absolute top-4 left-6 right-6 z-40 flex justify-between items-center pointer-events-auto">
-        <div className="flex items-center gap-3">
+      {/* PAINEL DE CONTROLE DA INTERFACE SUPERIOR COM HEADER ROBUSTO */}
+      <div className="w-full relative z-50 h-18 border-b border-white/5 bg-black/40 backdrop-blur-md flex items-center justify-between px-6 sm:px-10">
+        <div id="retro-header-left" className="flex items-center gap-3">
           <button 
+            id="retro-back-btn"
             onClick={handleBack}
-            className="flex items-center gap-1.5 text-[10px] font-retro text-white/60 hover:text-white bg-black/40 border border-white/5 rounded-md px-3 py-1.5 backdrop-blur cursor-pointer"
+            className="group flex items-center gap-2 text-[10px] sm:text-xs font-retro tracking-widest text-white bg-[#E60012] hover:bg-red-500 border border-red-400 hover:border-red-300 rounded-lg px-2.5 py-1.5 sm:px-4 sm:py-2 shadow-[0_4px_0_0_#91000B] hover:shadow-[0_2px_0_0_#91000B] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer font-black shrink-0"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Voltar
+            <div className="w-4 h-4 rounded-full bg-zinc-950 text-red-500 flex items-center justify-center text-[10px] font-retro border border-white/20 group-hover:scale-110 transition-transform">
+              B
+            </div>
+            <span>VOLTAR</span>
           </button>
-          <img src={`/logos/${consoleId}.png`} alt="" className="h-6 w-auto object-contain ml-2 filter drop-shadow" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+          
+          <div className="h-5 w-px bg-white/10 ml-2" />
+          
+          <img 
+            id="retro-console-logo"
+            src={`/logos/${consoleId}.png`} 
+            alt={system.name} 
+            className="h-7 w-auto object-contain ml-3 filter drop-shadow hover:scale-105 transition-transform" 
+            onError={(e) => { e.currentTarget.style.display = 'none'; }} 
+          />
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center bg-black/50 border border-white/5 rounded-md px-3 py-1 backdrop-blur">
-            <Search className="w-3 h-3 text-white/40 mr-1.5" />
-            <input ref={searchInputRef} type="text" placeholder="Buscar jogo..." value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setSelectedGameIndex(0); }} className="bg-transparent border-none text-[10px] text-white focus:outline-none w-32 placeholder-white/20 py-0" />
+
+        <div id="retro-header-right" className="flex items-center gap-3">
+          <div className="flex items-center bg-black/50 border border-white/10 rounded-xl px-3 py-1.5 backdrop-blur-md">
+            <Search className="w-3.5 h-3.5 text-white/30 mr-2" />
+            <input 
+              id="retro-search-input"
+              ref={searchInputRef} 
+              type="text" 
+              placeholder="Buscar clássico..." 
+              value={searchTerm} 
+              onChange={(e) => { setSearchTerm(e.target.value); setSelectedGameIndex(0); }} 
+              className="bg-transparent border-none text-xs text-white focus:outline-none w-36 sm:w-48 placeholder-white/20 py-0" 
+            />
           </div>
         </div>
       </div>
 
-      {/* PAINEL DE METADADOS ULTRA PREMIUM DO JOGO (PREENCHE DIRETAMENTE O ESPAÇO GIGANTE ACIMA DO CARROSSEL) */}
-      <div className="absolute top-[17.5%] right-[6.8%] w-[48vw] h-[25.2vw] z-30 flex flex-col justify-between pointer-events-auto bg-black/50 border border-white/10 backdrop-blur-md rounded-[10px] p-5 md:p-6 shadow-2xl">
-        <AnimatePresence mode="wait">
-          {selectedGame && (
-            <motion.div 
-              key={`meta-panel-${selectedGame.id}`} 
-              initial={{ opacity: 0, x: 20 }} 
-              animate={{ opacity: 1, x: 0 }} 
-              exit={{ opacity: 0, x: -20 }} 
-              transition={{ duration: 0.3 }}
-              className="w-full h-full flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center gap-3 mb-2.5 text-[10px] font-mono tracking-wider">
-                  <span className="uppercase font-black px-2.5 py-1 rounded bg-white/10 text-white border border-white/10">
-                    {selectedGame.genre || "RETRO CLASSIC"}
-                  </span>
-                  <span className="text-zinc-500">•</span>
-                  <span className="text-zinc-400 font-bold uppercase">{selectedGame.developer || "Retro Studio"}</span>
-                </div>
-                
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-black tracking-tight text-white uppercase mb-2 md:mb-3 drop-shadow-md leading-tight">
-                  {selectedGame.title}
-                </h2>
-                
-                <p className="text-xs md:text-sm text-zinc-300 font-sans font-normal leading-relaxed overflow-y-auto max-h-[10.5vh] pr-2 scrollbar-thin scrollbar-thumb-white/10">
-                  {getRichDescription(selectedGame.title, system.name)}
-                </p>
-              </div>
+      {/* SEÇÃO PRINCIPAL CENTRALIZADA (Layout dividido perfeitamente simétrico de alta densidade) */}
+      <div className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-center items-center px-4 md:px-8 py-4 gap-6 relative z-30">
+        
+        {/* Row 1: Symmetrical Grid de Visualização */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch justify-items-center">
+          
+          {/* PAINEL DA ESQUERDA: TELA CRT DE RETRO TV DA MÁQUINA */}
+          <div className="w-full max-w-[430px] aspect-[4/3] bg-[#1d1d1f] border-[10px] border-[#2f2f32] rounded-3xl p-3 md:p-3.5 shadow-[0_22px_50px_rgba(0,0,0,0.85)] relative overflow-hidden flex flex-col justify-between">
+            {/* TV Bezel design grooves */}
+            <div className="absolute top-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#131315] rounded-full opacity-50" />
+            
+            {/* Inner tube container */}
+            <div className="flex-1 w-full bg-black rounded-xl overflow-hidden relative shadow-[inset_0_0_25px_rgba(0,0,0,1)] flex items-center justify-center p-2">
+              {selectedGame ? (
+                <>
+                  <div className="absolute inset-0 bg-zinc-950/92 z-0 animate-pulse" />
+                  
+                  {/* Real-time Gameplay Video Preview inside Retro TV Screen */}
+                  <video
+                    key={`preview-video-${selectedGame.id}`}
+                    src={getGameGameplayVideoUrl(system.id, selectedGame.title)}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className={`absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-500 ${videoLoaded && !videoError ? 'opacity-85' : 'opacity-0'}`}
+                    onLoadedData={() => setVideoLoaded(true)}
+                    onError={() => {
+                      setVideoError(true);
+                      setVideoLoaded(false);
+                    }}
+                  />
 
-              <div className="grid grid-cols-12 gap-3 border-t border-white/10 pt-4 mt-2">
-                <div className="col-span-4 bg-white/5 border border-white/5 rounded-lg p-2.5 flex flex-col justify-center">
-                  <span className="text-[8px] text-zinc-500 uppercase tracking-widest font-mono font-black">LANÇAMENTO</span>
-                  <span className="font-bold text-white text-[11px] md:text-xs font-mono mt-0.5">{selectedGame.year || "Classic"}</span>
-                </div>
-                <div className="col-span-4 bg-white/5 border border-white/5 rounded-lg p-2.5 flex flex-col justify-center">
-                  <span className="text-[8px] text-zinc-500 uppercase tracking-widest font-mono font-black">EMULADOR CORE</span>
-                  <span className="font-bold text-white text-[11px] md:text-xs font-mono mt-0.5 uppercase truncate">{system.emulatorCore || "RetroArch"}</span>
-                </div>
-                <button 
-                  onClick={() => selectedGame && handleLaunchGame(selectedGame)} 
-                  className="col-span-4 bg-emerald-500 hover:bg-emerald-400 text-black font-retro text-[9px] font-black uppercase tracking-widest rounded-lg flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95 text-center px-1 py-1 shadow-black/80"
+                  {/* High quality cover display inside TV as default / backup */}
+                  <div className={`relative w-full h-full flex items-center justify-center z-5 transition-opacity duration-300 ${videoLoaded && !videoError ? 'opacity-20' : 'opacity-100'}`}>
+                    <GameCover 
+                      game={selectedGame} 
+                      systemId={system.id} 
+                      className="max-h-full max-w-full object-contain rounded shadow-[0_0_20px_rgba(255,255,255,0.12)]" 
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">Nenhum jogo encontrado</div>
+              )}
+              
+              {/* Scanlines layer for deep retro CRT monitor feeling */}
+              <div 
+                className="absolute inset-0 pointer-events-none opacity-15 mix-blend-overlay z-20"
+                style={{ backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.45) 50%)', backgroundSize: '100% 4px' }}
+              />
+              {/* Curved screen reflection overlay */}
+              <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.05)_0%,transparent_55%),radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.50)_100%)] z-20" />
+            </div>
+            
+            {/* TV base bar details containing glowing Power LED */}
+            <div className="h-5 mt-1 flex items-center justify-between px-1.5 text-[8px] font-mono text-zinc-500">
+              <span className="tracking-widest">LORDTECA CRT-430</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[7px] text-zinc-600">POWER</span>
+                <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${
+                  system.id === 'snes' ? 'bg-purple-500 shadow-[0_0_6px_#c084fc]' :
+                  system.id === 'nes' ? 'bg-red-500 shadow-[0_0_6px_#ef4444]' :
+                  system.id === 'n64' ? 'bg-blue-500 shadow-[0_0_6px_#3b82f6]' :
+                  'bg-emerald-500 shadow-[0_0_6px_#34d399]'
+                }`} />
+              </div>
+            </div>
+          </div>
+          
+          {/* PAINEL DA DIREITA: DETALHES DE METADADOS (Symmetric copy of Left panel dimensions for balanced style) */}
+          <div className="w-full max-w-[430px] aspect-[4/3] bg-zinc-900/75 border border-white/10 backdrop-blur-md rounded-3xl p-5 md:p-6 flex flex-col justify-between shadow-[0_22px_50px_rgba(0,0,0,0.65)] relative overflow-hidden">
+            <AnimatePresence mode="wait">
+              {selectedGame ? (
+                <motion.div 
+                  key={`meta-${selectedGame.id}`} 
+                  initial={{ opacity: 0, scale: 0.96 }} 
+                  animate={{ opacity: 1, scale: 1 }} 
+                  exit={{ opacity: 0, scale: 0.96 }} 
+                  transition={{ duration: 0.22 }}
+                  className="w-full h-full flex flex-col justify-between"
                 >
-                  ➔ JOGAR NOW
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2 text-[9px] font-mono tracking-wider">
+                      <span className="uppercase font-extrabold px-2 py-0.5 rounded bg-white/10 text-emerald-400 border border-white/5">
+                        {selectedGame.genre || "RETRO CLASSIC"}
+                      </span>
+                      <span className="text-zinc-500">•</span>
+                      <span className="text-zinc-400 font-bold uppercase truncate max-w-[150px]">{selectedGame.developer || "Retro Studio"}</span>
+                    </div>
+                    
+                    <h2 className="text-lg md:text-2xl font-black tracking-tight text-white uppercase drop-shadow-md leading-tight line-clamp-2 mt-1">
+                      {selectedGame.title}
+                    </h2>
+                    
+                    <p className="text-[11px] md:text-[12px] text-zinc-300 font-sans font-normal leading-relaxed overflow-y-auto max-h-[14vh] pr-2 scrollbar-thin scrollbar-thumb-white/10 mt-1">
+                      {getRichDescription(selectedGame.title, system.name)}
+                    </p>
+                  </div>
 
-      {/* CAMADA 3: CARROSSEL DE CARTUCHOS PLANO (CENTRALIZADO EMBAIXO) */}
-      <div className="absolute bottom-[20%] left-0 right-0 h-[280px] z-30 flex flex-col justify-end pointer-events-none">
-        <div ref={listContainerRef} className="flex items-center overflow-x-auto gap-8 py-4 no-scrollbar scroll-smooth snap-x w-full pointer-events-auto" style={{ paddingLeft: 'calc(50vw - 72px)', paddingRight: 'calc(50vw - 72px)' }}>
-          {filteredGames.map((game, idx) => {
-            const offset = idx - selectedGameIndex;
-            const isSelected = idx === selectedGameIndex;
-            const distance = Math.abs(offset);
-            const isFar = distance > 4;
-
-            return (
-              <motion.button
-                key={game.id}
-                onClick={() => handleGameClick(idx, game)}
-                animate={{
-                  scale: isSelected ? 1.10 : 0.82 - Math.min(distance * 0.05, 0.15),
-                  opacity: isSelected ? 1 : isFar ? 0 : 0.40 - Math.min(distance * 0.08, 0.3),
-                  x: isSelected ? 0 : (idx < selectedGameIndex ? 16 : -16) * Math.min(distance, 2.5),
-                }}
-                transition={{ type: 'spring', stiffness: 220, damping: 20 }}
-                className={`shrink-0 relative focus:outline-none cursor-pointer flex flex-col items-center select-none ${isFar ? 'pointer-events-none' : 'pointer-events-auto'}`}
-                style={{ width: '144px', visibility: isFar ? 'hidden' : 'visible' }}
-              >
-                <div className="relative w-36 h-48 rounded-xl overflow-hidden border transition-all duration-300 shadow-2xl" style={isSelected ? { borderColor: 'white', boxShadow: `0px 10px 30px rgba(255,255,255,0.22)` } : { borderColor: 'rgba(255,255,255,0.05)' }}>
-                  <GameCover game={game} systemId={system.id} className="w-full h-full object-cover" />
+                  <div className="flex flex-col gap-3 mt-2 border-t border-white/5 pt-3 shrink-0">
+                    <div className="grid grid-cols-2 gap-2 text-[10px]">
+                      <div className="bg-white/5 border border-white/5 rounded-lg p-2 flex flex-col justify-center">
+                        <span className="text-[7px] text-zinc-500 uppercase tracking-widest font-mono font-black">LANÇAMENTO</span>
+                        <span className="font-bold text-zinc-200 mt-0.5 font-mono">{selectedGame.year || "Classic"}</span>
+                      </div>
+                      <div className="bg-white/5 border border-white/5 rounded-lg p-2 flex flex-col justify-center">
+                        <span className="text-[7px] text-zinc-500 uppercase tracking-widest font-mono font-black">CORE EMULADOR</span>
+                        <span className="font-bold text-zinc-200 mt-0.5 font-mono uppercase truncate">{system.emulatorCore || "RetroArch"}</span>
+                      </div>
+                    </div>
+                    
+                    <button 
+                      onClick={() => handleLaunchGame(selectedGame)} 
+                      className="w-full py-2.5 md:py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-black font-retro text-[10px] font-black uppercase tracking-widest rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-[0_4px_12px_rgba(16,185,129,0.3)] active:translate-y-[1px] active:shadow-md text-center"
+                    >
+                      ➔ JOGAR AGORA
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <div className="flex-1 flex items-center justify-center">
+                  <span className="text-xs text-zinc-500 uppercase tracking-widest">Sem Resultados</span>
                 </div>
-              </motion.button>
-            );
-          })}
+              )}
+            </AnimatePresence>
+          </div>
+          
         </div>
+
+        {/* Row 2: Symmetrical Game Cartridge Carousel (Fades safely at borders using CSS masking) */}
+        <div className="w-full max-w-5xl flex flex-col justify-center relative mt-3 pt-1">
+          
+          <div 
+            className="w-full overflow-hidden relative"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
+            }}
+          >
+            <div 
+              ref={listContainerRef} 
+              className="flex items-center overflow-x-auto gap-5 py-4 no-scrollbar scroll-smooth snap-x w-full pointer-events-auto" 
+              style={{ paddingLeft: 'calc(50vw - 100px)', paddingRight: 'calc(50vw - 100px)' }}
+            >
+              {filteredGames.map((game, idx) => {
+                const offset = idx - selectedGameIndex;
+                const isSelected = idx === selectedGameIndex;
+                const distance = Math.abs(offset);
+                const isFar = distance > 5;
+                const cartStyle = getCartridgeStyle(system.id, isSelected);
+
+                return (
+                  <motion.button
+                    key={game.id}
+                    onClick={() => handleGameClick(idx, game)}
+                    animate={{
+                      scale: isSelected ? 1.05 : 0.85 - Math.min(distance * 0.04, 0.12),
+                      opacity: isSelected ? 1 : isFar ? 0 : 0.45 - Math.min(distance * 0.07, 0.25),
+                      x: isSelected ? 0 : (idx < selectedGameIndex ? 10 : -10) * Math.min(distance, 3),
+                    }}
+                    transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+                    className={`shrink-0 relative focus:outline-none cursor-pointer flex flex-col items-center select-none ${isFar ? 'pointer-events-none' : 'pointer-events-auto'}`}
+                    style={{ width: '124px', visibility: isFar ? 'hidden' : 'visible' }}
+                  >
+                    {/* Symmetrical Tactile physical cartridge frame */}
+                    <div className={`w-[115px] rounded-t-xl overflow-hidden ${cartStyle.bg} border border-b-0 ${cartStyle.border} ${cartStyle.innerShadow} transition-all duration-300 relative`}>
+                      
+                      {/* Cartridges details (ridges) and custom industrial designs */}
+                      {cartStyle.cartridgeType === 'snes' && (
+                        <div className="h-4 bg-[#b5b5bc]/80 flex justify-center gap-1.5 items-end pb-1 border-b border-zinc-400">
+                          <div className="w-1.5 h-2 bg-zinc-400 rounded-t-sm" />
+                          <div className="w-1.5 h-2 bg-zinc-400 rounded-t-sm" />
+                          <div className="w-1.5 h-2 bg-zinc-400 rounded-t-sm" />
+                        </div>
+                      )}
+                      
+                      {cartStyle.cartridgeType === 'genesis' && (
+                        <div className="h-3 bg-[#111113] flex flex-col justify-around py-0.5 border-b border-zinc-950">
+                          <div className="h-0.5 w-full bg-zinc-800" />
+                          <div className="h-0.5 w-full bg-zinc-800" />
+                        </div>
+                      )}
+
+                      {cartStyle.cartridgeType === 'n64' && (
+                        <div className="h-5 bg-[#c2c2c8] flex justify-center items-end pb-1 border-b border-zinc-400 gap-2">
+                          <div className="w-10 h-1 bg-zinc-400 rounded-sm" />
+                        </div>
+                      )}
+                      
+                      {cartStyle.cartridgeType === 'nes' && (
+                        <div className="absolute top-0 bottom-0 left-1 w-2 bg-zinc-700/80 flex flex-col gap-1 py-4 justify-around">
+                          <div className="h-0.5 w-full bg-zinc-800" />
+                          <div className="h-0.5 w-full bg-zinc-800" />
+                          <div className="h-0.5 w-full bg-zinc-800" />
+                        </div>
+                      )}
+
+                      {cartStyle.cartridgeType === 'gameboy' && (
+                        <div className="h-4 bg-[#8e95a0] flex items-center justify-between px-2.5 border-b border-zinc-400">
+                          <span className="text-[5px] text-zinc-500 font-extrabold tracking-widest font-sans">GAME BOY</span>
+                          <div className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
+                        </div>
+                      )}
+
+                      {/* Cover sticker label */}
+                      <div className={`${cartStyle.labelPadding}`}>
+                        <div className="relative aspect-[3/4] rounded-md overflow-hidden bg-zinc-950 shadow-[inset_0_0_10px_rgba(0,0,0,0.85)] border border-white/5">
+                          <GameCover game={game} systemId={system.id} className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+          
+        </div>
+
       </div>
 
-      {/* RODAPÉ */}
-      <footer className="absolute bottom-0 inset-x-0 h-8 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[9px] font-bold text-zinc-650 tracking-wider">
+      {/* RODAPÉ STANDARD SUTIL */}
+      <footer className="w-full h-8 bg-black/40 border-t border-white/5 backdrop-blur-md z-45 flex items-center justify-between px-6 sm:px-10 font-sans text-[9px] font-bold text-zinc-500 tracking-wider">
         <div>◀▶ SELECIONAR CARTUCHO • ENTER CONFIRMAR</div>
         <div className="font-mono">{filteredGames.length} ROMS DETECTADAS</div>
       </footer>
 
-      {/* INTERFACE DE EMULAÇÃO */}
+      {/* INTERFACE DE EMULAÇÃO OVERLAY */}
       <AnimatePresence>
         {emulatingGame && (
           <motion.div
