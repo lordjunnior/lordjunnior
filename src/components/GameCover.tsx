@@ -210,15 +210,35 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
   }
 
   return (
-    <img
-      src={src}
-      alt=""
-      onError={handleError}
-      onLoad={() => setLoaded(true)}
-      className={`${className} transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-      loading="lazy"
-      referrerPolicy="no-referrer"
-    />
+    <div className="relative w-full h-full overflow-hidden rounded-md flex items-center justify-center bg-zinc-950">
+      {/* Elegantly styled loading shimmer shown during background fetching of the thumbnail candidates */}
+      {!loaded && !isFatalError && (
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 to-zinc-950 flex flex-col justify-between p-3 select-none border border-white/5 shadow-2xl rounded-md animate-pulse z-10">
+          <div className="w-full flex flex-col items-center gap-1">
+            <div className="h-1 w-2/3 bg-zinc-800 rounded" />
+            <div className="h-0.5 w-full bg-zinc-850 rounded opacity-60 mt-0.5" />
+          </div>
+          <div className="my-auto flex flex-col items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-zinc-900 border border-white/5 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
+            </div>
+            <span className="font-mono text-[5.5px] text-zinc-500 uppercase tracking-widest animate-pulse mt-1">
+              BUSCANDO CAPA...
+            </span>
+          </div>
+          <div className="h-2 w-1/3 bg-zinc-800 mx-auto rounded" />
+        </div>
+      )}
+      <img
+        src={src}
+        alt=""
+        onError={handleError}
+        onLoad={() => setLoaded(true)}
+        className={`${className} transition-all duration-300 ${loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+        loading="lazy"
+        referrerPolicy="no-referrer"
+      />
+    </div>
   );
 };
 

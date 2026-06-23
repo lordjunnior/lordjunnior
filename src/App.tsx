@@ -322,6 +322,55 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeScreen, isGameDetailPage]);
 
+  // Dynamic SEO Metadata & OpenGraph Synchronization
+  useEffect(() => {
+    let title = 'LordTecaRetro | Sua Infância em um Clique';
+    let description = 'Todos os clássicos da sua infância, direto no navegador. Sem instalar nada.';
+    let imageUrl = 'https://lordtecaretro.vercel.app/og-image.svg';
+    const pageUrl = window.location.href;
+
+    if (isGameDetailPage && gameMatch) {
+      const { game, system } = gameMatch;
+      title = `${game.title} (${system.name}) | LordTecaRetro`;
+      description = `Jogue o clássico ${game.title} para o console ${system.name} online direto no seu navegador com emulador 100% gratuito e sem instalar nada!`;
+      if (game.image) {
+        imageUrl = game.image;
+      }
+    } else if (activeScreen === 'gamelist' && currentSystem) {
+      title = `Jogos de ${currentSystem.name} | LordTecaRetro`;
+      description = `Explore e jogue online a coleção completa de jogos clássicos do console ${currentSystem.name} (${currentSystem.manufacturer || 'Retro Console'}) no LordTecaRetro.`;
+    }
+
+    // Update document title
+    document.title = title;
+
+    // Helper to safely select and update or append a meta element
+    const updateOrCreateMeta = (attrName: string, attrVal: string, contentVal: string) => {
+      try {
+        let meta = document.querySelector(`meta[${attrName}="${attrVal}"]`);
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute(attrName, attrVal);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', contentVal);
+      } catch (err) {
+        console.warn('[RetroHub] Erro ao sincronizar metatag:', attrVal, err);
+      }
+    };
+
+    // Update crucial SEO and Social OpenGraph/Twitter Metatags
+    updateOrCreateMeta('name', 'description', description);
+    updateOrCreateMeta('property', 'og:title', title);
+    updateOrCreateMeta('property', 'og:description', description);
+    updateOrCreateMeta('property', 'og:image', imageUrl);
+    updateOrCreateMeta('property', 'og:url', pageUrl);
+    updateOrCreateMeta('property', 'twitter:title', title);
+    updateOrCreateMeta('property', 'twitter:description', description);
+    updateOrCreateMeta('property', 'twitter:image', imageUrl);
+    updateOrCreateMeta('property', 'twitter:url', pageUrl);
+  }, [isGameDetailPage, gameMatch, activeScreen, currentSystem, currentPath]);
+
   // Handle active rendering of Individual Game Details view matching /game/[slug]
   if (isGameDetailPage && gameMatch) {
     return (

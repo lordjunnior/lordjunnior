@@ -431,7 +431,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
             </div>
 
             {/* Quick Specs Bento Card */}
-            <div className="bg-zinc-900/60 border border-white/5 rounded-2xl p-5 space-y-4 backdrop-blur-sm">
+            <aside className="bg-zinc-900/60 border border-white/5 rounded-2xl p-5 space-y-4 backdrop-blur-sm">
               <h3 className="text-xs font-retro text-zinc-500 uppercase tracking-wider mb-2">Especificações</h3>
               
               <div className="grid grid-cols-2 gap-3 text-xs leading-tight">
@@ -485,7 +485,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                   </span>
                 )}
               </div>
-            </div>
+            </aside>
 
           </div>
 

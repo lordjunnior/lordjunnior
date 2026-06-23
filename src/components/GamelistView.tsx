@@ -491,13 +491,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       </div>
 
       {/* SEÇÃO PRINCIPAL CENTRALIZADA (Layout dividido perfeitamente simétrico de alta densidade) */}
-      <div className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-center items-center px-4 md:px-8 py-4 gap-6 relative z-30">
+      <main className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-center items-center px-4 md:px-8 py-4 gap-6 relative z-30">
         
         {/* Row 1: Symmetrical Grid de Visualização */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch justify-items-center">
           
           {/* PAINEL DA ESQUERDA: TELA CRT DE RETRO TV DA MÁQUINA */}
-          <div className="w-full max-w-[430px] aspect-[4/3] bg-[#1d1d1f] border-[10px] border-[#2f2f32] rounded-3xl p-3 md:p-3.5 shadow-[0_22px_50px_rgba(0,0,0,0.85)] relative overflow-hidden flex flex-col justify-between">
+          <section className="w-full max-w-[430px] aspect-[4/3] bg-[#1d1d1f] border-[10px] border-[#2f2f32] rounded-3xl p-3 md:p-3.5 shadow-[0_22px_50px_rgba(0,0,0,0.85)] relative overflow-hidden flex flex-col justify-between">
             {/* TV Bezel design grooves */}
             <div className="absolute top-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#131315] rounded-full opacity-50" />
             
@@ -558,10 +558,10 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 }`} />
               </div>
             </div>
-          </div>
+          </section>
           
           {/* PAINEL DA DIREITA: DETALHES DE METADADOS (Symmetric copy of Left panel dimensions for balanced style) */}
-          <div className="w-full max-w-[430px] aspect-[4/3] bg-zinc-900/75 border border-white/10 backdrop-blur-md rounded-3xl p-5 md:p-6 flex flex-col justify-between shadow-[0_22px_50px_rgba(0,0,0,0.65)] relative overflow-hidden">
+          <aside className="w-full max-w-[430px] aspect-[4/3] bg-zinc-900/75 border border-white/10 backdrop-blur-md rounded-3xl p-5 md:p-6 flex flex-col justify-between shadow-[0_22px_50px_rgba(0,0,0,0.65)] relative overflow-hidden">
             <AnimatePresence mode="wait">
               {selectedGame ? (
                 <motion.div 
@@ -616,12 +616,12 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 </div>
               )}
             </AnimatePresence>
-          </div>
+          </aside>
           
         </div>
 
         {/* Row 2: Symmetrical Game Cartridge Carousel (Fades safely at borders using CSS masking) */}
-        <div className="w-full max-w-5xl flex flex-col justify-center relative mt-3 pt-1">
+        <section className="w-full max-w-5xl flex flex-col justify-center relative mt-3 pt-1">
           
           <div 
             className="w-full overflow-hidden relative"
@@ -708,9 +708,9 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             </div>
           </div>
           
-        </div>
+        </section>
 
-      </div>
+      </main>
 
       {/* RODAPÉ STANDARD SUTIL */}
       <footer className="w-full h-8 bg-black/40 border-t border-white/5 backdrop-blur-md z-45 flex items-center justify-between px-6 sm:px-10 font-sans text-[9px] font-bold text-zinc-500 tracking-wider">

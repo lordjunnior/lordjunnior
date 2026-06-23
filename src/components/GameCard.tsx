@@ -245,7 +245,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
   const consoleColorClass = getConsoleColorClass(systemId || '');
 
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-20px' }}
@@ -393,6 +393,6 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 };
