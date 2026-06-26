@@ -121,7 +121,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
 
   // Handle keyboard navigation inside search list
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent): void => {
       if (!isOpen) return;
 
       if (e.key === 'Escape') {

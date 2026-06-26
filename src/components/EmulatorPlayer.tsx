@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
+import { UnsupportedGenerationView } from './UnsupportedGenerationView';
 import { 
   Play, 
   RotateCcw, 
@@ -70,6 +71,14 @@ const getEmulatorJSCore = (shortName: string, emulatorCore: string): string => {
 };
 
 export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, onClose }) => {
+  const isUnsupportedGeneration = ['playstation2', 'playstation3', 'xbox', 'xbox360'].includes(system.id.toLowerCase());
+  
+  if (isUnsupportedGeneration) {
+    return (
+      <UnsupportedGenerationView system={system} game={game} onClose={onClose} />
+    );
+  }
+
   const [activeRomUrl, setActiveRomUrl] = useState<string>(game.romUrl || '');
   const [customUrlInput, setCustomUrlInput] = useState<string>('');
   const [isUrlInputActive, setIsUrlInputActive] = useState<boolean>(false);

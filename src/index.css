@@ -12,11 +12,6 @@
   --font-retro: "Press Start 2P", monospace;
 }
 
-@keyframes scanline-scroll {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-
 @keyframes pulse-slow {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.75; }
@@ -29,10 +24,6 @@
 
 .glow-active {
   animation: text-shadow-glow 2s infinite ease-in-out;
-}
-
-.scanline-moving {
-  animation: scanline-scroll 8s linear infinite;
 }
 
 .pulse-led {
@@ -55,3 +46,4 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+

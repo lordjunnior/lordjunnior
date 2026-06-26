@@ -207,7 +207,7 @@ export default function App() {
 
   // Global keyboard shortcut for search (S, F, or Ctrl+K)
   useEffect(() => {
-    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+    const handleGlobalKeyDown = (e: globalThis.KeyboardEvent): void => {
       if (isGlobalSearchOpen) return;
 
       const activeEl = document.activeElement;
@@ -313,7 +313,7 @@ export default function App() {
 
   // Setup auxiliary Escape key bindings to return
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent): void => {
       if (e.key === 'Escape' && activeScreen === 'gamelist' && !isGameDetailPage) {
         handleReturnToCarousel();
       }
@@ -387,44 +387,12 @@ export default function App() {
           toggleMute={() => setIsMuted(prev => !prev)}
           onToggleFavorite={handleToggleFavorite}
         />
-
-        {/* CRT Scanline Filter Overlay */}
-        {isCrtEnabled && (
-          <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden select-none">
-            {/* Thin scanlines layer */}
-            <div 
-              className="absolute inset-0 opacity-[0.14]" 
-              style={{
-                backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%)',
-                backgroundSize: '100% 4px',
-              }}
-            />
-            {/* Phosphor filter vertical mask */}
-            <div 
-              className="absolute inset-0 opacity-[0.03]" 
-              style={{
-                backgroundImage: 'linear-gradient(90deg, rgba(255, 0, 0, 0.6), rgba(0, 255, 0, 0.2), rgba(0, 0, 255, 0.6))',
-                backgroundSize: '6px 100%',
-              }}
-            />
-            {/* Curved tube vignette shadow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.45)_100%)] opacity-85" />
-            
-            {/* Scrolling scanline glow bar */}
-            <div className="absolute inset-0 bg-transparent overflow-hidden">
-              <div className="w-full h-32 bg-white/[0.015] blur-md scanline-moving pointer-events-none" />
-            </div>
-            
-            {/* TV glass screen reflection glare */}
-            <div className="absolute top-0 right-0 w-[45%] h-[35%] rounded-full bg-white/[0.015] blur-[80px] pointer-events-none transform translate-x-12 -translate-y-12" />
-          </div>
-        )}
       </div>
     );
   }
 
   return (
-    <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#050508] text-white font-sans overflow-hidden flex flex-col justify-between select-none">
+    <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#050508] text-white font-sans overflow-y-auto overflow-x-hidden flex flex-col justify-between select-none">
       
       {/* 1. COMPONENTES ESTÁTICOS DE FUNDO SÓ DEIXAM DE RENDERIZAR SE A LISTA DE JOGOS ESTIVER ATIVA (MÁSCARA OCUPA TUDO) */}
       {activeScreen === 'carousel' && (() => {
@@ -453,7 +421,7 @@ export default function App() {
       })()}
 
       {/* 2. PROVEDOR DE TELAS RETRO EM TELA CHEIA */}
-      <main className="relative z-10 flex-1 flex flex-col justify-center items-center w-full min-h-0">
+      <main className="relative z-10 flex-1 flex flex-col justify-start items-center w-full min-h-0">
         <AnimatePresence mode="wait">
           {activeScreen === 'carousel' ? (
             <motion.div
@@ -462,7 +430,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="w-full flex-1 flex flex-col justify-center py-6"
+              className="w-full flex-1 flex flex-col justify-start py-6"
             >
               <SystemCarousel
                 systems={systems}
@@ -485,6 +453,9 @@ export default function App() {
                 onBack={handleReturnToCarousel}
                 isMuted={isMuted}
                 toggleMute={() => setIsMuted(prev => !prev)}
+                onSwitchSystemId={(sysId) => {
+                  window.location.hash = `#/system/${sysId}`;
+                }}
               />
             </motion.div>
           )}
@@ -536,38 +507,6 @@ export default function App() {
         toggleCrt={() => setIsCrtEnabled(prev => !prev)}
         onOpenDonateModal={() => setIsDonateOpen(true)}
       />
-
-      {/* CRT Scanline Filter Overlay */}
-      {isCrtEnabled && (
-        <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden select-none">
-          {/* Thin scanlines layer */}
-          <div 
-            className="absolute inset-0 opacity-[0.14]" 
-            style={{
-              backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%)',
-              backgroundSize: '100% 4px',
-            }}
-          />
-          {/* Phosphor filter vertical mask */}
-          <div 
-            className="absolute inset-0 opacity-[0.03]" 
-            style={{
-              backgroundImage: 'linear-gradient(90deg, rgba(255, 0, 0, 0.6), rgba(0, 255, 0, 0.2), rgba(0, 0, 255, 0.6))',
-              backgroundSize: '6px 100%',
-            }}
-          />
-          {/* Curved tube vignette shadow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.45)_100%)] opacity-85" />
-          
-          {/* Scrolling scanline glow bar */}
-          <div className="absolute inset-0 bg-transparent overflow-hidden">
-            <div className="w-full h-32 bg-white/[0.015] blur-md scanline-moving pointer-events-none" />
-          </div>
-          
-          {/* TV glass screen reflection glare */}
-          <div className="absolute top-0 right-0 w-[45%] h-[35%] rounded-full bg-white/[0.015] blur-[80px] pointer-events-none transform translate-x-12 -translate-y-12" />
-        </div>
-      )}
     </div>
   );
 }

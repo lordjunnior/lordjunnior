@@ -35,7 +35,7 @@
   <g transform="translate(150, 240)">
     <!-- Console ID Badge -->
     <rect width="110" height="24" rx="4" fill="#a855f7" fill-opacity="0.12" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1" />
-    <text x="55" y="16" fill="#a855f7" font-family="monospace" font-size="10" font-weight="900" letter-spacing="2" text-anchor="middle">GAME BOY ADVANCE</text>
+    <text x="55" y="16" fill="#a855f7" font-family="monospace" font-size="10" font-weight="900" letter-spacing="2" text-anchor="middle">GBA</text>
 
     <!-- Main Title text -->
     <text x="0" y="70" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="44" font-weight="900" opacity="0.9" letter-spacing="-1">GAME BOY ADVANCE</text>

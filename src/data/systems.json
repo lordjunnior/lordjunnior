@@ -713,7 +713,8 @@
         "genre": "Aventura / Drama",
         "dev": "Naughty Dog",
         "pub": "Sony Computer Entertainment",
-        "desc": "A emocionante e crua jornada cinematográfica de Joel e Ellie em um belíssimo mundo pós-apocalíptico devastado por fungos cordyceps."
+        "desc": "A emocionante e crua jornada cinematográfica de Joel e Ellie em um belíssimo mundo pós-apocalíptico devastado por fungos cordyceps.",
+        "image": "https://media.rawg.io/media/games/c4b/c4b0cab189e73432de3a250d8cf1d84e.jpg"
       },
       {
         "title": "Grand Theft Auto V",
@@ -721,7 +722,8 @@
         "genre": "Ação / Mundo Aberto",
         "dev": "Rockstar North",
         "pub": "Rockstar Games",
-        "desc": "Três criminosos muito diferentes se unem em golpes ousados pelas dinâmicas e ensolaradas ruas do sul da Califórnia (Los Santos)."
+        "desc": "Três criminosos muito diferentes se unem em golpes ousados pelas dinâmicas e ensolaradas ruas do sul da Califórnia (Los Santos).",
+        "image": "https://media.rawg.io/media/games/84d/84da2ad3bc842897221ee900f8497ec9.jpg"
       },
       {
         "title": "Uncharted 2: Among Thieves",
@@ -729,7 +731,8 @@
         "genre": "Ação / Aventura",
         "dev": "Naughty Dog",
         "pub": "Sony Computer Entertainment",
-        "desc": "Uma espetacular montanha-russa de ação e tiroteios com Nathan Drake em busca do lendário reino mítico de Shambhala no Himalaia."
+        "desc": "Uma espetacular montanha-russa de ação e tiroteios com Nathan Drake em busca do lendário reino mítico de Shambhala no Himalaia.",
+        "image": "https://media.rawg.io/media/games/c50/c5085506fe4b5e28fc7846c23773cf36.jpg"
       },
       {
         "title": "Metal Gear Solid 4: Guns of the Patriots",
@@ -737,7 +740,8 @@
         "genre": "Stealth / Ação",
         "dev": "Kojima Productions",
         "pub": "Konami",
-        "desc": "O desfecho épico, emocionante e repleto de revelações e tecnologia militar futurista para a lendária história do envelhecido Solid Snake."
+        "desc": "O desfecho épico, emocionante e repleto de revelações e tecnologia militar futurista para a lendária história do envelhecido Solid Snake.",
+        "image": "https://media.rawg.io/media/games/d46/d46373f17007b03bad321172f32999e5.jpg"
       },
       {
         "title": "Red Dead Redemption",
@@ -745,7 +749,8 @@
         "genre": "Aventura / Faroeste",
         "dev": "Rockstar San Diego",
         "pub": "Rockstar Games",
-        "desc": "Uma melancólica e profunda história de redenção e pistoleiros nas vastas fronteiras norte-americanas do Velho Oeste moribundo."
+        "desc": "Uma melancólica e profunda história de redenção e pistoleiros nas vastas fronteiras norte-americanas do Velho Oeste moribundo.",
+        "image": "https://media.rawg.io/media/games/a5e/a5eb6e187a54944d15655761a293b749.jpg"
       },
       {
         "title": "God of War III",
@@ -753,7 +758,8 @@
         "genre": "Hack and Slash / Ação",
         "dev": "Santa Monica Studio",
         "pub": "Sony Computer Entertainment",
-        "desc": "O clímax cinematográfico de vingança onde Kratos escala o Monte Olimpo com a ajuda dos Titãs para trucidar todos os deuses gregos."
+        "desc": "O clímax cinematográfico de vingança onde Kratos escala o Monte Olimpo com a ajuda dos Titãs para trucidar todos os deuses gregos.",
+        "image": "https://media.rawg.io/media/games/505/505eb31e04169528612140889ec1b3bf.jpg"
       },
       {
         "title": "Batman: Arkham City",
@@ -761,7 +767,8 @@
         "genre": "Aventura / Ação",
         "dev": "Rocksteady Studios",
         "pub": "Warner Bros. Interactive",
-        "desc": "Batman voa e distribui justiça em uma super-prisão a céu aberto repleta de seus criminosos e arqui-inimigos mais brilhantes."
+        "desc": "Batman voa e distribui justiça em uma super-prisão a céu aberto repleta de seus criminosos e arqui-inimigos mais brilhantes.",
+        "image": "https://media.rawg.io/media/games/456/456fc5a117b12d506144bec8d98348d8.jpg"
       },
       {
         "title": "Dark Souls",
@@ -769,7 +776,8 @@
         "genre": "Action RPG / Fantasia",
         "dev": "FromSoftware",
         "pub": "Bandai Namco",
-        "desc": "Inaugurou uma geração com seu combate extremamente deliberado, desafiador, design de níveis interconectados brilhante e rica lore sombria."
+        "desc": "Inaugurou uma geração com seu combate extremamente deliberado, desafiador, design de níveis interconectados brilhante e rica lore sombria.",
+        "image": "https://media.rawg.io/media/games/054/0544fbaef40182e21245e2daaa9aaef0.jpg"
       },
       {
         "title": "BioShock",
@@ -777,7 +785,8 @@
         "genre": "Aventura / FPS",
         "dev": "2K Boston",
         "pub": "2K Games",
-        "desc": "Uma distópica imersão nas profundezas da cidade subaquática em ruínas Rapture, debatendo filosofia, livre-arbítrio e mutações."
+        "desc": "Uma distópica imersão nas profundezas da cidade subaquática em ruínas Rapture, debatendo filosofia, livre-arbítrio e mutações.",
+        "image": "https://media.rawg.io/media/games/bc0/bc06a29ce28a08ec09490df07cf1d9cf.jpg"
       },
       {
         "title": "LittleBigPlanet",
@@ -785,7 +794,180 @@
         "genre": "Plataforma / Criativo",
         "dev": "Media Molecule",
         "pub": "Sony Computer Entertainment",
-        "desc": "O cativante e acolhedor universo de Sackboy focado na célebre premissa 'Jogar, Criar e Compartilhar' de infinitos níveis coloridos."
+        "desc": "O cativante e acolhedor universo de Sackboy focado na célebre premissa 'Jogar, Criar e Compartilhar' de infinitos níveis coloridos.",
+        "image": "https://media.rawg.io/media/games/53b/53bdf9be1b4f4bad3e890ecba985b40a.jpg"
+      }
+    ]
+  },
+  {
+    "id": "xbox",
+    "name": "Microsoft Xbox",
+    "shortName": "Xbox",
+    "logo": "XBOX",
+    "badgeColor": "bg-[#107C10] border-green-500 text-white hover:shadow-[0_0_15px_rgba(16,124,16,0.4)]",
+    "releaseYear": "2001",
+    "manufacturer": "Microsoft",
+    "backgroundImage": "/systems/xbox.svg",
+    "themeColor": "from-[#0a3d0a] to-black",
+    "emulatorCore": "xemu",
+    "gameDefs": [
+      {
+        "title": "Halo: Combat Evolved",
+        "year": "2001",
+        "genre": "Tiro / FPS",
+        "dev": "Bungie",
+        "pub": "Microsoft Game Studios",
+        "desc": "O lendário início da saga de Master Chief no misterioso anel estelar Halo, redefinindo os jogos de tiro em primeira pessoa nos consoles.",
+        "image": "https://media.rawg.io/media/games/214/2144fa542718ef0e960309995be9eb96.jpg"
+      },
+      {
+        "title": "Halo 2",
+        "year": "2004",
+        "genre": "Tiro / FPS",
+        "dev": "Bungie",
+        "pub": "Microsoft Game Studios",
+        "desc": "A aclamada sequência que expandiu o combate, permitiu jogar com o Covenant Arbiter e revolucionou a história do multiplayer online nos consoles.",
+        "image": "https://media.rawg.io/media/games/53c/53c83b87968393cb7cbfe86992f03f3a.jpg"
+      },
+      {
+        "title": "Fable",
+        "year": "2004",
+        "genre": "RPG de Ação",
+        "dev": "Lionhead Studios",
+        "pub": "Microsoft Game Studios",
+        "desc": "Em um mundo fantástico de Albion, cada decisão sua molda a sua reputação, aparência e destino, transformando-o em um herói benevolente ou vilão temido.",
+        "image": "https://media.rawg.io/media/games/624/624641e765478465cb33a6f9c9b4e647.jpg"
+      },
+      {
+        "title": "Star Wars: Knights of the Old Republic",
+        "year": "2003",
+        "genre": "RPG",
+        "dev": "BioWare",
+        "pub": "LucasArts",
+        "desc": "Uma obra-prima milênios antes do Império Galáctico, onde você domina a Força e escolhe entre o lado da luz ou o poder devastador dos Sith.",
+        "image": "https://media.rawg.io/media/games/07f/07f9076b92131ef2364c12d466144e54.jpg"
+      },
+      {
+        "title": "Ninja Gaiden Black",
+        "year": "2005",
+        "genre": "Ação / Hack & Slash",
+        "dev": "Team Ninja",
+        "pub": "Tecmo",
+        "desc": "O ápice do combate veloz e desafiador no papel de Ryu Hayabusa, aclamado como um dos jogos de hack-and-slash mais precisos e difíceis da história.",
+        "image": "https://media.rawg.io/media/games/742/742b7194fbe00e5720eb9cb2066d4825.jpg"
+      },
+      {
+        "title": "Tom Clancy's Splinter Cell: Chaos Theory",
+        "year": "2005",
+        "genre": "Stealth / Ação",
+        "dev": "Ubisoft Montreal",
+        "pub": "Ubisoft",
+        "desc": "A aventura definitiva de Sam Fisher com mecânicas de furtividade insuperáveis, gráficos fotorrealistas de ponta para a época e trilha sonora magistral de Amon Tobin.",
+        "image": "https://media.rawg.io/media/games/9b5/9b5f7e841fe73ee67d8a6ff6071fb2c2.jpg"
+      },
+      {
+        "title": "Forza Motorsport",
+        "year": "2005",
+        "genre": "Corrida / Simulador",
+        "dev": "Turn 10 Studios",
+        "pub": "Microsoft Game Studios",
+        "desc": "A grande resposta da Microsoft à simulação automobilística, introduzindo física ultra-realista de pneus e danos reais aos carros.",
+        "image": "https://media.rawg.io/media/games/297/297241db81f08bf6067fa17e82b3d686.jpg"
+      },
+      {
+        "title": "The Chronicles of Riddick: Escape from Butcher Bay",
+        "year": "2004",
+        "genre": "Ação / Stealth",
+        "dev": "Starbreeze Studios",
+        "pub": "Vivendi Universal",
+        "desc": "Combinação brilhante e atmosférica de combate em primeira pessoa, stealth tático e narrativa sombria na prisão espacial de segurança máxima.",
+        "image": "https://media.rawg.io/media/games/20a/20a014eeeb85382348c66804d9b4b025.jpg"
+      }
+    ]
+  },
+  {
+    "id": "xbox360",
+    "name": "Microsoft Xbox 360",
+    "shortName": "Xbox 360",
+    "logo": "XBOX360",
+    "badgeColor": "bg-[#107C10] border-emerald-400 text-white hover:shadow-[0_0_15px_rgba(16,124,16,0.4)]",
+    "releaseYear": "2005",
+    "manufacturer": "Microsoft",
+    "backgroundImage": "/systems/xbox360.svg",
+    "themeColor": "from-[#0b420b] to-black",
+    "emulatorCore": "xenia",
+    "gameDefs": [
+      {
+        "title": "Gears of War",
+        "year": "2006",
+        "genre": "Ação / Tiro",
+        "dev": "Epic Games",
+        "pub": "Microsoft Game Studios",
+        "desc": "Definiu os padrões modernos de tiro em terceira pessoa com seu inovador sistema de cobertura e o combate brutal de Marcus Fenix contra os Locust.",
+        "image": "https://media.rawg.io/media/games/11c/11c296711516709848f074be07198ba4.jpg"
+      },
+      {
+        "title": "Halo 3",
+        "year": "2007",
+        "genre": "Tiro / FPS",
+        "dev": "Bungie",
+        "pub": "Microsoft Game Studios",
+        "desc": "O desfecho triunfante da trilogia original da Bungie, estabelecendo recordes históricos de vendas e consagrando o modo multiplayer na Xbox Live.",
+        "image": "https://media.rawg.io/media/games/043/043a0d5da2f05b0780f269a9cf67ec8e.jpg"
+      },
+      {
+        "title": "Mass Effect",
+        "year": "2007",
+        "genre": "RPG / Sci-Fi",
+        "dev": "BioWare",
+        "pub": "Microsoft Game Studios",
+        "desc": "Uma espetacular e influente ópera espacial onde o Comandante Shepard recruta aliados e toma decisões dramáticas que impactam toda a galáxia.",
+        "image": "https://media.rawg.io/media/games/a6c/a6ccd34125c594d385cc3c0b0ad86ec1.jpg"
+      },
+      {
+        "title": "Fable II",
+        "year": "2008",
+        "genre": "Action RPG",
+        "dev": "Lionhead Studios",
+        "pub": "Microsoft Game Studios",
+        "desc": "A acolhedora e cativante sequência com um incrível sistema de simulação de vida, exploração rica acompanhado de seu cão leal e o clássico humor britânico.",
+        "image": "https://media.rawg.io/media/games/f47/f47021668270562e8bf5fcb980962325.jpg"
+      },
+      {
+        "title": "Alan Wake",
+        "year": "2010",
+        "genre": "Aventura / Suspense",
+        "dev": "Remedy Entertainment",
+        "pub": "Microsoft Game Studios",
+        "desc": "Um thriller psicológico cinematográfico soberbo onde o escritor Alan Wake usa a luz para combater uma presença sombria sobrenatural em Bright Falls.",
+        "image": "https://media.rawg.io/media/games/5c0/5c0dd40a0073cbfa7f0775d710bf3ca5.jpg"
+      },
+      {
+        "title": "Lost Odyssey",
+        "year": "2007",
+        "genre": "JRPG",
+        "dev": "Mistwalker / Feelplus",
+        "pub": "Microsoft Game Studios",
+        "desc": "Um dos JRPGs mais aclamados e maduros de sua era, criado pelo pai de Final Fantasy, Hironobu Sakaguchi, narrando a emocionante jornada de um imortal de mil anos.",
+        "image": "https://media.rawg.io/media/games/a23/a23862cb23b209e7c53e05a8f9024f22.jpg"
+      },
+      {
+        "title": "Left 4 Dead 2",
+        "year": "2009",
+        "genre": "Tiro / Cooperativo",
+        "dev": "Valve",
+        "pub": "Valve",
+        "desc": "O ápice do combate cooperativo contra hordas de zumbis brutais, apresentando o inteligente AI Director que ajusta a tensão em tempo real.",
+        "image": "https://media.rawg.io/media/games/d58/d588991d29bc3f2e82098ca39f408225.jpg"
+      },
+      {
+        "title": "Dead Rising",
+        "year": "2006",
+        "genre": "Ação / Sobrevivência",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Frank West investiga um shopping sob quarentena repleto de zumbis, usando centenas de objetos cotidianos como armas improvisadas hilárias.",
+        "image": "https://media.rawg.io/media/games/944/944ca0f5d9472e61df3f71c4fa489112.jpg"
       }
     ]
   }

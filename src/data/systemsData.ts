@@ -33,7 +33,7 @@ export const parseRawSystems = (rawList: any[]): System[] => {
         players: '1-2 Jogadores',
         rating: idx % 3 === 0 ? 5 : 4,
         description: gd.desc,
-        image: `/covers/${slug}.svg`,
+        image: gd.image || `/covers/${slug}.svg`,
         romUrl: gd.romUrl || resolveGameRomUrl(sys.id, gd.title),
         favorite: idx < 3
       };

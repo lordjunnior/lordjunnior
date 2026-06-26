@@ -7,8 +7,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { System } from '../types';
 import { soundEngine } from './RetroSoundEngine';
-import { Gamepad2, Cpu, Calendar, Archive } from 'lucide-react';
+import { Gamepad2, Cpu, Calendar, Archive, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GameCover } from './GameCover';
+import { getLogoFileName } from '../utils/logoResolver';
 
 interface SystemCarouselProps {
   systems: System[];
@@ -409,56 +410,46 @@ export const systemSpecsMap: Record<string, SystemTechSpecs> = {
     hardwareSummary: "Potente inovadora arquitetura Cell de processamento de alto nível paralelo. Trouxe a incrível era HD, suporte a mídias Blu-ray de alta densidade e modo online pela PSN.",
     consolePhotoUrl: "/logos/consolePS3.png",
     backdropUrl: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=1200"
+  },
+  xbox: {
+    manufacturer: "Microsoft",
+    generation: "128-Bits (6ª Geração)",
+    cpu: "Intel Pentium III Coppermine @ 733 MHz",
+    ram: "64 MB DDR SDRAM @ 200 MHz",
+    media: "DVD-ROM / Disco Rígido 8GB",
+    releaseYear: "2001",
+    accentColor: "from-green-800 via-[#107C10] to-zinc-950",
+    glowColor: "rgba(16, 124, 16, 0.4)",
+    hardwareSummary: "A entrada triunfante da Microsoft nos videogames. Inovou ao incluir um disco rígido interno de fábrica, placa de rede Ethernet nativa e a lendária rede Xbox Live que revolucionou o modo online.",
+    consolePhotoUrl: "/logos/consolexbox.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
+  },
+  xboxclassic: {
+    manufacturer: "Microsoft",
+    generation: "128-Bits (6ª Geração)",
+    cpu: "Intel Pentium III Coppermine @ 733 MHz",
+    ram: "64 MB DDR SDRAM @ 200 MHz",
+    media: "DVD-ROM / Disco Rígido 8GB",
+    releaseYear: "2001",
+    accentColor: "from-green-800 via-[#107C10] to-zinc-950",
+    glowColor: "rgba(16, 124, 16, 0.4)",
+    hardwareSummary: "A entrada triunfante da Microsoft nos videogames. Inovou ao incluir um disco rígido interno de fábrica, placa de rede Ethernet nativa e a lendária rede Xbox Live que revolucionou o modo online.",
+    consolePhotoUrl: "/logos/consolexbox.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
+  },
+  xbox360: {
+    manufacturer: "Microsoft",
+    generation: "7ª Geração",
+    cpu: "IBM Xenon Tri-Core @ 3.2 GHz",
+    ram: "512 MB GDDR3 compartilhada",
+    media: "DVD-DL / Disco Rígido",
+    releaseYear: "2005",
+    accentColor: "from-emerald-650 via-[#107C10] to-zinc-950",
+    glowColor: "rgba(16, 124, 16, 0.45)",
+    hardwareSummary: "Um marco histórico da sétima geração que consolidou o multiplayer competitivo, o sistema de Conquistas (Achievements), o Xbox Live Arcade e introduziu o revolucionário sensor de movimentos Kinect.",
+    consolePhotoUrl: "/logos/consolexbox360.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
   }
-};
-
-// TRADUTOR DO EMULATIONSTATION ($system): Garante leitura 100% .png local
-const getLogoFileName = (id: string): string => {
-  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
-  const map: Record<string, string> = {
-    snes: 'snes',
-    supernintendo: 'snes',
-    msu1: 'msu1',
-    nes: 'nes',
-    nintendo: 'nes',
-    gb: 'gameboy',
-    gameboy: 'gameboy',
-    gbc: 'gameboycolor',
-    gameboycolor: 'gameboycolor',
-    megadrive: 'segaMD', 
-    genesis: 'segaMD',
-    sega: 'segaMD',
-    msumd: 'msu-md',     
-    sms: 'mastersystem',
-    mastersystem: 'mastersystem',
-    gamegear: 'gamegear',
-    ps1: 'playstation',
-    psx: 'playstation',
-    playstation: 'playstation',
-    playstation2: 'playstation2',
-    ps2: 'playstation2',
-    playstation3: 'playstation3',
-    ps3: 'playstation3',
-    n64: 'n64',          
-    nintendo64: 'n64',
-    atari: 'atari',
-    atari2600: 'atari',
-    arcade: 'arcade',    
-    mame: 'arcade',
-    nds: 'nintendods',
-    pce: 'pcecd',        
-    pcengine: 'pcecd',
-    neogeo: 'neogeo',
-    '3do': '3do',        
-    saturn: 'saturn',
-    segasaturn: 'saturn',
-    dreamcast: 'dreamcast',
-    gamecube: 'gamecube',
-    gc: 'gamecube',
-    collections: 'Collections', 
-    playlist: 'Collections'
-  };
-  return map[cleanId] || cleanId;
 };
 
 const getRecalboxFolderName = (id: string): string => {
@@ -474,6 +465,8 @@ const getRecalboxFolderName = (id: string): string => {
     ps1: 'psx',
     ps2: 'ps2',
     ps3: 'ps3',
+    xbox: 'xbox',
+    xbox360: 'xbox360',
     atari: 'atari2600',
     arcade: 'mame',
     neogeo: 'neogeo',
@@ -512,6 +505,9 @@ const getCentralConsoleLogoUrl = (id: string): string => {
     ps2: '/logos/consoleplaystation2.png',
     playstation3: '/logos/consolePS3.png',
     ps3: '/logos/consolePS3.png',
+    xbox: '/logos/consolexbox.png',
+    xboxclassic: '/logos/consolexbox.png',
+    xbox360: '/logos/consolexbox360.png',
     atari: '/logos/consoleatari.png',
     arcade: '/logos/consolearcade.png',
     '3do': '/logos/console3do.png',
@@ -598,7 +594,7 @@ const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean }> = ({ sy
 
   if (hasError) {
     return (
-      <span className="font-retro text-[10px] text-zinc-500 uppercase tracking-widest font-bold">
+      <span className="font-retro text-[10px] text-zinc-400 uppercase tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">
         {system.shortName || system.name}
       </span>
     );
@@ -608,14 +604,67 @@ const SafeConsoleLogo: React.FC<{ system: System; isCompact?: boolean }> = ({ sy
     <img
       src={`/logos/${getLogoFileName(system.id)}.png`}
       alt={system.name}
-      className={`h-7 max-w-[130px] object-contain filter transition-opacity duration-200 ${
+      className={`h-7 max-w-[130px] object-contain filter transition-all duration-300 ${
         isCompact 
-          ? 'opacity-70 brightness-90 saturate-100' 
-          : 'drop-shadow-[0_0_12px_rgba(255,255,255,0.35)] brightness-115'
+          ? 'opacity-40 brightness-125 saturate-50 drop-shadow-[0_0_8px_rgba(255,255,255,0.25)] hover:opacity-75' 
+          : 'opacity-100 drop-shadow-[0_0_18px_rgba(255,255,255,0.65)] brightness-115 scale-105'
       }`}
       onError={() => setHasError(true)}
     />
   );
+};
+
+export interface SystemThemeColor {
+  hex: string;
+  glow: string;
+  textClass: string;
+  btnClass: string;
+  borderClass: string;
+}
+
+export const systemThemeColors: Record<string, SystemThemeColor> = {
+  nes: { hex: '#ff0055', glow: 'rgba(255, 0, 85, 0.45)', textClass: 'text-rose-450', btnClass: 'from-rose-600 to-rose-800', borderClass: 'border-rose-500/30' },
+  snes: { hex: '#7c59e0', glow: 'rgba(124, 89, 224, 0.45)', textClass: 'text-indigo-400', btnClass: 'from-indigo-600 to-indigo-800', borderClass: 'border-indigo-500/30' },
+  n64: { hex: '#3b82f6', glow: 'rgba(59, 130, 246, 0.45)', textClass: 'text-blue-400', btnClass: 'from-blue-600 to-blue-800', borderClass: 'border-blue-500/30' },
+  gb: { hex: '#8b956d', glow: 'rgba(139, 149, 109, 0.45)', textClass: 'text-lime-500', btnClass: 'from-lime-600 to-lime-800', borderClass: 'border-lime-500/30' },
+  gameboy: { hex: '#8b956d', glow: 'rgba(139, 149, 109, 0.45)', textClass: 'text-lime-500', btnClass: 'from-lime-600 to-lime-800', borderClass: 'border-lime-500/30' },
+  gbc: { hex: '#ec4899', glow: 'rgba(236, 72, 153, 0.45)', textClass: 'text-pink-400', btnClass: 'from-pink-600 to-pink-800', borderClass: 'border-pink-500/30' },
+  gba: { hex: '#a855f7', glow: 'rgba(168, 85, 247, 0.45)', textClass: 'text-purple-400', btnClass: 'from-purple-600 to-purple-800', borderClass: 'border-purple-500/30' },
+  sms: { hex: '#3b82f6', glow: 'rgba(59, 130, 246, 0.45)', textClass: 'text-blue-400', btnClass: 'from-blue-600 to-blue-800', borderClass: 'border-blue-500/30' },
+  genesis: { hex: '#ef4444', glow: 'rgba(239, 44, 68, 0.45)', textClass: 'text-red-450', btnClass: 'from-red-600 to-red-800', borderClass: 'border-red-500/30' },
+  megadrive: { hex: '#ef4444', glow: 'rgba(239, 44, 68, 0.45)', textClass: 'text-red-450', btnClass: 'from-red-600 to-red-800', borderClass: 'border-red-500/30' },
+  saturn: { hex: '#3b82f6', glow: 'rgba(59, 130, 246, 0.45)', textClass: 'text-sky-400', btnClass: 'from-sky-600 to-sky-800', borderClass: 'border-sky-500/30' },
+  ps1: { hex: '#8ba2c9', glow: 'rgba(139, 162, 201, 0.45)', textClass: 'text-slate-300', btnClass: 'from-slate-600 to-slate-800', borderClass: 'border-slate-500/30' },
+  playstation: { hex: '#8ba2c9', glow: 'rgba(139, 162, 201, 0.45)', textClass: 'text-slate-300', btnClass: 'from-slate-600 to-slate-800', borderClass: 'border-slate-500/30' },
+  psx: { hex: '#8ba2c9', glow: 'rgba(139, 162, 201, 0.45)', textClass: 'text-slate-300', btnClass: 'from-slate-600 to-slate-800', borderClass: 'border-slate-500/30' },
+  ps2: { hex: '#00A4FF', glow: 'rgba(0, 164, 255, 0.45)', textClass: 'text-blue-400', btnClass: 'from-blue-600 to-blue-800', borderClass: 'border-blue-500/30' },
+  playstation2: { hex: '#00A4FF', glow: 'rgba(0, 164, 255, 0.45)', textClass: 'text-blue-400', btnClass: 'from-blue-600 to-blue-800', borderClass: 'border-blue-500/30' },
+  ps3: { hex: '#e60012', glow: 'rgba(230, 0, 18, 0.45)', textClass: 'text-red-500', btnClass: 'from-red-600 to-red-800', borderClass: 'border-red-500/30' },
+  playstation3: { hex: '#e60012', glow: 'rgba(230, 0, 18, 0.45)', textClass: 'text-red-500', btnClass: 'from-red-600 to-red-800', borderClass: 'border-red-500/30' },
+  xbox: { hex: '#107c10', glow: 'rgba(16, 124, 16, 0.45)', textClass: 'text-green-500', btnClass: 'from-green-600 to-green-800', borderClass: 'border-green-500/30' },
+  xboxclassic: { hex: '#107c10', glow: 'rgba(16, 124, 16, 0.45)', textClass: 'text-green-500', btnClass: 'from-green-600 to-green-800', borderClass: 'border-green-500/30' },
+  xbox360: { hex: '#5a9e1e', glow: 'rgba(90, 158, 30, 0.45)', textClass: 'text-emerald-400', btnClass: 'from-emerald-600 to-emerald-800', borderClass: 'border-emerald-500/30' },
+  atari: { hex: '#ff5500', glow: 'rgba(255, 85, 0, 0.45)', textClass: 'text-orange-500', btnClass: 'from-orange-600 to-orange-800', borderClass: 'border-orange-500/30' },
+  arcade: { hex: '#00ffcc', glow: 'rgba(0, 255, 204, 0.45)', textClass: 'text-teal-400', btnClass: 'from-teal-600 to-teal-800', borderClass: 'border-teal-500/30' },
+  neogeo: { hex: '#ffaa00', glow: 'rgba(255, 170, 0, 0.45)', textClass: 'text-amber-500', btnClass: 'from-amber-600 to-amber-800', borderClass: 'border-amber-500/30' },
+  nds: { hex: '#e11d48', glow: 'rgba(225, 29, 72, 0.45)', textClass: 'text-rose-500', btnClass: 'from-rose-600 to-rose-800', borderClass: 'border-rose-500/30' },
+  pce: { hex: '#ea580c', glow: 'rgba(234, 88, 12, 0.45)', textClass: 'text-orange-550', btnClass: 'from-orange-600 to-orange-800', borderClass: 'border-orange-500/30' },
+  pcengine: { hex: '#ea580c', glow: 'rgba(234, 88, 12, 0.45)', textClass: 'text-orange-550', btnClass: 'from-orange-600 to-orange-800', borderClass: 'border-orange-500/30' },
+  '3do': { hex: '#2563eb', glow: 'rgba(37, 99, 235, 0.45)', textClass: 'text-blue-500', btnClass: 'from-blue-600 to-blue-800', borderClass: 'border-blue-500/30' },
+  dreamcast: { hex: '#ff6a00', glow: 'rgba(255, 106, 0, 0.45)', textClass: 'text-orange-400', btnClass: 'from-orange-600 to-orange-800', borderClass: 'border-orange-500/30' },
+  gamecube: { hex: '#6f52ed', glow: 'rgba(111, 82, 237, 0.45)', textClass: 'text-indigo-400', btnClass: 'from-indigo-600 to-indigo-800', borderClass: 'border-indigo-500/30' },
+  gc: { hex: '#6f52ed', glow: 'rgba(111, 82, 237, 0.45)', textClass: 'text-indigo-400', btnClass: 'from-indigo-600 to-indigo-800', borderClass: 'border-indigo-500/30' },
+};
+
+export const getSystemThemeColor = (id: string): SystemThemeColor => {
+  const normalizedId = id.toLowerCase();
+  return systemThemeColors[normalizedId] || {
+    hex: '#3b82f6',
+    glow: 'rgba(59, 130, 246, 0.45)',
+    textClass: 'text-blue-400',
+    btnClass: 'from-blue-600 to-blue-800',
+    borderClass: 'border-blue-500/30'
+  };
 };
 
 export const SystemCarousel: React.FC<SystemCarouselProps> = ({
@@ -625,89 +674,109 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
   onSelectSystem
 }) => {
   const total = systems.length;
-  const listRef = useRef<HTMLDivElement>(null);
-
   if (!systems || total === 0) return null;
 
-  // Para garantir rolagem circular sem fim, duplicamos a lista de consoles 5 vezes.
-  // A cópia centralizada (Copy 2) fica na faixa: total * 2 até total * 3 - 1.
-  const [virtualActive, setVirtualActive] = useState(() => total * 2 + activeIndex);
+  // State: Console Search and Active Category Tab
+  const [consoleSearch, setConsoleSearch] = useState('');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'classics' | 'golden' | 'next-gen'>('all');
 
-  // Sincroniza o virtualActive se o index pai mudar de fora (ex: busca global)
-  useEffect(() => {
-    const currentReal = ((virtualActive % total) + total) % total;
-    if (currentReal !== activeIndex) {
-      setVirtualActive(total * 2 + activeIndex);
-    }
-  }, [activeIndex, total]);
+  // Gesture drag state variables for 3D Carousel rotation
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  // Propaga o índice virtual ativo de volta para o estado do pai
-  useEffect(() => {
-    const realIdx = ((virtualActive % total) + total) % total;
-    if (realIdx !== activeIndex) {
-      setActiveIndex(realIdx);
-    }
-  }, [virtualActive, total, activeIndex, setActiveIndex]);
+  const isSystemSupported = (systemId: string): boolean => {
+    const cleanId = systemId.toLowerCase().trim();
+    return !['ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xboxclassic', 'xbox360'].includes(cleanId);
+  };
 
-  // Snap silencioso (sem animação) ao atingir os extremos (Copy 0 ou Copy 4)
-  // mantendo a rolagem sempre infinita nas duas direções
-  useEffect(() => {
-    if (virtualActive < total || virtualActive >= total * 4) {
-      const realIdx = ((virtualActive % total) + total) % total;
-      const newVirtual = total * 2 + realIdx;
-      
-      if (listRef.current) {
-        const activeEl = listRef.current.children[newVirtual] as HTMLElement;
-        if (activeEl) {
-          const parentWidth = listRef.current.offsetWidth;
-          const itemWidth = activeEl.offsetWidth;
-          const leftPos = activeEl.offsetLeft;
-          listRef.current.scrollTo({
-            left: leftPos - parentWidth / 2 + itemWidth / 2,
-            behavior: 'auto' // Snap instantâneo
-          });
-        }
-      }
-      setVirtualActive(newVirtual);
+  const getSystemStatus = (systemId: string) => {
+    const cleanId = systemId.toLowerCase().trim();
+    if (['ps2', 'playstation2'].includes(cleanId)) {
+      return { label: 'Web Beta em Pesquisa', color: '#ff9800', isPlayable: false };
     }
-  }, [virtualActive, total]);
+    if (['ps3', 'playstation3'].includes(cleanId)) {
+      return { label: 'WASM em Otimização', color: '#ea580c', isPlayable: false };
+    }
+    if (['xbox', 'xboxclassic'].includes(cleanId)) {
+      return { label: 'Kernel em Desenvolvimento', color: '#a855f7', isPlayable: false };
+    }
+    if (['xbox360'].includes(cleanId)) {
+      return { label: 'Streaming em Pesquisa', color: '#ec4899', isPlayable: false };
+    }
+    return { label: 'Disponível', color: '#10b981', isPlayable: true };
+  };
 
-  // Executa rolagem física suave para centralizar o item selecionado
-  useEffect(() => {
-    if (listRef.current) {
-      const activeEl = listRef.current.children[virtualActive] as HTMLElement;
-      if (activeEl) {
-        const parentWidth = listRef.current.offsetWidth;
-        const itemWidth = activeEl.offsetWidth;
-        const leftPos = activeEl.offsetLeft;
-        listRef.current.scrollTo({
-          left: leftPos - parentWidth / 2 + itemWidth / 2,
-          behavior: 'smooth'
-        });
-      }
+  // Filter systems list based on category and search
+  const filteredSystems = systems.map((sys, originalIdx) => ({ sys, originalIdx })).filter(({ sys }) => {
+    const matchesSearch = sys.name.toLowerCase().includes(consoleSearch.toLowerCase()) || 
+                          sys.manufacturer?.toLowerCase().includes(consoleSearch.toLowerCase());
+    if (!matchesSearch) return false;
+    
+    const id = sys.id.toLowerCase().trim();
+    if (activeCategory === 'classics') {
+      return ['nes', 'snes', 'sms', 'genesis', 'megadrive', 'gb', 'gbc', 'atari'].includes(id);
     }
-  }, [virtualActive]);
+    if (activeCategory === 'golden') {
+      return ['n64', 'gba', 'ps1', 'playstation', 'saturn', 'neogeo', 'nds', 'arcade'].includes(id);
+    }
+    if (activeCategory === 'next-gen') {
+      return ['ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xboxclassic', 'xbox360'].includes(id);
+    }
+    return true; // 'all'
+  });
+
+  const filteredActiveIndex = filteredSystems.findIndex(f => f.originalIdx === activeIndex);
 
   const handlePrev = () => {
-    setVirtualActive(prev => prev - 1);
+    if (filteredSystems.length === 0) return;
+    const prevFilteredIdx = (filteredActiveIndex - 1 + filteredSystems.length) % filteredSystems.length;
+    const targetIdx = filteredSystems[prevFilteredIdx].originalIdx;
+    setActiveIndex(targetIdx);
     soundEngine.playMove();
   };
 
   const handleNext = () => {
-    setVirtualActive(prev => prev + 1);
+    if (filteredSystems.length === 0) return;
+    const nextFilteredIdx = (filteredActiveIndex + 1) % filteredSystems.length;
+    const targetIdx = filteredSystems[nextFilteredIdx].originalIdx;
+    setActiveIndex(targetIdx);
     soundEngine.playMove();
   };
 
   const handleSelect = () => {
-    const realIdx = ((virtualActive % total) + total) % total;
-    if (systems[realIdx]) {
+    if (systems[activeIndex]) {
       soundEngine.playSelect();
-      onSelectSystem(systems[realIdx]);
+      onSelectSystem(systems[activeIndex]);
     }
   };
 
+  const handleDragStart = (clientX: number) => {
+    setDragStartX(clientX);
+    setIsDragging(true);
+  };
+
+  const handleDragMove = (clientX: number) => {
+    if (!isDragging || dragStartX === null) return;
+    const deltaX = clientX - dragStartX;
+    if (deltaX > 45) {
+      handlePrev();
+      setDragStartX(clientX); // shift anchor
+    } else if (deltaX < -45) {
+      handleNext();
+      setDragStartX(clientX); // shift anchor
+    }
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    setDragStartX(null);
+  };
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent): void => {
+      // Ignore arrow key bindings when focused inside search input
+      if (document.activeElement?.tagName === 'INPUT') return;
+
       if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         e.preventDefault();
         handlePrev();
@@ -721,9 +790,10 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [virtualActive, systems, total]);
+  }, [activeIndex, filteredActiveIndex, filteredSystems]);
 
   const activeSystem = systems[activeIndex];
+  const activeColor = getSystemThemeColor(activeSystem.id);
   const consoleId = getLogoFileName(activeSystem.id);
   
   // Resgata os metadados do dicionário robusto
@@ -742,20 +812,22 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
   // Coleta as capas dos principais jogos do sistema ativo
   const topGames = activeSystem.games ? activeSystem.games.slice(0, 4) : [];
 
-  // Duplicamos a lista de sistemas 5 vezes para habilitar a rolagem infinita contínua
-  const extendedSystems = [
-    ...systems,
-    ...systems,
-    ...systems,
-    ...systems,
-    ...systems
-  ];
+  const getSpecFontClass = (systemId: string) => {
+    const id = systemId.toLowerCase();
+    if (['nes', 'snes', 'gb', 'gbc', 'sms', 'atari', 'neogeo'].includes(id)) {
+      return 'font-retro text-[9px] tracking-tight text-emerald-400';
+    } else if (['n64', 'gba', 'genesis', 'pce', 'nds'].includes(id)) {
+      return 'font-mono text-xs text-amber-400 font-bold';
+    } else {
+      return 'font-display text-sm text-cyan-400 font-bold uppercase tracking-wider';
+    }
+  };
 
   return (
-    <div className="fixed inset-0 w-full h-screen bg-transparent overflow-hidden flex flex-col justify-between select-none font-sans">
+    <div className="relative w-full min-h-screen bg-transparent flex flex-col justify-start gap-12 select-none font-sans pb-16">
       
       {/* PAINEL SUPERIOR: INFOS RESUMIDAS & IMAGEM DE ALTA QUALIDADE DO CONSOLE (DESIGN PREMIUM) */}
-      <div className="relative z-20 w-full flex-1 flex flex-col items-center justify-center pt-20 px-6 max-h-[50vh]">
+      <div className="relative z-20 w-full flex flex-col items-center justify-center pt-24 px-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeSystem.id}
@@ -763,10 +835,17 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -30, scale: 0.95 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="flex flex-col items-center text-center max-w-2xl px-4"
+            className="flex flex-col items-center text-center max-w-3xl px-4"
           >
             {/* Logotipo do Console Principal (Firme, Vibrante e Autêntico com Fallbacks Automáticos) */}
             <div className="h-44 md:h-52 w-auto flex items-center justify-center mb-5 relative select-none pointer-events-none">
+              {/* Soft ambient background glow behind central logo */}
+              <div 
+                className="absolute inset-[-60px] -z-10 blur-3xl opacity-20 transition-all duration-750 pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle, ${activeColor.hex} 0%, transparent 70%)`
+                }}
+              />
               <CentralConsoleLogo system={activeSystem} />
             </div>
             
@@ -774,74 +853,283 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
               {specs.manufacturer} • {specs.generation}
             </p>
             
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white uppercase drop-shadow">
+            <h1 className="text-2xl md:text-3.5xl font-black tracking-tight text-white uppercase drop-shadow">
               {activeSystem.name}
             </h1>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* CARROSSEL DE SELEÇÃO HORIZONTAL (ESTILO EMULATIONSTATION DE PRECISÃO) */}
-      <div className="relative z-30 w-full bg-black/60 border-y border-white/5 backdrop-blur-md py-4 flex flex-col items-center justify-center">
-        {/* Marcadores de centro guia */}
-        <div className="absolute top-0 bottom-0 left-[50%] w-0 bg-transparent pointer-events-none flex flex-col justify-between items-center z-40">
-          <div className="w-4 h-2 bg-white rounded-b-md shadow-white shadow-sm -mt-[1px] opacity-70" />
-          <div className="w-4 h-2 bg-white rounded-t-md shadow-white shadow-sm -mb-[1px] opacity-70" />
-        </div>
-
-        <div 
-          ref={listRef} 
-          className="w-full flex items-center overflow-x-auto gap-10 py-3 no-scrollbar scroll-smooth snap-x pointer-events-auto"
-          style={{ paddingLeft: 'calc(50vw - 96px)', paddingRight: 'calc(50vw - 96px)' }}
-        >
-          {extendedSystems.map((sys, idx) => {
-            const isSelected = idx === virtualActive;
-            const consoleKey = getLogoFileName(sys.id);
-            const activeSpecs = systemSpecsMap[consoleKey] || { glowColor: 'rgba(255,255,255,0.2)' };
-
-            return (
-              <motion.div
-                key={`${sys.id}-${idx}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (!isSelected) {
-                    setVirtualActive(idx);
-                    soundEngine.playMove();
-                  } else {
-                    handleSelect();
-                  }
-                }}
-                className="shrink-0 w-48 h-14 flex items-center justify-center cursor-pointer relative"
-                animate={{
-                  scale: isSelected ? 1.15 : 0.88,
-                  opacity: isSelected ? 1 : 0.72,
-                }}
-                transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+      {/* PAINEL DE CONTROLE DE SELEÇÃO DE CONSOLES - TACTILE CONTROL DECK */}
+      <div className="relative z-30 w-full max-w-[1600px] mx-auto px-6 mb-4">
+        <div className="relative bg-[#07070a]/60 border border-white/5 rounded-3xl p-6 backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col gap-5 overflow-visible">
+          
+          {/* Subtle tech grid decor in background */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e10_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e10_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none rounded-3xl" />
+          
+          {/* Advanced 3D Cylindrical Ring Carousel */}
+          <div 
+            className="relative z-10 w-full min-h-[350px] md:min-h-[430px] flex flex-col items-center justify-center py-6 overflow-visible select-none"
+            onMouseDown={(e) => handleDragStart(e.clientX)}
+            onMouseMove={(e) => handleDragMove(e.clientX)}
+            onMouseUp={handleDragEnd}
+            onMouseLeave={handleDragEnd}
+            onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+            onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+            onTouchEnd={handleDragEnd}
+          >
+            {filteredSystems.length > 0 ? (
+              <div 
+                className="relative w-full flex items-center justify-center overflow-visible"
+                style={{ perspective: '1200px' }}
               >
-                {isSelected && (
-                  <motion.div 
-                    layoutId="active-glow"
-                    className="absolute inset-0 -m-1 rounded-xl filter blur-md opacity-25"
-                    style={{ backgroundColor: activeSpecs.glowColor }}
-                  />
-                )}
-                <div className={`w-full h-full p-2 flex items-center justify-center rounded-lg border ${
-                  isSelected ? 'border-white/10 bg-white/5' : 'border-transparent'
-                }`}>
-                  <SafeConsoleLogo system={sys} isCompact={!isSelected} />
-                </div>
-              </motion.div>
-            );
-          })}
+                
+                {/* Left Navigation Arrow */}
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrev();
+                  }}
+                  className="absolute left-1 md:left-6 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-2.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
+                  title="Anterior (Seta Esquerda)"
+                >
+                  <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
+                </button>
+
+                {/* Right Navigation Arrow */}
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNext();
+                  }}
+                  className="absolute right-1 md:right-6 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-2.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
+                  title="Próximo (Seta Direita)"
+                >
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                </button>
+
+                {/* 3D Ring Floor Reflection */}
+                <div 
+                  className="absolute w-[500px] h-[500px] md:w-[750px] md:h-[750px] rounded-full opacity-15 pointer-events-none -z-10 transition-all duration-700"
+                  style={{
+                    background: `radial-gradient(circle, ${activeColor.hex} 0%, transparent 70%)`,
+                    transform: 'rotateX(82deg) translateZ(-130px)',
+                    boxShadow: `0 0 70px 15px ${activeColor.hex}`
+                  }}
+                />
+
+                {/* Spinning Cylinder */}
+                {(() => {
+                  const N = filteredSystems.length;
+                  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+                  const radius = isMobile ? 180 : 540; // Spacious radius for wide 32" screens!
+                  const stepAngle = 360 / N;
+
+                  return (
+                    <div 
+                      className="relative w-[150px] h-[105px] md:w-[245px] md:h-[160px] transition-transform duration-700"
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        transform: `rotateX(-3deg) rotateY(${-filteredActiveIndex * stepAngle}deg)`,
+                      }}
+                    >
+                      {filteredSystems.map(({ sys, originalIdx }, index) => {
+                        const angle = index * stepAngle;
+                        const isSelected = originalIdx === activeIndex;
+                        const sysColor = getSystemThemeColor(sys.id);
+                        const status = getSystemStatus(sys.id);
+                        
+                        // Real-time depth calculations via high-performance trigonometry
+                        const angleRad = ((angle - filteredActiveIndex * stepAngle) * Math.PI) / 180;
+                        const cosVal = Math.cos(angleRad);
+                        
+                        const zIndex = Math.round((cosVal + 1) * 100);
+                        const opacity = isSelected 
+                          ? 1 
+                          : cosVal < 0 
+                            ? Math.max(0, 0.05 + (cosVal + 1) * 0.1) // fade out back items to avoid clutter
+                            : Math.max(0.12, 0.12 + cosVal * 0.75);
+                        const scale = isSelected ? 1.05 : Math.max(0.72, 0.72 + cosVal * 0.18);
+                        const blur = isSelected ? 'none' : `blur(${Math.max(0, (1 - cosVal) * 2.5)}px)`;
+                        const isBack = cosVal < 0 && !isSelected;
+
+                        return (
+                          <div
+                            key={sys.id}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (!isSelected) {
+                                setActiveIndex(originalIdx);
+                                soundEngine.playMove();
+                              } else {
+                                handleSelect();
+                              }
+                            }}
+                            className="absolute inset-0 cursor-pointer select-none group transition-all duration-500 ease-out"
+                            style={{
+                              transformStyle: 'preserve-3d',
+                              transform: `rotateY(${angle}deg) translateZ(${radius}px) scale(${scale})`,
+                              backfaceVisibility: 'visible',
+                              opacity: opacity,
+                              filter: blur,
+                              zIndex: zIndex,
+                              pointerEvents: isBack ? 'none' : 'auto', // disable clicking on back items
+                            }}
+                          >
+                            {/* Active Spotlight Glow behind card */}
+                            {isSelected && (
+                              <div
+                                className="absolute inset-[-15px] -z-10 blur-2xl opacity-40 pointer-events-none"
+                                style={{
+                                  background: `radial-gradient(circle, ${sysColor.hex} 0%, transparent 70%)`
+                                }}
+                              />
+                            )}
+
+                            {/* Beautiful 3D Holographic Capsule card */}
+                            <div
+                              className={`w-full h-full p-3 md:p-4 rounded-2xl border transition-all duration-300 flex flex-col justify-between relative ${
+                                isSelected
+                                  ? 'bg-zinc-900/90 border-white/20'
+                                  : 'border-white/5 bg-zinc-950/50 backdrop-blur-md hover:border-white/10 hover:bg-zinc-900/40'
+                              }`}
+                              style={isSelected ? {
+                                borderColor: `${sysColor.hex}bb`,
+                                boxShadow: `0 0 35px ${sysColor.hex}35, inset 0 1px 1px rgba(255,255,255,0.2)`
+                              } : undefined}
+                            >
+                              {/* Top LED bar and info */}
+                              <div className="flex items-center justify-between w-full relative z-10">
+                                <span className="text-[7.5px] text-zinc-400 font-mono font-black uppercase tracking-widest">
+                                  {sys.id.toUpperCase()}
+                                </span>
+                                <div className="flex items-center gap-1">
+                                  <span 
+                                    className="w-1.5 h-1.5 rounded-full animate-pulse shadow-[0_0_8px_currentcolor]" 
+                                    style={{ 
+                                      backgroundColor: status.color,
+                                      color: status.color
+                                    }}
+                                  />
+                                  <span className="text-[6px] md:text-[7px] text-zinc-300 font-mono font-bold tracking-tight">
+                                    {status.isPlayable ? 'PRONTO' : 'EM DEV'}
+                                  </span>
+                                </div>
+                              </div>
+
+                              {/* Physical Console Illustration inside Card */}
+                              <div className="flex-1 flex items-center justify-center relative overflow-visible my-1 z-0">
+                                <img 
+                                  src={getCentralConsoleLogoUrl(sys.id)}
+                                  alt={sys.name}
+                                  className={`h-[45px] md:h-[65px] w-auto object-contain transition-all duration-500 filter ${
+                                    isSelected 
+                                      ? 'brightness-110 drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)] scale-110' 
+                                      : 'brightness-60 opacity-60 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] group-hover:brightness-90 group-hover:opacity-90'
+                                  }`}
+                                  onError={(e) => {
+                                    // fallback if image not found: render a clean console shortname
+                                    e.currentTarget.style.display = 'none';
+                                  }}
+                                />
+                                
+                                {/* If image fails, this text logo remains visible */}
+                                <div 
+                                  className={`absolute inset-0 flex items-center justify-center text-[10px] md:text-xs font-black uppercase tracking-wider text-zinc-500 font-retro pointer-events-none transition-opacity ${
+                                    isSelected ? 'opacity-10' : 'opacity-0'
+                                  }`}
+                                >
+                                  {sys.name}
+                                </div>
+                              </div>
+
+                              {/* Bottom title of console */}
+                              <div className="w-full text-center relative z-10 border-t border-white/5 pt-1.5 mt-1">
+                                <p className={`text-[8.5px] md:text-[10px] font-black uppercase tracking-wide truncate leading-none ${
+                                  isSelected ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-300'
+                                }`}>
+                                  {sys.name}
+                                </p>
+                              </div>
+
+                              {/* Glowing sweep overlay line for premium feedback */}
+                              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-6 text-center">
+                <span className="text-zinc-600 font-mono text-xs uppercase tracking-widest">Nenhum console corresponde à busca</span>
+                <button
+                  onClick={() => {
+                    setConsoleSearch('');
+                    setActiveCategory('all');
+                    soundEngine.playMove();
+                  }}
+                  className="mt-2 text-[9px] font-retro uppercase tracking-wider text-emerald-400 hover:underline cursor-pointer"
+                >
+                  Restaurar Filtros
+                </button>
+              </div>
+            )}
+
+            {/* Pagination Indicators - satisfying active dot tracker */}
+            {filteredSystems.length > 1 && (
+              <div className="flex items-center gap-1.5 mt-6 md:mt-8 z-20">
+                {filteredSystems.map(({ sys, originalIdx }, index) => {
+                  const isSelected = originalIdx === activeIndex;
+                  return (
+                    <button
+                      key={`dot-${sys.id}`}
+                      onClick={() => {
+                        setActiveIndex(originalIdx);
+                        soundEngine.playMove();
+                      }}
+                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        isSelected 
+                          ? 'w-6 bg-[var(--theme-color)] shadow-[0_0_8px_var(--theme-color)]' 
+                          : 'w-1.5 bg-zinc-700 hover:bg-zinc-500'
+                      }`}
+                      style={isSelected ? {
+                        backgroundColor: activeColor.hex,
+                        boxShadow: `0 0 10px ${activeColor.hex}`
+                      } : undefined}
+                      title={`Selecionar ${sys.name}`}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* GRID DE INFORMAÇÕES DE HARDWARE E JOGOS EM DESTAQUE (INFERIOR) */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-10 pb-14 grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch pt-2">
+      {/* GRID DE INFORMAÇÕES DE HARDWARE E JOGOS EM DESTAQUE (INFERIOR COM RESPIRAÇÃO EXTRA) */}
+      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 md:px-10 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-2">
         
-        {/* ESQUERDA: INFOS HISTÓRICAS E ESPECIFICAÇÕES DO CONSOLE */}
-        <div className="md:col-span-7 bg-black/40 border border-white/5 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between">
-          <div>
+        {/* ESQUERDA: INFOS HISTÓRICAS E ESPECIFICAÇÕES DO CONSOLE (GLASS) */}
+        <div 
+          className="relative overflow-hidden lg:col-span-7 bg-black/30 border backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between hover:border-white/20 transition-all duration-500"
+          style={{
+            borderColor: `${activeColor.hex}15`,
+            boxShadow: `0 20px 40px -15px rgba(0,0,0,0.8), 0 0 30px ${activeColor.hex}03`
+          }}
+        >
+          {/* O "LED" superior do console */}
+          <div 
+            className="absolute top-0 left-0 h-[2px] w-full pulse-led"
+            style={{ 
+              backgroundImage: `linear-gradient(to right, transparent, ${activeColor.hex}, transparent)` 
+            }}
+          />
+
+          <div className="relative z-10">
             <div className={`h-1 w-16 mb-4 rounded bg-gradient-to-r ${specs.accentColor}`} />
             <h3 className="text-zinc-400 font-mono text-xs tracking-wider uppercase mb-3">
               ESPECIFICAÇÕES TÉCNICAS E HISTÓRIA
@@ -851,58 +1139,85 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-6 font-sans text-xs text-zinc-300">
+          <div className="relative z-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-6 font-sans text-xs text-zinc-300">
             <div className="flex gap-3.5 items-center">
               <Cpu className="w-5 h-5 text-zinc-400 shrink-0" />
               <div className="truncate">
                 <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">PROCESSADOR CPU</span>
-                <span className="font-bold text-white text-xs md:text-sm truncate block">{specs.cpu}</span>
+                <span className={`${getSpecFontClass(activeSystem.id)} truncate block`}>{specs.cpu}</span>
               </div>
             </div>
             <div className="flex gap-3.5 items-center">
               <Gamepad2 className="w-5 h-5 text-zinc-400 shrink-0" />
-              <div>
+              <div className="truncate">
                 <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">MEMÓRIA RAM</span>
-                <span className="font-bold text-white text-xs md:text-sm block truncate">{specs.ram}</span>
+                <span className={`${getSpecFontClass(activeSystem.id)} block truncate`}>{specs.ram}</span>
               </div>
             </div>
             <div className="flex gap-3.5 items-center">
               <Archive className="w-5 h-5 text-zinc-400 shrink-0" />
               <div className="truncate">
                 <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">MÍDIA ORIGINAL</span>
-                <span className="font-bold text-white text-xs md:text-sm truncate block">{specs.media}</span>
+                <span className={`${getSpecFontClass(activeSystem.id)} truncate block`}>{specs.media}</span>
               </div>
             </div>
             <div className="flex gap-3.5 items-center">
               <Calendar className="w-5 h-5 text-zinc-400 shrink-0" />
               <div>
                 <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">LANÇAMENTO</span>
-                <span className="font-bold text-white text-xs md:text-sm block">{specs.releaseYear}</span>
+                <span className={`${getSpecFontClass(activeSystem.id)} block`}>{specs.releaseYear}</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* DIREITA: GALERIA DE JOGOS DISPONÍVEIS NA BIBLIOTECA (COM PRECISÃO EM ATÉ 4 TÍTULOS DIVERSOS) */}
-        <div className="md:col-span-5 bg-black/40 border border-white/5 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between">
-          <div>
+        {/* DIREITA: GALERIA DE JOGOS DISPONÍVEIS NA BIBLIOTECA (TILT & GLOW) */}
+        <div 
+          className="relative overflow-hidden lg:col-span-5 bg-black/30 border backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between hover:border-white/20 transition-all duration-500"
+          style={{
+            borderColor: `${activeColor.hex}15`,
+            boxShadow: `0 20px 40px -15px rgba(0,0,0,0.8), 0 0 30px ${activeColor.hex}03`
+          }}
+        >
+          {/* O "LED" superior do console */}
+          <div 
+            className="absolute top-0 left-0 h-[2px] w-full pulse-led"
+            style={{ 
+              backgroundImage: `linear-gradient(to right, transparent, ${activeColor.hex}, transparent)` 
+            }}
+          />
+
+          <div className="relative z-10">
             <h3 className="text-zinc-400 font-mono text-xs tracking-wider uppercase mb-5">
               BIBLIOTECA COM CORRESPONDÊNCIA DE CAPAS
             </h3>
             
             {topGames.length > 0 ? (
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-4 gap-3 overflow-visible">
                 {topGames.map((game) => (
-                  <div key={game.id} className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-white/10 bg-zinc-950 transition-all hover:border-white/30 shadow-lg flex items-center justify-center">
-                    <GameCover 
-                      game={game} 
-                      systemId={activeSystem.id} 
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                  <div 
+                    key={game.id} 
+                    className="group relative aspect-[3/4] rounded-lg overflow-visible bg-zinc-950 transition-all duration-300 hover:-translate-y-3 hover:scale-110 hover:z-20 cursor-pointer"
+                  >
+                    {/* Shadow projection on tilt/hover */}
+                    <div 
+                      className="absolute -inset-1.5 rounded-lg opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100 pointer-events-none animate-pulse"
+                      style={{ 
+                        background: `radial-gradient(circle, ${activeColor.hex}88 0%, transparent 70%)` 
+                      }}
                     />
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/50 to-transparent p-1.5 pt-4">
-                      <p className="text-[7.5px] text-white font-mono uppercase font-black truncate leading-none">
-                        {game.title.replace(/\(.*?\)/g, "").trim()}
-                      </p>
+                    
+                    <div className="relative w-full h-full rounded-lg overflow-hidden border border-white/10 bg-zinc-900 group-hover:border-white/30 transition-all flex items-center justify-center">
+                      <GameCover 
+                        game={game} 
+                        systemId={activeSystem.id} 
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/60 to-transparent p-1.5 pt-4">
+                        <p className="text-[8.5px] text-white font-mono uppercase font-black truncate leading-none">
+                          {game.title.replace(/\(.*?\)/g, "").trim()}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -914,18 +1229,41 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
             )}
           </div>
 
-          <div className="mt-5 border-t border-white/10 pt-4 flex items-center justify-between">
+          <div className="relative z-10 mt-5 border-t border-white/10 pt-4 flex items-center justify-between">
             <div className="text-left">
               <span className="text-[8px] text-zinc-500 font-mono block mb-0.5">CATÁLOGO DE ROMS</span>
               <span className="text-xs md:text-sm font-mono font-bold text-zinc-200">
                 {activeSystem.gameCount} JOGOS DISPONÍVEIS
               </span>
             </div>
+            
             <button 
               onClick={handleSelect}
-              className="px-6 py-2.5 bg-white text-black font-retro text-[10px] font-black uppercase tracking-widest rounded-lg flex items-center justify-center cursor-pointer transition-all hover:bg-zinc-200 active:scale-95 shadow-md shadow-black/80"
+              className="relative px-6 py-2.5 bg-zinc-900 text-white border font-retro text-[9px] font-black uppercase tracking-widest rounded-lg flex items-center justify-center cursor-pointer overflow-hidden transition-all duration-300 active:scale-95 shadow-md shadow-black/80 group/btn"
+              style={{
+                borderColor: `${activeColor.hex}33`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = `${activeColor.hex}aa`;
+                e.currentTarget.style.boxShadow = `0 0 15px ${activeColor.hex}33`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = `${activeColor.hex}33`;
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             >
-              ➔ SELECIONAR
+              {/* LED do botão Power do Console */}
+              <span 
+                className="w-2.5 h-2.5 rounded-full mr-2.5 pulse-led shadow-sm inline-block shrink-0 animate-pulse" 
+                style={{ 
+                  backgroundColor: activeColor.hex,
+                  boxShadow: `0 0 10px ${activeColor.hex}`
+                }}
+              />
+              <span className="relative z-10 font-bold tracking-widest">LIGAR SISTEMA</span>
+              
+              {/* Glossy overlay effect */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none opacity-0 group-hover/btn:opacity-100 transition-opacity" />
             </button>
           </div>
         </div>

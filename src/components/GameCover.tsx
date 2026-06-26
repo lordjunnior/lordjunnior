@@ -6,39 +6,22 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Game } from '../types';
 import { EXACT_ROM_MAPPINGS } from '../utils/romResolver';
-
-const getLibretroSystemFolderName = (systemId: string): string => {
-  const cleanId = (systemId || '').toLowerCase();
-  const map: Record<string, string> = {
-    nes: 'Nintendo_-_Nintendo_Entertainment_System',
-    snes: 'Nintendo_-_Super_Nintendo_Entertainment_System',
-    n64: 'Nintendo_-_Nintendo_64',
-    gb: 'Nintendo_-_Game_Boy',
-    gbc: 'Nintendo_-_Game_Boy_Color',
-    gba: 'Nintendo_-_Game_Boy_Advance',
-    sms: 'Sega_-_Master_System',
-    mastersystem: 'Sega_-_Master_System',
-    genesis: 'Sega_-_Mega_Drive_-_Genesis',
-    megadrive: 'Sega_-_Mega_Drive_-_Genesis',
-    gamegear: 'Sega_-_Game_Gear',
-    ps1: 'Sony_-_PlayStation',
-    psx: 'Sony_-_PlayStation',
-    atari: 'Atari_-_2600',
-    atari2600: 'Atari_-_2600',
-    nds: 'Nintendo_-_Nintendo_DS',
-    pce: 'NEC_-_PC_Engine_-_TurboGrafx-16',
-    pcengine: 'NEC_-_PC_Engine_-_TurboGrafx-16',
-    '3do': 'The_3DO_Company_-_3DO',
-  };
-  return map[cleanId] || '';
-};
+import { getLibretroSystemFolderName } from '../utils/logoResolver';
 
 const getLibretroCandidates = (title: string, systemId: string, originalTitle?: string): string[] => {
   const folder = getLibretroSystemFolderName(systemId);
   if (!folder) return [];
 
   const candidates: string[] = [];
-  const baseTitle = title.trim();
+  
+  // Helper to strip accents and convert to ASCII
+  const deaccent = (str: string): string => {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/Pokémon/g, 'Pokemon')
+      .replace(/pokémon/g, 'pokemon');
+  };
 
   const cleanBase = (t: string, customClean: boolean): string => {
     let s = t;
@@ -47,6 +30,8 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
     return s;
   };
 
+  const baseTitle = title.trim();
+
   // Add the high-precision mapped No-Intro filename as candidates if present
   const exactFile = EXACT_ROM_MAPPINGS[systemId.toLowerCase()]?.[baseTitle] || 
                     (originalTitle ? EXACT_ROM_MAPPINGS[systemId.toLowerCase()]?.[originalTitle.trim()] : undefined);
@@ -54,16 +39,153 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
     const cleanFileName = exactFile.replace(/\.(zip|7z|bin|sfc|nes|gba|gb|gbc)$/i, '');
     candidates.push(cleanFileName);
     candidates.push(cleanBase(cleanFileName, true));
+    candidates.push(deaccent(cleanFileName));
+    candidates.push(deaccent(cleanBase(cleanFileName, true)));
     // Strip revision or master brackets if any
     const strippedRevision = cleanFileName.replace(/\s*\(Co-Master\)/i, '').replace(/\s*\(Rev\s*[A-Z0-9]+\)/gi, '').trim();
     if (strippedRevision !== cleanFileName) {
       candidates.push(strippedRevision);
       candidates.push(cleanBase(strippedRevision, true));
+      candidates.push(deaccent(strippedRevision));
+      candidates.push(deaccent(cleanBase(strippedRevision, true)));
     }
   }
 
+  // 1. Core Titles and deaccented titles
+  const rawTitles = [baseTitle];
+  if (originalTitle) rawTitles.push(originalTitle.trim());
+  
+  // Clean translation brackets
+  const cleanTranslation = (t: string) => {
+    return t.replace(/\(PT-BR\)/gi, '')
+            .replace(/\[PT-BR\]/gi, '')
+            .replace(/\(Traduzido\)/gi, '')
+            .replace(/\[Traduzido\]/gi, '')
+            .trim();
+  };
+
+  // Build variants
+  const variants: string[] = [];
+  for (const rt of rawTitles) {
+    const ct = cleanTranslation(rt);
+    variants.push(ct);
+    variants.push(deaccent(ct));
+    
+    // Replace GTA -> Grand Theft Auto
+    if (ct.toLowerCase().includes('gta')) {
+      const gtaReplaced = ct.replace(/gta/gi, 'Grand Theft Auto');
+      variants.push(gtaReplaced);
+      variants.push(deaccent(gtaReplaced));
+    }
+  }
+
+  // Ensure we add colon variants e.g. "A: B" -> "A - B"
+  const colonVariants: string[] = [];
+  for (const v of variants) {
+    colonVariants.push(v);
+    if (v.includes(':')) {
+      const replaced = v.replace(/:/g, ' -');
+      colonVariants.push(replaced);
+      
+      // Also split on first colon and try to make smart "Left, The - Right"
+      const parts = v.split(':');
+      if (parts.length >= 2) {
+        const left = parts[0].trim();
+        const right = parts.slice(1).join(':').trim();
+        
+        // e.g. Left = "The Legend of Zelda", Right = "A Link to the Past"
+        if (left.toLowerCase().startsWith('the ')) {
+          const coreLeft = left.substring(4).trim();
+          colonVariants.push(`${coreLeft}, The - ${right}`);
+          colonVariants.push(`${left} - ${right}`);
+        } else if (left.toLowerCase().endsWith(', the')) {
+          const coreLeft = left.substring(0, left.length - 5).trim();
+          colonVariants.push(`The ${coreLeft} - ${right}`);
+          colonVariants.push(`${left} - ${right}`);
+        } else {
+          colonVariants.push(`${left} - ${right}`);
+        }
+      }
+    }
+    if (v.includes(' - ')) {
+      const parts = v.split(' - ');
+      if (parts.length >= 2) {
+        const left = parts[0].trim();
+        const right = parts.slice(1).join(' - ').trim();
+        if (left.toLowerCase().startsWith('the ')) {
+          const coreLeft = left.substring(4).trim();
+          colonVariants.push(`${coreLeft}, The - ${right}`);
+          colonVariants.push(`${left} - ${right}`);
+        } else if (left.toLowerCase().endsWith(', the')) {
+          const coreLeft = left.substring(0, left.length - 5).trim();
+          colonVariants.push(`The ${coreLeft} - ${right}`);
+          colonVariants.push(`${left} - ${right}`);
+        }
+      }
+    }
+  }
+
+  // Apply standard 'The' suffix-prefix transformations to all generated colon variants
+  const theVariants: string[] = [];
+  for (const cv of colonVariants) {
+    theVariants.push(cv);
+    if (cv.toLowerCase().startsWith('the ')) {
+      const rest = cv.substring(4).trim();
+      theVariants.push(`${rest}, The`);
+    } else if (cv.toLowerCase().endsWith(', the')) {
+      const rest = cv.substring(0, cv.length - 5).trim();
+      theVariants.push(`The ${rest}`);
+    }
+  }
+
+  // De-accent and push everything to final candidates list
+  const processedVariants = Array.from(new Set(theVariants)).flatMap(v => {
+    return [v, deaccent(v)];
+  });
+
+  // Unique list of raw titles to append suffixes to
+  const uniqueBases = Array.from(new Set(processedVariants));
+
   // Fallback candidate overrides for highly picky top titles
   const lowerBase = (originalTitle || baseTitle).toLowerCase();
+  
+  // Pokemon custom candidates
+  if (lowerBase.includes('pokemon') || lowerBase.includes('pokémon')) {
+    if (lowerBase.includes('emerald')) {
+      candidates.push('Pokemon - Emerald Version (USA, Europe)');
+      candidates.push('Pokemon - Emerald Version');
+    } else if (lowerBase.includes('firered')) {
+      candidates.push('Pokemon - FireRed Version (USA, Europe)');
+      candidates.push('Pokemon - FireRed Version');
+    } else if (lowerBase.includes('leafgreen')) {
+      candidates.push('Pokemon - LeafGreen Version (USA, Europe)');
+      candidates.push('Pokemon - LeafGreen Version');
+    } else if (lowerBase.includes('ruby')) {
+      candidates.push('Pokemon - Ruby Version (USA, Europe)');
+    } else if (lowerBase.includes('sapphire')) {
+      candidates.push('Pokemon - Sapphire Version (USA, Europe)');
+    } else if (lowerBase.includes('crystal')) {
+      candidates.push('Pokemon - Crystal Version (USA, Europe)');
+      candidates.push('Pokemon - Crystal Version');
+    } else if (lowerBase.includes('gold')) {
+      candidates.push('Pokemon - Gold Version (USA, Europe)');
+      candidates.push('Pokemon - Gold Version');
+    } else if (lowerBase.includes('silver')) {
+      candidates.push('Pokemon - Silver Version (USA, Europe)');
+      candidates.push('Pokemon - Silver Version');
+    } else if (lowerBase.includes('yellow')) {
+      candidates.push('Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe)');
+      candidates.push('Pokemon - Yellow Version');
+    } else if (lowerBase.includes('red')) {
+      candidates.push('Pokemon - Red Version (USA, Europe)');
+    } else if (lowerBase.includes('blue')) {
+      candidates.push('Pokemon - Blue Version (USA, Europe)');
+    } else if (lowerBase.includes('heartgold')) {
+      candidates.push('Pokemon - HeartGold Version (USA)');
+      candidates.push('Pokemon - HeartGold Version');
+    }
+  }
+
   if (lowerBase.includes('ocarina of time')) {
     candidates.push('Legend of Zelda, The - Ocarina of Time (USA)');
     candidates.push('Legend of Zelda, The - Ocarina of Time');
@@ -83,21 +205,72 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
     candidates.push('FIFA 99 (USA) (En,Fr,De,Es,It,Nl,Pt,Sv)');
     candidates.push('FIFA 99');
   }
-
-  const suffixes = ['', ' (USA)', ' (USA, Europe)', ' (Europe)', ' (Japan)', ' (World)'];
-
-  for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, false));
-  for (const sfx of suffixes) candidates.push(cleanBase(baseTitle + sfx, true));
-
-  if (originalTitle) {
-    const cleanOrig = originalTitle.replace(/\(PT-BR\)/gi, '').replace(/\[PT-BR\]/gi, '').replace(/\(Traduzido\)/gi, '').trim();
-    for (const sfx of suffixes) candidates.push(cleanBase(cleanOrig + sfx, false));
-    for (const sfx of suffixes) candidates.push(cleanBase(cleanOrig + sfx, true));
+  if (lowerBase.includes('rondo of blood')) {
+    candidates.push('Castlevania - Rondo of Blood (Japan)');
+    candidates.push('Castlevania - Rondo of Blood');
+  }
+  if (lowerBase.includes('simpsons game') || lowerBase.includes('the simpsons')) {
+    candidates.push('Simpsons, The (USA)');
+    candidates.push('Simpsons Arcade, The');
+    candidates.push('Simpsons Game, The (USA)');
+  }
+  if (lowerBase.includes('cadillacs and dinosaurs')) {
+    candidates.push('Cadillacs and Dinosaurs (World)');
+    candidates.push('Cadillacs and Dinosaurs');
+  }
+  if (lowerBase.includes('ms. pac-man') || lowerBase.includes('ms pacman')) {
+    candidates.push('Ms. Pac-Man (USA)');
+    candidates.push('Ms. Pac-Man');
+  }
+  if (lowerBase.includes('chinatown wars')) {
+    candidates.push('Grand Theft Auto - Chinatown Wars (USA)');
+    candidates.push('Grand Theft Auto - Chinatown Wars');
+  }
+  if (lowerBase.includes('san andreas')) {
+    candidates.push('Grand Theft Auto - San Andreas (USA)');
+    candidates.push('Grand Theft Auto - San Andreas');
+  }
+  if (lowerBase.includes('last of us')) {
+    candidates.push('Last of Us, The (USA)');
+    candidates.push('Last of Us, The');
+  }
+  if (lowerBase.includes('king of fighters 98') || lowerBase.includes("fighters '98")) {
+    candidates.push("King of Fighters '98, The - The Slugfest (Japan)");
+    candidates.push("King of Fighters '98, The - The Slugfest");
+    candidates.push("King of Fighters '98, The");
+  }
+  if (lowerBase.includes('yu-gi-oh') || lowerBase.includes('yugioh')) {
+    candidates.push('Yu-Gi-Oh! - Dark Duel Stories (USA)');
+    candidates.push('Yu-Gi-Oh! - Dark Duel Stories');
+  }
+  if (lowerBase.includes('resident evil code') || lowerBase.includes('code: veronica') || lowerBase.includes('code veronica')) {
+    candidates.push('Resident Evil - Code - Veronica (USA)');
+    candidates.push('Resident Evil - Code - Veronica');
+  }
+  if (lowerBase.includes('symphony of the night')) {
+    candidates.push('Castlevania - Symphony of the Night (USA)');
+    candidates.push('Castlevania - Symphony of the Night');
   }
 
-  return Array.from(new Set(candidates)).map(c => 
-    `https://raw.githubusercontent.com/libretro-thumbnails/${folder}/master/Named_Boxarts/${encodeURIComponent(c)}.png`
-  );
+  // Base Suffixes list
+  const suffixes = ['', ' (USA)', ' (USA, Europe)', ' (Europe)', ' (World)', ' (Japan)'];
+
+  // Multiply bases with suffixes
+  for (const b of uniqueBases) {
+    for (const sfx of suffixes) {
+      candidates.push(cleanBase(b + sfx, false));
+      candidates.push(cleanBase(b + sfx, true));
+    }
+  }
+
+  // De-duplicate final candidate array
+  const finalCandidates = Array.from(new Set(candidates)).filter(Boolean);
+
+  // Return formatted raw GitHub content URLs (handling both master and main branches for fallback resilience)
+  return finalCandidates.flatMap(c => [
+    `https://raw.githubusercontent.com/libretro-thumbnails/${folder}/master/Named_Boxarts/${encodeURIComponent(c)}.png`,
+    `https://raw.githubusercontent.com/libretro-thumbnails/${folder}/main/Named_Boxarts/${encodeURIComponent(c)}.png`
+  ]);
 };
 
 interface GameCoverProps {
@@ -107,6 +280,16 @@ interface GameCoverProps {
 }
 
 export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className }) => {
+  const actualSystemId = useMemo(() => {
+    if (game.id && game.id.includes('-')) {
+      const part = game.id.split('-')[0];
+      if (part && part.length < 15) {
+        return part;
+      }
+    }
+    return systemId;
+  }, [game.id, systemId]);
+
   const candidates = useMemo(() => {
     let cleanTitle = game.title.replace(/\(PT-BR\)/gi, '').replace(/\[PT-BR\]/gi, '').replace(/\(Traduzido\)/gi, '').replace(/\[Traduzido\]/gi, '').trim();
     const originalCleanTitle = cleanTitle;
@@ -114,8 +297,8 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
       const coreName = cleanTitle.substring(4).trim();
       cleanTitle = `${coreName}, The`;
     }
-    return getLibretroCandidates(cleanTitle, systemId, originalCleanTitle);
-  }, [game.title, systemId]);
+    return getLibretroCandidates(cleanTitle, actualSystemId, originalCleanTitle);
+  }, [game.title, actualSystemId]);
 
   const [src, setSrc] = useState<string>('');
   const [attempt, setAttempt] = useState<number>(0);
@@ -135,7 +318,7 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
       setSrc('');
       setIsFatalError(true);
     }
-  }, [game, candidates]);
+  }, [game.image, candidates]);
 
   const handleError = () => {
     if (attempt === 0) {

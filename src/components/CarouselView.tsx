@@ -64,7 +64,7 @@ export const CarouselView: React.FC<CarouselViewProps> = ({
 
   // Keyboard navigation for Carousel
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent): void => {
       if (e.key === 'ArrowLeft') {
         handlePrev();
       } else if (e.key === 'ArrowRight') {

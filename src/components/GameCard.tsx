@@ -9,6 +9,7 @@ import { Star, Play, Sparkles, Heart, Gamepad2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useCover } from '../hooks/useCover';
 import { getRichDescription } from './GamelistView';
+import { getLibretroSystemFolderName } from '../utils/logoResolver';
 
 interface GameCardProps {
   game: Game;
@@ -55,32 +56,6 @@ const getConsoleColorClass = (systemId: string): string => {
     '3do': 'from-zinc-700 to-neutral-900 border-zinc-650/30'
   };
   return map[cleanId] || 'from-zinc-800 to-zinc-950 border-zinc-700/30';
-};
-
-const getLibretroSystemFolderName = (systemId: string): string => {
-  const cleanId = (systemId || '').toLowerCase();
-  const map: Record<string, string> = {
-    nes: 'Nintendo_-_Nintendo_Entertainment_System',
-    snes: 'Nintendo_-_Super_Nintendo_Entertainment_System',
-    n64: 'Nintendo_-_Nintendo_64',
-    gb: 'Nintendo_-_Game_Boy',
-    gbc: 'Nintendo_-_Game_Boy_Color',
-    gba: 'Nintendo_-_Game_Boy_Advance',
-    sms: 'Sega_-_Master_System',
-    mastersystem: 'Sega_-_Master_System',
-    genesis: 'Sega_-_Mega_Drive_-_Genesis',
-    megadrive: 'Sega_-_Mega_Drive_-_Genesis',
-    gamegear: 'Sega_-_Game_Gear',
-    ps1: 'Sony_-_PlayStation',
-    psx: 'Sony_-_PlayStation',
-    atari: 'Atari_-_2600',
-    atari2600: 'Atari_-_2600',
-    nds: 'Nintendo_-_Nintendo_DS',
-    pce: 'NEC_-_PC_Engine_-_TurboGrafx-16',
-    pcengine: 'NEC_-_PC_Engine_-_TurboGrafx-16',
-    '3do': 'The_3DO_Company_-_3DO',
-  };
-  return map[cleanId] || '';
 };
 
 const getLibretroCandidates = (title: string, systemId: string): string[] => {

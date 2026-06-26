@@ -100,3 +100,101 @@ export function getGameLogoUrl(title: string): string | null {
 
   return null;
 }
+
+/**
+ * Returns the standardized folder/filename for console logos.
+ */
+export function getLogoFileName(id: string): string {
+  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  const map: Record<string, string> = {
+    snes: 'snes',
+    supernintendo: 'snes',
+    msu1: 'snes',
+    nes: 'nes',
+    nintendo: 'nes',
+    gb: 'gameboy',
+    gameboy: 'gameboy',
+    gbc: 'gameboycolor',
+    gameboycolor: 'gameboycolor',
+    megadrive: 'segaMD', 
+    genesis: 'segaMD',
+    sega: 'segaMD',
+    msumd: 'msu-md',     
+    sms: 'mastersystem',
+    mastersystem: 'mastersystem',
+    gamegear: 'gamegear',
+    ps1: 'playstation',
+    psx: 'playstation',
+    playstation: 'playstation',
+    playstation2: 'playstation2',
+    ps2: 'playstation2',
+    playstation3: 'playstation3',
+    ps3: 'playstation3',
+    xbox: 'xbox',
+    xboxclassic: 'xbox',
+    xbox360: 'xbox360',
+    n64: 'n64',          
+    nintendo64: 'n64',
+    atari: 'atari',
+    atari2600: 'atari',
+    arcade: 'arcade',    
+    mame: 'arcade',
+    nds: 'nintendods',
+    pce: 'pcecd',        
+    pcengine: 'pcecd',
+    neogeo: 'neogeo',
+    '3do': '3do',        
+    saturn: 'saturn',
+    segasaturn: 'saturn',
+    dreamcast: 'dreamcast',
+    gamecube: 'gamecube',
+    gc: 'gamecube',
+    collections: 'Collections', 
+    playlist: 'Collections'
+  };
+  return map[cleanId] || cleanId;
+}
+
+/**
+ * Returns the corresponding Libretro repository system folder name for metadata fetching.
+ */
+export function getLibretroSystemFolderName(systemId: string): string {
+  const cleanId = (systemId || '').toLowerCase();
+  const map: Record<string, string> = {
+    nes: 'Nintendo_-_Nintendo_Entertainment_System',
+    snes: 'Nintendo_-_Super_Nintendo_Entertainment_System',
+    n64: 'Nintendo_-_Nintendo_64',
+    gb: 'Nintendo_-_Game_Boy',
+    gbc: 'Nintendo_-_Game_Boy_Color',
+    gba: 'Nintendo_-_Game_Boy_Advance',
+    sms: 'Sega_-_Master_System_-_Mark_III',
+    mastersystem: 'Sega_-_Master_System_-_Mark_III',
+    genesis: 'Sega_-_Mega_Drive_-_Genesis',
+    megadrive: 'Sega_-_Mega_Drive_-_Genesis',
+    gamegear: 'Sega_-_Game_Gear',
+    ps1: 'Sony_-_PlayStation',
+    psx: 'Sony_-_PlayStation',
+    atari: 'Atari_-_2600',
+    atari2600: 'Atari_-_2600',
+    nds: 'Nintendo_-_Nintendo_DS',
+    pce: 'NEC_-_PC_Engine_-_TurboGrafx-16',
+    pcengine: 'NEC_-_PC_Engine_-_TurboGrafx-16',
+    '3do': 'The_3DO_Company_-_3DO',
+    saturn: 'Sega_-_Saturn',
+    segasaturn: 'Sega_-_Saturn',
+    dreamcast: 'Sega_-_Dreamcast',
+    gamecube: 'Nintendo_-_GameCube',
+    playstation2: 'Sony_-_PlayStation_2',
+    ps2: 'Sony_-_PlayStation_2',
+    playstation3: 'Sony_-_PlayStation_3',
+    ps3: 'Sony_-_PlayStation_3',
+    xbox: 'Microsoft_-_Xbox',
+    xboxclassic: 'Microsoft_-_Xbox',
+    xbox360: 'Microsoft_-_Xbox_360',
+    neogeo: 'SNK_-_Neo_Geo_-_MVS',
+    arcade: 'MAME',
+    mame: 'MAME',
+  };
+  return map[cleanId] || '';
+}
+
