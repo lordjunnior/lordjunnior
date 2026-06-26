@@ -68,8 +68,8 @@ const getRecalboxFolderName = (id: string): string => {
   if (norm === 'sms' || norm === 'mastersystem') return 'mastersystem';
   if (norm === 'n64' || norm === 'nintendo64') return 'n64';
   if (norm === 'atari' || norm === 'atari2600') return 'atari2600';
-  if (norm === 'arcade' || norm === 'mame') return 'arcade';
-  if (norm === 'ps1' || norm === 'psx' || norm === 'playstation') return 'ps1';
+  if (norm === 'arcade' || norm === 'mame') return 'mame';
+  if (norm === 'ps1' || norm === 'psx' || norm === 'playstation') return 'psx';
   if (norm === 'ps2' || norm === 'playstation2') return 'ps2';
   if (norm === 'ps3' || norm === 'playstation3') return 'ps3';
   if (norm === 'xbox' || norm === 'xboxclassic') return 'xbox';
@@ -77,9 +77,12 @@ const getRecalboxFolderName = (id: string): string => {
   if (norm === 'nds' || norm === 'ds') return 'nds';
   if (norm === 'dreamcast') return 'dreamcast';
   if (norm === 'gamecube' || norm === 'gc') return 'gamecube';
-  if (norm === 'pce' || norm === 'pcengine') return 'pce';
+  if (norm === 'pce' || norm === 'pcengine' || norm === 'turbografx') return 'pcengine';
   if (norm === '3do') return '3do';
   if (norm === 'saturn') return 'saturn';
+  if (norm === 'neogeo') return 'neogeo';
+  if (norm === 'neogeopocket' || norm === 'ngp') return 'ngp';
+  if (norm === 'fba_libretro' || norm === 'fba') return 'fba';
   return 'favorites';
 };
 
@@ -188,6 +191,12 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [bgError, setBgError] = useState(false);
+
+  // Reset background error status when changing system
+  useEffect(() => {
+    setBgError(false);
+  }, [system.id]);
 
   // Immersion & Tuning states
   const [isBooting, setIsBooting] = useState(true);
@@ -683,7 +692,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
     <div 
       id="gamelist-container"
       onMouseMove={handleMouseMove}
-      className="fixed inset-0 w-full h-screen font-sans text-white overflow-hidden bg-[#050505] flex flex-col justify-between select-none relative"
+      className="fixed inset-0 w-full h-screen font-sans text-white overflow-hidden bg-transparent flex flex-col justify-between select-none relative"
       style={{ '--theme-color': activeGlowColor } as React.CSSProperties}
     >
       
@@ -812,17 +821,32 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
 
       {/* 2. BACKGROUND CINEMATOGRÁFICO AVANÇADO */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Parallax Blurred Backdrop */}
+        {/* Parallax High-Fidelity Console Background Art with automatic local fallback */}
+        {(!bgError || !['ps1', 'psx', 'playstation', 'ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xboxclassic', 'xbox360', 'dreamcast', 'gamecube', 'gc', 'saturn'].some(m => system.id.toLowerCase().includes(m))) && (
+          <img 
+            src={bgError ? "https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/favorites.jpg" : `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${getRecalboxFolderName(system.id)}.jpg`}
+            onError={() => {
+              if (!bgError) setBgError(true);
+            }}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.40] scale-105 transition-all duration-700 ease-out"
+            style={{ 
+              transform: `translate(${mousePos.x * -12}px, ${mousePos.y * -12}px) scale(1.06)`
+            }}
+            referrerPolicy="no-referrer"
+          />
+        )}
+        
+        {/* Elegant Gradient Overlay - solid dark color on the left for text legibility, fading out on the right to reveal the gorgeous console illustration */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030305] via-[#030305]/85 to-transparent" />
+        
+        {/* Subtle glowing color halo based on active console's custom theme color */}
         <div 
-          className="absolute inset-0 bg-cover bg-center opacity-[0.22] blur-[80px] scale-110 transition-transform duration-300 ease-out"
-          style={{ 
-            backgroundImage: `url(${selectedGame ? selectedGame.image : `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${getRecalboxFolderName(system.id)}.jpg`})`,
-            transform: `translate(${mousePos.x * -15}px, ${mousePos.y * -15}px) scale(1.15)`
+          className="absolute inset-0 opacity-[0.15] transition-all duration-700"
+          style={{
+            background: `radial-gradient(circle at 80% 80%, var(--theme-color), transparent 60%)`
           }}
         />
-        
-        {/* Darkening Overlay mask */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/95 to-[#050505]/80" />
         
         {/* Retro CRT grid & scanline scan overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.3)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] opacity-[0.16] pointer-events-none" />
@@ -995,7 +1019,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   
                   return (
                     <button
-                      key={game.title}
+                      key={game.id}
                       onClick={() => handleGameClick(idx, game)}
                       className={`w-full flex items-center gap-3 p-2 rounded-xl text-left border transition-all cursor-pointer ${
                         isSelected 
@@ -1073,63 +1097,35 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   </div>
                 </div>
 
-                {/* dynamic projected drop-shadow inside the holographic emission */}
+                {/* dynamic projected drop-shadow on top of pedestal */}
                 <div 
-                   className="w-[140px] h-[10px] bg-black/60 rounded-full blur-md absolute bottom-[85px] z-0 transition-transform duration-300 ease-out animate-pulse"
+                   className="w-[160px] h-[14px] bg-black/75 rounded-full blur-md absolute bottom-[135px] z-0 transition-transform duration-300 ease-out"
                    style={{
-                      transform: `scale(${1 - Math.sin(floatTick) * 0.04}) translate(${mousePos.x * 12}px, ${mousePos.y * -12}px)`,
-                      opacity: 0.7 - Math.sin(floatTick) * 0.05
+                      transform: `scale(${1 - Math.sin(floatTick) * 0.05}) translate(${mousePos.x * 12}px, ${mousePos.y * -12}px)`,
+                      opacity: 0.85 - Math.sin(floatTick) * 0.08
                    }}
                 />
 
-                {/* Sleek Futuristic Holographic Platform Base (Replaces the clunky bulky pedestal) */}
-                <div 
-                  className="relative w-[340px] h-[110px] flex items-center justify-center -mt-6" 
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  {/* Concentric glowing base rings in 3D perspective space */}
-                  <div 
-                    className="absolute w-[240px] h-[55px] rounded-full border border-white/10 bg-black/60 flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-all duration-300"
-                    style={{ 
-                      transform: 'rotateX(75deg) translateZ(-10px)',
-                      boxShadow: `0 0 35px var(--theme-color), inset 0 0 20px var(--theme-color)`
-                    }}
+                {/* Console base pedestal (Physical console artwork and clean brand badge) */}
+                <div className="w-[300px] h-[150px] bg-gradient-to-br from-[#18181b] to-[#0c0c0e] rounded-2xl shadow-3xl relative z-0 border border-white/10 flex flex-col items-center justify-center overflow-hidden">
+                  <span 
+                    className="text-[var(--theme-color)] font-black text-6xl tracking-tighter opacity-15 select-none absolute z-0 scale-105" 
+                    style={{ textShadow: '0 0 20px var(--theme-color)' }}
                   >
-                    {/* Outer spinning dash-ring for high-tech micro-detail */}
-                    <div 
-                      className="absolute inset-0.5 rounded-full border border-dashed border-[var(--theme-color)]/50 animate-spin"
-                      style={{ animationDuration: '24s' }}
-                    />
-                    {/* Inner glowing pulsing ring */}
-                    <div 
-                      className="absolute inset-2.5 rounded-full border border-[var(--theme-color)]/70 animate-pulse"
-                    />
-                  </div>
+                    {getConsoleShortName(system.id)}
+                  </span>
 
-                  {/* Holographic light cone shooting upwards to the floating cover */}
-                  <div 
-                    className="absolute bottom-[40px] w-[180px] h-[180px] pointer-events-none z-0"
-                    style={{
-                      background: `linear-gradient(to top, var(--theme-color) 0%, transparent 80%)`,
-                      clipPath: 'polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)',
-                      maskImage: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%)',
-                      WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%)',
-                      opacity: 0.28 + Math.sin(floatTick) * 0.05,
-                      transform: `rotateY(${mousePos.x * 12}deg) rotateX(${mousePos.y * -12}deg)`
-                    }}
+                  {/* High fidelity console physical illustration */}
+                  <img 
+                    src={getCentralConsoleLogoUrl(system.id)}
+                    alt={system.name}
+                    className="w-[190px] h-[110px] object-contain relative z-10 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)] hover:scale-105 transition-all duration-300 pointer-events-none"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
-
-                  {/* Elegant floating status name inside the holographic field */}
-                  <div 
-                    className="absolute bottom-2.5 px-3 py-1 bg-black/85 rounded-full border border-[var(--theme-color)]/30 backdrop-blur-md flex items-center gap-1.5 shadow-[0_4px_15px_rgba(0,0,0,0.6)] z-10"
-                    style={{
-                      transform: `translateY(${Math.sin(floatTick) * 2}px)`
-                    }}
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--theme-color)] animate-pulse" />
-                    <span className="text-[9px] font-mono font-bold tracking-widest text-zinc-300 uppercase">
-                      {system.name}
-                    </span>
+                  
+                  {/* Glowing core indicator of current console theme color */}
+                  <div className="absolute bottom-2.5 inset-x-0 flex justify-center z-10">
+                    <div className="w-24 h-0.5 bg-[var(--theme-color)] rounded-full blur-[2px] opacity-80 animate-pulse" />
                   </div>
                 </div>
               </div>

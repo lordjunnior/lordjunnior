@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'motion/react';
 interface BackgroundHeroProps {
   systemId: string;
   glowColor?: string;
+  activeScreen?: 'carousel' | 'gamelist';
 }
 
 const getLogoFileName = (id: string): string => {
@@ -22,6 +23,10 @@ const getLogoFileName = (id: string): string => {
     genesis: 'megadrive',
     saturn: 'saturn',
     ps1: 'psx',
+    ps2: 'ps2',
+    ps3: 'ps3',
+    xbox: 'xbox',
+    xbox360: 'xbox360',
     atari: 'atari2600',
     arcade: 'mame',
     neogeo: 'neogeo',
@@ -40,7 +45,7 @@ const getLogoFileName = (id: string): string => {
 const VERIFIED_ARTS = new Set([
   'nes', 'snes', 'n64', 'gb', 'gbc', 'gba', 'nds',
   'megadrive', 'mastersystem', 'gamegear', 'segacd', 'sega32x',
-  'sg1000', 'psx', 'atari2600', 'atari7800', 'neogeo', 'ngp',
+  'sg1000', 'psx', 'ps2', 'ps3', 'xbox', 'xbox360', 'atari2600', 'atari7800', 'neogeo', 'ngp',
   'mame', 'fba', 'colecovision', 'pcengine', 'pcenginecd',
   'wonderswan', 'wonderswancolor', 'virtualboy', '3do',
   'msx', 'msx1', 'msx2', 'lynx', 'dreamcast', 'saturn', 'gamecube',
@@ -48,36 +53,43 @@ const VERIFIED_ARTS = new Set([
   'zxspectrum', 'vectrex', 'cavestory', 'favorites', 'dos'
 ]);
 
-export const BackgroundHero: React.FC<BackgroundHeroProps> = ({ systemId, glowColor }) => {
-  const systemFolderName = getLogoFileName(systemId);
+export const BackgroundHero: React.FC<BackgroundHeroProps> = ({ systemId, glowColor, activeScreen = 'carousel' }) => {
+  const isMainScreen = activeScreen === 'carousel';
+  const logoUrl = "/logos/backgrounds/logo.jpeg";
   
-  // URL primária baseada no console, ou favorites se não existir na lista verificada
-  const initialUrl = VERIFIED_ARTS.has(systemFolderName)
-    ? `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${systemFolderName}.jpg`
+  const logoFileName = getLogoFileName(systemId);
+  const consoleArtUrl = VERIFIED_ARTS.has(logoFileName)
+    ? `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${logoFileName}.jpg`
     : `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/favorites.jpg`;
 
-  const [currentUrl, setCurrentUrl] = useState<string>(initialUrl);
+  const targetUrl = isMainScreen ? logoUrl : consoleArtUrl;
+
+  const [currentUrl, setCurrentUrl] = useState<string>(targetUrl);
   const [hasFailedAll, setHasFailedAll] = useState<boolean>(false);
 
-  // Reiniciar estados quando o console (systemId) muda
+  // Keep the background reactive to changes
   useEffect(() => {
-    const freshFolderName = getLogoFileName(systemId);
-    if (VERIFIED_ARTS.has(freshFolderName)) {
-      setCurrentUrl(`https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${freshFolderName}.jpg`);
-      setHasFailedAll(false);
-    } else {
-      setCurrentUrl(`https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/favorites.jpg`);
-      setHasFailedAll(false);
-    }
-  }, [systemId]);
+    setCurrentUrl(targetUrl);
+    setHasFailedAll(false);
+  }, [targetUrl, systemId]);
 
   const handleError = () => {
+    // If it's a modern/3D console, avoid falling back to favorites.jpg which features retro character artwork (Mario, Sonic, Megaman).
+    // Instead, fail gracefully to a clean, highly elegant dark dashboard matching the console's glow color.
+    const cleanId = systemId.toLowerCase().trim();
+    const isModern = ['ps1', 'psx', 'playstation', 'ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xboxclassic', 'xbox360', 'dreamcast', 'gamecube', 'gc', 'saturn'].some(
+      m => cleanId.includes(m)
+    );
+
+    if (isModern) {
+      setHasFailedAll(true);
+      return;
+    }
+
     const fallbackUrl = `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/favorites.jpg`;
     if (currentUrl !== fallbackUrl) {
-      // Se falhou o background específico, tenta carregar o favorites.jpg
       setCurrentUrl(fallbackUrl);
     } else {
-      // Se falhou até o favorites.jpg, altera para o fallback final (fundo preto)
       setHasFailedAll(true);
     }
   };
@@ -90,18 +102,36 @@ export const BackgroundHero: React.FC<BackgroundHeroProps> = ({ systemId, glowCo
       {/* Dynamic imagery layer with smooth fade */}
       <AnimatePresence mode="popLayout">
         {!hasFailedAll && (
-          <motion.img
-            key={currentUrl}
-            src={currentUrl}
-            alt={`${systemId} Background`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7 }}
-            onError={handleError}
-            className="absolute inset-0 w-full h-full object-cover z-[-1]"
-            referrerPolicy="no-referrer"
-          />
+          isMainScreen ? (
+            // Para a tela principal (carousel), usamos o logo.jpeg com zoom e preenchimento total de tela (object-cover)
+            <motion.img
+              key="main-logo-bg"
+              src={currentUrl}
+              alt="Main Background"
+              initial={{ opacity: 0, scale: 1.08 }}
+              animate={{ opacity: 0.32, scale: 1.03 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
+              onError={handleError}
+              className="absolute inset-0 w-full h-full object-cover z-[-1] select-none pointer-events-none"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            // Para a tela de lista de jogos ("dentro do console"), usamos o fundo do console correspondente
+            // em tela cheia (object-cover) com transições suaves como era antes!
+            <motion.img
+              key={currentUrl}
+              src={currentUrl}
+              alt={`${systemId} Background`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.28 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7 }}
+              onError={handleError}
+              className="absolute inset-0 w-full h-full object-cover z-[-1] select-none pointer-events-none"
+              referrerPolicy="no-referrer"
+            />
+          )
         )}
       </AnimatePresence>
 

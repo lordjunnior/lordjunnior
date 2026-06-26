@@ -394,28 +394,30 @@ export default function App() {
   return (
     <div id="retro-hub-root" className="relative w-full min-h-screen bg-[#050508] text-white font-sans overflow-y-auto overflow-x-hidden flex flex-col justify-between select-none">
       
-      {/* 1. COMPONENTES ESTÁTICOS DE FUNDO SÓ DEIXAM DE RENDERIZAR SE A LISTA DE JOGOS ESTIVER ATIVA (MÁSCARA OCUPA TUDO) */}
-      {activeScreen === 'carousel' && (() => {
+      {/* 1. COMPONENTES ESTÁTICOS DE FUNDO (Sempre renderizados para alinhar com o console ativo) */}
+      {(() => {
         const currentConsoleKey = currentSystem ? currentSystem.id.toLowerCase().trim().replace(/[\s\-_]/g, '') : 'nes';
         const activeGlowColor = systemSpecsMap[currentConsoleKey]?.glowColor;
         return (
           <>
-            <BackgroundHero systemId={currentSystem.id} glowColor={activeGlowColor} />
+            <BackgroundHero systemId={currentSystem.id} glowColor={activeGlowColor} activeScreen={activeScreen} />
             <div 
               className="absolute inset-0 pointer-events-none transition-all duration-700" 
               style={{
                 backgroundImage: `radial-gradient(circle at 50% -25%, ${activeGlowColor || 'rgba(230,0,18,0.12)'}, transparent 75%)`
               }}
             />
-            <Header
-              isMuted={isMuted}
-              toggleMute={() => setIsMuted(prev => !prev)}
-              title={undefined}
-              onGoBack={undefined}
-              onSearchClick={() => setIsGlobalSearchOpen(true)}
-              onSettingsClick={() => setIsSettingsOpen(true)}
-              glowColor={activeGlowColor}
-            />
+            {activeScreen === 'carousel' && (
+              <Header
+                isMuted={isMuted}
+                toggleMute={() => setIsMuted(prev => !prev)}
+                title={undefined}
+                onGoBack={undefined}
+                onSearchClick={() => setIsGlobalSearchOpen(true)}
+                onSettingsClick={() => setIsSettingsOpen(true)}
+                glowColor={activeGlowColor}
+              />
+            )}
           </>
         );
       })()}

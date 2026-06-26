@@ -967,13 +967,14 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                             }}
                             className="absolute inset-0 cursor-pointer select-none group transition-all duration-500 ease-out"
                             style={{
-                              transformStyle: 'preserve-3d',
+                              transformStyle: isSelected ? 'flat' : 'preserve-3d',
                               transform: `rotateY(${angle}deg) translateZ(${radius}px) scale(${scale})`,
-                              backfaceVisibility: 'visible',
+                              backfaceVisibility: isSelected ? 'visible' : 'hidden',
                               opacity: opacity,
-                              filter: blur,
+                              filter: isSelected ? 'none' : blur,
                               zIndex: zIndex,
                               pointerEvents: isBack ? 'none' : 'auto', // disable clicking on back items
+                              willChange: isSelected ? 'auto' : 'transform',
                             }}
                           >
                             {/* Active Spotlight Glow behind card */}
@@ -999,11 +1000,11 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                               } : undefined}
                             >
                               {/* Top LED bar and info */}
-                              <div className="flex items-center justify-between w-full relative z-10">
-                                <span className="text-[7.5px] text-zinc-400 font-mono font-black uppercase tracking-widest">
+                              <div className="flex items-center justify-between w-full relative z-10 antialiased subpixel-antialiased">
+                                <span className="text-[10px] md:text-xs text-zinc-300 font-mono font-bold uppercase tracking-widest">
                                   {sys.id.toUpperCase()}
                                 </span>
-                                <div className="flex items-center gap-1">
+                                <div className="flex items-center gap-1.5">
                                   <span 
                                     className="w-1.5 h-1.5 rounded-full animate-pulse shadow-[0_0_8px_currentcolor]" 
                                     style={{ 
@@ -1011,7 +1012,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                                       color: status.color
                                     }}
                                   />
-                                  <span className="text-[6px] md:text-[7px] text-zinc-300 font-mono font-bold tracking-tight">
+                                  <span className="text-[9px] md:text-[10px] text-zinc-100 font-mono font-extrabold tracking-wide">
                                     {status.isPlayable ? 'PRONTO' : 'EM DEV'}
                                   </span>
                                 </div>
@@ -1079,34 +1080,36 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
               </div>
             )}
 
-            {/* Pagination Indicators - satisfying active dot tracker */}
-            {filteredSystems.length > 1 && (
-              <div className="flex items-center gap-1.5 mt-6 md:mt-8 z-20">
-                {filteredSystems.map(({ sys, originalIdx }, index) => {
-                  const isSelected = originalIdx === activeIndex;
-                  return (
-                    <button
-                      key={`dot-${sys.id}`}
-                      onClick={() => {
-                        setActiveIndex(originalIdx);
-                        soundEngine.playMove();
-                      }}
-                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        isSelected 
-                          ? 'w-6 bg-[var(--theme-color)] shadow-[0_0_8px_var(--theme-color)]' 
-                          : 'w-1.5 bg-zinc-700 hover:bg-zinc-500'
-                      }`}
-                      style={isSelected ? {
-                        backgroundColor: activeColor.hex,
-                        boxShadow: `0 0 10px ${activeColor.hex}`
-                      } : undefined}
-                      title={`Selecionar ${sys.name}`}
-                    />
-                  );
-                })}
-              </div>
-            )}
           </div>
+
+          {/* Pagination Indicators - satisfying active dot tracker, placed safely below the 3D space */}
+          {filteredSystems.length > 1 && (
+            <div className="flex items-center justify-center gap-1.5 mt-2 z-30 pb-2">
+              {filteredSystems.map(({ sys, originalIdx }, index) => {
+                const isSelected = originalIdx === activeIndex;
+                return (
+                  <button
+                    key={`dot-${sys.id}`}
+                    onClick={() => {
+                      setActiveIndex(originalIdx);
+                      soundEngine.playMove();
+                    }}
+                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      isSelected 
+                        ? 'w-6 bg-[var(--theme-color)] shadow-[0_0_8px_var(--theme-color)]' 
+                        : 'w-1.5 bg-zinc-700 hover:bg-zinc-500'
+                    }`}
+                    style={isSelected ? {
+                      backgroundColor: activeColor.hex,
+                      boxShadow: `0 0 10px ${activeColor.hex}`
+                    } : undefined}
+                    title={`Selecionar ${sys.name}`}
+                  />
+                );
+              })}
+            </div>
+          )}
+
         </div>
       </div>
 
