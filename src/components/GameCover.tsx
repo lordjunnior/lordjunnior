@@ -308,12 +308,12 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
   useEffect(() => {
     setIsFatalError(false);
     setLoaded(false);
-    if (game.image) {
-      setSrc(game.image);
-      setAttempt(0);
-    } else if (candidates.length > 0) {
+    if (candidates.length > 0) {
       setSrc(candidates[0]);
       setAttempt(1);
+    } else if (game.image) {
+      setSrc(game.image);
+      setAttempt(0);
     } else {
       setSrc('');
       setIsFatalError(true);
@@ -321,17 +321,12 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
   }, [game.image, candidates]);
 
   const handleError = () => {
-    if (attempt === 0) {
-      if (candidates.length > 0) {
-        setSrc(candidates[0]);
-        setAttempt(1);
-      } else {
-        setIsFatalError(true);
-        setLoaded(true);
-      }
-    } else if (attempt > 0 && attempt < candidates.length) {
+    if (attempt > 0 && attempt < candidates.length) {
       setSrc(candidates[attempt]);
       setAttempt(prev => prev + 1);
+    } else if (attempt > 0 && game.image && src !== game.image) {
+      setSrc(game.image);
+      setAttempt(0);
     } else {
       setIsFatalError(true);
       setLoaded(true);

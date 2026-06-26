@@ -525,34 +525,81 @@ const getCentralConsoleLogoUrl = (id: string): string => {
   return map[cleanId] || `/logos/${getLogoFileName(cleanId)}.png`;
 };
 
+const getCentralCharacterGroupUrl = (id: string): string => {
+  const cleanId = id.toLowerCase().trim();
+  const map: Record<string, string> = {
+    nes: '/logos/nes-nintendinho-console.png',
+    snes: '/logos/snes-console-retro.png',
+    supernintendo: '/logos/snes-console-retro.png',
+    n64: '/logos/n64-nintendo-64-console (2).png',
+    gb: '/logos/gameboy-console.png.png',
+    gameboy: '/logos/gameboy-console.png.png',
+    gbc: '/logos/gameboy-collor-console.png',
+    gameboycolor: '/logos/gameboy-collor-console.png',
+    gba: '/logos/gameboy-advanced-console.png',
+    nds: '/logos/nintendo-ds-console.png',
+    genesis: '/logos/genesis-mega-drive-console.png',
+    segaMD: '/logos/genesis-mega-drive-console.png',
+    megadrive: '/logos/genesis-mega-drive-console.png',
+    mastersystem: '/logos/master-system-sms-console.png',
+    sms: '/logos/master-system-sms-console.png',
+    playstation: '/logos/playstation-1-ps1-console.png',
+    psx: '/logos/playstation-1-ps1-console.png',
+    ps1: '/logos/playstation-1-ps1-console.png',
+    playstation2: '/logos/playstation-2-ps2-console.png',
+    ps2: '/logos/playstation-2-ps2-console.png',
+    playstation3: '/logos/playstation-3-ps3-console.png',
+    ps3: '/logos/playstation-3-ps3-console.png',
+    xbox: '/logos/xbox-classico-console.png',
+    xboxclassic: '/logos/xbox-classico-console.png',
+    xbox360: '/logos/xbox-360-console.png',
+    atari: '/logos/atari-console-retro.png',
+    arcade: '/logos/arcade-jogos-classicos.png',
+    '3do': '/logos/3do-console-retro.png',
+    saturn: '/logos/sega-saturn-console.png',
+    dreamcast: '/logos/dreamcast-console-retro.png',
+    gamecube: '/logos/gamecube-console-retro.png',
+    gc: '/logos/gamecube-console-retro.png',
+    neogeo: '/logos/neogeo-mvs-arcade-retro.png',
+    pce: '/logos/pc-engine-turbografx-console.png',
+    turbografx: '/logos/pc-engine-turbografx-console.png',
+    pcengine: '/logos/pc-engine-turbografx-console.png',
+  };
+  return map[cleanId] || getCentralConsoleLogoUrl(cleanId);
+};
+
 const CentralConsoleLogo: React.FC<{ system: System }> = ({ system }) => {
   const [src, setSrc] = useState<string>('');
   const [attempt, setAttempt] = useState<number>(0);
 
   useEffect(() => {
-    setSrc(getCentralConsoleLogoUrl(system.id));
+    setSrc(getCentralCharacterGroupUrl(system.id));
     setAttempt(0);
   }, [system.id]);
 
   const handleError = () => {
     if (attempt === 0) {
+      // Fallback to original console logo
+      setSrc(getCentralConsoleLogoUrl(system.id));
+      setAttempt(1);
+    } else if (attempt === 1) {
       // First fallback: classic system logo (e.g. snes.png, playstation.png)
       const officialLogo = `/logos/${getLogoFileName(system.id)}.png`;
       setSrc(officialLogo);
-      setAttempt(1);
-    } else if (attempt === 1) {
+      setAttempt(2);
+    } else if (attempt === 2) {
       // Second fallback: direct lowercase naming
       const rawLogo = `/logos/${system.id.toLowerCase()}.png`;
       setSrc(rawLogo);
-      setAttempt(2);
+      setAttempt(3);
     } else {
       // Last resort: stop loading images and let text render beautifully
       setSrc('');
-      setAttempt(3);
+      setAttempt(4);
     }
   };
 
-  if (attempt >= 3 || !src) {
+  if (attempt >= 4 || !src) {
     return (
       <div className="flex flex-col items-center justify-center p-6 border border-zinc-700 rounded-2xl bg-black/60 backdrop-blur-md">
         <span className="text-xl font-mono tracking-[0.3em] font-black text-zinc-300 uppercase">
@@ -578,7 +625,54 @@ const CentralConsoleLogo: React.FC<{ system: System }> = ({ system }) => {
       style={{
         filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.85)) drop-shadow(0 0 25px rgba(255,255,255,0.15))"
       }}
-      className="max-h-full w-auto max-w-[280px] md:max-w-[360px] object-contain"
+      className="max-h-full w-auto max-w-[320px] md:max-w-[480px] object-contain"
+      onError={handleError}
+      referrerPolicy="no-referrer"
+    />
+  );
+};
+
+const CardConsoleLogo: React.FC<{ system: System; isSelected: boolean }> = ({ system, isSelected }) => {
+  const [src, setSrc] = useState<string>('');
+  const [attempt, setAttempt] = useState<number>(0);
+
+  useEffect(() => {
+    // Primary: Physical console illustration
+    setSrc(getCentralConsoleLogoUrl(system.id));
+    setAttempt(0);
+  }, [system.id]);
+
+  const handleError = () => {
+    if (attempt === 0) {
+      // Fallback: Official text/brand logo (e.g. playstation3.png)
+      setSrc(`/logos/${getLogoFileName(system.id)}.png`);
+      setAttempt(1);
+    } else {
+      // Final fallback: hide and render text
+      setSrc('');
+      setAttempt(2);
+    }
+  };
+
+  if (!src) {
+    return (
+      <span className={`text-[10px] md:text-xs font-black uppercase tracking-wider text-zinc-500 font-retro transition-opacity duration-300 ${
+        isSelected ? 'opacity-80' : 'opacity-30'
+      }`}>
+        {system.shortName || system.name}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={system.name}
+      className={`h-[42px] md:h-[58px] w-auto max-w-[120px] md:max-w-[160px] object-contain transition-all duration-500 filter ${
+        isSelected
+          ? 'brightness-110 drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)] scale-110'
+          : 'brightness-65 opacity-65 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] group-hover:brightness-90 group-hover:opacity-90'
+      }`}
       onError={handleError}
       referrerPolicy="no-referrer"
     />
@@ -824,10 +918,10 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-transparent flex flex-col justify-start gap-12 select-none font-sans pb-16">
+    <div className="relative w-full min-h-screen bg-transparent flex flex-col justify-start gap-6 select-none font-sans pb-16">
       
       {/* PAINEL SUPERIOR: INFOS RESUMIDAS & IMAGEM DE ALTA QUALIDADE DO CONSOLE (DESIGN PREMIUM) */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-center pt-32 md:pt-40 px-6">
+      <div className="relative z-20 w-full flex flex-col items-center justify-center pt-20 md:pt-24 px-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeSystem.id}
@@ -838,7 +932,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
             className="flex flex-col items-center text-center max-w-3xl px-4"
           >
             {/* Logotipo do Console Principal (Firme, Vibrante e Autêntico com Fallbacks Automáticos) */}
-            <div className="h-44 md:h-52 w-auto flex items-center justify-center mb-5 relative select-none pointer-events-none">
+            <div className="h-48 md:h-64 w-auto flex items-center justify-center relative select-none pointer-events-none">
               {/* Soft ambient background glow behind central logo */}
               <div 
                 className="absolute inset-[-60px] -z-10 blur-3xl opacity-20 transition-all duration-750 pointer-events-none"
@@ -848,14 +942,6 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
               />
               <CentralConsoleLogo system={activeSystem} />
             </div>
-            
-            <p className="text-zinc-400 text-[10px] tracking-widest font-mono uppercase bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md mb-2">
-              {specs.manufacturer} • {specs.generation}
-            </p>
-            
-            <h1 className="text-2xl md:text-3.5xl font-black tracking-tight text-white uppercase drop-shadow">
-              {activeSystem.name}
-            </h1>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -864,6 +950,27 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
       <div className="relative z-30 w-full max-w-none px-0 mb-4">
         <div className="relative py-4 px-6 flex flex-col gap-5 overflow-visible">
           
+          {/* Informações detalhadas do sistema baixadas para ficar bem em cima do carrossel */}
+          <div className="flex flex-col items-center text-center w-full z-20 pointer-events-none mb-1">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`info-${activeSystem.id}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col items-center"
+              >
+                <p className="text-zinc-400 text-[10px] tracking-widest font-mono uppercase bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md mb-2">
+                  {specs.manufacturer} • {specs.generation}
+                </p>
+                <h1 className="text-2xl md:text-3.5xl font-black tracking-tight text-white uppercase drop-shadow">
+                  {activeSystem.name}
+                </h1>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
           {/* Advanced 3D Cylindrical Ring Carousel */}
           <div 
             className="relative z-10 w-full min-h-[350px] md:min-h-[430px] flex flex-col items-center justify-center py-6 overflow-visible select-none"
@@ -1015,30 +1122,9 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                                 </div>
                               </div>
 
-                              {/* Physical Console Illustration inside Card */}
+                              {/* Console Logo inside Card */}
                               <div className="flex-1 flex items-center justify-center relative overflow-visible my-1 z-0">
-                                <img 
-                                  src={getCentralConsoleLogoUrl(sys.id)}
-                                  alt={sys.name}
-                                  className={`h-[45px] md:h-[65px] w-auto object-contain transition-all duration-500 filter ${
-                                    isSelected 
-                                      ? 'brightness-110 drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)] scale-110' 
-                                      : 'brightness-60 opacity-60 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] group-hover:brightness-90 group-hover:opacity-90'
-                                  }`}
-                                  onError={(e) => {
-                                    // fallback if image not found: render a clean console shortname
-                                    e.currentTarget.style.display = 'none';
-                                  }}
-                                />
-                                
-                                {/* If image fails, this text logo remains visible */}
-                                <div 
-                                  className={`absolute inset-0 flex items-center justify-center text-[10px] md:text-xs font-black uppercase tracking-wider text-zinc-500 font-retro pointer-events-none transition-opacity ${
-                                    isSelected ? 'opacity-10' : 'opacity-0'
-                                  }`}
-                                >
-                                  {sys.name}
-                                </div>
+                                <CardConsoleLogo system={sys} isSelected={isSelected} />
                               </div>
 
                               {/* Bottom title of console */}
