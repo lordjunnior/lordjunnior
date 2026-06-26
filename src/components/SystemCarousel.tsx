@@ -860,12 +860,12 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
         </AnimatePresence>
       </div>
 
-      {/* PAINEL DE CONTROLE DE SELEÇÃO DE CONSOLES - TACTILE CONTROL DECK */}
-      <div className="relative z-30 w-full max-w-[1600px] mx-auto px-6 mb-4">
-        <div className="relative bg-[#07070a]/60 border border-white/5 rounded-3xl p-6 backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col gap-5 overflow-visible">
+      {/* PAINEL DE CONTROLE DE SELEÇÃO DE CONSOLES - TACTILE CONTROL DECK (FULL-WIDTH STRIP) */}
+      <div className="relative z-30 w-full max-w-none px-0 mb-4">
+        <div className="relative bg-[#07070a]/60 border-y border-white/5 p-6 backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col gap-5 overflow-visible">
           
           {/* Subtle tech grid decor in background */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e10_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e10_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none rounded-3xl" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e10_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e10_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none rounded-none" />
           
           {/* Advanced 3D Cylindrical Ring Carousel */}
           <div 
@@ -881,7 +881,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
             {filteredSystems.length > 0 ? (
               <div 
                 className="relative w-full flex items-center justify-center overflow-visible"
-                style={{ perspective: '1200px' }}
+                style={{ perspective: '1600px' }}
               >
                 
                 {/* Left Navigation Arrow */}
@@ -890,10 +890,10 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                     e.stopPropagation();
                     handlePrev();
                   }}
-                  className="absolute left-1 md:left-6 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-2.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
+                  className="absolute left-4 md:left-12 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-3.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
                   title="Anterior (Seta Esquerda)"
                 >
-                  <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
+                  <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
                 </button>
 
                 {/* Right Navigation Arrow */}
@@ -902,19 +902,19 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                     e.stopPropagation();
                     handleNext();
                   }}
-                  className="absolute right-1 md:right-6 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-2.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
+                  className="absolute right-4 md:right-12 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-3.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
                   title="Próximo (Seta Direita)"
                 >
-                  <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
                 </button>
 
                 {/* 3D Ring Floor Reflection */}
                 <div 
-                  className="absolute w-[500px] h-[500px] md:w-[750px] md:h-[750px] rounded-full opacity-15 pointer-events-none -z-10 transition-all duration-700"
+                  className="absolute w-[500px] h-[500px] md:w-[1000px] md:h-[1000px] rounded-full opacity-15 pointer-events-none -z-10 transition-all duration-700"
                   style={{
                     background: `radial-gradient(circle, ${activeColor.hex} 0%, transparent 70%)`,
-                    transform: 'rotateX(82deg) translateZ(-130px)',
-                    boxShadow: `0 0 70px 15px ${activeColor.hex}`
+                    transform: 'rotateX(82deg) translateZ(-150px)',
+                    boxShadow: `0 0 80px 20px ${activeColor.hex}`
                   }}
                 />
 
@@ -922,7 +922,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                 {(() => {
                   const N = filteredSystems.length;
                   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-                  const radius = isMobile ? 180 : 540; // Spacious radius for wide 32" screens!
+                  const radius = isMobile ? 220 : 750; // Majestic ultra-wide 3D radius!
                   const stepAngle = 360 / N;
 
                   return (

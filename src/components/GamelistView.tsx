@@ -1073,60 +1073,88 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   </div>
                 </div>
 
-                {/* dynamic projected drop-shadow on top of pedestal */}
+                {/* dynamic projected drop-shadow inside the holographic emission */}
                 <div 
-                   className="w-[160px] h-[14px] bg-black/70 rounded-full blur-md absolute bottom-[135px] z-0 transition-transform duration-300 ease-out"
+                   className="w-[140px] h-[10px] bg-black/60 rounded-full blur-md absolute bottom-[85px] z-0 transition-transform duration-300 ease-out animate-pulse"
                    style={{
-                      transform: `scale(${1 - Math.sin(floatTick) * 0.05}) translate(${mousePos.x * 14}px, ${mousePos.y * -14}px)`,
-                      opacity: 0.82 - Math.sin(floatTick) * 0.08
+                      transform: `scale(${1 - Math.sin(floatTick) * 0.04}) translate(${mousePos.x * 12}px, ${mousePos.y * -12}px)`,
+                      opacity: 0.7 - Math.sin(floatTick) * 0.05
                    }}
                 />
 
-                {/* Console base pedestal */}
-                <div className="w-[300px] h-[150px] bg-gradient-to-br from-[#1a1a1d] to-[#0a0a0c] rounded-2xl shadow-3xl relative z-0 border-t border-white/10 flex flex-col items-center justify-center overflow-hidden">
-                  <span 
-                    className="text-[var(--theme-color)] font-black text-6.5xl tracking-tighter opacity-15 select-none absolute z-0 scale-110" 
-                    style={{ textShadow: '0 0 25px var(--theme-color)' }}
+                {/* Sleek Futuristic Holographic Platform Base (Replaces the clunky bulky pedestal) */}
+                <div 
+                  className="relative w-[340px] h-[110px] flex items-center justify-center -mt-6" 
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {/* Concentric glowing base rings in 3D perspective space */}
+                  <div 
+                    className="absolute w-[240px] h-[55px] rounded-full border border-white/10 bg-black/60 flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-all duration-300"
+                    style={{ 
+                      transform: 'rotateX(75deg) translateZ(-10px)',
+                      boxShadow: `0 0 35px var(--theme-color), inset 0 0 20px var(--theme-color)`
+                    }}
                   >
-                    {getConsoleShortName(system.id)}
-                  </span>
+                    {/* Outer spinning dash-ring for high-tech micro-detail */}
+                    <div 
+                      className="absolute inset-0.5 rounded-full border border-dashed border-[var(--theme-color)]/50 animate-spin"
+                      style={{ animationDuration: '24s' }}
+                    />
+                    {/* Inner glowing pulsing ring */}
+                    <div 
+                      className="absolute inset-2.5 rounded-full border border-[var(--theme-color)]/70 animate-pulse"
+                    />
+                  </div>
 
-                  {/* High fidelity console physical illustration */}
-                  <img 
-                    src={getCentralConsoleLogoUrl(system.id)}
-                    alt={system.name}
-                    className="w-[190px] h-[110px] object-contain relative z-10 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)] hover:scale-105 transition-transform duration-300 pointer-events-none"
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  {/* Holographic light cone shooting upwards to the floating cover */}
+                  <div 
+                    className="absolute bottom-[40px] w-[180px] h-[180px] pointer-events-none z-0"
+                    style={{
+                      background: `linear-gradient(to top, var(--theme-color) 0%, transparent 80%)`,
+                      clipPath: 'polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)',
+                      maskImage: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%)',
+                      WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%)',
+                      opacity: 0.28 + Math.sin(floatTick) * 0.05,
+                      transform: `rotateY(${mousePos.x * 12}deg) rotateX(${mousePos.y * -12}deg)`
+                    }}
                   />
-                  
-                  {/* Glowing core indicator */}
-                  <div className="absolute bottom-2 inset-x-0 flex justify-center z-10">
-                    <div className="w-36 h-0.5 bg-[var(--theme-color)] rounded-full blur-[3px]" />
+
+                  {/* Elegant floating status name inside the holographic field */}
+                  <div 
+                    className="absolute bottom-2.5 px-3 py-1 bg-black/85 rounded-full border border-[var(--theme-color)]/30 backdrop-blur-md flex items-center gap-1.5 shadow-[0_4px_15px_rgba(0,0,0,0.6)] z-10"
+                    style={{
+                      transform: `translateY(${Math.sin(floatTick) * 2}px)`
+                    }}
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--theme-color)] animate-pulse" />
+                    <span className="text-[9px] font-mono font-bold tracking-widest text-zinc-300 uppercase">
+                      {system.name}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Technical Specifications Row underneath diorama */}
+              {/* Technical Specifications Row underneath diorama (Optimized columns to prevent truncation) */}
               <div className="w-full max-w-[620px] bg-black/40 border border-white/5 rounded-2xl p-4 grid grid-cols-5 text-center divide-x divide-white/5 backdrop-blur-md">
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 min-w-0">
                   <span className="text-[7.5px] text-zinc-500 uppercase tracking-[0.18em] font-bold">Lançamento</span>
-                  <span className="text-[10px] text-white font-bold tracking-wider">{selectedGame.year}</span>
+                  <span className="text-[9px] md:text-[10px] text-white font-bold tracking-wider">{selectedGame.year}</span>
                 </div>
-                <div className="flex flex-col gap-1 px-1">
+                <div className="flex flex-col gap-1 px-1 min-w-0">
                   <span className="text-[7.5px] text-zinc-500 uppercase tracking-[0.18em] font-bold">Gênero</span>
-                  <span className="text-[10px] text-white font-bold tracking-wider truncate uppercase">{selectedGame.genre}</span>
+                  <span className="text-[9px] md:text-[10px] text-white font-bold tracking-wider uppercase leading-tight break-words">{selectedGame.genre}</span>
                 </div>
-                <div className="flex flex-col gap-1 px-1">
+                <div className="flex flex-col gap-1 px-1 min-w-0">
                   <span className="text-[7.5px] text-zinc-500 uppercase tracking-[0.18em] font-bold">Desenvolvedora</span>
-                  <span className="text-[10px] text-white font-bold tracking-wider truncate uppercase">{selectedGame.dev || 'Retro Team'}</span>
+                  <span className="text-[9px] md:text-[10px] text-white font-bold tracking-wider uppercase leading-tight break-words">{selectedGame.developer || 'Retro Team'}</span>
                 </div>
-                <div className="flex flex-col gap-1 px-1">
+                <div className="flex flex-col gap-1 px-1 min-w-0">
                   <span className="text-[7.5px] text-zinc-500 uppercase tracking-[0.18em] font-bold">Publicadora</span>
-                  <span className="text-[10px] text-white font-bold tracking-wider truncate uppercase">{selectedGame.pub || 'Retro Soft'}</span>
+                  <span className="text-[9px] md:text-[10px] text-white font-bold tracking-wider uppercase leading-tight break-words">{selectedGame.publisher || 'Retro Soft'}</span>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 min-w-0">
                   <span className="text-[7.5px] text-zinc-500 uppercase tracking-[0.18em] font-bold">Jogadores</span>
-                  <span className="text-[10px] text-white font-bold tracking-wider uppercase">1 JOGADOR</span>
+                  <span className="text-[9px] md:text-[10px] text-white font-bold tracking-wider uppercase">1 JOGADOR</span>
                 </div>
               </div>
             </>
@@ -1157,7 +1185,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
 
                   {/* Summary Narrative description */}
                   <p className="text-[11px] leading-relaxed text-zinc-400 font-sans tracking-wide bg-white/2 p-3.5 rounded-xl border border-white/5">
-                    {selectedGame.desc || `Redescubra este clássico absoluto do console ${system.name}. Re-imaginamento e jogabilidade icônica original misturado com os clássicos no LordTecaRetro com velocidade máxima de carregamento.`}
+                    {selectedGame.description || `Redescubra este clássico absoluto do console ${system.name}. Re-imaginamento e jogabilidade icônica original misturado com os clássicos no LordTecaRetro com velocidade máxima de carregamento.`}
                   </p>
 
                   {/* Dossier Card Container (Translucid backdrop blur) */}
@@ -1390,7 +1418,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                         <Sparkles className="w-3 h-3" /> Fato Histórico
                       </span>
                       <p className="text-[10.5px] leading-relaxed text-zinc-400">
-                        O game <strong>{selectedGame.title}</strong> foi desenvolvido pela respeitada equipe da <strong>{selectedGame.dev || 'Retro Team'}</strong> e publicado originalmente em <strong>{selectedGame.year}</strong>, tornando-se instantaneamente um clássico cultuado.
+                        O game <strong>{selectedGame.title}</strong> foi desenvolvido pela respeitada equipe da <strong>{selectedGame.developer || 'Retro Team'}</strong> e publicado originalmente em <strong>{selectedGame.year}</strong>, tornando-se instantaneamente um clássico cultuado.
                       </p>
                     </div>
 
