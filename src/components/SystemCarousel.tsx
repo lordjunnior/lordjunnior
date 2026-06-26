@@ -827,7 +827,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
     <div className="relative w-full min-h-screen bg-transparent flex flex-col justify-start gap-12 select-none font-sans pb-16">
       
       {/* PAINEL SUPERIOR: INFOS RESUMIDAS & IMAGEM DE ALTA QUALIDADE DO CONSOLE (DESIGN PREMIUM) */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-center pt-24 px-6">
+      <div className="relative z-20 w-full flex flex-col items-center justify-center pt-32 md:pt-40 px-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeSystem.id}
@@ -860,12 +860,9 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
         </AnimatePresence>
       </div>
 
-      {/* PAINEL DE CONTROLE DE SELEÇÃO DE CONSOLES - TACTILE CONTROL DECK (FULL-WIDTH STRIP) */}
+      {/* PAINEL DE CONTROLE DE SELEÇÃO DE CONSOLES - CAROUSEL FLUTUANTE (SEM FAIXA DE FUNDO) */}
       <div className="relative z-30 w-full max-w-none px-0 mb-4">
-        <div className="relative bg-[#07070a]/60 border-y border-white/5 p-6 backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col gap-5 overflow-visible">
-          
-          {/* Subtle tech grid decor in background */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f2e10_1px,transparent_1px),linear-gradient(to_bottom,#1f1f2e10_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none rounded-none" />
+        <div className="relative py-4 px-6 flex flex-col gap-5 overflow-visible">
           
           {/* Advanced 3D Cylindrical Ring Carousel */}
           <div 
