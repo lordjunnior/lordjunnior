@@ -532,8 +532,8 @@ const getCentralCharacterGroupUrl = (id: string): string => {
     snes: '/logos/snes-console-retro.png',
     supernintendo: '/logos/snes-console-retro.png',
     n64: '/logos/n64-nintendo-64-console (2).png',
-    gb: '/logos/gameboy-console.png.png',
-    gameboy: '/logos/gameboy-console.png.png',
+    gb: '/logos/gameboy-console.png',
+    gameboy: '/logos/gameboy-console.png',
     gbc: '/logos/gameboy-collor-console.png',
     gameboycolor: '/logos/gameboy-collor-console.png',
     gba: '/logos/gameboy-advanced-console.png',
@@ -565,7 +565,7 @@ const getCentralCharacterGroupUrl = (id: string): string => {
     turbografx: '/logos/pc-engine-turbografx-console.png',
     pcengine: '/logos/pc-engine-turbografx-console.png',
   };
-  return map[cleanId] || getCentralConsoleLogoUrl(cleanId);
+  return map[cleanId] || `/logos/${getLogoFileName(cleanId)}.png`;
 };
 
 const CentralConsoleLogo: React.FC<{ system: System }> = ({ system }) => {
@@ -579,27 +579,23 @@ const CentralConsoleLogo: React.FC<{ system: System }> = ({ system }) => {
 
   const handleError = () => {
     if (attempt === 0) {
-      // Fallback to original console logo
-      setSrc(getCentralConsoleLogoUrl(system.id));
-      setAttempt(1);
-    } else if (attempt === 1) {
-      // First fallback: classic system logo (e.g. snes.png, playstation.png)
+      // First fallback: classic system brand logo (e.g. snes.png, playstation3.png)
       const officialLogo = `/logos/${getLogoFileName(system.id)}.png`;
       setSrc(officialLogo);
-      setAttempt(2);
-    } else if (attempt === 2) {
+      setAttempt(1);
+    } else if (attempt === 1) {
       // Second fallback: direct lowercase naming
       const rawLogo = `/logos/${system.id.toLowerCase()}.png`;
       setSrc(rawLogo);
-      setAttempt(3);
+      setAttempt(2);
     } else {
       // Last resort: stop loading images and let text render beautifully
       setSrc('');
-      setAttempt(4);
+      setAttempt(3);
     }
   };
 
-  if (attempt >= 4 || !src) {
+  if (attempt >= 3 || !src) {
     return (
       <div className="flex flex-col items-center justify-center p-6 border border-zinc-700 rounded-2xl bg-black/60 backdrop-blur-md">
         <span className="text-xl font-mono tracking-[0.3em] font-black text-zinc-300 uppercase">
