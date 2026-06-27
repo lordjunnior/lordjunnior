@@ -827,6 +827,27 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
   const filteredActiveIndex = filteredSystems.findIndex(f => f.originalIdx === activeIndex);
 
+  // Maintain virtual infinite index for continuous smooth rotational animation without jumps
+  const [virtualActiveIndex, setVirtualActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (filteredActiveIndex === -1) return;
+    const len = filteredSystems.length;
+    if (len === 0) return;
+
+    // Find the shortest distance in modular arithmetic
+    const currentMod = ((virtualActiveIndex % len) + len) % len;
+    let diff = filteredActiveIndex - currentMod;
+
+    if (diff > len / 2) {
+      diff -= len;
+    } else if (diff < -len / 2) {
+      diff += len;
+    }
+
+    setVirtualActiveIndex(prev => prev + diff);
+  }, [filteredActiveIndex, filteredSystems.length]);
+
   const handlePrev = () => {
     if (filteredSystems.length === 0) return;
     const prevFilteredIdx = (filteredActiveIndex - 1 + filteredSystems.length) % filteredSystems.length;
@@ -1038,39 +1059,42 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                   const diameter = radius * 2;
                   const stretchX = Math.max(0.7, Math.min(1.8, targetWidth / diameter));
 
-                  // Repeat elements if N is small to keep the cylinder dense, full and beautiful
-                  const repeats = baseN > 0 ? Math.max(1, Math.ceil(15 / baseN)) : 1;
+                  // Tight spacing step angle matching the exact layout they loved
+                  const stepAngle = isMobile ? 18 : 13;
+
+                  // Render slots around virtualActiveIndex to fill the screen edge-to-edge ("de ponta a ponta")
+                  // and keep the carousel infinite and continuous with absolutely zero gaps
+                  const halfSlots = isMobile ? 4 : 5;
                   const displayItems = [];
-                  for (let r = 0; r < repeats; r++) {
-                    for (let i = 0; i < baseN; i++) {
+
+                  if (baseN > 0) {
+                    for (let j = -halfSlots; j <= halfSlots; j++) {
+                      const displayIdx = virtualActiveIndex + j;
+                      const sysIdx = ((displayIdx % baseN) + baseN) % baseN;
                       displayItems.push({
-                        ...filteredSystems[i],
-                        displayIdx: i + r * baseN
+                        ...filteredSystems[sysIdx],
+                        displayIdx,
+                        offsetJ: j
                       });
                     }
                   }
-
-                  const N = displayItems.length;
-                  const stepAngle = N > 0 ? 360 / N : 30;
 
                   return (
                     <div 
                       className="relative w-[110px] h-[80px] md:w-[185px] md:h-[125px] transition-transform duration-700"
                       style={{
                         transformStyle: 'preserve-3d',
-                        transform: `scaleX(${stretchX}) rotateX(-3deg) rotateY(${-filteredActiveIndex * stepAngle}deg)`,
+                        transform: `scaleX(${stretchX}) rotateX(-3deg) rotateY(${-virtualActiveIndex * stepAngle}deg)`,
                       }}
                     >
-                      {displayItems.map(({ sys, originalIdx, displayIdx }) => {
-                        const isSelected = displayIdx === filteredActiveIndex;
+                      {displayItems.map(({ sys, originalIdx, displayIdx, offsetJ }) => {
+                        const isSelected = offsetJ === 0;
                         const sysColor = getSystemThemeColor(sys.id);
                         const status = getSystemStatus(sys.id);
                         
-                        // Compress relative angle so cards are closer together (smaller gaps)
-                        const rawRelAngle = (displayIdx - filteredActiveIndex) * stepAngle;
-                        const spacingFactor = isMobile ? 0.75 : 0.62;
-                        const displayRelAngle = rawRelAngle * spacingFactor;
-                        const displayAngle = filteredActiveIndex * stepAngle + displayRelAngle;
+                        // Relative angle of the slot on the screen
+                        const displayRelAngle = offsetJ * stepAngle;
+                        const displayAngle = displayIdx * stepAngle;
                         
                         // Real-time depth calculations via high-performance trigonometry using the compressed angle
                         const angleRad = (displayRelAngle * Math.PI) / 180;
@@ -1138,37 +1162,21 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                                 } : {})
                               }}
                             >
-                              {/* Top LED bar and info */}
-                              <div className="flex items-center justify-between w-full relative z-10 antialiased subpixel-antialiased">
-                                <span className="text-[10px] md:text-xs text-zinc-300 font-mono font-bold uppercase tracking-widest">
-                                  {sys.id.toUpperCase()}
-                                </span>
-                                <div className="flex items-center gap-1.5">
-                                  <span 
-                                    className="w-1.5 h-1.5 rounded-full animate-pulse shadow-[0_0_8px_currentcolor]" 
-                                    style={{ 
-                                      backgroundColor: status.color,
-                                      color: status.color
-                                    }}
-                                  />
-                                  <span className="text-[9px] md:text-[10px] text-zinc-100 font-mono font-extrabold tracking-wide">
-                                    {status.isPlayable ? 'PRONTO' : 'EM DEV'}
-                                  </span>
-                                </div>
+                              {/* Top LED bar - Pure Power Indicator (LED) with zero text clutter */}
+                              <div className="flex items-center justify-end w-full relative z-10">
+                                <span 
+                                  className="w-1.5 h-1.5 rounded-full animate-pulse shadow-[0_0_8px_currentcolor]" 
+                                  style={{ 
+                                    backgroundColor: status.color,
+                                    color: status.color
+                                  }}
+                                  title={status.isPlayable ? 'PRONTO' : 'EM DESENVOLVIMENTO'}
+                                />
                               </div>
 
                               {/* Console Logo inside Card */}
                               <div className="flex-1 flex items-center justify-center relative overflow-visible my-1 z-0">
                                 <CardConsoleLogo system={sys} isSelected={isSelected} />
-                              </div>
-
-                              {/* Bottom title of console */}
-                              <div className="w-full text-center relative z-10 border-t border-white/5 pt-1.5 mt-0">
-                                <p className={`text-[8.5px] md:text-[10px] font-black uppercase tracking-wide truncate leading-none ${
-                                  isSelected ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-300'
-                                }`}>
-                                  {sys.name}
-                                </p>
                               </div>
 
                               {/* Glowing sweep overlay line for premium feedback */}
