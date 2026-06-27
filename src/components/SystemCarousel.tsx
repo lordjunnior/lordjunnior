@@ -33,6 +33,29 @@ export interface SystemTechSpecs {
   backdropUrl?: string;
 }
 
+export const getConsoleSEOHeader = (systemId: string, systemName: string): string => {
+  const id = (systemId || '').toLowerCase().trim();
+  if (id.includes('dreamcast')) {
+    return "Lendas de 128-Bits: O Legado e Segredos do Dreamcast";
+  }
+  if (id.includes('snes') || id.includes('supernintendo')) {
+    return "O Rei dos 16-Bits: A Era de Ouro do Super Nintendo";
+  }
+  if (id.includes('nes') || (id.includes('nintendo') && !id.includes('64') && !id.includes('ds') && !id.includes('gameboy') && !id.includes('cube'))) {
+    return "8-Bits Imortais: A Revolução que Salvou a Indústria de Videogames";
+  }
+  if (id.includes('genesis') || id.includes('megadrive')) {
+    return "Velocidade Blast Processing: O Legado Desafiador do Mega Drive";
+  }
+  if (id.includes('ps2') || id.includes('playstation2')) {
+    return "O Titã Insuperável: A Dinastia Lendária do PlayStation 2";
+  }
+  if (id.includes('n64') || id.includes('nintendo64')) {
+    return "Pioneirismo em 3D: A Revolução Tridimensional do Nintendo 64";
+  }
+  return `Máquina do Tempo: O Legado e Segredos do ${systemName}`;
+};
+
 // O DICIONÁRIO COMPLETO DE ESPECIFICAÇÕES TÉCNICAS E HISTÓRICAS
 export const systemSpecsMap: Record<string, SystemTechSpecs> = {
   nes: {
@@ -842,7 +865,9 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
   const filteredActiveIndex = filteredSystems.findIndex(f => f.originalIdx === activeIndex);
 
   // Maintain virtual infinite index for continuous smooth rotational animation without jumps
-  const [virtualActiveIndex, setVirtualActiveIndex] = useState(0);
+  const [virtualActiveIndex, setVirtualActiveIndex] = useState(() => {
+    return filteredActiveIndex !== -1 ? filteredActiveIndex : 0;
+  });
 
   useEffect(() => {
     if (filteredActiveIndex === -1) return;
@@ -977,35 +1002,43 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
       setRecentlyPlayed(JSON.parse(rawRecent));
 
       let rawFavs = localStorage.getItem('retro_favorites');
-      if (!rawFavs || JSON.parse(rawFavs).length === 0) {
+      let favoriteKeys: string[] = [];
+      let isArray = false;
+
+      if (rawFavs) {
+        try {
+          const parsed = JSON.parse(rawFavs);
+          if (Array.isArray(parsed)) {
+            favoriteKeys = parsed;
+            isArray = true;
+          }
+        } catch {}
+      }
+
+      if (!rawFavs || !isArray || favoriteKeys.length === 0) {
         const defaultFavKeys = [
           'snes::Chrono Trigger',
           'nes::Contra',
           'nes::Super Mario Bros. 3'
         ];
         localStorage.setItem('retro_favorites', JSON.stringify(defaultFavKeys));
-        rawFavs = JSON.stringify(defaultFavKeys);
+        favoriteKeys = defaultFavKeys;
       }
 
-      if (rawFavs) {
-        const favoriteKeys: string[] = JSON.parse(rawFavs);
-        const favs: any[] = [];
-        systems.forEach(sys => {
-          sys.games.forEach(g => {
-            if (favoriteKeys.includes(`${sys.id}::${g.title}`)) {
-              favs.push({
-                systemId: sys.id,
-                systemName: sys.name,
-                title: g.title,
-                image: g.image
-              });
-            }
-          });
+      const favs: any[] = [];
+      systems.forEach(sys => {
+        sys.games.forEach(g => {
+          if (favoriteKeys.includes(`${sys.id}::${g.title}`)) {
+            favs.push({
+              systemId: sys.id,
+              systemName: sys.name,
+              title: g.title,
+              image: g.image
+            });
+          }
         });
-        setFavoritesList(favs);
-      } else {
-        setFavoritesList([]);
-      }
+      });
+      setFavoritesList(favs);
     } catch (e) {
       console.error('[RetroHub] Erro ao carregar favoritos na página inicial:', e);
     }
@@ -1583,14 +1616,19 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
             <div>
               {/* Header */}
-              <div className="flex items-center gap-2 mb-4 justify-end">
-                <span className="text-zinc-400 font-mono text-[9px] tracking-[0.2em] uppercase font-black text-right">
-                  DADOS DO SISTEMA ATIVO
-                </span>
-                <span className="relative flex h-1.5 w-1.5 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span>
-                </span>
+              <div className="flex flex-col gap-1 mb-4 border-b border-white/5 pb-3">
+                <div className="flex items-center gap-2 justify-between">
+                  <span className="text-zinc-500 font-mono text-[8px] tracking-[0.15em] uppercase font-black">
+                    MÁQUINA DO TEMPO / ARQUIVO HISTÓRICO
+                  </span>
+                  <span className="relative flex h-1.5 w-1.5 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span>
+                  </span>
+                </div>
+                <h3 className="text-xs font-sans font-black text-white uppercase tracking-tight leading-tight text-left">
+                  {getConsoleSEOHeader(activeSystem.id, activeSystem.name)}
+                </h3>
               </div>
 
               {/* Specs Rows */}
@@ -1660,7 +1698,17 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                     boxShadow: `0 0 10px ${activeColor.hex}`
                   }}
                 />
-                <span className="relative z-10 font-bold tracking-widest text-zinc-100 group-hover/btn:text-white transition-colors">LIGAR CONSOLE</span>
+                <span className="relative z-10 font-bold tracking-widest text-zinc-100 group-hover/btn:text-white transition-colors flex items-center gap-1.5">
+                  {isSystemSupported(activeSystem.id) ? (
+                    <>
+                      REVIVER ESTA ERA <span className="group-hover/btn:translate-x-1 transition-transform duration-300 inline-block">➔</span>
+                    </>
+                  ) : (
+                    <>
+                      DESBLOQUEAR EM BREVE <span className="group-hover/btn:translate-x-1 transition-transform duration-300 inline-block">➔</span>
+                    </>
+                  )}
+                </span>
                 
                 {/* Glass sweep effect */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none opacity-0 group-hover/btn:opacity-100 transition-opacity" />

@@ -201,7 +201,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Busque simultaneamente em todos os consoles e jogos..."
+                  placeholder="Qual clássico marcou sua infância? Busque aqui..."
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);

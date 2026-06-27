@@ -241,35 +241,77 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
           />
         ) : (
           /* Premium Fallback CSS custom retro card */
-          <div className={`w-full h-full flex flex-col items-center justify-between p-3 bg-gradient-to-br ${consoleColorClass} relative overflow-hidden`}>
+          <div className={`w-full h-full flex flex-col items-center justify-between p-3 bg-gradient-to-br ${consoleColorClass} relative overflow-hidden group`}>
             {/* Ambient shadow gradient */}
-            <div className="absolute inset-0 bg-black/25 mix-blend-overlay pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-white/10 pointer-events-none" />
+            <div className="absolute inset-0 bg-black/45 mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-white/5 pointer-events-none" />
             
             {/* Scanlines overlay effect */}
             <div 
-              className="absolute inset-0 opacity-[0.05] pointer-events-none"
+              className="absolute inset-0 opacity-[0.06] pointer-events-none"
               style={{
                 backgroundImage: 'linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
                 backgroundSize: '100% 4px'
               }}
             />
 
-            {/* Elegant Fallback Text */}
-            <span className="font-mono text-[7px] text-white/50 tracking-wider uppercase font-bold z-10">
-              [ ARTE ORIGINAL INDISPONÍVEL ]
+            {/* Glowing Neon Interrogation Label */}
+            <span className="font-mono text-[7px] text-cyan-400/90 tracking-widest uppercase font-black z-10 animate-pulse drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]">
+              RELÍQUIA RETRO
             </span>
 
-            {/* Glowing Gamepad badge */}
-            <div className="flex-1 flex flex-col items-center justify-center -mt-1">
-              <div className="p-2 bg-white/10 rounded-full border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group-hover:scale-110 transition-transform duration-300">
-                <Gamepad2 className="w-5 h-5 text-white drop-shadow-[0_2px_4px_rgba(255,255,255,0.3)]" />
-              </div>
+            {/* High-fidelity Neon Holographic CD/Cartridge */}
+            <div className="flex-1 flex flex-col items-center justify-center w-full relative">
+              {(() => {
+                const sId = (systemId || '').toLowerCase();
+                const isCd = ['ps1', 'playstation', 'ps2', 'playstation2', 'ps3', 'playstation3', 'dreamcast', 'saturn', 'sega-cd', 'pc-engine-cd'].some(item => sId.includes(item));
+                
+                if (isCd) {
+                  return (
+                    /* Holographic Spinning CD */
+                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-tr from-indigo-500 via-pink-500 to-cyan-400 p-[1px] shadow-[0_0_15px_rgba(244,63,94,0.3)] animate-[spin_8s_linear_infinite] flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                      {/* CD Holographic sheens */}
+                      <div className="absolute inset-0.5 rounded-full bg-zinc-950 flex items-center justify-center overflow-hidden">
+                        {/* Reflective shine slices */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-pink-500/20 to-violet-500/20 animate-pulse" />
+                        <div className="absolute -inset-10 bg-[radial-gradient(circle,rgba(255,255,255,0.07)_0%,transparent_60%)]" />
+                        <div className="w-6 h-6 rounded-full border border-white/10 bg-zinc-900/90 flex items-center justify-center shadow-inner relative">
+                          {/* Center hole */}
+                          <div className="w-2.5 h-2.5 rounded-full bg-zinc-950 border border-white/5 flex items-center justify-center text-[8px] text-cyan-400 font-extrabold font-mono">
+                            ?
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                } else {
+                  return (
+                    /* Holographic Cartridge */
+                    <div className="relative w-14 h-16 md:w-16 md:h-18 bg-zinc-900/95 rounded-t-lg rounded-b border border-cyan-400/30 p-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] flex flex-col items-center justify-between group-hover:scale-105 transition-transform duration-500">
+                      {/* Cartridge ridges */}
+                      <div className="w-full flex justify-between gap-0.5 px-0.5 opacity-60">
+                        <div className="w-1 h-2.5 bg-zinc-800 rounded-sm border-t border-white/5" />
+                        <div className="w-1 h-2.5 bg-zinc-800 rounded-sm border-t border-white/5" />
+                        <div className="w-1 h-2.5 bg-zinc-800 rounded-sm border-t border-white/5" />
+                      </div>
+                      {/* Cartridge Label Space */}
+                      <div className="flex-1 w-full bg-gradient-to-tr from-cyan-500/20 via-fuchsia-500/10 to-indigo-500/20 border border-white/10 rounded my-1 flex flex-col items-center justify-center relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-cyan-500/10 to-purple-500/5 animate-pulse" />
+                        <span className="text-sm font-display font-black text-cyan-400/95 drop-shadow-[0_0_4px_rgba(34,211,238,0.7)] animate-bounce">
+                          ?
+                        </span>
+                      </div>
+                      {/* Cartridge lower grip */}
+                      <div className="w-full h-0.5 bg-cyan-400/20 rounded-full" />
+                    </div>
+                  );
+                }
+              })()}
             </div>
 
             {/* Centered Game Title details */}
-            <div className="w-full text-center z-10 px-1">
-              <span className="font-display font-black text-white text-xs uppercase tracking-wide line-clamp-2 leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+            <div className="w-full text-center z-10 px-1 mt-1">
+              <span className="font-display font-black text-white text-[10px] md:text-xs uppercase tracking-wide line-clamp-2 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
                 {game.title}
               </span>
             </div>

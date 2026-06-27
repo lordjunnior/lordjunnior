@@ -37,7 +37,22 @@ export default function App() {
   const applySavedFavorites = (systemsList: System[]): System[] => {
     try {
       const raw = localStorage.getItem('retro_favorites');
-      if (!raw) {
+      let favoriteKeys: string[] = [];
+      let isArray = false;
+      
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            favoriteKeys = parsed;
+            isArray = true;
+          }
+        } catch (e) {
+          console.warn('[RetroHub] Falha ao analisar JSON de favoritos, reiniciando:', e);
+        }
+      }
+
+      if (!raw || !isArray) {
         // Create initial favorites array using defaults
         const initialFavs: string[] = [];
         systemsList.forEach(sys => {
@@ -51,7 +66,6 @@ export default function App() {
         return systemsList;
       }
 
-      const favoriteKeys: string[] = JSON.parse(raw);
       return systemsList.map(sys => ({
         ...sys,
         games: sys.games.map(g => ({
@@ -69,11 +83,20 @@ export default function App() {
     try {
       const raw = localStorage.getItem('retro_favorites');
       let favoriteKeys: string[] = [];
+      let isArray = false;
       const compositeKey = `${systemId}::${gameTitle}`;
 
       if (raw) {
-        favoriteKeys = JSON.parse(raw);
-      } else {
+        try {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            favoriteKeys = parsed;
+            isArray = true;
+          }
+        } catch {}
+      }
+
+      if (!isArray) {
         const currentFavs: string[] = [];
         systems.forEach(sys => {
           sys.games.forEach(g => {

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { GameCover } from './GameCover';
 import { getLogoFileName } from '../utils/logoResolver';
-import { getSystemThemeColor } from './SystemCarousel';
+import { getSystemThemeColor, getConsoleSEOHeader } from './SystemCarousel';
 
 export const getRichDescription = (title: string, systemName: string): string => {
   const cleanTitle = title.trim();
@@ -1099,7 +1099,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             {/* Header / Search Controls */}
             <div className="p-3 border-b border-white/5 flex flex-col gap-2">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black uppercase tracking-widest text-[#E60012]">Mural de Clássicos</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#E60012]">Seu Acervo Sagrado: O Resgate das Capas Originais</span>
                 
                 {/* Heart Filter Toggle */}
                 <button 
@@ -1125,7 +1125,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 <input 
                   ref={searchInputRef}
                   type="text"
-                  placeholder="Buscar clássico..."
+                  placeholder="Qual clássico marcou sua infância? Busque aqui..."
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
@@ -1454,7 +1454,9 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 >
                   <div className="border-b border-white/5 pb-2">
                     <span className="text-[8px] text-[var(--theme-color)] uppercase tracking-[0.25em] font-extrabold">Trajetória do Sucesso</span>
-                    <h2 className="text-lg font-bold text-white uppercase mt-1">História do Console</h2>
+                    <h2 className="text-lg font-bold text-white uppercase mt-1">
+                      {getConsoleSEOHeader(system.id, system.name)}
+                    </h2>
                   </div>
 
                   <p className="text-[10.5px] leading-relaxed text-zinc-400 bg-white/2 p-3.5 rounded-xl border border-white/5">
