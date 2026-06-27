@@ -7,9 +7,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { System } from '../types';
 import { soundEngine } from './RetroSoundEngine';
-import { Gamepad2, Cpu, Calendar, Archive, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Gamepad2, Cpu, Calendar, Archive, Search, ChevronLeft, ChevronRight, Play, Heart, Clock, Trophy, Star } from 'lucide-react';
 import { GameCover } from './GameCover';
 import { getLogoFileName } from '../utils/logoResolver';
+import { getGameSlug } from '../utils/routeUtils';
 
 interface SystemCarouselProps {
   systems: System[];
@@ -449,6 +450,19 @@ export const systemSpecsMap: Record<string, SystemTechSpecs> = {
     hardwareSummary: "Um marco histórico da sétima geração que consolidou o multiplayer competitivo, o sistema de Conquistas (Achievements), o Xbox Live Arcade e introduziu o revolucionário sensor de movimentos Kinect.",
     consolePhotoUrl: "/logos/consolexbox360.png",
     backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
+  },
+  saturn: {
+    manufacturer: "Sega",
+    generation: "32-Bits (5ª Geração)",
+    cpu: "2x Hitachi SH-2 32-bit RISC @ 28.6 MHz",
+    ram: "2 MB RAM principal + 1.56 MB VRAM",
+    media: "CD-ROM",
+    releaseYear: "1994 (Japão) / 1995 (EUA)",
+    accentColor: "from-sky-600 via-indigo-700 to-zinc-950",
+    glowColor: "rgba(56, 189, 248, 0.45)",
+    hardwareSummary: "O poderoso console de processadores duplos da SEGA. Lar de lendários ports de arcade em 2D perfeitos e joias clássicas 3D cultuadas até hoje.",
+    consolePhotoUrl: "/logos/consolesaturn.png",
+    backdropUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200"
   }
 };
 
@@ -621,7 +635,7 @@ const CentralConsoleLogo: React.FC<{ system: System }> = ({ system }) => {
       style={{
         filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.85)) drop-shadow(0 0 25px rgba(255,255,255,0.15))"
       }}
-      className="max-h-full w-auto max-w-[320px] md:max-w-[480px] object-contain"
+      className="max-h-full w-auto max-w-[340px] md:max-w-[500px] lg:max-w-[650px] xl:max-w-[750px] object-contain transition-all duration-300"
       onError={handleError}
       referrerPolicy="no-referrer"
     />
@@ -944,40 +958,369 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
     }
   };
 
-  return (
-    <div className="relative w-full min-h-screen bg-transparent flex flex-col justify-start gap-6 select-none font-sans pb-16">
-      
-      {/* PAINEL SUPERIOR: INFOS RESUMIDAS & IMAGEM DE ALTA QUALIDADE DO CONSOLE (DESIGN PREMIUM) */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-center pt-20 md:pt-24 px-6">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeSystem.id}
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -30, scale: 0.95 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="flex flex-col items-center text-center max-w-3xl px-4"
-          >
-            {/* Logotipo do Console Principal (Firme, Vibrante e Autêntico com Fallbacks Automáticos) */}
-            <div className="h-48 md:h-64 w-auto flex items-center justify-center relative select-none pointer-events-none">
-              {/* Soft ambient background glow behind central logo */}
-              <div 
-                className="absolute inset-[-60px] -z-10 blur-3xl opacity-20 transition-all duration-750 pointer-events-none"
-                style={{
-                  background: `radial-gradient(circle, ${activeColor.hex} 0%, transparent 70%)`
-                }}
-              />
-              <CentralConsoleLogo system={activeSystem} />
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+  // Carrega e sincroniza o histórico e favoritos dinâmicos do localStorage
+  const [recentlyPlayed, setRecentlyPlayed] = useState<any[]>([]);
+  const [favoritesList, setFavoritesList] = useState<any[]>([]);
 
-      {/* PAINEL DE CONTROLE DE SELEÇÃO DE CONSOLES - CAROUSEL FLUTUANTE (SEM FAIXA DE FUNDO) */}
-      <div className="relative z-30 w-full max-w-none px-0 mb-4">
-        <div className="relative py-4 px-6 flex flex-col gap-5 overflow-visible">
+  const loadHistoryAndFavorites = () => {
+    try {
+      let rawRecent = localStorage.getItem('retro_recently_played');
+      if (!rawRecent || JSON.parse(rawRecent).length === 0) {
+        const defaultRecent = [
+          { systemId: 'snes', systemName: 'Super Nintendo', title: 'Super Mario World', image: '/covers/snes-super-mario-world.svg' },
+          { systemId: 'genesis', systemName: 'Sega Genesis / Mega Drive', title: 'Sonic the Hedgehog 2', image: '/covers/genesis-sonic-the-hedgehog-2.svg' },
+          { systemId: 'nes', systemName: 'Nintendo Entertainment System', title: 'The Legend of Zelda', image: '/covers/nes-the-legend-of-zelda.svg' }
+        ];
+        localStorage.setItem('retro_recently_played', JSON.stringify(defaultRecent));
+        rawRecent = JSON.stringify(defaultRecent);
+      }
+      setRecentlyPlayed(JSON.parse(rawRecent));
+
+      let rawFavs = localStorage.getItem('retro_favorites');
+      if (!rawFavs || JSON.parse(rawFavs).length === 0) {
+        const defaultFavKeys = [
+          'snes::Chrono Trigger',
+          'nes::Contra',
+          'nes::Super Mario Bros. 3'
+        ];
+        localStorage.setItem('retro_favorites', JSON.stringify(defaultFavKeys));
+        rawFavs = JSON.stringify(defaultFavKeys);
+      }
+
+      if (rawFavs) {
+        const favoriteKeys: string[] = JSON.parse(rawFavs);
+        const favs: any[] = [];
+        systems.forEach(sys => {
+          sys.games.forEach(g => {
+            if (favoriteKeys.includes(`${sys.id}::${g.title}`)) {
+              favs.push({
+                systemId: sys.id,
+                systemName: sys.name,
+                title: g.title,
+                image: g.image
+              });
+            }
+          });
+        });
+        setFavoritesList(favs);
+      } else {
+        setFavoritesList([]);
+      }
+    } catch (e) {
+      console.error('[RetroHub] Erro ao carregar favoritos na página inicial:', e);
+    }
+  };
+
+  useEffect(() => {
+    loadHistoryAndFavorites();
+    const handleRecentUpdate = () => {
+      loadHistoryAndFavorites();
+    };
+    window.addEventListener('retro_recently_played_updated', handleRecentUpdate);
+    return () => {
+      window.removeEventListener('retro_recently_played_updated', handleRecentUpdate);
+    };
+  }, [systems]);
+
+  const handleNavigateToGame = (systemId: string, gameTitle: string) => {
+    soundEngine.playSelect();
+    const slug = getGameSlug(systemId, gameTitle);
+    window.history.pushState({}, '', `/game/${slug}`);
+    window.dispatchEvent(new Event('popstate'));
+  };
+
+  const getSystemRegion = (id: string): string => {
+    const cleanId = id.toLowerCase();
+    if (['nes', 'snes', 'n64', 'gba', 'gb', 'gbc', 'nds', 'gamecube', 'gc'].includes(cleanId)) {
+      return "NTSC-U / NTSC-J";
+    }
+    if (['genesis', 'megadrive', 'sega', 'sms', 'mastersystem', 'saturn', 'dreamcast'].includes(cleanId)) {
+      return "NTSC-U / PAL-M";
+    }
+    if (['playstation', 'psx', 'ps1', 'ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xbox360', 'xboxclassic'].includes(cleanId)) {
+      return "América / Japão / Europa";
+    }
+    if (['arcade', 'neogeo'].includes(cleanId)) {
+      return "Mundial (Fliperamas)";
+    }
+    return "NTSC / PAL / SECAM";
+  };
+
+  const getSystemPopularGame = (id: string): string => {
+    const cleanId = id.toLowerCase();
+    const map: Record<string, string> = {
+      nes: "Super Mario Bros. 3",
+      snes: "Super Mario World",
+      n64: "Super Mario 64",
+      gb: "Tetris",
+      gameboy: "Tetris",
+      gbc: "Pokémon Yellow",
+      gameboycolor: "Pokémon Yellow",
+      gba: "Pokémon Emerald",
+      nds: "New Super Mario Bros.",
+      genesis: "Sonic the Hedgehog 2",
+      megadrive: "Sonic the Hedgehog 2",
+      playstation: "Castlevania: Symphony of the Night",
+      psx: "Castlevania: Symphony of the Night",
+      ps1: "Castlevania: Symphony of the Night",
+      playstation2: "GTA: San Andreas",
+      ps2: "GTA: San Andreas",
+      playstation3: "The Last of Us",
+      ps3: "The Last of Us",
+      xbox: "Halo 2",
+      xboxclassic: "Halo 2",
+      xbox360: "Halo 3",
+      sms: "Alex Kidd in Miracle World",
+      mastersystem: "Alex Kidd in Miracle World",
+      saturn: "Sega Rally Championship",
+      dreamcast: "Sonic Adventure 2",
+      gamecube: "Super Smash Bros. Melee",
+      neogeo: "Metal Slug X",
+      arcade: "Street Fighter II",
+      pce: "Castlevania: Rondo of Blood"
+    };
+    return map[cleanId] || "Clássicos da Época";
+  };
+
+  return (
+    <div className="relative w-full min-h-screen lg:h-[calc(100vh-140px)] lg:min-h-[620px] bg-transparent flex flex-col justify-start lg:justify-between select-none font-sans pb-16 lg:pb-0 lg:overflow-hidden">
+      
+      {/* 3-COLUMN RETRO HUB COMMAND CENTER */}
+      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch justify-center flex-1 min-h-0 pt-16 md:pt-20 lg:pt-4">
+        
+        {/* COLUNA ESQUERDA (DASHBOARD DO USUÁRIO - MEU SISTEMA RETRO) */}
+        <div className="col-span-1 lg:col-span-3 h-full flex flex-col justify-center transition-opacity duration-200">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+            className="relative overflow-hidden bg-zinc-900/65 border border-white/10 backdrop-blur-md rounded-2xl p-4 xl:p-5 shadow-2xl flex flex-col justify-between hover:bg-zinc-900/75 hover:border-white/15 transition-all duration-300 h-fit"
+          >
+            {/* O "LED" superior */}
+            <div 
+              className="absolute top-0 left-0 h-[2px] w-full pulse-led"
+              style={{ 
+                backgroundImage: `linear-gradient(to right, transparent, ${activeColor.hex}, transparent)` 
+              }}
+            />
+
+            <div>
+              {/* Header */}
+              <div className="flex items-center gap-1.5 mb-3.5">
+                <span className="relative flex h-1.5 w-1.5 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                </span>
+                <span className="text-zinc-400 font-mono text-[9px] tracking-[0.2em] uppercase font-black">
+                  MEU SISTEMA RETRO
+                </span>
+              </div>
+
+              {/* Items */}
+              <div className="space-y-4 font-sans">
+                {/* 🕹️ Continuar Jogando */}
+                <div className="group/item">
+                  <span className="text-zinc-500 block text-[7.5px] font-mono font-black tracking-widest uppercase mb-1">
+                    🕹️ CONTINUAR JOGANDO
+                  </span>
+                  {(() => {
+                    const latestRecentGame = recentlyPlayed[0];
+                    if (latestRecentGame) {
+                      return (
+                        <div 
+                          onClick={() => handleNavigateToGame(latestRecentGame.systemId, latestRecentGame.title)}
+                          className="flex items-center gap-2 bg-white/5 border border-white/5 rounded-xl p-1.5 hover:bg-white/10 hover:border-white/15 transition-all cursor-pointer group"
+                        >
+                          <div className="w-8 h-10 bg-zinc-950 rounded overflow-hidden flex-shrink-0 border border-white/10 relative">
+                            <img 
+                              src={latestRecentGame.image || `/covers/${latestRecentGame.systemId}-default.png`} 
+                              alt={latestRecentGame.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                              onError={(e) => {
+                                e.currentTarget.src = `/covers/${latestRecentGame.systemId}-default.png`;
+                              }}
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <Play className="w-3.5 h-3.5 text-white fill-white animate-pulse" />
+                            </div>
+                          </div>
+                          <div className="truncate flex-1">
+                            <h4 className="text-zinc-200 text-xs font-bold truncate group-hover:text-white transition-colors leading-tight">
+                              {latestRecentGame.title}
+                            </h4>
+                            <p className="text-zinc-500 text-[8px] font-mono uppercase mt-0.5 truncate">
+                              {latestRecentGame.systemName || latestRecentGame.systemId}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      const suggestedGame = activeSystem.games[0] || { title: "Super Mario World", id: "smw" };
+                      return (
+                        <div 
+                          onClick={() => handleNavigateToGame(activeSystem.id, suggestedGame.title)}
+                          className="flex items-center gap-2 bg-white/3 border border-white/5 border-dashed rounded-xl p-1.5 hover:bg-white/5 hover:border-white/10 transition-all cursor-pointer"
+                        >
+                          <div className="w-8 h-10 bg-zinc-950/40 rounded flex items-center justify-center flex-shrink-0 text-zinc-600 border border-white/5">
+                            <Play className="w-3.5 h-3.5" />
+                          </div>
+                          <div className="truncate flex-1">
+                            <h4 className="text-zinc-400 text-xs truncate font-medium leading-tight">
+                              {suggestedGame.title}
+                            </h4>
+                            <p className="text-emerald-500/80 text-[7.5px] font-mono uppercase mt-0.5 font-bold">
+                              Sugestão do Dia
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })()}
+                </div>
+
+                {/* ❤️ Favoritos */}
+                <div>
+                  <span className="text-zinc-500 block text-[7.5px] font-mono font-black tracking-widest uppercase mb-1">
+                    ❤️ MEUS FAVORITOS
+                  </span>
+                  {favoritesList.length > 0 ? (
+                    <div className="space-y-1.5">
+                      {favoritesList.slice(0, 2).map((item: any, idx: number) => (
+                        <div 
+                          key={`fav-${idx}`}
+                          onClick={() => handleNavigateToGame(item.systemId, item.title)}
+                          className="flex items-center justify-between text-xs bg-white/3 hover:bg-white/8 border border-transparent hover:border-white/5 px-2.5 py-1.5 rounded-lg transition-all cursor-pointer group"
+                        >
+                          <span className="text-zinc-300 group-hover:text-white font-medium truncate max-w-[140px]">
+                            {item.title}
+                          </span>
+                          <span className="text-[7.5px] font-mono text-zinc-500 uppercase shrink-0 font-bold">
+                            {item.systemId}
+                          </span>
+                        </div>
+                      ))}
+                      {favoritesList.length > 2 && (
+                        <p className="text-[7.5px] text-zinc-500 font-mono text-right pr-1 mt-0.5">
+                          + {favoritesList.length - 2} outros salvos
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="border border-dashed border-white/5 rounded-lg p-2.5 text-center bg-white/[0.01]">
+                      <p className="text-zinc-600 text-[9px] font-sans">Sem favoritos salvos</p>
+                      <p className="text-zinc-700 text-[7.5px] font-mono">Clique no ❤️ no jogo</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* 🕓 Últimos Jogados */}
+                <div>
+                  <span className="text-zinc-500 block text-[7.5px] font-mono font-black tracking-widest uppercase mb-1">
+                    🕓 HISTÓRICO DE JOGADAS
+                  </span>
+                  {recentlyPlayed.length > 1 ? (
+                    <div className="space-y-1.5">
+                      {recentlyPlayed.slice(1, 3).map((item: any, idx: number) => (
+                        <div 
+                          key={`recent-${idx}`}
+                          onClick={() => handleNavigateToGame(item.systemId, item.title)}
+                          className="flex items-center justify-between text-xs bg-white/3 hover:bg-white/8 border border-transparent hover:border-white/5 px-2.5 py-1.5 rounded-lg transition-all cursor-pointer group"
+                        >
+                          <span className="text-zinc-300 group-hover:text-white truncate max-w-[140px]">
+                            {item.title}
+                          </span>
+                          <span className="text-[7.5px] font-mono text-zinc-500 uppercase shrink-0 font-bold">
+                            {item.systemId}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="border border-dashed border-white/5 rounded-lg p-2.5 text-center bg-white/[0.01]">
+                      <p className="text-zinc-600 text-[9px] font-sans">Nenhuma sessão recente</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* 🏆 Jogos Mais Jogados */}
+                <div>
+                  <span className="text-zinc-500 block text-[7.5px] font-mono font-black tracking-widest uppercase mb-1">
+                    🏆 DESTAQUES DA COMUNIDADE
+                  </span>
+                  <div className="space-y-1.5 font-sans text-xs">
+                    {(() => {
+                      const activePopularGames = activeSystem.games ? activeSystem.games.slice(0, 2) : [];
+                      if (activePopularGames.length > 0) {
+                        return activePopularGames.map((item, idx) => (
+                          <div 
+                            key={`pop-${idx}`}
+                            onClick={() => handleNavigateToGame(activeSystem.id, item.title)}
+                            className="flex items-center justify-between text-xs bg-white/3 hover:bg-white/8 border border-transparent hover:border-white/5 px-2.5 py-1.5 rounded-lg transition-all cursor-pointer group"
+                          >
+                            <span className="text-zinc-300 group-hover:text-white truncate max-w-[140px]">
+                              {item.title}
+                            </span>
+                            <span className="text-[7.5px] font-mono text-amber-500 font-bold shrink-0">
+                              ★ {idx === 0 ? "9.8" : "9.5"}
+                            </span>
+                          </div>
+                        ));
+                      } else {
+                        return (
+                          <p className="text-zinc-600 text-[9px] italic">Sem títulos disponíveis</p>
+                        );
+                      }
+                    })()}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* ⭐ Coleção Pessoal Stats */}
+            <div className="border-t border-white/5 pt-2.5 mt-3 flex items-center justify-between font-sans text-[10px] shrink-0">
+              <div>
+                <span className="text-[7.5px] text-zinc-600 font-mono block leading-none">COLEÇÃO ATUAL</span>
+                <span className="text-zinc-400 font-bold font-mono text-[9px] block mt-0.5">⭐ {systems.length} EMULADOS</span>
+              </div>
+              <div className="text-right">
+                <span className="text-[7.5px] text-zinc-600 font-mono block leading-none">VIRTUAL ENGINE</span>
+                <span className="text-emerald-500/80 font-mono font-bold text-[8px] block mt-0.5">● COMPATÍVEL</span>
+              </div>
+            </div>
+
+          </motion.div>
+        </div>
+
+        {/* COLUNA CENTRAL (O PROTAGONISTA CENTRAL ENORME & SELETOR CAROUSEL) */}
+        <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-center text-center relative min-h-0">
           
-          {/* Informações detalhadas do sistema baixadas para ficar bem em cima do carrossel */}
+          {/* Majestic Hero Console Graphic Container (expanded layout size for huge artwork) */}
+          <div className="relative z-10 w-full flex flex-col items-center justify-center max-w-3xl px-4 select-none mb-1 mt-2 lg:mt-0 flex-1 justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSystem.id}
+                initial={{ opacity: 0, y: 25, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -25, scale: 0.96 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="flex flex-col items-center w-full"
+              >
+                <div className="h-96 md:h-[450px] lg:h-[480px] xl:h-[560px] w-auto flex items-center justify-center relative select-none pointer-events-none">
+                  {/* Majestic ambient background glow behind central protagonist */}
+                  <div 
+                    className="absolute inset-[-50px] lg:inset-[-80px] -z-10 blur-[90px] opacity-25 transition-all duration-1000 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(circle, ${activeColor.hex} 0%, transparent 70%)`
+                    }}
+                  />
+                  <CentralConsoleLogo system={activeSystem} />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Carousel Text Info Label */}
           <div className="flex flex-col items-center text-center w-full z-20 pointer-events-none mb-1">
             <AnimatePresence mode="wait">
               <motion.div
@@ -988,19 +1331,19 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-center"
               >
-                <p className="text-zinc-400 text-[10px] tracking-widest font-mono uppercase bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md mb-2">
+                <p className="text-zinc-400 text-[10px] tracking-widest font-mono uppercase bg-white/5 border border-white/10 px-3 py-1 rounded-full backdrop-blur-md mb-2">
                   {specs.manufacturer} • {specs.generation}
                 </p>
-                <h1 className="text-2xl md:text-3.5xl font-black tracking-tight text-white uppercase drop-shadow">
+                <h1 className="text-2xl md:text-4xl xl:text-5xl font-black tracking-tight text-white uppercase drop-shadow-2xl">
                   {activeSystem.name}
                 </h1>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Advanced 3D Cylindrical Ring Carousel */}
+          {/* Compact 3D Cylindrical Ring Carousel Selector */}
           <div 
-            className="relative z-10 w-full min-h-[310px] md:min-h-[390px] flex flex-col items-center justify-center py-2 overflow-visible select-none"
+            className="relative z-10 w-full min-h-[200px] lg:min-h-[220px] xl:min-h-[250px] flex flex-col items-center justify-center py-1 overflow-visible select-none shrink-0"
             onMouseDown={(e) => handleDragStart(e.clientX)}
             onMouseMove={(e) => handleDragMove(e.clientX)}
             onMouseUp={handleDragEnd}
@@ -1021,10 +1364,10 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                     e.stopPropagation();
                     handlePrev();
                   }}
-                  className="absolute left-4 md:left-12 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-3.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
+                  className="absolute left-1 md:left-4 lg:-left-2 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-2.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
                   title="Anterior (Seta Esquerda)"
                 >
-                  <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
+                  <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
                 </button>
 
                 {/* Right Navigation Arrow */}
@@ -1033,19 +1376,19 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                     e.stopPropagation();
                     handleNext();
                   }}
-                  className="absolute right-4 md:right-12 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-3.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
+                  className="absolute right-1 md:right-4 lg:-right-2 z-40 bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-white/20 p-2.5 rounded-full text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur shadow-lg hover:scale-115 active:scale-90 group"
                   title="Próximo (Seta Direita)"
                 >
-                  <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
                 </button>
 
                 {/* 3D Ring Floor Reflection */}
                 <div 
-                  className="absolute w-[500px] h-[500px] md:w-[1000px] md:h-[1000px] rounded-full opacity-15 pointer-events-none -z-10 transition-all duration-700"
+                  className="absolute w-[400px] h-[400px] md:w-[800px] md:h-[800px] rounded-full opacity-10 pointer-events-none -z-10 transition-all duration-700"
                   style={{
                     background: `radial-gradient(circle, ${activeColor.hex} 0%, transparent 70%)`,
-                    transform: 'rotateX(82deg) translateZ(-150px)',
-                    boxShadow: `0 0 80px 20px ${activeColor.hex}`
+                    transform: 'rotateX(82deg) translateZ(-110px)',
+                    boxShadow: `0 0 60px 15px ${activeColor.hex}`
                   }}
                 />
 
@@ -1053,18 +1396,12 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                 {(() => {
                   const baseN = filteredSystems.length;
                   const isMobile = windowWidth < 768;
-                  // Maintain the exact original base radius they loved
-                  const radius = isMobile ? 140 : 540;
-                  const targetWidth = isMobile ? (windowWidth - 40) : (windowWidth - 220);
+                  const radius = isMobile ? 120 : 440;
+                  const targetWidth = isMobile ? (windowWidth - 40) : (windowWidth - 320);
                   const diameter = radius * 2;
                   const stretchX = Math.max(0.7, Math.min(1.8, targetWidth / diameter));
-
-                  // Tight spacing step angle matching the exact layout they loved
                   const stepAngle = isMobile ? 18 : 13;
-
-                  // Render slots around virtualActiveIndex to fill the screen edge-to-edge ("de ponta a ponta")
-                  // and keep the carousel infinite and continuous with absolutely zero gaps
-                  const halfSlots = isMobile ? 4 : 5;
+                  const halfSlots = isMobile ? 3 : 5;
                   const displayItems = [];
 
                   if (baseN > 0) {
@@ -1081,7 +1418,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
                   return (
                     <div 
-                      className="relative w-[110px] h-[80px] md:w-[185px] md:h-[125px] transition-transform duration-700"
+                      className="relative w-[100px] h-[72px] md:w-[155px] md:h-[105px] transition-transform duration-700"
                       style={{
                         transformStyle: 'preserve-3d',
                         transform: `scaleX(${stretchX}) rotateX(-3deg) rotateY(${-virtualActiveIndex * stepAngle}deg)`,
@@ -1091,21 +1428,16 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                         const isSelected = offsetJ === 0;
                         const sysColor = getSystemThemeColor(sys.id);
                         const status = getSystemStatus(sys.id);
-                        
-                        // Relative angle of the slot on the screen
                         const displayRelAngle = offsetJ * stepAngle;
                         const displayAngle = displayIdx * stepAngle;
-                        
-                        // Real-time depth calculations via high-performance trigonometry using the compressed angle
                         const angleRad = (displayRelAngle * Math.PI) / 180;
                         const cosVal = Math.cos(angleRad);
-                        
                         const zIndex = Math.round((cosVal + 1) * 100);
                         const opacity = isSelected 
                           ? 1 
                           : cosVal < 0 
-                            ? Math.max(0, 0.05 + (cosVal + 1) * 0.1) // fade out back items to avoid clutter
-                            : Math.max(0.45, 0.45 + cosVal * 0.55); // increased minimum opacity for front items on the sides
+                            ? Math.max(0, 0.05 + (cosVal + 1) * 0.1) 
+                            : Math.max(0.45, 0.45 + cosVal * 0.55);
                         const scale = isSelected ? 1.05 : Math.max(0.72, 0.72 + cosVal * 0.18);
                         const blur = isSelected ? 'none' : `blur(${Math.max(0, (1 - cosVal) * 2.5)}px)`;
                         const isBack = cosVal < 0 && !isSelected;
@@ -1130,14 +1462,13 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                               opacity: opacity,
                               filter: isSelected ? 'none' : blur,
                               zIndex: zIndex,
-                              pointerEvents: isBack ? 'none' : 'auto', // disable clicking on back items
+                              pointerEvents: isBack ? 'none' : 'auto',
                               willChange: isSelected ? 'auto' : 'transform',
                             }}
                           >
-                            {/* Active Spotlight Glow behind card */}
                             {isSelected && (
                               <div
-                                className="absolute inset-[-15px] -z-10 blur-2xl opacity-40 pointer-events-none"
+                                className="absolute inset-[-12px] -z-10 blur-xl opacity-30 pointer-events-none"
                                 style={{
                                   background: `radial-gradient(circle, ${sysColor.hex} 0%, transparent 70%)`,
                                   transform: `scaleX(${1 / stretchX})`,
@@ -1146,23 +1477,21 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                               />
                             )}
 
-                            {/* Beautiful 3D Holographic Capsule card */}
                             <div
-                              className={`w-full h-full p-2 pt-1.5 pb-1 md:p-3 md:pt-2.5 md:pb-1 rounded-2xl border transition-all duration-300 flex flex-col justify-between relative ${
+                              className={`w-full h-full p-2 rounded-xl border transition-all duration-300 flex flex-col justify-between relative ${
                                 isSelected
-                                  ? 'bg-zinc-900/90 border-white/20'
-                                  : 'border-white/5 bg-zinc-950/50 backdrop-blur-md hover:border-white/10 hover:bg-zinc-900/40'
+                                  ? 'bg-zinc-900/95 border-white/20'
+                                  : 'border-white/5 bg-zinc-950/40 backdrop-blur-md hover:border-white/10 hover:bg-zinc-900/30'
                               }`}
                               style={{
                                 transform: `scaleX(${1 / stretchX})`,
                                 transformOrigin: 'center center',
                                 ...(isSelected ? {
                                   borderColor: `${sysColor.hex}bb`,
-                                  boxShadow: `0 0 35px ${sysColor.hex}35, inset 0 1px 1px rgba(255,255,255,0.2)`
+                                  boxShadow: `0 0 25px ${sysColor.hex}25, inset 0 1px 1px rgba(255,255,255,0.15)`
                                 } : {})
                               }}
                             >
-                              {/* Top LED bar - Pure Power Indicator (LED) with zero text clutter */}
                               <div className="flex items-center justify-end w-full relative z-10">
                                 <span 
                                   className="w-1.5 h-1.5 rounded-full animate-pulse shadow-[0_0_8px_currentcolor]" 
@@ -1170,17 +1499,14 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                                     backgroundColor: status.color,
                                     color: status.color
                                   }}
-                                  title={status.isPlayable ? 'PRONTO' : 'EM DESENVOLVIMENTO'}
                                 />
                               </div>
 
-                              {/* Console Logo inside Card */}
-                              <div className="flex-1 flex items-center justify-center relative overflow-visible my-1 z-0">
+                              <div className="flex-1 flex items-center justify-center relative overflow-visible my-0.5 z-0">
                                 <CardConsoleLogo system={sys} isSelected={isSelected} />
                               </div>
 
-                              {/* Glowing sweep overlay line for premium feedback */}
-                              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+                              <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
                           </div>
                         );
@@ -1208,10 +1534,10 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
           </div>
 
-          {/* Pagination Indicators - satisfying active dot tracker, placed safely below the 3D space */}
+          {/* Indicator dots */}
           {filteredSystems.length > 1 && (
-            <div className="flex items-center justify-center gap-1.5 mt-2 z-30 pb-2">
-              {filteredSystems.map(({ sys, originalIdx }, index) => {
+            <div className="flex items-center justify-center gap-1.5 mt-2 z-30 pb-4 shrink-0">
+              {filteredSystems.map(({ sys, originalIdx }) => {
                 const isSelected = originalIdx === activeIndex;
                 return (
                   <button
@@ -1220,10 +1546,10 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                       setActiveIndex(originalIdx);
                       soundEngine.playMove();
                     }}
-                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${
                       isSelected 
-                        ? 'w-6 bg-[var(--theme-color)] shadow-[0_0_8px_var(--theme-color)]' 
-                        : 'w-1.5 bg-zinc-700 hover:bg-zinc-500'
+                        ? 'w-5 bg-[var(--theme-color)] shadow-[0_0_8px_var(--theme-color)]' 
+                        : 'w-1 bg-zinc-700 hover:bg-zinc-500'
                     }`}
                     style={isSelected ? {
                       backgroundColor: activeColor.hex,
@@ -1237,170 +1563,117 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
           )}
 
         </div>
-      </div>
 
-      {/* GRID DE INFORMAÇÕES DE HARDWARE E JOGOS EM DESTAQUE (INFERIOR COM RESPIRAÇÃO EXTRA) */}
-      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 md:px-10 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-2">
-        
-        {/* ESQUERDA: INFOS HISTÓRICAS E ESPECIFICAÇÕES DO CONSOLE (GLASS) */}
-        <div 
-          className="relative overflow-hidden lg:col-span-7 bg-black/30 border backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between hover:border-white/20 transition-all duration-500"
-          style={{
-            borderColor: `${activeColor.hex}15`,
-            boxShadow: `0 20px 40px -15px rgba(0,0,0,0.8), 0 0 30px ${activeColor.hex}03`
-          }}
-        >
-          {/* O "LED" superior do console */}
-          <div 
-            className="absolute top-0 left-0 h-[2px] w-full pulse-led"
-            style={{ 
-              backgroundImage: `linear-gradient(to right, transparent, ${activeColor.hex}, transparent)` 
-            }}
-          />
-
-          <div className="relative z-10">
-            <div className={`h-1 w-16 mb-4 rounded bg-gradient-to-r ${specs.accentColor}`} />
-            <h3 className="text-zinc-400 font-mono text-xs tracking-wider uppercase mb-3">
-              ESPECIFICAÇÕES TÉCNICAS E HISTÓRIA
-            </h3>
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-sans font-normal mb-8">
-              {specs.hardwareSummary}
-            </p>
-          </div>
-
-          <div className="relative z-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-6 font-sans text-xs text-zinc-300">
-            <div className="flex gap-3.5 items-center">
-              <Cpu className="w-5 h-5 text-zinc-400 shrink-0" />
-              <div className="truncate">
-                <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">PROCESSADOR CPU</span>
-                <span className={`${getSpecFontClass(activeSystem.id)} truncate block`}>{specs.cpu}</span>
-              </div>
-            </div>
-            <div className="flex gap-3.5 items-center">
-              <Gamepad2 className="w-5 h-5 text-zinc-400 shrink-0" />
-              <div className="truncate">
-                <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">MEMÓRIA RAM</span>
-                <span className={`${getSpecFontClass(activeSystem.id)} block truncate`}>{specs.ram}</span>
-              </div>
-            </div>
-            <div className="flex gap-3.5 items-center">
-              <Archive className="w-5 h-5 text-zinc-400 shrink-0" />
-              <div className="truncate">
-                <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">MÍDIA ORIGINAL</span>
-                <span className={`${getSpecFontClass(activeSystem.id)} truncate block`}>{specs.media}</span>
-              </div>
-            </div>
-            <div className="flex gap-3.5 items-center">
-              <Calendar className="w-5 h-5 text-zinc-400 shrink-0" />
-              <div>
-                <span className="text-zinc-500 block text-[9px] uppercase tracking-wider font-mono font-black mb-0.5">LANÇAMENTO</span>
-                <span className={`${getSpecFontClass(activeSystem.id)} block`}>{specs.releaseYear}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* DIREITA: GALERIA DE JOGOS DISPONÍVEIS NA BIBLIOTECA (TILT & GLOW) */}
-        <div 
-          className="relative overflow-hidden lg:col-span-5 bg-black/30 border backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between hover:border-white/20 transition-all duration-500"
-          style={{
-            borderColor: `${activeColor.hex}15`,
-            boxShadow: `0 20px 40px -15px rgba(0,0,0,0.8), 0 0 30px ${activeColor.hex}03`
-          }}
-        >
-          {/* O "LED" superior do console */}
-          <div 
-            className="absolute top-0 left-0 h-[2px] w-full pulse-led"
-            style={{ 
-              backgroundImage: `linear-gradient(to right, transparent, ${activeColor.hex}, transparent)` 
-            }}
-          />
-
-          <div className="relative z-10">
-            <h3 className="text-zinc-400 font-mono text-xs tracking-wider uppercase mb-5">
-              BIBLIOTECA COM CORRESPONDÊNCIA DE CAPAS
-            </h3>
-            
-            {topGames.length > 0 ? (
-              <div className="grid grid-cols-4 gap-3 overflow-visible">
-                {topGames.map((game) => (
-                  <div 
-                    key={game.id} 
-                    className="group relative aspect-[3/4] rounded-lg overflow-visible bg-zinc-950 transition-all duration-300 hover:-translate-y-3 hover:scale-110 hover:z-20 cursor-pointer"
-                  >
-                    {/* Shadow projection on tilt/hover */}
-                    <div 
-                      className="absolute -inset-1.5 rounded-lg opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100 pointer-events-none animate-pulse"
-                      style={{ 
-                        background: `radial-gradient(circle, ${activeColor.hex}88 0%, transparent 70%)` 
-                      }}
-                    />
-                    
-                    <div className="relative w-full h-full rounded-lg overflow-hidden border border-white/10 bg-zinc-900 group-hover:border-white/30 transition-all flex items-center justify-center">
-                      <GameCover 
-                        game={game} 
-                        systemId={activeSystem.id} 
-                        className="w-full h-full object-cover" 
-                      />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/60 to-transparent p-1.5 pt-4">
-                        <p className="text-[8.5px] text-white font-mono uppercase font-black truncate leading-none">
-                          {game.title.replace(/\(.*?\)/g, "").trim()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="h-24 flex items-center justify-center border border-dashed border-white/5 rounded-xl bg-white/5">
-                <p className="text-zinc-500 text-xs font-mono">Nenhum título cadastrado</p>
-              </div>
-            )}
-          </div>
-
-          <div className="relative z-10 mt-5 border-t border-white/10 pt-4 flex items-center justify-between">
-            <div className="text-left">
-              <span className="text-[8px] text-zinc-500 font-mono block mb-0.5">CATÁLOGO DE ROMS</span>
-              <span className="text-xs md:text-sm font-mono font-bold text-zinc-200">
-                {activeSystem.gameCount} JOGOS DISPONÍVEIS
-              </span>
-            </div>
-            
-            <button 
-              onClick={handleSelect}
-              className="relative px-6 py-2.5 bg-zinc-900 text-white border font-retro text-[9px] font-black uppercase tracking-widest rounded-lg flex items-center justify-center cursor-pointer overflow-hidden transition-all duration-300 active:scale-95 shadow-md shadow-black/80 group/btn"
-              style={{
-                borderColor: `${activeColor.hex}33`,
+        {/* COLUNA DIREITA (DADOS DO CONSOLE SELECIONADO & LIGAR CONSOLE) */}
+        <div className="col-span-1 lg:col-span-3 h-full flex flex-col justify-center transition-opacity duration-200">
+          <motion.div
+            key={`specs-right-${activeSystem.id}`}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+            className="relative overflow-hidden bg-zinc-900/65 border border-white/10 backdrop-blur-md rounded-2xl p-4 xl:p-5 shadow-2xl flex flex-col justify-between hover:bg-zinc-900/75 hover:border-white/15 transition-all duration-300 h-fit"
+          >
+            {/* O "LED" superior */}
+            <div 
+              className="absolute top-0 left-0 h-[2px] w-full pulse-led"
+              style={{ 
+                backgroundImage: `linear-gradient(to right, transparent, ${activeColor.hex}, transparent)` 
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = `${activeColor.hex}aa`;
-                e.currentTarget.style.boxShadow = `0 0 15px ${activeColor.hex}33`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = `${activeColor.hex}33`;
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              {/* LED do botão Power do Console */}
-              <span 
-                className="w-2.5 h-2.5 rounded-full mr-2.5 pulse-led shadow-sm inline-block shrink-0 animate-pulse" 
-                style={{ 
-                  backgroundColor: activeColor.hex,
-                  boxShadow: `0 0 10px ${activeColor.hex}`
+            />
+
+            <div>
+              {/* Header */}
+              <div className="flex items-center gap-2 mb-4 justify-end">
+                <span className="text-zinc-400 font-mono text-[9px] tracking-[0.2em] uppercase font-black text-right">
+                  DADOS DO SISTEMA ATIVO
+                </span>
+                <span className="relative flex h-1.5 w-1.5 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span>
+                </span>
+              </div>
+
+              {/* Specs Rows */}
+              <div className="space-y-4 font-sans text-xs">
+                
+                {/* 🎮 Nome completo do console */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-zinc-500 text-[8px] font-mono uppercase tracking-wider font-black">🎮 NOME COMPLETO DO CONSOLE</span>
+                  <span className="text-zinc-200 font-bold text-sm truncate uppercase">{activeSystem.name}</span>
+                </div>
+
+                {/* 📅 Ano de lançamento */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-zinc-500 text-[8px] font-mono uppercase tracking-wider font-black">📅 ANO DE LANÇAMENTO</span>
+                  <span className="text-zinc-300 font-semibold">{specs.releaseYear}</span>
+                </div>
+
+                {/* 🏢 Fabricante */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-zinc-500 text-[8px] font-mono uppercase tracking-wider font-black">🏢 FABRICANTE</span>
+                  <span className="text-zinc-300 font-semibold uppercase">{specs.manufacturer}</span>
+                </div>
+
+                {/* 💿 Quantidade de jogos */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-zinc-500 text-[8px] font-mono uppercase tracking-wider font-black">💿 QUANTIDADE DE JOGOS</span>
+                  <span className="text-emerald-400 font-bold font-mono text-[10px]">{activeSystem.gameCount} TÍTULOS DISPONÍVEIS</span>
+                </div>
+
+                {/* 🌎 Região */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-zinc-500 text-[8px] font-mono uppercase tracking-wider font-black">🌎 REGIÃO DO JOGO</span>
+                  <span className="text-zinc-300 font-semibold">{getSystemRegion(activeSystem.id)}</span>
+                </div>
+
+                {/* 🔥 Jogo mais popular */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-zinc-500 text-[8px] font-mono uppercase tracking-wider font-black">🔥 JOGO MAIS POPULAR</span>
+                  <span className="text-amber-400 font-black tracking-wide uppercase truncate">{getSystemPopularGame(activeSystem.id)}</span>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Premium LIGAR CONSOLE button */}
+            <div className="mt-5 border-t border-white/10 pt-4 shrink-0">
+              <button 
+                onClick={handleSelect}
+                className="w-full relative px-4 py-3 bg-zinc-950 hover:bg-zinc-900 text-white border font-retro text-[8.5px] font-black uppercase tracking-widest rounded-xl flex items-center justify-center cursor-pointer overflow-hidden transition-all duration-300 active:scale-95 shadow-lg shadow-black/80 group/btn"
+                style={{
+                  borderColor: `${activeColor.hex}33`,
                 }}
-              />
-              <span className="relative z-10 font-bold tracking-widest">LIGAR SISTEMA</span>
-              
-              {/* Glossy overlay effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none opacity-0 group-hover/btn:opacity-100 transition-opacity" />
-            </button>
-          </div>
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = `${activeColor.hex}aa`;
+                  e.currentTarget.style.boxShadow = `0 0 15px ${activeColor.hex}44`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = `${activeColor.hex}33`;
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                {/* Glowing power LED with PNL colors */}
+                <span 
+                  className="w-2.5 h-2.5 rounded-full mr-2.5 pulse-led shadow-sm inline-block shrink-0 animate-pulse" 
+                  style={{ 
+                    backgroundColor: activeColor.hex,
+                    boxShadow: `0 0 10px ${activeColor.hex}`
+                  }}
+                />
+                <span className="relative z-10 font-bold tracking-widest text-zinc-100 group-hover/btn:text-white transition-colors">LIGAR CONSOLE</span>
+                
+                {/* Glass sweep effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none opacity-0 group-hover/btn:opacity-100 transition-opacity" />
+              </button>
+            </div>
+
+          </motion.div>
         </div>
 
       </div>
 
       {/* RODAPÉ DO CONSOLE */}
-      <footer className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[10px] font-semibold text-zinc-500 tracking-wider">
+      <footer className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/5 backdrop-blur z-40 flex items-center justify-between px-10 font-sans text-[10px] font-semibold text-zinc-500 tracking-wider shrink-0">
         <div>◀ ▶ SELECIONAR SISTEMA • ENTER CONFIRMAR</div>
         <div className="font-mono text-[9px] tracking-widest uppercase text-zinc-600">
           LordTecaRetro • Preservação Digital Retro
