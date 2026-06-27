@@ -211,7 +211,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
 
   // Dynamic user interface interactions
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [activeTab, setActiveTab] = useState<'overview' | 'gallery' | 'achievements' | 'trivia' | 'history'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'trivia' | 'history'>('overview');
   const [timeString, setTimeString] = useState('12:00:00');
 
   // Animation ticks for floating diorama elements
@@ -615,55 +615,179 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
     };
   }, [selectedGame, system.id]);
 
-  // Dynamic screenshot SVGs from genre map
+  // Dynamic screenshot photos from seeded picsum matching gameplay feel
   const genreScreenshots = useMemo(() => {
     if (!selectedGame) return [];
-    const norm = selectedGame.genre.toLowerCase();
-    const systemId = system.id.toLowerCase();
-    const is3D = systemId.includes('ps2') || systemId.includes('ps3') || systemId.includes('playstation') || systemId.includes('xbox') || systemId.includes('n64') || systemId.includes('saturn') || systemId.includes('dreamcast') || systemId.includes('gamecube') || systemId.includes('gc');
     
-    let key = 'default';
-    if (norm.includes('metroidvania') || norm.includes('castlevania') || norm.includes('metroid')) {
-      key = 'metroidvania';
-    } else if (norm.includes('aventura') || norm.includes('adventure')) {
-      key = is3D ? 'aventura-3d' : 'aventura';
-    } else if (norm.includes('rpg tatico') || norm.includes('tático') || norm.includes('tactical')) {
-      key = 'rpg-t-tico';
-    } else if (norm.includes('rpg')) {
-      key = 'rpg';
-    } else if (norm.includes('corrida') || norm.includes('racing') || norm.includes('speed')) {
-      key = 'corrida';
-    } else if (norm.includes('plataforma') || norm.includes('platform')) {
-      key = is3D ? 'plataforma-3d' : 'plataforma';
-    } else if (norm.includes('luta') || norm.includes('fight')) {
-      key = is3D ? 'luta-3d' : 'luta';
-    } else if (norm.includes('esporte') || norm.includes('sport') || norm.includes('futebol') || norm.includes('soccer') || norm.includes('tennis')) {
-      key = 'esporte';
-    } else if (norm.includes('fps') || norm.includes('shooter')) {
-      key = 'fps';
-    } else if (norm.includes('horror') || norm.includes('survival')) {
-      key = 'survival-horror';
-    } else if (norm.includes('puzzle') || norm.includes('quebra')) {
-      key = 'puzzle';
-    } else if (norm.includes('shoot') || norm.includes('shmup') || norm.includes('nave')) {
-      key = 'shoot-em-up';
-    } else if (norm.includes('beat') || norm.includes('briga') || norm.includes('ação') || norm.includes('acao') || norm.includes('action')) {
-      if (norm.includes('ação') || norm.includes('acao')) {
-        key = 'a-o';
-      } else {
-        key = 'beat-em-up';
-      }
-    } else if (norm.includes('run') || norm.includes('metal slug')) {
-      key = 'run-and-gun';
-    }
-
+    // We generate 4 distinct deterministic seeded gameplay screens based on the game title
+    const cleanTitle = selectedGame.title.replace(/[\s\W]+/g, '-').toLowerCase();
     return [
-      `/covers/screenshot-${key}-1.svg`,
-      `/covers/screenshot-${key}-2.svg`,
-      `/covers/screenshot-${key}-3.svg`,
-      `/covers/screenshot-default-1.svg`
+      `https://picsum.photos/seed/${cleanTitle}-sc1/500/280`,
+      `https://picsum.photos/seed/${cleanTitle}-sc2/500/280`,
+      `https://picsum.photos/seed/${cleanTitle}-sc3/500/280`,
+      `https://picsum.photos/seed/${cleanTitle}-sc4/500/280`
     ];
-  }, [selectedGame, system.id]);
+  }, [selectedGame]);
+
+  // Immersive historical photos & vintage commercials of the selected console
+  const consoleGalleryData = useMemo(() => {
+    const sId = system.id.toLowerCase();
+    let ads: { title: string; desc: string; img: string }[] = [];
+    
+    if (sId.includes('ds') || sId.includes('nds')) {
+      ads = [
+        { title: "Nintendo DS Original (Fat)", desc: "Lançado em 2004, o modelo original 'Fat' revolucionou com suas duas telas inovadoras e caneta Stylus.", img: "https://picsum.photos/seed/nds-fat/500/300" },
+        { title: "Nintendo DS Lite", desc: "A versão refinada de grande sucesso com telas muito mais brilhantes, design minimalista e ergonomia aprimorada.", img: "https://picsum.photos/seed/nds-lite/500/300" },
+        { title: "Campanha 'Touching is Good'", desc: "A icônica campanha de marketing que destacava a interatividade física inédita com a tela sensível ao toque.", img: "https://picsum.photos/seed/nds-commercial/500/300" },
+        { title: "Placa-mãe do DS (Dual CPU)", desc: "Uma visão técnica interna dos dois co-processadores ARM que dividiam o processamento gráfico do console.", img: "https://picsum.photos/seed/nds-hardware/500/300" }
+      ];
+    } else if (sId.includes('ps2') || sId.includes('playstation2')) {
+      ads = [
+        { title: "PlayStation 2 Fat", desc: "O design futurista preto imponente inspirado na arquitetura industrial da Atari.", img: "https://picsum.photos/seed/ps2-fat/500/300" },
+        { title: "PlayStation 2 Slim", desc: "Redução drástica de espessura e peso em 2004, trazendo placa de rede integrada para jogos online.", img: "https://picsum.photos/seed/ps2-slim/500/300" },
+        { title: "Campanha Comercial 'Third Place'", desc: "O bizarro e artístico comercial de TV de lançamento dirigido pelo aclamado diretor David Lynch.", img: "https://picsum.photos/seed/ps2-ad/500/300" },
+        { title: "Controle DualShock 2", desc: "O icônico controle com botões analógicos sensíveis à pressão e motores de vibração integrados.", img: "https://picsum.photos/seed/ps2-pad/500/300" }
+      ];
+    } else if (sId.includes('snes') || sId.includes('supernintendo')) {
+      ads = [
+        { title: "Super Famicom & SNES US", desc: "A notável diferença de design estético entre as curvas coloridas japonesas e as linhas retas americanas.", img: "https://picsum.photos/seed/snes-hw/500/300" },
+        { title: "O Revolucionário Super FX", desc: "O co-processador RISC inserido dentro dos cartuchos para possibilitar renderizações 3D em jogos como Star Fox.", img: "https://picsum.photos/seed/snes-fx/500/300" },
+        { title: "Propaganda 'Play It Loud'", desc: "A famosa e rebelde campanha publicitária dos anos 90, criada para rivalizar com a agressiva marca SEGA.", img: "https://picsum.photos/seed/snes-ad/500/300" },
+        { title: "Satellaview Satellite", desc: "O pioneiro periférico de modem via satélite exclusivo do Japão, capaz de transmitir jogos direto para o SNES.", img: "https://picsum.photos/seed/snes-sat/500/300" }
+      ];
+    } else {
+      ads = [
+        { title: `Hardware Clássico ${system.name}`, desc: `O design de engenharia original e gabinete físico que marcou época nas lojas de todo o mundo.`, img: `https://picsum.photos/seed/${sId}-hw/500/300` },
+        { title: "Controle e Periféricos", desc: "Layout de botões ergonômico projetado para precisão cirúrgica de jogo nos anos dourados.", img: `https://picsum.photos/seed/${sId}-ctrl/500/300` },
+        { title: "Propagandas de Época", desc: "Campanhas publicitárias nostálgicas que recheavam as revistas clássicas de videogame.", img: `https://picsum.photos/seed/${sId}-ad/500/300` },
+        { title: "Embalagem Oficial", desc: "A arte original da caixa do videogame que deslumbrava os olhos de crianças nas vitrines.", img: `https://picsum.photos/seed/${sId}-box/500/300` }
+      ];
+    }
+    return ads;
+  }, [system]);
+
+  // Customized RetroAchievements dynamic milestones matching selected game names
+  const achievementsList = useMemo(() => {
+    if (!selectedGame) return [];
+    const title = selectedGame.title.toLowerCase();
+    
+    let list = [
+      { title: "Nostalgia Absoluta", desc: "Inicie este jogo clássico pela primeira vez no Retro Hub.", score: 10, unlocked: true },
+      { title: "Velocista de Bits", desc: "Termine a primeira fase ou área de jogo em menos de 10 minutos.", score: 20, unlocked: false },
+      { title: "Segredo de Cartucho", desc: "Descubra uma passagem secreta ou colecionável escondido nos cenários.", score: 30, unlocked: false },
+      { title: "Gamer Perfeito", desc: "Complete a jornada principal sem utilizar nenhuma facilidade ou trapaça.", score: 50, unlocked: false }
+    ];
+    
+    if (title.includes('mario kart')) {
+      list = [
+        { title: "Derrapagem de Fogo", desc: "Execute 10 Mini-Turbos consecutivos usando derrapagens em uma única volta.", score: 10, unlocked: true },
+        { title: "Desvio Lendário", desc: "Consiga desviar de um perigoso Casco Azul usando o cogumelo de velocidade perfeita.", score: 30, unlocked: true },
+        { title: "Copa de Ouro Perfeita", desc: "Vença a Copa Especial na dificuldade máxima com 3 Estrelas de ouro.", score: 40, unlocked: false },
+        { title: "Mestre das Pistas", desc: "Ganhe uma partida no modo Time Trial quebrando o recorde mundial simulado.", score: 50, unlocked: false }
+      ];
+    } else if (title.includes('pokemon') || title.includes('pokémon')) {
+      list = [
+        { title: "Jornada Iniciada", desc: "Capture seu primeiro monstro selvagem na grama alta do cenário.", score: 10, unlocked: true },
+        { title: "Desafio do Líder", desc: "Derrote o primeiro líder de ginásio oficial usando apenas o seu pokémon inicial.", score: 20, unlocked: true },
+        { title: "Evolução Suprema", desc: "Evolua o seu pokémon de estimação para a forma final de terceiro estágio.", score: 30, unlocked: false },
+        { title: "Lenda Aprisionada", desc: "Capture o pokémon lendário guardião usando apenas uma pokébola comum de baixo custo.", score: 50, unlocked: false }
+      ];
+    } else if (title.includes('zelda')) {
+      list = [
+        { title: "Espada Sagrada", desc: "Adquira a clássica lâmina protetora do herói com o ancião da caverna.", score: 10, unlocked: true },
+        { title: "Coração de Aço", desc: "Encontre 4 Recipientes de Corações escondidos pelo mapa do mundo.", score: 25, unlocked: true },
+        { title: "Lenda Adormecida", desc: "Retire a lendária Master Sword de seu pedestal de pedra sagrado.", score: 35, unlocked: false },
+        { title: "Salvador de Hyrule", desc: "Derrote o vilão Ganon no confronto final sem receber nenhuma queda.", score: 50, unlocked: false }
+      ];
+    } else if (title.includes('castlevania')) {
+      list = [
+        { title: "Caçador Sagrado", desc: "Derrote 100 mortos-vivos usando o clássico chicote Vampire Killer.", score: 10, unlocked: true },
+        { title: "Sala Invertida", desc: "Acesse a área secreta do castelo invertido com Alucard.", score: 30, unlocked: false },
+        { title: "Herdeiro de Belmont", desc: "Vença a luta contra a própria Morte sem utilizar sub-armas ou feitiços.", score: 40, unlocked: false },
+        { title: "Destruidor da Noite", desc: "Derrote o Conde Drácula no trono central sem sofrer danos.", score: 50, unlocked: false }
+      ];
+    } else if (title.includes('chrono trigger') || title.includes('chrono')) {
+      list = [
+        { title: "Fenda do Tempo", desc: "Viaje através do primeiro portal de tempo na agitada Feira do Milênio.", score: 10, unlocked: true },
+        { title: "Julgamento Justo", desc: "Seja considerado 100% inocente por todos os jurados no tribunal real do reino.", score: 25, unlocked: true },
+        { title: "Além do Infinito", desc: "Derrote a colossal ameaça Lavos no início do jogo (New Game Plus).", score: 45, unlocked: false },
+        { title: "O Fim dos Tempos", desc: "Desbloqueie o raríssimo final perfeito encontrando todos os aliados históricos.", score: 50, unlocked: false }
+      ];
+    }
+    return list;
+  }, [selectedGame]);
+
+  // Deep historical trivia and fun development facts about games and systems
+  const triviaData = useMemo(() => {
+    if (!selectedGame) return [];
+    const title = selectedGame.title.toLowerCase();
+    const sId = system.id.toLowerCase();
+    
+    let list = [
+      { type: "Desenvolvimento", title: "Codificação de Elite", desc: "Para rodar com fluidez na época, os programadores escreviam boa parte dos loops em linguagem Assembly de baixíssimo nível para economizar ciclos de CPU." },
+      { type: "Curiosidade", title: "Música de Ouro", desc: "Muitas trilhas sonoras usavam moduladores de canais FM limitados a 8 canais de som, forçando compositores a criarem arranjos rítmicos inesquecíveis baseados em arpejos." },
+      { type: "Segredo", title: "Arquivos Escondidos", desc: "Hackers descobriram diversas texturas, mapas inacabados e debuggers que permaneceram ocultos no cartucho oficial do jogo." }
+    ];
+    
+    if (sId.includes('ds') || sId.includes('nds')) {
+      list = [
+        { type: "Hardware", title: "O Codinome 'Nitro'", desc: "O Nintendo DS foi batizado secretamente como 'Project Nitro'. É por essa razão que os arquivos internos e cartuchos originais possuem o código de prefixo NTR." },
+        { type: "História", title: "Opinião Presidencial", desc: "A ideia de ter duas telas paralelas partiu do ex-presidente Hiroshi Yamauchi, que insistia que uma tela dupla traria interatividade nunca antes experimentada." }
+      ];
+      if (title.includes('mario kart')) {
+        list.push({ type: "Técnica", title: "O Legado do Snaking", desc: "O desvio dinâmico 'Snaking' em Mario Kart DS permitia ganhar velocidade extra infinita em retas, dividindo a comunidade mundial competitiva da época." });
+      } else if (title.includes('pokemon') || title.includes('pokémon')) {
+        list.push({ type: "História", title: "O Pokéwalker de Brinde", desc: "O jogo vinha acompanhado de um pedômetro real que sincronizava com o cartucho infravermelho, incentivando crianças do mundo todo a andarem ao ar livre." });
+      }
+    } else if (sId.includes('ps2') || sId.includes('playstation2')) {
+      list = [
+        { type: "Hardware", title: "O Poder do Emotion Engine", desc: "O processador central rodava a 294 MHz e foi otimizado exclusivamente para o cálculo de matrizes matemáticas 3D, simulando comportamentos de física e fluidos avançados." },
+        { type: "Curiosidade", title: "A Maravilha do DVD", desc: "Oferecer leitor de DVD nativo de baixo custo foi a principal jogada da Sony, fazendo com que milhões de pessoas comprassem o PS2 como aparelho de sala de estar principal." }
+      ];
+    } else if (sId.includes('snes') || sId.includes('supernintendo')) {
+      list = [
+        { type: "Áudio", title: "O Processador SPC700 da Sony", desc: "O majestoso processador de som de 8 canais foi projetado secretamente pelo engenheiro Ken Kutaragi (pai do futuro PlayStation original) na fábrica da Sony." },
+        { type: "Técnica", title: "Mágica do Mode 7", desc: "O SNES usava rotação de backgrounds plana (Mode 7) para simular perspectiva de profundidade 3D em jogos como F-Zero e Super Mario Kart." }
+      ];
+    }
+    return list;
+  }, [selectedGame, system]);
+
+  // Clean interactive time milestones for retro consoles history
+  const systemTimeline = useMemo(() => {
+    const sId = system.id.toLowerCase();
+    
+    let timeline = [
+      { year: "Anúncio", title: "Início do Projeto", desc: "O console é revelado de surpresa aos desenvolvedores de todo o mundo." },
+      { year: "Lançamento", title: "Febre do Mercado", desc: "O sistema chega oficialmente às lojas, causando grande aglomeração e recordes de vendas." },
+      { year: "Sucesso", title: "Consolidação Clássica", desc: "O videogame atinge sua Era de Ouro com o lançamento de bibliotecas atemporais." },
+      { year: "Legado", title: "Nostalgia Eterna", desc: "A fabricação é concluída, mas o hardware ganha sobrevida eterna em colecionadores de console." }
+    ];
+    
+    if (sId.includes('ds') || sId.includes('nds')) {
+      timeline = [
+        { year: "2003", title: "O Terceiro Pilar da Nintendo", desc: "A empresa revela planos de criar um novo sistema híbrido inovador, coexistente ao Game Boy Advance e GameCube." },
+        { year: "2004", title: "Lançamento do DS Fat", desc: "O console de tela de toque estreia nas lojas globais, superando as previsões de vendas e consolidando a tecnologia inovadora." },
+        { year: "2006", title: "DS Lite & Febre Mundial", desc: "O modelo Lite chega com design slim minimalista e telas hipnotizantes de alto brilho, dominando o mercado de forma absoluta." },
+        { year: "2010", title: "O Titã dos Portáteis", desc: "Atinge a lendária marca de 154 milhões de aparelhos vendidos mundialmente, sagrando-se o maior videogame portátil da história." }
+      ];
+    } else if (sId.includes('ps2') || sId.includes('playstation2')) {
+      timeline = [
+        { year: "1999", title: "O Anúncio do Gigante", desc: "A Sony revela as especificações do Emotion Engine na feira E3, assustando toda a concorrência." },
+        { year: "2000", title: "Lançamento Histórico", desc: "Longas filas quilométricas de fãs dormindo nas ruas do Japão marcam a estonteante estréia do console das icônicas torres azuis." },
+        { year: "2004", title: "O Elegante Slim", desc: "Chega o modelo ultra-fino de altíssima portabilidade que tornou o videogame ainda mais acessível globalmente." },
+        { year: "2013", title: "Fim de uma Era Vitoriosa", desc: "A Sony encerra a produção mundial com mais de 155 milhões de unidades comercializadas e 4.000 títulos lançados." }
+      ];
+    } else if (sId.includes('snes') || sId.includes('supernintendo')) {
+      timeline = [
+        { year: "1988", title: "Projeto do Super Famicom", desc: "A Nintendo inicia secretamente o design do sucessor do NES para concorrer com o rápido Mega Drive da Sega." },
+        { year: "1990", title: "A Febre de 16-Bits", desc: "Lançado no Japão, o console vendeu todo o estoque inicial de 300.000 unidades em poucas horas no fim de semana." },
+        { year: "1992", title: "Era de Ouro Pixel Art", desc: "Títulos revolucionários levam a capacidade gráfica e sonora do SNES ao ápice estético dos jogos bidimensionais." },
+        { year: "2003", title: "Consagração Histórica", desc: "A produção é oficialmente encerrada, gravando o SNES como um dos consoles mais nostálgicos da cultura pop." }
+      ];
+    }
+    return timeline;
+  }, [system]);
 
   const activeGlowColor = getSystemThemeColor(system.id).hex;
 
@@ -829,7 +953,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
               if (!bgError) setBgError(true);
             }}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.40] scale-105 transition-all duration-700 ease-out"
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.22] scale-105 transition-all duration-700 ease-out"
             style={{ 
               transform: `translate(${mousePos.x * -12}px, ${mousePos.y * -12}px) scale(1.06)`
             }}
@@ -932,8 +1056,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           <div className="bg-black/30 border border-white/5 rounded-2xl p-2.5 flex flex-col gap-1 backdrop-blur-md">
             {[
               { id: 'overview', label: 'Visão Geral', icon: Eye },
-              { id: 'gallery', label: 'Galeria Retro', icon: Film },
-              { id: 'achievements', label: 'Conquistas', icon: Trophy },
               { id: 'trivia', label: 'Segredos & Trivia', icon: Sparkles },
               { id: 'history', label: 'História', icon: BookOpen },
             ].map(tab => {
@@ -1067,13 +1189,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         <div className="flex-1 flex flex-col items-center justify-center gap-8 px-4 relative">
           {selectedGame && (
             <>
-              {/* Box Art and Pedestal console */}
+              {/* Box Art and Floor shadow */}
               <div className="relative flex flex-col items-center select-none mt-4" style={{ perspective: '1100px' }}>
                 
-                {/* Floating 3D cover container */}
+                {/* Floating 3D cover container (Enlarged and highlighted) */}
                 <div 
                   onClick={() => handleLaunchGame(selectedGame)}
-                  className="w-[190px] h-[260px] rounded shadow-2xl relative z-10 transition-transform duration-300 ease-out flex-shrink-0 cursor-pointer overflow-hidden border border-white/10"
+                  className="w-[320px] h-[430px] rounded-2xl shadow-3xl relative z-10 transition-transform duration-300 ease-out flex-shrink-0 cursor-pointer overflow-hidden border border-white/15"
                   style={{ 
                     transformStyle: 'preserve-3d',
                     transform: `rotateY(${mousePos.x * 25}deg) rotateX(${mousePos.y * -25}deg) translateZ(40px) translateY(${Math.sin(floatTick) * 8}px)`,
@@ -1091,43 +1213,20 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   
                   {/* Subtle hover play overlay */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
-                    <div className="p-3.5 bg-black/85 rounded-full border border-white/20 shadow-lg scale-90 hover:scale-100 transition-transform">
-                      <Play className="w-6 h-6 text-[#E60012] fill-current translate-x-0.5" />
+                    <div className="p-4 bg-black/85 rounded-full border border-white/20 shadow-lg scale-90 hover:scale-100 transition-transform">
+                      <Play className="w-8 h-8 text-[#E60012] fill-current translate-x-0.5" />
                     </div>
                   </div>
                 </div>
 
-                {/* dynamic projected drop-shadow on top of pedestal */}
+                {/* dynamic projected floor drop-shadow underneath the cover */}
                 <div 
-                   className="w-[160px] h-[14px] bg-black/75 rounded-full blur-md absolute bottom-[135px] z-0 transition-transform duration-300 ease-out"
+                   className="w-[280px] h-[20px] bg-black/65 rounded-full blur-xl absolute bottom-[-45px] z-0 transition-transform duration-300 ease-out"
                    style={{
-                      transform: `scale(${1 - Math.sin(floatTick) * 0.05}) translate(${mousePos.x * 12}px, ${mousePos.y * -12}px)`,
-                      opacity: 0.85 - Math.sin(floatTick) * 0.08
+                      transform: `scale(${1 - Math.sin(floatTick) * 0.08}) translate(${mousePos.x * 15}px, ${mousePos.y * -8}px)`,
+                      opacity: 0.8 - Math.sin(floatTick) * 0.1
                    }}
                 />
-
-                {/* Console base pedestal (Physical console artwork and clean brand badge) */}
-                <div className="w-[300px] h-[150px] bg-gradient-to-br from-[#18181b] to-[#0c0c0e] rounded-2xl shadow-3xl relative z-0 border border-white/10 flex flex-col items-center justify-center overflow-hidden">
-                  <span 
-                    className="text-[var(--theme-color)] font-black text-6xl tracking-tighter opacity-15 select-none absolute z-0 scale-105" 
-                    style={{ textShadow: '0 0 20px var(--theme-color)' }}
-                  >
-                    {getConsoleShortName(system.id)}
-                  </span>
-
-                  {/* High fidelity console physical illustration */}
-                  <img 
-                    src={getCentralConsoleLogoUrl(system.id)}
-                    alt={system.name}
-                    className="w-[190px] h-[110px] object-contain relative z-10 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)] hover:scale-105 transition-all duration-300 pointer-events-none"
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
-                  
-                  {/* Glowing core indicator of current console theme color */}
-                  <div className="absolute bottom-2.5 inset-x-0 flex justify-center z-10">
-                    <div className="w-24 h-0.5 bg-[var(--theme-color)] rounded-full blur-[2px] opacity-80 animate-pulse" />
-                  </div>
-                </div>
               </div>
 
               {/* Technical Specifications Row underneath diorama (Optimized columns to prevent truncation) */}
@@ -1261,137 +1360,6 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                     </div>
                   </div>
 
-                  {/* Screenshots gallery preview cards */}
-                  <div className="flex flex-col gap-2">
-                    <span className="text-[8px] text-zinc-500 uppercase tracking-[0.25em] font-bold">Mídia & Capturas</span>
-                    <div className="grid grid-cols-4 gap-2.5">
-                      {genreScreenshots.map((src, index) => (
-                        <div 
-                          key={index}
-                          onClick={() => setZoomedScreenshot(src)}
-                          className="aspect-video bg-zinc-900 border border-white/5 rounded-lg overflow-hidden cursor-zoom-in relative group"
-                        >
-                          <img 
-                            src={src} 
-                            alt="" 
-                            className="w-full h-full object-cover transition-all duration-300 group-hover:scale-108" 
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                            <Maximize2 className="w-3.5 h-3.5 text-white" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {activeTab === 'gallery' && (
-                <motion.div
-                  key="tab-gallery"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  className="flex flex-col gap-4"
-                >
-                  <div className="border-b border-white/5 pb-2">
-                    <span className="text-[8px] text-zinc-500 uppercase tracking-[0.25em] font-bold">Mesa de Transmissão</span>
-                    <h2 className="text-lg font-bold text-white uppercase mt-1">Galeria & Gameplay</h2>
-                  </div>
-
-                  {/* Active Gameplay Video Stream */}
-                  <div className="w-full aspect-video bg-black rounded-2xl border border-white/15 overflow-hidden relative shadow-2xl">
-                    <video
-                      key={selectedGame.title}
-                      src={getGameGameplayVideoUrl(system.id, selectedGame.title)}
-                      autoPlay
-                      loop
-                      muted={isMuted}
-                      className="w-full h-full object-cover"
-                      onLoadedData={() => setVideoLoaded(true)}
-                      onError={() => setVideoError(true)}
-                    />
-                    
-                    {/* TV Raster lines overlay */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.45)_50%)] bg-[length:100%_4px] pointer-events-none opacity-40" />
-
-                    {/* Left overlay badge info */}
-                    <div className="absolute bottom-3 left-3 bg-black/80 px-3 py-1 rounded-lg border border-white/10 flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-gray-300">Archive Snaps Live</span>
-                    </div>
-                  </div>
-
-                  {/* Large Grid Gallery */}
-                  <div className="grid grid-cols-2 gap-3 mt-1">
-                    {genreScreenshots.map((src, index) => (
-                      <div 
-                        key={index}
-                        onClick={() => setZoomedScreenshot(src)}
-                        className="aspect-video rounded-xl overflow-hidden bg-zinc-900 border border-white/10 cursor-zoom-in relative group shadow"
-                      >
-                        <img 
-                          src={src} 
-                          alt="" 
-                          className="w-full h-full object-cover transition-all group-hover:scale-105" 
-                        />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
-                          <span className="text-[8px] font-bold uppercase tracking-widest bg-black/80 px-2.5 py-1 rounded-full border border-white/15">Zoom</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {activeTab === 'achievements' && (
-                <motion.div
-                  key="tab-achievements"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  className="flex flex-col gap-4"
-                >
-                  <div className="border-b border-white/5 pb-2 flex justify-between items-center">
-                    <div>
-                      <span className="text-[8px] text-zinc-500 uppercase tracking-[0.25em] font-bold">Hall de Conquistas</span>
-                      <h2 className="text-lg font-bold text-white uppercase mt-1">Trofis & Medalhas</h2>
-                    </div>
-                    <Award className="w-5 h-5 text-amber-500" />
-                  </div>
-
-                  {/* Achievements List */}
-                  <div className="flex flex-col gap-2.5">
-                    {[
-                      { title: "Nostalgia Absoluta", desc: "Inicie o clássico pela primeira vez no LordTecaRetro.", unlocked: true, score: 10 },
-                      { title: "Mestre Absoluto", desc: "Termine a aventura principal sem ativar save states.", unlocked: false, score: 50 },
-                      { title: "Detonador Supremo", desc: "Colete todos os cartões, itens e segredos do game.", unlocked: false, score: 40 },
-                      { title: "Maratona Gamer", desc: "Mantenha o emulador rodando por mais de 2 horas seguidas.", unlocked: false, score: 25 },
-                    ].map((ach, index) => (
-                      <div 
-                        key={index}
-                        className={`p-3.5 rounded-xl border flex items-center justify-between transition-all ${
-                          ach.unlocked 
-                            ? 'bg-gradient-to-r from-emerald-500/5 to-transparent border-emerald-500/30' 
-                            : 'bg-white/2 border-white/5 opacity-60'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg ${ach.unlocked ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-gray-500'}`}>
-                            <Trophy className="w-4 h-4" />
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[10px] font-extrabold uppercase tracking-wider text-gray-200">{ach.title}</span>
-                            <span className="text-[9px] text-zinc-500 mt-0.5">{ach.desc}</span>
-                          </div>
-                        </div>
-
-                        <span className={`text-[10px] font-mono font-black ${ach.unlocked ? 'text-emerald-400' : 'text-zinc-600'}`}>
-                          +{ach.score}G
-                        </span>
-                      </div>
-                    ))}
-                  </div>
                 </motion.div>
               )}
 
@@ -1404,37 +1372,59 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   className="flex flex-col gap-4"
                 >
                   <div className="border-b border-white/5 pb-2">
-                    <span className="text-[8px] text-zinc-500 uppercase tracking-[0.25em] font-bold">Curiosidades de Bastidores</span>
-                    <h2 className="text-lg font-bold text-white uppercase mt-1">Glitches & Segredos</h2>
+                    <span className="text-[8px] text-[var(--theme-color)] uppercase tracking-[0.25em] font-extrabold">Dossiê Oculto</span>
+                    <h2 className="text-lg font-bold text-white uppercase mt-1">Segredos & Trivia Clássica</h2>
                   </div>
 
                   <div className="flex flex-col gap-3">
-                    <div className="bg-white/2 border border-white/5 rounded-2xl p-4 flex flex-col gap-1.5">
-                      <span className="text-[8px] text-amber-500 font-extrabold uppercase tracking-widest flex items-center gap-1">
-                        <Sparkles className="w-3 h-3" /> Fato Histórico
-                      </span>
-                      <p className="text-[10.5px] leading-relaxed text-zinc-400">
-                        O game <strong>{selectedGame.title}</strong> foi desenvolvido pela respeitada equipe da <strong>{selectedGame.developer || 'Retro Team'}</strong> e publicado originalmente em <strong>{selectedGame.year}</strong>, tornando-se instantaneamente um clássico cultuado.
-                      </p>
-                    </div>
+                    {triviaData.map((item, index) => {
+                      const icons = {
+                        "Desenvolvimento": <Cpu className="w-4 h-4 text-purple-400" />,
+                        "Curiosidade": <Sparkles className="w-4 h-4 text-amber-400" />,
+                        "Segredo": <Gamepad className="w-4 h-4 text-emerald-400" />,
+                        "Hardware": <Layers className="w-4 h-4 text-sky-400" />,
+                        "História": <BookOpen className="w-4 h-4 text-blue-400" />,
+                        "Técnica": <Award className="w-4 h-4 text-indigo-400" />,
+                        "Áudio": <Sparkles className="w-4 h-4 text-rose-400" />
+                      };
+                      const colors = {
+                        "Desenvolvimento": "border-purple-500/20 bg-purple-500/2 text-purple-400",
+                        "Curiosidade": "border-amber-500/20 bg-amber-500/2 text-amber-400",
+                        "Segredo": "border-emerald-500/20 bg-emerald-500/2 text-emerald-400",
+                        "Hardware": "border-sky-500/20 bg-sky-500/2 text-sky-400",
+                        "História": "border-blue-500/20 bg-blue-500/2 text-blue-400",
+                        "Técnica": "border-indigo-500/20 bg-indigo-500/2 text-indigo-400",
+                        "Áudio": "border-rose-500/20 bg-rose-500/2 text-rose-400"
+                      };
+                      
+                      const typeKey = item.type as keyof typeof icons;
+                      const activeIcon = icons[typeKey] || <Info className="w-4 h-4 text-zinc-400" />;
+                      const activeColorClass = colors[typeKey] || "border-zinc-500/20 bg-zinc-500/2 text-zinc-400";
 
-                    <div className="bg-white/2 border border-white/5 rounded-2xl p-4 flex flex-col gap-1.5">
-                      <span className="text-[8px] text-sky-400 font-extrabold uppercase tracking-widest flex items-center gap-1">
-                        <Cpu className="w-3 h-3" /> Detalhes Técnicos
-                      </span>
-                      <p className="text-[10.5px] leading-relaxed text-zinc-400">
-                        Trilha Sonora de Ouro: O jogo conta com melodias icônicas compostas originalmente sob as severas limitações de canais de áudio da época, hoje celebradas por orquestras globalmente.
-                      </p>
-                    </div>
-
-                    <div className="bg-white/2 border border-white/5 rounded-2xl p-4 flex flex-col gap-1.5">
-                      <span className="text-[8px] text-purple-400 font-extrabold uppercase tracking-widest flex items-center gap-1">
-                        <Gamepad className="w-3 h-3" /> Comunidade Hacker
-                      </span>
-                      <p className="text-[10.5px] leading-relaxed text-zinc-400">
-                        Existem centenas de romhacks de fãs, patches de tradução e códigos de Game Genie desenvolvidos para este jogo clássico na internet até os dias de hoje.
-                      </p>
-                    </div>
+                      return (
+                        <div 
+                          key={index} 
+                          className="bg-[#121214]/60 border border-white/5 rounded-2xl p-4 flex flex-col gap-2 shadow-xl hover:border-white/10 transition-all duration-300"
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className={`p-1.5 rounded-lg border ${activeColorClass}`}>
+                              {activeIcon}
+                            </div>
+                            <span className="text-[8px] font-black uppercase tracking-widest text-zinc-500">
+                              {item.type}
+                            </span>
+                          </div>
+                          <div className="flex flex-col gap-1 mt-1">
+                            <span className="text-[11px] font-bold text-gray-200 uppercase tracking-wide">
+                              {item.title}
+                            </span>
+                            <p className="text-[10.5px] leading-relaxed text-zinc-400">
+                              {item.desc}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </motion.div>
               )}
@@ -1448,33 +1438,39 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   className="flex flex-col gap-4"
                 >
                   <div className="border-b border-white/5 pb-2">
-                    <span className="text-[8px] text-zinc-500 uppercase tracking-[0.25em] font-bold">Linha do Tempo Retro</span>
+                    <span className="text-[8px] text-[var(--theme-color)] uppercase tracking-[0.25em] font-extrabold">Trajetória do Sucesso</span>
                     <h2 className="text-lg font-bold text-white uppercase mt-1">História do Console</h2>
                   </div>
 
-                  <p className="text-[11px] leading-relaxed text-zinc-400 bg-white/2 p-4 rounded-xl border border-white/5">
-                    <strong>{selectedGame.title}</strong> destaca-se como uma das maiores obras-primas da plataforma <strong>{system.name}</strong>.
+                  <p className="text-[10.5px] leading-relaxed text-zinc-400 bg-white/2 p-3.5 rounded-xl border border-white/5">
+                    O <strong>{system.name}</strong> destaca-se historicamente como um marco lendário que moldou a infância e os hábitos de milhões de gamers em todo o mundo.
                   </p>
 
-                  <div className="bg-zinc-950/60 border border-white/5 rounded-2xl p-4 flex flex-col gap-3">
-                    <span className="text-[8.5px] text-zinc-500 uppercase tracking-widest font-black">Dados de Fabricação</span>
-                    
-                    <div className="flex justify-between text-[10px] py-1 border-b border-white/5">
-                      <span className="text-gray-500">Fabricante</span>
-                      <span className="text-white font-bold">{system.manufacturer || 'Retro Labs'}</span>
-                    </div>
-                    <div className="flex justify-between text-[10px] py-1 border-b border-white/5">
-                      <span className="text-gray-500">Lançamento Oficial</span>
-                      <span className="text-white font-bold">{system.releaseYear || 'Anos Retro'}</span>
-                    </div>
-                    <div className="flex justify-between text-[10px] py-1 border-b border-white/5">
-                      <span className="text-gray-500">Arquitetura de CPU</span>
-                      <span className="text-white font-bold font-mono">{system.cpu || 'Multi-Core Retro Engine'}</span>
-                    </div>
-                    <div className="flex justify-between text-[10px] py-1">
-                      <span className="text-gray-500">Vendas Mundiais</span>
-                      <span className="text-white font-bold">Múltiplos Milhões</span>
-                    </div>
+                  {/* Vertical Clean Timeline */}
+                  <div className="relative pl-6 flex flex-col gap-6 mt-2">
+                    {/* Vertical connecting line */}
+                    <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-[var(--theme-color)] via-zinc-800 to-zinc-900" />
+
+                    {systemTimeline.map((item, index) => (
+                      <div key={index} className="relative flex flex-col gap-1 group">
+                        {/* Bullet point indicator */}
+                        <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-zinc-950 border-2 border-[var(--theme-color)] flex items-center justify-center shadow shadow-[var(--theme-color)]/50 group-hover:scale-110 transition-transform">
+                          <div className="w-1 h-1 rounded-full bg-white" />
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10.5px] font-mono font-black text-[var(--theme-color)] tracking-wider">
+                            {item.year}
+                          </span>
+                          <span className="text-[11px] font-extrabold text-white uppercase tracking-wide">
+                            {item.title}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-zinc-500 leading-relaxed pr-2">
+                          {item.desc}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               )}

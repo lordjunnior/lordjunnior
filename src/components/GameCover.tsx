@@ -335,53 +335,50 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
 
   if (isFatalError || !src) {
     return (
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-850 to-zinc-950 flex flex-col justify-between p-3.5 text-center select-none border border-white/5 shadow-2xl overflow-hidden rounded-md">
-        {/* Top retro striped ribbon */}
-        <div className="w-full flex flex-col items-center gap-0.5">
-          <span className="font-mono text-[7px] text-red-500 font-black tracking-widest">
-            [ ARTE ORIGINAL INDISPONÍVEL ]
-          </span>
-          <div className="h-0.5 w-full bg-gradient-to-r from-red-500 via-amber-400 via-emerald-400 to-indigo-500 rounded-full opacity-60 mt-0.5" />
-          <span className="font-mono text-[5.5px] text-zinc-500 uppercase tracking-widest mt-0.5">
-            ★ CARTUCHO SUPORTE EMULADOR ★
-          </span>
+      <div className="absolute inset-0 bg-[#242427] flex flex-col justify-between p-2 select-none border border-white/10 shadow-2xl overflow-hidden rounded-xl">
+        {/* Physical Cartridge grooves & top ridge simulation */}
+        <div className="absolute top-0 inset-x-0 h-4 bg-[#1a1a1c] border-b border-black/30 flex justify-center items-center gap-1.5 z-10">
+          <div className="w-1.5 h-1.5 rounded-full bg-black/40" />
+          <div className="w-8 h-1 rounded-full bg-black/50" />
+          <div className="w-8 h-1 rounded-full bg-black/50" />
+          <div className="w-1.5 h-1.5 rounded-full bg-black/40" />
         </div>
 
-        {/* Center Game Title Area */}
-        <div className="my-auto px-1 flex flex-col items-center justify-center gap-1.5">
-          <span className="font-sans font-bold text-[10px] md:text-[11px] text-zinc-100 uppercase tracking-normal leading-tight line-clamp-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            {game.title}
-          </span>
-          <div className="w-8 h-[1px] bg-white/10" />
-          <span className="font-mono text-[7px] text-zinc-400 font-bold uppercase">
-            {game.genre || 'CLASSIC ROM'}
-          </span>
-        </div>
+        {/* Sticker Label with beautiful glowing gradient */}
+        <div className="flex-1 mt-3 bg-gradient-to-br from-[#121214] via-[#1a1a1d] to-[#0d0d0f] rounded-lg border border-zinc-800 p-2 flex flex-col justify-between relative overflow-hidden group">
+          {/* Accent light shine */}
+          <div className="absolute top-0 left-0 right-0 h-2/3 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+          
+          {/* Top retro striped ribbon */}
+          <div className="w-full flex flex-col items-center">
+            <span className="font-sans text-[7.5px] text-[var(--theme-color,rgb(230,0,18))] font-black tracking-widest uppercase">
+              ★ EDIÇÃO DE COLECIONADOR ★
+            </span>
+            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[var(--theme-color,rgb(230,0,18))] to-transparent opacity-80 mt-1" />
+          </div>
 
-        {/* Brand new Classic Quality / Warranty Seal mimicking vintage badges */}
-        <div className="flex flex-col items-center">
-          <div className="relative w-11 h-11 flex flex-col items-center justify-center rounded-full bg-gradient-to-br from-amber-600 via-yellow-400 via-amber-500 to-amber-700 shadow-lg border border-yellow-300/30 p-0.5 animate-[pulse_3s_infinite]">
-            {/* Dashed outer alignment ring */}
-            <div className="absolute inset-0.5 rounded-full border border-dashed border-amber-900/40" />
+          {/* Center Game Title Area */}
+          <div className="my-auto px-1 flex flex-col items-center justify-center gap-1 z-10">
+            <span className="font-sans font-extrabold text-[10px] md:text-[11px] text-white uppercase tracking-wide text-center leading-tight line-clamp-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:scale-102 transition-transform duration-300">
+              {game.title}
+            </span>
+            <span className="font-mono text-[6.5px] text-zinc-500 font-medium uppercase tracking-widest mt-0.5">
+              {game.genre || 'CLASSIC'}
+            </span>
+          </div>
+
+          {/* Golden Quality/Warranty Seal */}
+          <div className="flex items-center justify-between px-1 z-10 border-t border-zinc-800/80 pt-1.5">
+            <span className="font-mono text-[5px] text-zinc-600 uppercase tracking-wider">
+              CARTRIDGE v1.2
+            </span>
             
-            <div className="flex flex-col items-center justify-center z-10 text-amber-950">
-              <span className="text-[5px] font-sans font-extrabold uppercase tracking-tight leading-none scale-90">
-                OFICIAL
-              </span>
-              <div className="flex items-center justify-center my-0.5">
-                <span className="text-[5px] text-amber-950 leading-none">★</span>
-                <span className="text-[6px] font-mono font-bold leading-none mx-0.5">TECA</span>
-                <span className="text-[5px] text-amber-950 leading-none">★</span>
-              </div>
-              <span className="text-[4.5px] font-sans font-bold uppercase tracking-tight leading-none scale-75 opacity-90">
-                SELO RETRO
+            <div className="relative w-6 h-6 flex flex-col items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-amber-700 shadow border border-amber-400/30 p-0.5">
+              <span className="text-[4.5px] font-sans font-black text-amber-950 uppercase tracking-tighter leading-none">
+                OK
               </span>
             </div>
           </div>
-          
-          <span className="font-mono text-[5.5px] text-zinc-500 uppercase tracking-widest mt-1.5 leading-none">
-            GARANTIA INTERNACIONAL
-          </span>
         </div>
       </div>
     );
