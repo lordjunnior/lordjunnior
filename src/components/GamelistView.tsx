@@ -54,6 +54,7 @@ export interface GamelistViewProps {
   isMuted: boolean;
   toggleMute: () => void;
   onSwitchSystemId?: (systemId: string) => void;
+  onToggleFavorite?: (systemId: string, gameTitle: string) => void;
 }
 
 // 1. Helper to parse Recalbox folder name for custom assets
@@ -182,6 +183,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   isMuted,
   toggleMute,
   onSwitchSystemId,
+  onToggleFavorite,
 }) => {
   const [selectedGameIndex, setSelectedGameIndex] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -220,6 +222,22 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const listContainerRef = useRef<HTMLDivElement>(null);
 
+  // Local Favorites Handling using a unified array format
+  const [favoriteList, setFavoriteList] = useState<string[]>(() => {
+    try {
+      const raw = localStorage.getItem('retro_favorites');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      }
+      return [];
+    } catch {
+      return [];
+    }
+  });
+
   const isSystemSupported = (systemId: string): boolean => {
     const cleanId = systemId.toLowerCase().trim();
     return !['ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xboxclassic', 'xbox360'].includes(cleanId);
@@ -229,13 +247,11 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
     return system.games.filter(game => {
       const matchesSearch = game.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                             game.genre.toLowerCase().includes(searchTerm.toLowerCase());
-      // Read actual dynamic favorites state from localStorage
-      const localFavs = JSON.parse(localStorage.getItem('retro_favorites') || '{}');
-      const isFav = localFavs[`${system.id}_${game.title}`] !== undefined ? localFavs[`${system.id}_${game.title}`] : game.favorite;
+      const isFav = favoriteList.includes(`${system.id}::${game.title}`);
       const matchesFavorite = filterFavorites ? isFav : true;
       return matchesSearch && matchesFavorite;
     });
-  }, [system.games, searchTerm, filterFavorites, system.id]);
+  }, [system.games, searchTerm, filterFavorites, system.id, favoriteList]);
 
   const selectedGame = filteredGames[selectedGameIndex] || null;
   const consoleId = getLogoFileName(system.id);
@@ -474,30 +490,27 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
     }
   }, [selectedGameIndex]);
 
-  // Local Favorites Handling
-  const [favoriteMapping, setFavoriteMapping] = useState<Record<string, boolean>>(() => {
-    try {
-      return JSON.parse(localStorage.getItem('retro_favorites') || '{}');
-    } catch {
-      return {};
-    }
-  });
-
   const isCurrentGameFavorite = useMemo(() => {
     if (!selectedGame) return false;
-    const key = `${system.id}_${selectedGame.title}`;
-    return favoriteMapping[key] !== undefined ? favoriteMapping[key] : selectedGame.favorite;
-  }, [selectedGame, favoriteMapping, system.id]);
+    const key = `${system.id}::${selectedGame.title}`;
+    return favoriteList.includes(key);
+  }, [selectedGame, favoriteList, system.id]);
 
   const handleToggleFavorite = (game: Game) => {
     soundEngine.playSelect();
-    const key = `${system.id}_${game.title}`;
-    const updated = {
-      ...favoriteMapping,
-      [key]: !isCurrentGameFavorite
-    };
-    setFavoriteMapping(updated);
+    const key = `${system.id}::${game.title}`;
+    let updated: string[];
+    if (favoriteList.includes(key)) {
+      updated = favoriteList.filter(k => k !== key);
+    } else {
+      updated = [...favoriteList, key];
+    }
+    setFavoriteList(updated);
     localStorage.setItem('retro_favorites', JSON.stringify(updated));
+    
+    if (onToggleFavorite) {
+      onToggleFavorite(system.id, game.title);
+    }
   };
 
   // Determine physical console base label for diorama pedestal
@@ -1136,8 +1149,8 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
               ) : (
                 filteredGames.map((game, idx) => {
                   const isSelected = idx === selectedGameIndex;
-                  const key = `${system.id}_${game.title}`;
-                  const isFav = favoriteMapping[key] !== undefined ? favoriteMapping[key] : game.favorite;
+                  const key = `${system.id}::${game.title}`;
+                  const isFav = favoriteList.includes(key);
                   
                   return (
                     <button
@@ -1155,6 +1168,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                           game={game} 
                           systemId={system.id} 
                           className="w-full h-full object-cover" 
+                          isThumbnail={true}
                         />
                         {isFav && (
                           <div className="absolute top-0.5 right-0.5 bg-rose-600 rounded-full p-0.5 shadow">
@@ -1207,6 +1221,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                     game={selectedGame} 
                     systemId={system.id} 
                     className="w-full h-full object-cover scale-102" 
+                    isThumbnail={false}
                   />
                   {/* Glowing Sweep overlay reflection */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/20 pointer-events-none" />

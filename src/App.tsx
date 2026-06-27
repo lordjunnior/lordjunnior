@@ -458,6 +458,7 @@ export default function App() {
                 onSwitchSystemId={(sysId) => {
                   window.location.hash = `#/system/${sysId}`;
                 }}
+                onToggleFavorite={handleToggleFavorite}
               />
             </motion.div>
           )}

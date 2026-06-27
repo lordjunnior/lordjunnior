@@ -277,9 +277,219 @@ interface GameCoverProps {
   game: Game;
   systemId: string;
   className?: string;
+  isThumbnail?: boolean;
 }
 
-export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className }) => {
+interface SystemStyle {
+  bgPlastic: string;
+  labelBg: string;
+  ribbonBg: string;
+  ribbonText: string;
+  accentColor: string;
+  hardwareLabel: string;
+  caseType: 'cartridge' | 'cd-case' | 'dvd-box' | 'nds-card';
+  screws?: boolean;
+  plasticTexture?: string;
+  moldedText?: string;
+}
+
+const getSystemStyle = (systemId: string): SystemStyle => {
+  const sId = (systemId || '').toLowerCase().trim();
+  
+  if (sId === 'snes' || sId === 'supernintendo') {
+    return {
+      bgPlastic: 'bg-zinc-400',
+      labelBg: 'from-zinc-900 to-zinc-950',
+      ribbonBg: 'from-purple-600 to-indigo-600',
+      ribbonText: 'SUPER NINTENDO',
+      accentColor: 'text-purple-400',
+      hardwareLabel: 'SNS-006 / 16-BIT',
+      caseType: 'cartridge',
+      screws: true,
+      plasticTexture: 'border-t-zinc-300 border-l-zinc-300 border-r-zinc-500 border-b-zinc-600 shadow-md',
+      moldedText: 'NINTENDO'
+    };
+  }
+  
+  if (sId === 'nes' || sId === 'nintendo') {
+    return {
+      bgPlastic: 'bg-zinc-500',
+      labelBg: 'from-zinc-950 to-zinc-900',
+      ribbonBg: 'from-red-600 to-red-700',
+      ribbonText: 'NES CLASSIC',
+      accentColor: 'text-red-400',
+      hardwareLabel: 'NES-GP-USA / MONO',
+      caseType: 'cartridge',
+      plasticTexture: 'border-t-zinc-400 border-l-zinc-400 border-r-zinc-600 border-b-zinc-700',
+      moldedText: 'ENTERTAINMENT SYSTEM'
+    };
+  }
+
+  if (sId === 'n64' || sId === 'nintendo64') {
+    return {
+      bgPlastic: 'bg-zinc-400',
+      labelBg: 'from-zinc-900 to-zinc-950',
+      ribbonBg: 'from-red-600 to-orange-500',
+      ribbonText: 'NINTENDO 64',
+      accentColor: 'text-red-500',
+      hardwareLabel: 'NUS-006 (USA) / 64-BIT',
+      caseType: 'cartridge',
+      screws: false,
+      plasticTexture: 'border-t-zinc-300 border-l-zinc-300 border-r-zinc-500 border-b-zinc-600',
+      moldedText: 'N64 ENGINE'
+    };
+  }
+
+  if (sId === 'genesis' || sId === 'megadrive') {
+    return {
+      bgPlastic: 'bg-zinc-900',
+      labelBg: 'from-zinc-950 to-zinc-900',
+      ribbonBg: 'from-blue-600 to-indigo-700',
+      ribbonText: 'SEGA GENESIS',
+      accentColor: 'text-blue-400',
+      hardwareLabel: '16-BIT CARTRIDGE / STEREO',
+      caseType: 'cartridge',
+      screws: false,
+      plasticTexture: 'border-t-zinc-800 border-l-zinc-800 border-r-black border-b-black',
+      moldedText: 'SEGA'
+    };
+  }
+
+  if (sId === 'gba' || sId === 'gameboyadvance') {
+    return {
+      bgPlastic: 'bg-[#1a2f4c]',
+      labelBg: 'from-[#0e1624] to-[#050b12]',
+      ribbonBg: 'from-red-600 to-red-700',
+      ribbonText: 'GAME BOY ADVANCE',
+      accentColor: 'text-red-400',
+      hardwareLabel: 'AGB-002 / GBA MOTOR',
+      caseType: 'cartridge',
+      screws: false,
+      plasticTexture: 'border-t-zinc-800 border-l-zinc-800 border-r-black border-b-black opacity-95',
+      moldedText: 'GAME BOY ADVANCE'
+    };
+  }
+
+  if (sId === 'gb' || sId === 'gbc' || sId === 'gameboy' || sId === 'gameboycolor') {
+    return {
+      bgPlastic: 'bg-zinc-300',
+      labelBg: 'from-zinc-950 to-zinc-900',
+      ribbonBg: 'from-teal-600 to-cyan-600',
+      ribbonText: 'GAME BOY COLOR',
+      accentColor: 'text-teal-400',
+      hardwareLabel: 'DMG-01 / 8-BIT STEREO',
+      caseType: 'cartridge',
+      screws: false,
+      plasticTexture: 'border-t-white border-l-white border-r-zinc-400 border-b-zinc-500',
+      moldedText: 'GAME BOY'
+    };
+  }
+
+  if (sId === 'nds' || sId === 'nintendods') {
+    return {
+      bgPlastic: 'bg-zinc-200',
+      labelBg: 'from-zinc-900 to-zinc-950',
+      ribbonBg: 'from-orange-500 to-amber-600',
+      ribbonText: 'NINTENDO DS',
+      accentColor: 'text-orange-400',
+      hardwareLabel: 'NTR-005 / TWL-001',
+      caseType: 'nds-card',
+      screws: false,
+      plasticTexture: 'border-zinc-300',
+      moldedText: 'NINTENDO'
+    };
+  }
+
+  if (sId === 'ps1' || sId === 'psx' || sId === 'playstation') {
+    return {
+      bgPlastic: 'bg-zinc-800',
+      labelBg: 'from-indigo-950 to-black',
+      ribbonBg: 'from-zinc-700 to-zinc-900',
+      ribbonText: 'PLAYSTATION CD',
+      accentColor: 'text-indigo-400',
+      hardwareLabel: 'SCPH-1001 / CD-ROM',
+      caseType: 'cd-case',
+      screws: false,
+      plasticTexture: 'border-zinc-800',
+      moldedText: 'COMPACT DISC'
+    };
+  }
+
+  if (sId === 'ps2' || sId === 'playstation2') {
+    return {
+      bgPlastic: 'bg-[#0a0a0c]',
+      labelBg: 'from-[#0b132b] to-black',
+      ribbonBg: 'from-blue-600 to-cyan-500',
+      ribbonText: 'PLAYSTATION 2',
+      accentColor: 'text-blue-400',
+      hardwareLabel: 'SCPH-39001 / DVD-ROM',
+      caseType: 'dvd-box',
+      screws: false,
+      plasticTexture: 'border-blue-950/20',
+      moldedText: 'PS2 SYSTEM'
+    };
+  }
+
+  if (sId === 'ps3' || sId === 'playstation3') {
+    return {
+      bgPlastic: 'bg-[#0f0f12]',
+      labelBg: 'from-[#111827] to-black',
+      ribbonBg: 'from-zinc-800 to-zinc-900',
+      ribbonText: 'PLAYSTATION 3',
+      accentColor: 'text-zinc-300',
+      hardwareLabel: 'BLU-RAY DISC / 1080P',
+      caseType: 'dvd-box',
+      screws: false,
+      plasticTexture: 'border-zinc-800',
+      moldedText: 'PS3 SYSTEM'
+    };
+  }
+
+  if (sId.includes('xbox')) {
+    return {
+      bgPlastic: 'bg-[#064e3b]',
+      labelBg: 'from-zinc-950 to-zinc-900',
+      ribbonBg: 'from-emerald-500 to-emerald-600',
+      ribbonText: 'XBOX SYSTEM',
+      accentColor: 'text-emerald-400',
+      hardwareLabel: 'DVD-ROM / X-CPU 733',
+      caseType: 'dvd-box',
+      screws: false,
+      plasticTexture: 'border-emerald-600/25',
+      moldedText: 'XBOX'
+    };
+  }
+
+  if (sId === 'saturn' || sId === 'segasaturn' || sId === 'dreamcast') {
+    return {
+      bgPlastic: 'bg-zinc-800',
+      labelBg: 'from-zinc-950 to-zinc-900',
+      ribbonBg: sId === 'dreamcast' ? 'from-orange-500 to-red-500' : 'from-zinc-600 to-zinc-800',
+      ribbonText: sId === 'dreamcast' ? 'DREAMCAST GD-ROM' : 'SEGA SATURN',
+      accentColor: sId === 'dreamcast' ? 'text-orange-400' : 'text-zinc-300',
+      hardwareLabel: sId === 'dreamcast' ? 'MIL-CD / SH-4 200' : 'MK-80000 / DUAL-SH2',
+      caseType: 'cd-case',
+      screws: false,
+      plasticTexture: 'border-zinc-800',
+      moldedText: 'SEGA ENGINE'
+    };
+  }
+
+  return {
+    bgPlastic: 'bg-zinc-800',
+    labelBg: 'from-zinc-950 to-zinc-900',
+    ribbonBg: 'from-amber-500 to-amber-600',
+    ribbonText: 'RETRO COLLECTION',
+    accentColor: 'text-amber-400',
+    hardwareLabel: 'CART-USA v1.2',
+    caseType: 'cartridge',
+    screws: true,
+    plasticTexture: 'border-t-zinc-700 border-l-zinc-700 border-r-zinc-900 border-b-black',
+    moldedText: 'CLASSIC RETRO'
+  };
+};
+
+export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className, isThumbnail }) => {
   const actualSystemId = useMemo(() => {
     if (game.id && game.id.includes('-')) {
       const part = game.id.split('-')[0];
@@ -334,54 +544,277 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className 
   };
 
   if (isFatalError || !src) {
-    return (
-      <div className="absolute inset-0 bg-[#242427] flex flex-col justify-between p-2 select-none border border-white/10 shadow-2xl overflow-hidden rounded-xl">
-        {/* Physical Cartridge grooves & top ridge simulation */}
-        <div className="absolute top-0 inset-x-0 h-4 bg-[#1a1a1c] border-b border-black/30 flex justify-center items-center gap-1.5 z-10">
-          <div className="w-1.5 h-1.5 rounded-full bg-black/40" />
-          <div className="w-8 h-1 rounded-full bg-black/50" />
-          <div className="w-8 h-1 rounded-full bg-black/50" />
-          <div className="w-1.5 h-1.5 rounded-full bg-black/40" />
+    const sStyle = getSystemStyle(actualSystemId);
+
+    if (isThumbnail) {
+      const firstLetter = game.title.trim().charAt(0).toUpperCase();
+      return (
+        <div className={`absolute inset-0 ${sStyle.bgPlastic} flex flex-col justify-between p-1 select-none border border-white/10 shadow overflow-hidden rounded-md`}>
+          {/* Top miniature stripe representing the platform */}
+          <div className="w-full h-1.5 rounded-sm bg-zinc-900/40 flex items-center justify-center overflow-hidden">
+            <div className={`w-full h-0.5 bg-gradient-to-r ${sStyle.ribbonBg}`} />
+          </div>
+
+          {/* Central giant high-contrast retro letter */}
+          <div className="flex-1 flex items-center justify-center">
+            <span className="font-sans font-black text-xs text-white tracking-tighter drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">
+              {firstLetter}
+            </span>
+          </div>
+
+          {/* Miniature quality badge or style */}
+          <div className="w-full flex justify-between items-center px-0.5 text-[4px] font-mono opacity-50">
+            <span className="text-[3.5px] scale-90 origin-left truncate max-w-[15px] text-white/80">{sStyle.moldedText || 'CART'}</span>
+            <div className="w-1 h-1 rounded-full bg-amber-400 scale-75" />
+          </div>
         </div>
+      );
+    }
 
-        {/* Sticker Label with beautiful glowing gradient */}
-        <div className="flex-1 mt-3 bg-gradient-to-br from-[#121214] via-[#1a1a1d] to-[#0d0d0f] rounded-lg border border-zinc-800 p-2 flex flex-col justify-between relative overflow-hidden group">
-          {/* Accent light shine */}
-          <div className="absolute top-0 left-0 right-0 h-2/3 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
-          
-          {/* Top retro striped ribbon */}
-          <div className="w-full flex flex-col items-center">
-            <span className="font-sans text-[7.5px] text-[var(--theme-color,rgb(230,0,18))] font-black tracking-widest uppercase">
-              ★ EDIÇÃO DE COLECIONADOR ★
-            </span>
-            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[var(--theme-color,rgb(230,0,18))] to-transparent opacity-80 mt-1" />
+    // Dynamic 3D cases for different media formats on the main pedestal view
+    if (sStyle.caseType === 'cartridge') {
+      return (
+        <div className={`absolute inset-0 ${sStyle.bgPlastic} flex flex-col justify-between p-3 select-none border-2 ${sStyle.plasticTexture} shadow-3xl overflow-hidden rounded-2xl`}>
+          {/* Cartridge top grip grooves and physical ridges */}
+          <div className="absolute top-0 inset-x-0 h-5 bg-black/25 border-b border-black/30 flex justify-center items-center gap-2 z-10">
+            <div className="w-2 h-2 rounded-full bg-black/40 shadow-inner" />
+            <div className="w-16 h-1 rounded-full bg-black/30" />
+            <div className="w-16 h-1 rounded-full bg-black/30" />
+            <div className="w-2 h-2 rounded-full bg-black/40 shadow-inner" />
           </div>
 
-          {/* Center Game Title Area */}
-          <div className="my-auto px-1 flex flex-col items-center justify-center gap-1 z-10">
-            <span className="font-sans font-extrabold text-[10px] md:text-[11px] text-white uppercase tracking-wide text-center leading-tight line-clamp-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:scale-102 transition-transform duration-300">
-              {game.title}
-            </span>
-            <span className="font-mono text-[6.5px] text-zinc-500 font-medium uppercase tracking-widest mt-0.5">
-              {game.genre || 'CLASSIC'}
+          {/* Molded plastic brand text engraved on physical plastic casing */}
+          <div className="mt-5 w-full text-center flex justify-center opacity-20">
+            <span className="font-sans font-black text-[13px] text-black tracking-[0.3em] select-none leading-none">
+              ★ {sStyle.moldedText} SYSTEM ★
             </span>
           </div>
 
-          {/* Golden Quality/Warranty Seal */}
-          <div className="flex items-center justify-between px-1 z-10 border-t border-zinc-800/80 pt-1.5">
-            <span className="font-mono text-[5px] text-zinc-600 uppercase tracking-wider">
-              CARTRIDGE v1.2
-            </span>
-            
-            <div className="relative w-6 h-6 flex flex-col items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-amber-700 shadow border border-amber-400/30 p-0.5">
-              <span className="text-[4.5px] font-sans font-black text-amber-950 uppercase tracking-tighter leading-none">
-                OK
+          {/* Main sticker label */}
+          <div className={`flex-1 mt-2.5 bg-gradient-to-br ${sStyle.labelBg} rounded-xl border border-black/50 p-3.5 flex flex-col justify-between relative overflow-hidden group`}>
+            {/* Glossy light reflection sweep */}
+            <div className="absolute top-0 left-0 right-0 h-2/3 bg-gradient-to-b from-white/5 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent opacity-40 pointer-events-none" />
+
+            {/* Platform accent top ribbon */}
+            <div className="w-full flex flex-col items-center">
+              <span className={`font-sans text-[8.5px] font-black tracking-widest uppercase bg-gradient-to-r ${sStyle.ribbonBg} text-transparent bg-clip-text`}>
+                ★ {sStyle.ribbonText} ★
               </span>
+              <div className={`h-[2px] w-full bg-gradient-to-r ${sStyle.ribbonBg} opacity-80 mt-1.5`} />
+            </div>
+
+            {/* Center Game Title Area with nice glowing drop shadow */}
+            <div className="my-auto px-1 flex flex-col items-center justify-center gap-1.5 z-10 text-center">
+              <span className="font-sans font-black text-sm md:text-base text-white uppercase tracking-wide text-center leading-tight line-clamp-3 drop-shadow-[0_2.5px_5px_rgba(0,0,0,0.95)]">
+                {game.title}
+              </span>
+              <span className={`font-mono text-[7px] ${sStyle.accentColor} font-black uppercase tracking-[0.2em] mt-0.5`}>
+                {game.genre || 'CLASSIC'}
+              </span>
+            </div>
+
+            {/* Quality seal + Year details */}
+            <div className="flex items-center justify-between px-1 z-10 border-t border-white/5 pt-2">
+              <div className="flex flex-col text-left">
+                <span className="font-mono text-[5.5px] text-zinc-500 uppercase tracking-widest leading-none">
+                  {sStyle.hardwareLabel}
+                </span>
+                <span className="font-sans text-[6.5px] text-zinc-400 uppercase font-extrabold mt-1 tracking-wider leading-none">
+                  RELEASE: {game.year || 'RETRO ERA'}
+                </span>
+              </div>
+
+              {/* Classic Gold Seal of Quality */}
+              <div className="relative w-8 h-8 flex flex-col items-center justify-center rounded-full bg-gradient-to-br from-yellow-300 via-amber-500 to-amber-700 shadow-md border border-yellow-400/40 p-0.5 animate-pulse">
+                <div className="absolute inset-0.5 rounded-full border border-dashed border-amber-900/35" />
+                <span className="text-[5px] font-sans font-black text-amber-950 uppercase tracking-tighter leading-none z-10">
+                  SELO DE
+                </span>
+                <span className="text-[5.5px] font-mono font-black text-amber-950 tracking-tighter leading-none z-10">
+                  OURO
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom hardware detail (phillips brass screws) */}
+          {sStyle.screws && (
+            <div className="mt-2 w-full flex justify-between px-6 items-center opacity-70">
+              <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-zinc-700 via-amber-700 to-zinc-900 border border-black/40 flex items-center justify-center shadow-inner relative">
+                <div className="w-2.5 h-0.5 bg-black/60 transform rotate-45" />
+                <div className="w-2.5 h-0.5 bg-black/60 absolute transform -rotate-45" />
+              </div>
+
+              <span className="font-mono text-[7px] text-zinc-600 tracking-widest uppercase">
+                MADE IN RETROLAND
+              </span>
+
+              <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-zinc-700 via-amber-700 to-zinc-900 border border-black/40 flex items-center justify-center shadow-inner relative">
+                <div className="w-2.5 h-0.5 bg-black/60 transform rotate-12" />
+                <div className="w-2.5 h-0.5 bg-black/60 absolute transform -rotate-78" />
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (sStyle.caseType === 'cd-case') {
+      return (
+        <div className="absolute inset-0 bg-[#0f0f11] flex select-none border-4 border-zinc-700/60 shadow-3xl overflow-hidden rounded-2xl p-0.5">
+          {/* Glass reflection streak on case front */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none z-20" />
+          
+          {/* CD Spine / Side grip on Left side of jewel case */}
+          <div className="w-[34px] bg-[#1c1c1f] border-r border-black/50 flex flex-col justify-between py-6 px-1.5 items-center relative shadow-inner">
+            <div className="flex flex-col gap-1.5 opacity-50">
+              <div className="w-1.5 h-4 bg-black/50 rounded-sm" />
+              <div className="w-1.5 h-4 bg-black/50 rounded-sm" />
+              <div className="w-1.5 h-4 bg-black/50 rounded-sm" />
+            </div>
+            <div className="transform -rotate-90 origin-center text-[6px] font-mono font-black text-zinc-600 uppercase tracking-widest whitespace-nowrap">
+              COMPACT DISC
+            </div>
+            <div className="flex flex-col gap-1.5 opacity-50">
+              <div className="w-1.5 h-4 bg-black/50 rounded-sm" />
+              <div className="w-1.5 h-4 bg-black/50 rounded-sm" />
+              <div className="w-1.5 h-4 bg-black/50 rounded-sm" />
+            </div>
+          </div>
+
+          {/* CD Booklet Insert Label */}
+          <div className={`flex-1 bg-gradient-to-br ${sStyle.labelBg} p-4 flex flex-col justify-between relative`}>
+            <div className={`absolute right-0 top-0 bottom-0 w-1.5 bg-gradient-to-b ${sStyle.ribbonBg}`} />
+
+            {/* Booklet Header */}
+            <div className="w-full">
+              <span className="font-sans text-[9px] font-black tracking-widest uppercase text-white/90">
+                ★ {sStyle.ribbonText} ★
+              </span>
+              <div className="h-[1px] w-full bg-white/10 mt-1.5" />
+            </div>
+
+            {/* Game title in Booklet center */}
+            <div className="my-auto text-left pr-2">
+              <h1 className="font-sans font-black text-sm md:text-base text-white uppercase tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                {game.title}
+              </h1>
+              <div className="w-8 h-0.5 bg-gradient-to-r from-indigo-500 to-transparent mt-2" />
+              <span className={`font-mono text-[7px] ${sStyle.accentColor} font-black uppercase tracking-[0.15em] mt-1 block`}>
+                {game.genre || 'CLASSIC'}
+              </span>
+            </div>
+
+            {/* Booklet Footer details */}
+            <div className="flex items-end justify-between pr-3 border-t border-white/5 pt-2">
+              <div className="flex flex-col text-left">
+                <span className="font-mono text-[5.5px] text-zinc-500 uppercase tracking-widest leading-none">
+                  {sStyle.hardwareLabel}
+                </span>
+                <span className="font-sans text-[6px] text-zinc-400 uppercase font-extrabold mt-1 tracking-wider leading-none">
+                  RELEASE: {game.year || 'RETRO ERA'}
+                </span>
+              </div>
+
+              {/* Compact Disc logo */}
+              <div className="w-6 h-6 rounded-full border border-zinc-700/60 flex items-center justify-center opacity-40 text-white font-sans font-black text-[6px]">
+                CD
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+
+    if (sStyle.caseType === 'dvd-box') {
+      return (
+        <div className={`absolute inset-0 ${sStyle.bgPlastic} flex select-none border-2 border-white/5 shadow-3xl overflow-hidden rounded-2xl p-1`}>
+          {/* Transparent plastic wrapping gloss sheen */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/15 pointer-events-none z-20" />
+
+          {/* Left edge spine mimicking DVD wrap hinge */}
+          <div className="w-1.5 bg-black/60 mr-1 rounded-sm shadow-inner" />
+
+          {/* DVD cover print insert */}
+          <div className={`flex-1 bg-gradient-to-br ${sStyle.labelBg} p-4 flex flex-col justify-between relative rounded-lg border border-black/40`}>
+            {/* High-end header banner */}
+            <div className="w-full">
+              <div className={`w-full py-1 bg-gradient-to-r ${sStyle.ribbonBg} flex items-center justify-center rounded px-2`}>
+                <span className="font-sans text-[7.5px] font-black tracking-[0.2em] text-white uppercase">
+                  {sStyle.ribbonText}
+                </span>
+              </div>
+            </div>
+
+            {/* Tall game box cover layout */}
+            <div className="my-auto text-center py-4">
+              <h1 className="font-sans font-black text-sm md:text-base text-white uppercase tracking-wide leading-tight drop-shadow-[0_3px_6px_rgba(0,0,0,0.95)]">
+                {game.title}
+              </h1>
+              <span className={`font-mono text-[7px] ${sStyle.accentColor} font-black uppercase tracking-[0.2em] mt-2 block`}>
+                {game.genre || 'CLASSIC'}
+              </span>
+            </div>
+
+            {/* Bottom details / barcode / classification */}
+            <div className="flex items-end justify-between border-t border-white/5 pt-2">
+              <div className="flex flex-col text-left">
+                <span className="font-mono text-[5.5px] text-zinc-500 uppercase tracking-widest leading-none">
+                  {sStyle.hardwareLabel}
+                </span>
+                <span className="font-sans text-[6px] text-zinc-400 uppercase font-extrabold mt-1 tracking-wider leading-none">
+                  RELEASE: {game.year || 'RETRO ERA'}
+                </span>
+              </div>
+
+              {/* Vintage ESRB-style rating fallback logo */}
+              <div className="w-6 h-7 bg-white/95 border border-black flex flex-col items-center justify-between p-0.5 rounded shadow scale-90">
+                <span className="text-[6.5px] font-sans font-black text-black leading-none mt-0.5">E</span>
+                <span className="text-[3.5px] font-sans font-extrabold text-black uppercase scale-75 origin-bottom">EVERYONE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (sStyle.caseType === 'nds-card') {
+      return (
+        <div className={`absolute inset-0 ${sStyle.bgPlastic} flex flex-col justify-between p-2 select-none border-2 border-zinc-400 shadow-3xl overflow-hidden rounded-xl`}>
+          {/* NDS game card top grip ridge and triangular directional notch */}
+          <div className="absolute top-0 inset-x-0 h-3 bg-black/10 border-b border-black/20 flex justify-end px-3 items-center z-10">
+            <div className="w-0 h-0 border-l-[3.5px] border-l-transparent border-r-[3.5px] border-r-transparent border-t-[5px] border-t-zinc-500" />
+          </div>
+
+          {/* Main sticker label */}
+          <div className={`flex-1 mt-2.5 bg-gradient-to-br ${sStyle.labelBg} p-2 flex flex-col justify-between relative rounded-md border border-black/30`}>
+            {/* Ribbon banner */}
+            <div className="w-full">
+              <span className="font-sans text-[7px] font-black tracking-widest uppercase text-white">
+                {sStyle.ribbonText}
+              </span>
+              <div className={`h-[1px] w-full bg-gradient-to-r ${sStyle.ribbonBg} mt-1`} />
+            </div>
+
+            {/* Tiny title print */}
+            <div className="my-auto text-center px-0.5">
+              <h1 className="font-sans font-black text-[9px] text-white uppercase tracking-normal leading-tight line-clamp-2 drop-shadow">
+                {game.title}
+              </h1>
+            </div>
+
+            {/* Bottom details */}
+            <div className="flex items-center justify-between text-[4.5px] text-zinc-500 font-mono">
+              <span>{sStyle.hardwareLabel}</span>
+              <div className="w-2.5 h-2.5 rounded bg-orange-600 flex items-center justify-center text-white font-sans text-[4px] font-bold scale-90">
+                DS
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   return (
