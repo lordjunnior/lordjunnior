@@ -664,7 +664,7 @@ const CardConsoleLogo: React.FC<{ system: System; isSelected: boolean }> = ({ sy
     <img
       src={src}
       alt={system.name}
-      className={`h-[42px] md:h-[58px] w-auto max-w-[120px] md:max-w-[160px] object-contain transition-all duration-500 filter ${
+      className={`h-[40px] md:h-[65px] w-auto max-w-[100px] md:max-w-[155px] object-contain transition-all duration-500 filter ${
         isSelected
           ? 'brightness-110 drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)] scale-110'
           : 'brightness-65 opacity-65 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] group-hover:brightness-90 group-hover:opacity-90'
@@ -769,6 +769,16 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
   // State: Console Search and Active Category Tab
   const [consoleSearch, setConsoleSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<'all' | 'classics' | 'golden' | 'next-gen'>('all');
+
+  // Track window width for dynamic edge-to-edge 3D radius calculation
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Gesture drag state variables for 3D Carousel rotation
   const [dragStartX, setDragStartX] = useState<number | null>(null);
@@ -969,7 +979,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
           {/* Advanced 3D Cylindrical Ring Carousel */}
           <div 
-            className="relative z-10 w-full min-h-[350px] md:min-h-[430px] flex flex-col items-center justify-center py-6 overflow-visible select-none"
+            className="relative z-10 w-full min-h-[310px] md:min-h-[390px] flex flex-col items-center justify-center py-2 overflow-visible select-none"
             onMouseDown={(e) => handleDragStart(e.clientX)}
             onMouseMove={(e) => handleDragMove(e.clientX)}
             onMouseUp={handleDragEnd}
@@ -1020,27 +1030,50 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
                 {/* Spinning Cylinder */}
                 {(() => {
-                  const N = filteredSystems.length;
-                  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-                  const radius = isMobile ? 220 : 750; // Majestic ultra-wide 3D radius!
-                  const stepAngle = 360 / N;
+                  const baseN = filteredSystems.length;
+                  const isMobile = windowWidth < 768;
+                  // Maintain the exact original base radius they loved
+                  const radius = isMobile ? 140 : 540;
+                  const targetWidth = isMobile ? (windowWidth - 40) : (windowWidth - 220);
+                  const diameter = radius * 2;
+                  const stretchX = Math.max(0.7, Math.min(1.8, targetWidth / diameter));
+
+                  // Repeat elements if N is small to keep the cylinder dense, full and beautiful
+                  const repeats = baseN > 0 ? Math.max(1, Math.ceil(15 / baseN)) : 1;
+                  const displayItems = [];
+                  for (let r = 0; r < repeats; r++) {
+                    for (let i = 0; i < baseN; i++) {
+                      displayItems.push({
+                        ...filteredSystems[i],
+                        displayIdx: i + r * baseN
+                      });
+                    }
+                  }
+
+                  const N = displayItems.length;
+                  const stepAngle = N > 0 ? 360 / N : 30;
 
                   return (
                     <div 
-                      className="relative w-[150px] h-[105px] md:w-[245px] md:h-[160px] transition-transform duration-700"
+                      className="relative w-[110px] h-[80px] md:w-[185px] md:h-[125px] transition-transform duration-700"
                       style={{
                         transformStyle: 'preserve-3d',
-                        transform: `rotateX(-3deg) rotateY(${-filteredActiveIndex * stepAngle}deg)`,
+                        transform: `scaleX(${stretchX}) rotateX(-3deg) rotateY(${-filteredActiveIndex * stepAngle}deg)`,
                       }}
                     >
-                      {filteredSystems.map(({ sys, originalIdx }, index) => {
-                        const angle = index * stepAngle;
-                        const isSelected = originalIdx === activeIndex;
+                      {displayItems.map(({ sys, originalIdx, displayIdx }) => {
+                        const isSelected = displayIdx === filteredActiveIndex;
                         const sysColor = getSystemThemeColor(sys.id);
                         const status = getSystemStatus(sys.id);
                         
-                        // Real-time depth calculations via high-performance trigonometry
-                        const angleRad = ((angle - filteredActiveIndex * stepAngle) * Math.PI) / 180;
+                        // Compress relative angle so cards are closer together (smaller gaps)
+                        const rawRelAngle = (displayIdx - filteredActiveIndex) * stepAngle;
+                        const spacingFactor = isMobile ? 0.75 : 0.62;
+                        const displayRelAngle = rawRelAngle * spacingFactor;
+                        const displayAngle = filteredActiveIndex * stepAngle + displayRelAngle;
+                        
+                        // Real-time depth calculations via high-performance trigonometry using the compressed angle
+                        const angleRad = (displayRelAngle * Math.PI) / 180;
                         const cosVal = Math.cos(angleRad);
                         
                         const zIndex = Math.round((cosVal + 1) * 100);
@@ -1048,14 +1081,14 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                           ? 1 
                           : cosVal < 0 
                             ? Math.max(0, 0.05 + (cosVal + 1) * 0.1) // fade out back items to avoid clutter
-                            : Math.max(0.12, 0.12 + cosVal * 0.75);
+                            : Math.max(0.45, 0.45 + cosVal * 0.55); // increased minimum opacity for front items on the sides
                         const scale = isSelected ? 1.05 : Math.max(0.72, 0.72 + cosVal * 0.18);
                         const blur = isSelected ? 'none' : `blur(${Math.max(0, (1 - cosVal) * 2.5)}px)`;
                         const isBack = cosVal < 0 && !isSelected;
 
                         return (
                           <div
-                            key={sys.id}
+                            key={`${sys.id}-display-${displayIdx}`}
                             onClick={(e) => {
                               e.stopPropagation();
                               if (!isSelected) {
@@ -1068,7 +1101,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                             className="absolute inset-0 cursor-pointer select-none group transition-all duration-500 ease-out"
                             style={{
                               transformStyle: isSelected ? 'flat' : 'preserve-3d',
-                              transform: `rotateY(${angle}deg) translateZ(${radius}px) scale(${scale})`,
+                              transform: `rotateY(${displayAngle}deg) translateZ(${radius}px) scale(${scale})`,
                               backfaceVisibility: isSelected ? 'visible' : 'hidden',
                               opacity: opacity,
                               filter: isSelected ? 'none' : blur,
@@ -1082,22 +1115,28 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                               <div
                                 className="absolute inset-[-15px] -z-10 blur-2xl opacity-40 pointer-events-none"
                                 style={{
-                                  background: `radial-gradient(circle, ${sysColor.hex} 0%, transparent 70%)`
+                                  background: `radial-gradient(circle, ${sysColor.hex} 0%, transparent 70%)`,
+                                  transform: `scaleX(${1 / stretchX})`,
+                                  transformOrigin: 'center center'
                                 }}
                               />
                             )}
 
                             {/* Beautiful 3D Holographic Capsule card */}
                             <div
-                              className={`w-full h-full p-3 md:p-4 rounded-2xl border transition-all duration-300 flex flex-col justify-between relative ${
+                              className={`w-full h-full p-2 pt-1.5 pb-1 md:p-3 md:pt-2.5 md:pb-1 rounded-2xl border transition-all duration-300 flex flex-col justify-between relative ${
                                 isSelected
                                   ? 'bg-zinc-900/90 border-white/20'
                                   : 'border-white/5 bg-zinc-950/50 backdrop-blur-md hover:border-white/10 hover:bg-zinc-900/40'
                               }`}
-                              style={isSelected ? {
-                                borderColor: `${sysColor.hex}bb`,
-                                boxShadow: `0 0 35px ${sysColor.hex}35, inset 0 1px 1px rgba(255,255,255,0.2)`
-                              } : undefined}
+                              style={{
+                                transform: `scaleX(${1 / stretchX})`,
+                                transformOrigin: 'center center',
+                                ...(isSelected ? {
+                                  borderColor: `${sysColor.hex}bb`,
+                                  boxShadow: `0 0 35px ${sysColor.hex}35, inset 0 1px 1px rgba(255,255,255,0.2)`
+                                } : {})
+                              }}
                             >
                               {/* Top LED bar and info */}
                               <div className="flex items-center justify-between w-full relative z-10 antialiased subpixel-antialiased">
@@ -1124,7 +1163,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                               </div>
 
                               {/* Bottom title of console */}
-                              <div className="w-full text-center relative z-10 border-t border-white/5 pt-1.5 mt-1">
+                              <div className="w-full text-center relative z-10 border-t border-white/5 pt-1.5 mt-0">
                                 <p className={`text-[8.5px] md:text-[10px] font-black uppercase tracking-wide truncate leading-none ${
                                   isSelected ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-300'
                                 }`}>
