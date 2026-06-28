@@ -874,17 +874,18 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
     const len = filteredSystems.length;
     if (len === 0) return;
 
-    // Find the shortest distance in modular arithmetic
-    const currentMod = ((virtualActiveIndex % len) + len) % len;
-    let diff = filteredActiveIndex - currentMod;
+    setVirtualActiveIndex(prev => {
+      // Find the shortest distance in modular arithmetic using the most up-to-date prev state
+      const currentMod = ((prev % len) + len) % len;
+      let diff = filteredActiveIndex - currentMod;
 
-    if (diff > len / 2) {
-      diff -= len;
-    } else if (diff < -len / 2) {
-      diff += len;
-    }
-
-    setVirtualActiveIndex(prev => prev + diff);
+      if (diff > len / 2) {
+        diff -= len;
+      } else if (diff < -len / 2) {
+        diff += len;
+      }
+      return prev + diff;
+    });
   }, [filteredActiveIndex, filteredSystems.length]);
 
   const handlePrev = () => {

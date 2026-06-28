@@ -30,6 +30,40 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
     return s;
   };
 
+  const convertThePrefix = (str: string): string[] => {
+    const result: string[] = [str];
+    const lower = str.toLowerCase();
+    
+    if (lower.startsWith('the ')) {
+      // Check if it has a hyphen " - "
+      if (str.includes(' - ')) {
+        const parts = str.split(' - ');
+        const left = parts[0].trim();
+        const right = parts.slice(1).join(' - ').trim();
+        if (left.toLowerCase().startsWith('the ')) {
+          const coreLeft = left.substring(4).trim();
+          result.push(`${coreLeft}, The - ${right}`);
+        }
+      } else {
+        // No hyphen, check for region in parenthesis, e.g. "The Legend of Zelda (USA)"
+        const parenIndex = str.indexOf(' (');
+        if (parenIndex !== -1) {
+          const mainTitle = str.substring(0, parenIndex).trim();
+          const suffix = str.substring(parenIndex).trim();
+          if (mainTitle.toLowerCase().startsWith('the ')) {
+            const core = mainTitle.substring(4).trim();
+            result.push(`${core}, The${suffix}`);
+          }
+        } else {
+          // No parenthesis, simple "The Simpsons"
+          const core = str.substring(4).trim();
+          result.push(`${core}, The`);
+        }
+      }
+    }
+    return result;
+  };
+
   const baseTitle = title.trim();
 
   // Add the high-precision mapped No-Intro filename as candidates if present
@@ -136,6 +170,11 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
       const rest = cv.substring(0, cv.length - 5).trim();
       theVariants.push(`The ${rest}`);
     }
+    // Apply prefix conversion
+    const prefixConverted = convertThePrefix(cv);
+    for (const pc of prefixConverted) {
+      theVariants.push(pc);
+    }
   }
 
   // De-accent and push everything to final candidates list
@@ -157,13 +196,17 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
     } else if (lowerBase.includes('firered')) {
       candidates.push('Pokemon - FireRed Version (USA, Europe)');
       candidates.push('Pokemon - FireRed Version');
+      candidates.push('Pokemon - FireRed Version (USA)');
     } else if (lowerBase.includes('leafgreen')) {
       candidates.push('Pokemon - LeafGreen Version (USA, Europe)');
       candidates.push('Pokemon - LeafGreen Version');
+      candidates.push('Pokemon - LeafGreen Version (USA)');
     } else if (lowerBase.includes('ruby')) {
       candidates.push('Pokemon - Ruby Version (USA, Europe)');
+      candidates.push('Pokemon - Ruby Version (USA)');
     } else if (lowerBase.includes('sapphire')) {
       candidates.push('Pokemon - Sapphire Version (USA, Europe)');
+      candidates.push('Pokemon - Sapphire Version (USA)');
     } else if (lowerBase.includes('crystal')) {
       candidates.push('Pokemon - Crystal Version (USA, Europe)');
       candidates.push('Pokemon - Crystal Version');
@@ -176,6 +219,11 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
     } else if (lowerBase.includes('yellow')) {
       candidates.push('Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe)');
       candidates.push('Pokemon - Yellow Version');
+    } else if (lowerBase.includes('red & blue')) {
+      candidates.push('Pokemon - Red Version (USA, Europe)');
+      candidates.push('Pokemon - Blue Version (USA, Europe)');
+      candidates.push('Pokemon - Red Version');
+      candidates.push('Pokemon - Blue Version');
     } else if (lowerBase.includes('red')) {
       candidates.push('Pokemon - Red Version (USA, Europe)');
     } else if (lowerBase.includes('blue')) {
@@ -184,6 +232,62 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
       candidates.push('Pokemon - HeartGold Version (USA)');
       candidates.push('Pokemon - HeartGold Version');
     }
+  }
+
+  // Legend of Zelda custom candidates
+  if (lowerBase.includes('zelda')) {
+    if (lowerBase.includes('past')) {
+      candidates.push('Legend of Zelda, The - A Link to the Past (USA)');
+      candidates.push('Legend of Zelda, The - A Link to the Past');
+    } else if (lowerBase.includes('ocarina')) {
+      candidates.push('Legend of Zelda, The - Ocarina of Time (USA)');
+      candidates.push('Legend of Zelda, The - Ocarina of Time');
+    } else if (lowerBase.includes('majora')) {
+      candidates.push("Legend of Zelda, The - Majora's Mask (USA)");
+      candidates.push("Legend of Zelda, The - Majora's Mask");
+    } else if (lowerBase.includes('minish')) {
+      candidates.push('Legend of Zelda, The - The Minish Cap (USA)');
+      candidates.push('Legend of Zelda, The - The Minish Cap');
+    } else if (lowerBase.includes('awakening')) {
+      candidates.push("Legend of Zelda, The - Link's Awakening (USA)");
+      candidates.push("Legend of Zelda, The - Link's Awakening");
+    }
+  }
+
+  // Other specialized overrides
+  if (lowerBase.includes('final fantasy vi') || lowerBase.includes('final fantasy 6')) {
+    candidates.push('Final Fantasy III (USA)');
+    candidates.push('Final Fantasy III');
+    candidates.push('Final Fantasy VI (USA)');
+  }
+  if (lowerBase.includes("yoshi's island") || lowerBase.includes("yoshis island")) {
+    candidates.push('Super Mario World 2 - Yoshi\'s Island (USA)');
+    candidates.push('Super Mario World 2 - Yoshi\'s Island');
+  }
+  if (lowerBase.includes('nights into dreams')) {
+    candidates.push('NiGHTS into Dreams... (USA)');
+    candidates.push('NiGHTS into Dreams...');
+  }
+  if (lowerBase.includes('castle of illusion')) {
+    candidates.push('Castle of Illusion Starring Mickey Mouse (USA)');
+    candidates.push('Castle of Illusion - Starring Mickey Mouse (USA)');
+    candidates.push('Castle of Illusion Starring Mickey Mouse');
+  }
+  if (lowerBase.includes('world of illusion')) {
+    candidates.push('World of Illusion Starring Mickey Mouse & Donald Duck (USA)');
+    candidates.push('World of Illusion - Starring Mickey Mouse & Donald Duck (USA)');
+  }
+  if (lowerBase.includes('crash bandicoot 3') || lowerBase.includes('warped')) {
+    candidates.push('Crash Bandicoot - Warped (USA)');
+    candidates.push('Crash Bandicoot 3 - Warped (USA)');
+  }
+  if (lowerBase.includes('tomb raider ii') || lowerBase.includes('tomb raider 2')) {
+    candidates.push('Tomb Raider II - Starring Lara Croft (USA)');
+    candidates.push('Tomb Raider II (USA)');
+  }
+  if (lowerBase.includes('warioware')) {
+    candidates.push('WarioWare, Inc. - Mega Microgame$! (USA)');
+    candidates.push('WarioWare, Inc. - Mega Microgame$!');
   }
 
   if (lowerBase.includes('ocarina of time')) {
@@ -263,8 +367,25 @@ const getLibretroCandidates = (title: string, systemId: string, originalTitle?: 
     }
   }
 
+  // Clean and prepare final basic candidates
+  let finalBases = Array.from(new Set(candidates)).filter(Boolean);
+
+  // If CD-based system, automatically try multi-disc variants for games that might be Disc 1
+  const cdSystems = ['ps1', 'psx', 'saturn', 'segasaturn', 'dreamcast', '3do', 'pce'];
+  if (cdSystems.includes(systemId.toLowerCase())) {
+    const cdBases: string[] = [];
+    for (const fb of finalBases) {
+      cdBases.push(`${fb} (Disc 1)`);
+      cdBases.push(`${fb} (Disc 1 of 2)`);
+      cdBases.push(`${fb} (Disc 1 of 3)`);
+      cdBases.push(`${fb} (Disc 1 of 4)`);
+      cdBases.push(`${fb} (Track 1)`);
+    }
+    finalBases = [...finalBases, ...cdBases];
+  }
+
   // De-duplicate final candidate array
-  const finalCandidates = Array.from(new Set(candidates)).filter(Boolean);
+  const finalCandidates = Array.from(new Set(finalBases));
 
   // Return formatted raw GitHub content URLs (handling both master and main branches for fallback resilience)
   return finalCandidates.flatMap(c => [
