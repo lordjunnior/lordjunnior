@@ -73,22 +73,22 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Retro Utility Toolbar Controls */}
-      <div className="flex items-center gap-3 sm:gap-5">
+      <div className="flex items-center gap-2 sm:gap-5">
         {/* Global Search Button */}
         <button
           onClick={onSearchClick}
-          className="flex items-center gap-2 px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/60 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/60 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
           title="Pesquisa Global de Consoles e Jogos (Atalho: S / F)"
           id="btn-header-search"
         >
           <Search className="w-3.5 h-3.5 text-zinc-400" />
-          <span>BUSCA</span>
+          <span className="hidden xs:inline">BUSCA</span>
         </button>
 
         {/* Audio / Mute feedback */}
         <button
           onClick={toggleMute}
-          className={`flex items-center gap-2 px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-md ${
+          className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-md ${
             !isMuted
               ? 'bg-red-500/10 border-red-500/20 text-red-400'
               : 'bg-zinc-900/50 hover:bg-[#27272a]/60 border-white/10 text-zinc-500'
@@ -107,16 +107,16 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Settings button */}
         <button
           onClick={onSettingsClick}
-          className="flex items-center gap-2 px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/40 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/40 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
           title="Ajustes do Painel e Preferências Retro"
           id="btn-header-settings"
         >
           <Sliders className="w-3.5 h-3.5 text-zinc-400" />
-          <span>PAINEL</span>
+          <span className="hidden xs:inline">PAINEL</span>
         </button>
 
         {/* Digital Realtime LCD Clock */}
-        <div className="bg-black/90 border border-white/10 px-4 py-2 rounded-xl shadow-inner flex items-center justify-center">
+        <div className="hidden md:flex bg-black/90 border border-white/10 px-4 py-2 rounded-xl shadow-inner items-center justify-center">
           <span 
             className="text-amber-500 hover:text-amber-400 transition-all text-xs font-mono tracking-widest font-bold cursor-default select-none tracking-[2.5px]"
             title="Relógio do Servidor de Jogos"

@@ -1123,7 +1123,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
       <div className="relative z-20 w-full max-w-[1600px] mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch justify-center flex-1 min-h-0 pt-16 md:pt-20 lg:pt-4">
         
         {/* COLUNA ESQUERDA (DASHBOARD DO USUÁRIO - MEU SISTEMA RETRO) */}
-        <div className="col-span-1 lg:col-span-3 h-full flex flex-col justify-center transition-opacity duration-200">
+        <div className="col-span-1 lg:col-span-3 h-full flex-col justify-center transition-opacity duration-200 hidden lg:flex">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -1340,7 +1340,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                 transition={{ duration: 0.45, ease: "easeOut" }}
                 className="flex flex-col items-center w-full"
               >
-                <div className="h-96 md:h-[450px] lg:h-[480px] xl:h-[560px] w-auto flex items-center justify-center relative select-none pointer-events-none">
+                <div className="h-44 sm:h-64 md:h-[450px] lg:h-[480px] xl:h-[560px] w-auto flex items-center justify-center relative select-none pointer-events-none">
                   {/* Majestic ambient background glow behind central protagonist */}
                   <div 
                     className="absolute inset-[-50px] lg:inset-[-80px] -z-10 blur-[90px] opacity-25 transition-all duration-1000 pointer-events-none"
@@ -1371,6 +1371,36 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                 <h1 className="text-2xl md:text-4xl xl:text-5xl font-black tracking-tight text-white uppercase drop-shadow-2xl">
                   {activeSystem.name}
                 </h1>
+                
+                {/* Mobile/Tablet Play Button */}
+                <div className="lg:hidden mt-3 z-30 w-full max-w-[240px] pointer-events-auto">
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSelect();
+                    }}
+                    className="w-full relative px-4 py-2.5 bg-zinc-950 hover:bg-zinc-900 text-white border font-retro text-[9px] font-black uppercase tracking-widest rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 active:scale-95 shadow-lg shadow-black/80 group/btn"
+                    style={{
+                      borderColor: `${activeColor.hex}55`,
+                      boxShadow: `0 0 15px ${activeColor.hex}22`
+                    }}
+                  >
+                    <span 
+                      className="w-2 h-2 rounded-full mr-2 pulse-led shadow-sm inline-block shrink-0 animate-pulse" 
+                      style={{ 
+                        backgroundColor: activeColor.hex,
+                        boxShadow: `0 0 8px ${activeColor.hex}`
+                      }}
+                    />
+                    <span className="relative z-10 font-bold tracking-widest text-zinc-100 flex items-center gap-1.5">
+                      {isSystemSupported(activeSystem.id) ? (
+                        <>REVIVER ESTA ERA ➔</>
+                      ) : (
+                        <>EM BREVE ➔</>
+                      )}
+                    </span>
+                  </button>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -1599,7 +1629,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
         </div>
 
         {/* COLUNA DIREITA (DADOS DO CONSOLE SELECIONADO & LIGAR CONSOLE) */}
-        <div className="col-span-1 lg:col-span-3 h-full flex flex-col justify-center transition-opacity duration-200">
+        <div className="col-span-1 lg:col-span-3 h-full flex-col justify-center transition-opacity duration-200 hidden lg:flex">
           <motion.div
             key={`specs-right-${activeSystem.id}`}
             initial={{ opacity: 0, x: 30 }}

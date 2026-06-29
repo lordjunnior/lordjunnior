@@ -186,6 +186,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
   onToggleFavorite,
 }) => {
   const [selectedGameIndex, setSelectedGameIndex] = useState(0);
+  const [mobileTab, setMobileTab] = useState<'list' | 'details'>('list');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterFavorites, setFilterFavorites] = useState(false);
   const [emulatingGame, setEmulatingGame] = useState<Game | null>(null);
@@ -421,6 +422,11 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
 
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
+      }
+
+      // Dynamic tab transition on mobile
+      if (window.innerWidth < 1024) {
+        setMobileTab('details');
       }
     }
   };
@@ -1004,9 +1010,9 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       )}
 
       {/* 4. HEADER RETRO */}
-      <header className="h-[75px] w-full flex justify-between items-center px-10 border-b border-white/5 bg-gradient-to-b from-black/60 to-transparent z-20 relative">
+      <header className="h-[75px] w-full flex justify-between items-center px-4 sm:px-10 border-b border-white/5 bg-gradient-to-b from-black/60 to-transparent z-20 relative">
         {/* Back and Brand Logo */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-6">
           <button 
             id="back-button"
             onClick={handleBack}
@@ -1016,7 +1022,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             <span>Voltar</span>
           </button>
           
-          <div className="flex flex-col">
+          <div className="hidden sm:flex flex-col">
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-sans font-black tracking-[0.15em] text-white">LORDTECA</span>
               <span className="text-sm font-sans font-light tracking-[0.15em] text-gray-400">RETRO</span>
@@ -1042,18 +1048,18 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             {isMuted ? (
               <>
                 <VolumeX className="w-3.5 h-3.5 text-rose-500" />
-                <span className="text-[9px] font-extrabold tracking-[0.2em] text-rose-500 uppercase">Mudo</span>
+                <span className="text-[9px] font-extrabold tracking-[0.2em] text-rose-500 uppercase hidden xs:inline">Mudo</span>
               </>
             ) : (
               <>
                 <Volume2 className="w-3.5 h-3.5" style={{ filter: 'drop-shadow(0 0 5px var(--theme-color))' }} />
-                <span className="text-[9px] font-extrabold tracking-[0.2em] text-gray-400 uppercase">Áudio: On</span>
+                <span className="text-[9px] font-extrabold tracking-[0.2em] text-gray-400 uppercase hidden xs:inline">Áudio</span>
               </>
             )}
           </button>
 
           {/* UTC Clock */}
-          <div className="flex items-center gap-2 bg-black/40 border border-white/5 px-4 py-1.5 rounded-full shadow-inner">
+          <div className="hidden xs:flex items-center gap-2 bg-black/40 border border-white/5 px-4 py-1.5 rounded-full shadow-inner">
             <Clock className="w-3.5 h-3.5 text-[#E60012]" />
             <span className="text-xs font-mono font-bold tracking-widest text-white">{timeString}</span>
           </div>
@@ -1061,10 +1067,40 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
       </header>
 
       {/* 5. MAIN HUB DISPLAY LAYOUT */}
-      <main className="flex-1 w-full max-w-[1700px] mx-auto px-8 py-4 flex gap-6 overflow-hidden z-10 relative">
+      <main className="flex-1 w-full max-w-[1700px] mx-auto px-4 sm:px-8 py-4 flex flex-col lg:flex-row gap-6 overflow-y-auto lg:overflow-hidden z-10 relative">
+        
+        {/* Mobile Tab Switcher */}
+        <div className="flex lg:hidden gap-2 bg-black/40 border border-white/5 p-1 rounded-2xl shrink-0">
+          <button
+            onClick={() => {
+              soundEngine.playMove();
+              setMobileTab('list');
+            }}
+            className={`flex-1 py-3 text-center rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all cursor-pointer ${
+              mobileTab === 'list' 
+                ? 'bg-[#E60012] text-white shadow-md' 
+                : 'text-zinc-400 hover:text-white'
+            }`}
+          >
+            Lista de Jogos
+          </button>
+          <button
+            onClick={() => {
+              soundEngine.playMove();
+              setMobileTab('details');
+            }}
+            className={`flex-1 py-3 text-center rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all cursor-pointer ${
+              mobileTab === 'details' 
+                ? 'bg-[#E60012] text-white shadow-md' 
+                : 'text-zinc-400 hover:text-white'
+            }`}
+          >
+            Dossiê & Detalhes
+          </button>
+        </div>
         
         {/* COLUNA 1: SIDEBAR (NAVIGATION & GAMES SCROLLER) */}
-        <aside className="w-[320px] flex-shrink-0 flex flex-col gap-4 overflow-hidden h-full">
+        <aside className={`${mobileTab === 'list' ? 'flex' : 'hidden'} lg:flex w-full lg:w-[320px] flex-shrink-0 flex-col gap-4 overflow-hidden h-[calc(100vh-220px)] lg:h-full`}>
           {/* Section 1: Dashboard Navigation Tabs */}
           <div className="bg-black/30 border border-white/5 rounded-2xl p-2.5 flex flex-col gap-1 backdrop-blur-md">
             {[
@@ -1200,7 +1236,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         </aside>
 
         {/* COLUNA 2: DIORAMA PEDESTAL (3D FLOATING BOX & SPECS ROW) */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-8 px-4 relative">
+        <div className={`${mobileTab === 'details' ? 'flex' : 'hidden'} lg:flex flex-1 flex-col items-center justify-center gap-6 sm:gap-8 px-4 relative py-4 lg:py-0`}>
           {selectedGame && (
             <>
               {/* Box Art and Floor shadow */}
@@ -1209,7 +1245,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 {/* Floating 3D cover container (Enlarged and highlighted) */}
                 <div 
                   onClick={() => handleLaunchGame(selectedGame)}
-                  className="w-[320px] h-[430px] rounded-2xl shadow-3xl relative z-10 transition-transform duration-300 ease-out flex-shrink-0 cursor-pointer overflow-hidden border border-white/15"
+                  className="w-[240px] h-[320px] sm:w-[320px] sm:h-[430px] rounded-2xl shadow-3xl relative z-10 transition-transform duration-300 ease-out flex-shrink-0 cursor-pointer overflow-hidden border border-white/15"
                   style={{ 
                     transformStyle: 'preserve-3d',
                     transform: `rotateY(${mousePos.x * 25}deg) rotateX(${mousePos.y * -25}deg) translateZ(40px) translateY(${Math.sin(floatTick) * 8}px)`,
@@ -1236,7 +1272,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
 
                 {/* dynamic projected floor drop-shadow underneath the cover */}
                 <div 
-                   className="w-[280px] h-[20px] bg-black/65 rounded-full blur-xl absolute bottom-[-45px] z-0 transition-transform duration-300 ease-out"
+                   className="w-[200px] sm:w-[280px] h-[15px] sm:h-[20px] bg-black/65 rounded-full blur-xl absolute bottom-[-45px] z-0 transition-transform duration-300 ease-out"
                    style={{
                       transform: `scale(${1 - Math.sin(floatTick) * 0.08}) translate(${mousePos.x * 15}px, ${mousePos.y * -8}px)`,
                       opacity: 0.8 - Math.sin(floatTick) * 0.1
@@ -1245,7 +1281,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
               </div>
 
               {/* Technical Specifications Row underneath diorama (Optimized columns to prevent truncation) */}
-              <div className="w-full max-w-[620px] bg-black/40 border border-white/5 rounded-2xl p-4 grid grid-cols-5 text-center divide-x divide-white/5 backdrop-blur-md">
+              <div className="w-full max-w-[620px] bg-black/40 border border-white/5 rounded-2xl p-4 grid grid-cols-2 sm:grid-cols-5 gap-3 text-center sm:divide-x divide-white/5 backdrop-blur-md">
                 <div className="flex flex-col gap-1 min-w-0">
                   <span className="text-[7.5px] text-zinc-500 uppercase tracking-[0.18em] font-bold">Lançamento</span>
                   <span className="text-[9px] md:text-[10px] text-white font-bold tracking-wider">{selectedGame.year}</span>
@@ -1272,7 +1308,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         </div>
 
         {/* COLUNA 3: INFORMATION DOSSIER CARD */}
-        <div className="w-[450px] flex-shrink-0 flex flex-col gap-4 overflow-y-auto h-full pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
+        <div className={`${mobileTab === 'details' ? 'flex' : 'hidden'} lg:flex w-full lg:w-[450px] flex-shrink-0 flex-col gap-4 overflow-y-auto h-auto lg:h-full pr-1 pb-12 lg:pb-0 scrollbar-thin scrollbar-thumb-zinc-800`}>
           {selectedGame ? (
             <AnimatePresence mode="wait">
               {activeTab === 'overview' && (
