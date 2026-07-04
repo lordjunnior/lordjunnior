@@ -243,38 +243,91 @@ export const EXACT_ROM_MAPPINGS: Record<string, Record<string, string>> = {
 };
 
 /**
- * Resolves a game title to an active, Direct Download ROM zip URL on Archive.org.
+ * Resolves a game title or relative rom path to an active, Direct Download ROM zip URL on Archive.org.
  * Utilizes standard, clean, reliable No-Intro archives of retro consoles.
  */
-export const resolveGameRomUrl = (systemId: string, title: string): string => {
+export const resolveGameRomUrl = (systemId: string, titleOrFilename: string): string => {
   const normSystem = systemId.toLowerCase();
-  const folderName = CONSOLE_FOLDERS[normSystem];
 
-  // If we don't support the console or have no folder name, return a default preset helper
-  if (!folderName) {
-    return `https://raw.githubusercontent.com/christopherhealy/nes-test-roms/master/gimmick/gimmick.nes`;
-  }
+  // Extract base filename if a path is provided
+  let baseName = titleOrFilename.replace(/^\/+/, '').split('/').pop() || titleOrFilename;
 
-  // 1. Direct custom curated exact mappings
-  const systemMappings = EXACT_ROM_MAPPINGS[normSystem];
-  if (systemMappings) {
-    const matchedFile = systemMappings[title];
-    if (matchedFile) {
-      return `https://archive.org/download/ni-romsets/${encodeURIComponent(folderName)}/${encodeURIComponent(matchedFile)}`;
+  // NES (Nintendo Entertainment System) - Split by Letter Groups
+  if (normSystem === 'nes') {
+    // Standardize No-Intro title naming if starting with "The "
+    if (baseName.toLowerCase().startsWith('the ')) {
+      const rest = baseName.substring(4);
+      const extIndex = rest.lastIndexOf('.');
+      if (extIndex !== -1) {
+        const namePart = rest.substring(0, extIndex);
+        const extPart = rest.substring(extIndex);
+        baseName = `${namePart}, The${extPart}`;
+      } else {
+        baseName = `${rest}, The`;
+      }
     }
+
+    const firstChar = baseName.trim().charAt(0).toUpperCase();
+    let item = 'no-intro-nes-roms-from-myrient-s-z'; // default fallback
+    if (firstChar >= 'A' && firstChar <= 'E') {
+      item = 'no-intro-nes-roms-from-myrient-a-e';
+    } else if (firstChar >= 'F' && firstChar <= 'L') {
+      item = 'no-intro-nes-roms-from-myrient-f-l';
+    } else if (firstChar >= 'M' && firstChar <= 'R') {
+      item = 'no-intro-nes-roms-from-myrient-m-r';
+    } else if (firstChar >= 'S' && firstChar <= 'Z') {
+      item = 'no-intro-nes-roms-from-myrient-s-z';
+    } else if (firstChar >= '0' && firstChar <= '9' || firstChar === '\'' || firstChar === '"') {
+      item = '100-in-1-real-game-china-en-ja-pirate';
+    }
+    return `https://archive.org/download/${item}/${encodeURIComponent(baseName)}`;
   }
 
-  // 2. Intelligent general normalizer for files not mapped in the exact dict
-  // This automatically handles standard cases (e.g., adding " (USA).zip")
-  let cleanTitle = title.trim();
-  
-  // Remove trailing dots or signs
-  if (cleanTitle.endsWith('.')) {
-    cleanTitle = cleanTitle.slice(0, -1);
+  // SNES (Super Nintendo)
+  if (normSystem === 'snes') {
+    return `https://archive.org/download/snes-collection-no-intro/SNES/${encodeURIComponent(baseName)}`;
   }
 
-  // Standard format on Archive.org ni-romsets is: "<Game Name> (USA).zip" or "<Game Name> (World).zip"
-  // Let's fallback to typical filenames
-  const fallbackFile = `${cleanTitle} (USA).zip`;
-  return `https://archive.org/download/ni-romsets/${encodeURIComponent(folderName)}/${encodeURIComponent(fallbackFile)}`;
+  // GBA (Game Boy Advance)
+  if (normSystem === 'gba') {
+    return `https://archive.org/download/ef_gba_no-intro_2024-02-21/${encodeURIComponent(baseName)}`;
+  }
+
+  // GBC (Game Boy Color)
+  if (normSystem === 'gbc') {
+    return `https://archive.org/download/ef_GBC_No-Intro/${encodeURIComponent(baseName)}`;
+  }
+
+  // GB (Game Boy)
+  if (normSystem === 'gb') {
+    return `https://archive.org/download/ef_Nintendo_Gameboy_No-Intro_2024-04-23/${encodeURIComponent(baseName)}`;
+  }
+
+  // Sega Genesis / Mega Drive
+  if (normSystem === 'genesis' || normSystem === 'megadrive') {
+    return `https://archive.org/download/ef_mega_genesis_no-intro_2024-04-21/${encodeURIComponent(baseName)}`;
+  }
+
+  // Sega Master System (SMS)
+  if (normSystem === 'sms') {
+    return `https://archive.org/download/ef_sms_No-Intro_2024-03-08/${encodeURIComponent(baseName)}`;
+  }
+
+  // Sega Game Gear
+  if (normSystem === 'gamegear' || normSystem === 'gg') {
+    return `https://archive.org/download/ef_sega_game_gear_no-intro_2024-02-21/${encodeURIComponent(baseName)}`;
+  }
+
+  // Nintendo 64 (N64)
+  if (normSystem === 'n64') {
+    return `https://archive.org/download/ef_nintendo_64_no-intro_2024-02-10/${encodeURIComponent(baseName)}`;
+  }
+
+  // Atari 2600
+  if (normSystem === 'atari' || normSystem === 'atari2600') {
+    return `https://archive.org/download/atari-2600-no-intro-romset-2026-05-29/Atari%202600/${encodeURIComponent(baseName)}`;
+  }
+
+  // Fallback preset helper
+  return `https://raw.githubusercontent.com/christopherhealy/nes-test-roms/master/gimmick/gimmick.nes`;
 };

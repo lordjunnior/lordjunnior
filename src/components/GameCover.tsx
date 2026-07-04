@@ -959,7 +959,7 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
         </div>
       )}
       <img
-        src={src}
+        src={src || undefined}
         alt=""
         onError={handleError}
         onLoad={() => setLoaded(true)}

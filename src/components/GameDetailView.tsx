@@ -768,7 +768,13 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                 borderColor: `${themeColors.hex}25`,
                 boxShadow: `0 35px 80px -25px rgba(0,0,0,0.95), 0 0 50px ${themeColors.hex}08`
               }}
-              className="w-full aspect-[4/3] sm:aspect-[1.33/1] bg-gradient-to-br from-zinc-900/90 to-zinc-950/95 border rounded-2xl p-3 relative overflow-hidden flex flex-col justify-between cursor-pointer group"
+              className={`${
+                ['snes', 'supernintendo', 'sfc', 'superfamicom'].includes(system.id.toLowerCase().trim())
+                  ? "w-full aspect-[4/3] sm:aspect-[1.33/1]" // Horizontal (4:3)
+                  : ['ps1', 'psx', 'playstation', 'saturn', 'sega-cd', 'dreamcast', '3do', 'nds', 'ds'].includes(system.id.toLowerCase().trim())
+                  ? "w-full aspect-[1/1] max-w-[340px] mx-auto" // Square (1:1)
+                  : "w-full aspect-[3/4] max-w-[310px] mx-auto" // Vertical (3:4)
+              } bg-gradient-to-br from-zinc-900/90 to-zinc-950/95 border rounded-2xl p-3 relative overflow-hidden flex flex-col justify-between cursor-pointer group`}
             >
               {/* Dynamic Laser Light Sweep Sheen */}
               <div 

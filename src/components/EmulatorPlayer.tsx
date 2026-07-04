@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
 import { UnsupportedGenerationView } from './UnsupportedGenerationView';
+import { resolveGameRomUrl } from '../utils/romResolver';
 import { 
   Play, 
   RotateCcw, 
@@ -197,8 +198,19 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
 
     let targetUrl = url;
 
+    // Detect if this is a default local ROM path like "/roms/snes/Super Mario World (USA).zip"
+    if (url.startsWith('/roms/')) {
+      const parts = url.substring(6).split('/'); // ["snes", "Super Mario World (USA).zip"]
+      if (parts.length >= 2) {
+        const systemId = parts[0];
+        const filename = parts.slice(1).join('/');
+        targetUrl = resolveGameRomUrl(systemId, filename);
+        console.log(`[EmulatorPlayer] Resolved local path ${url} to Archive.org ROM URL: ${targetUrl}`);
+      }
+    }
+
     // Detect Google Drive sharing links and convert them to direct download links
-    const gdriveMatch = url.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=)|docs\.google\.com\/file\/d\/)([a-zA-Z0-9_-]{25,})/);
+    const gdriveMatch = targetUrl.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=)|docs\.google\.com\/file\/d\/)([a-zA-Z0-9_-]{25,})/);
     if (gdriveMatch && gdriveMatch[1]) {
       const fileId = gdriveMatch[1];
       targetUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
@@ -421,18 +433,20 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
       <div className="flex-1 relative bg-zinc-900 flex flex-col items-center justify-center overflow-hidden">
         
         {/* Real Dynamic Sandbox Iframe Loader */}
-        <iframe
-          ref={iframeRef}
-          key={activeRomUrl} 
-          src={iframeSrc}
-          title={`Emulator Screen for ${game.title}`}
-          sandbox="allow-scripts allow-same-origin allow-pointer-lock"
-          className="w-full h-full border-0 bg-zinc-950 z-10"
-          onLoad={() => {
-            // Give a tiny buffer for cores to initiate
-            setTimeout(() => setIsLoading(false), 800);
-          }}
-        />
+        {iframeSrc ? (
+          <iframe
+            ref={iframeRef}
+            key={activeRomUrl} 
+            src={iframeSrc}
+            title={`Emulator Screen for ${game.title}`}
+            sandbox="allow-scripts allow-same-origin allow-pointer-lock"
+            className="w-full h-full border-0 bg-zinc-950 z-10"
+            onLoad={() => {
+              // Give a tiny buffer for cores to initiate
+              setTimeout(() => setIsLoading(false), 800);
+            }}
+          />
+        ) : null}
 
         {/* Loading overlay panel */}
         {isLoading && (

@@ -259,14 +259,18 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                               className="p-3 bg-zinc-950/60 hover:bg-zinc-900/90 hover:border-red-500/40 border border-white/5 rounded-xl cursor-pointer transition-all duration-200 group flex items-center justify-between"
                             >
                               <div className="flex items-center gap-3 min-w-0">
-                                <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-white/5 flex-shrink-0 overflow-hidden relative">
-                                  <img 
-                                    src={item.image} 
-                                    alt={item.title} 
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform" 
-                                    referrerPolicy="no-referrer"
-                                  />
-                                  <div className="absolute inset-0 bg-black/15" />
+                                <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-white/5 flex-shrink-0 overflow-hidden relative flex items-center justify-center">
+                                  {item.image ? (
+                                    <img 
+                                      src={item.image} 
+                                      alt={item.title} 
+                                      className="w-full h-full object-cover group-hover:scale-105 transition-transform" 
+                                      referrerPolicy="no-referrer"
+                                    />
+                                  ) : (
+                                    <Gamepad2 className="w-5 h-5 text-zinc-600 group-hover:text-red-400 transition-colors" />
+                                  )}
+                                  <div className="absolute inset-0 bg-black/15 pointer-events-none" />
                                 </div>
                                 <div className="min-w-0">
                                   <h4 className="text-xs font-black text-white font-display uppercase truncate group-hover:text-red-400 transition-colors">
@@ -401,14 +405,18 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                             >
                               <div className="flex items-start gap-3.5">
                                 {/* Small visual helper image */}
-                                <div className="w-10 h-10 rounded-lg bg-zinc-900 overflow-hidden relative border border-white/10 flex-shrink-0">
-                                  <img 
-                                    src={game.image || undefined} 
-                                    alt={game.title} 
-                                    className="w-full h-full object-cover"
-                                    referrerPolicy="no-referrer"
-                                  />
-                                  <div className="absolute inset-0 bg-black/20" />
+                                <div className="w-10 h-10 rounded-lg bg-zinc-900 overflow-hidden relative border border-white/10 flex-shrink-0 flex items-center justify-center">
+                                  {game.image ? (
+                                    <img 
+                                      src={game.image} 
+                                      alt={game.title} 
+                                      className="w-full h-full object-cover"
+                                      referrerPolicy="no-referrer"
+                                    />
+                                  ) : (
+                                    <Gamepad2 className="w-5 h-5 text-zinc-600 group-hover:text-red-400 transition-colors" />
+                                  )}
+                                  <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                                 </div>
 
                                 <div className="space-y-0.5">

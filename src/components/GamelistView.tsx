@@ -1188,6 +1188,10 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   const key = `${system.id}::${game.title}`;
                   const isFav = favoriteList.includes(key);
                   
+                  const cleanId = system.id.toLowerCase().trim();
+                  const isHorizontal = ['snes', 'supernintendo', 'sfc', 'superfamicom'].includes(cleanId);
+                  const isSquare = ['ps1', 'psx', 'playstation', 'saturn', 'sega-cd', 'dreamcast', '3do', 'nds', 'ds'].includes(cleanId);
+                  
                   return (
                     <button
                       key={game.id}
@@ -1199,7 +1203,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                       }`}
                     >
                       {/* Box Cover Thumbnail */}
-                      <div className="w-[36px] h-[48px] rounded overflow-hidden flex-shrink-0 bg-zinc-900 border border-white/10 relative shadow">
+                      <div className={`${isHorizontal ? 'w-[48px] h-[36px]' : isSquare ? 'w-[42px] h-[42px]' : 'w-[36px] h-[48px]'} rounded overflow-hidden flex-shrink-0 bg-zinc-900 border border-white/10 relative shadow`}>
                         <GameCover 
                           game={game} 
                           systemId={system.id} 
@@ -1245,7 +1249,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                 {/* Floating 3D cover container (Enlarged and highlighted) */}
                 <div 
                   onClick={() => handleLaunchGame(selectedGame)}
-                  className="w-[240px] h-[320px] sm:w-[320px] sm:h-[430px] rounded-2xl shadow-3xl relative z-10 transition-transform duration-300 ease-out flex-shrink-0 cursor-pointer overflow-hidden border border-white/15"
+                  className={`${
+                    ['snes', 'supernintendo', 'sfc', 'superfamicom'].includes(system.id.toLowerCase().trim())
+                      ? "w-[300px] h-[225px] sm:w-[400px] sm:h-[300px]" // Horizontal (4:3)
+                      : ['ps1', 'psx', 'playstation', 'saturn', 'sega-cd', 'dreamcast', '3do', 'nds', 'ds'].includes(system.id.toLowerCase().trim())
+                      ? "w-[240px] h-[240px] sm:w-[330px] sm:h-[330px]" // Square (1:1)
+                      : "w-[240px] h-[320px] sm:w-[320px] sm:h-[430px]" // Vertical (3:4)
+                  } rounded-2xl shadow-3xl relative z-10 transition-transform duration-300 ease-out flex-shrink-0 cursor-pointer overflow-hidden border border-white/15`}
                   style={{ 
                     transformStyle: 'preserve-3d',
                     transform: `rotateY(${mousePos.x * 25}deg) rotateX(${mousePos.y * -25}deg) translateZ(40px) translateY(${Math.sin(floatTick) * 8}px)`,
@@ -1272,7 +1282,13 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
 
                 {/* dynamic projected floor drop-shadow underneath the cover */}
                 <div 
-                   className="w-[200px] sm:w-[280px] h-[15px] sm:h-[20px] bg-black/65 rounded-full blur-xl absolute bottom-[-45px] z-0 transition-transform duration-300 ease-out"
+                   className={`${
+                     ['snes', 'supernintendo', 'sfc', 'superfamicom'].includes(system.id.toLowerCase().trim())
+                       ? "w-[260px] sm:w-[360px]"
+                       : ['ps1', 'psx', 'playstation', 'saturn', 'sega-cd', 'dreamcast', '3do', 'nds', 'ds'].includes(system.id.toLowerCase().trim())
+                       ? "w-[210px] sm:w-[300px]"
+                       : "w-[200px] sm:w-[280px]"
+                   } h-[15px] sm:h-[20px] bg-black/65 rounded-full blur-xl absolute bottom-[-45px] z-0 transition-transform duration-300 ease-out`}
                    style={{
                       transform: `scale(${1 - Math.sin(floatTick) * 0.08}) translate(${mousePos.x * 15}px, ${mousePos.y * -8}px)`,
                       opacity: 0.8 - Math.sin(floatTick) * 0.1

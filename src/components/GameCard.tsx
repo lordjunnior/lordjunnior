@@ -219,6 +219,16 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
 
   const consoleColorClass = getConsoleColorClass(systemId || '');
 
+  const cleanId = (systemId || '').toLowerCase().trim();
+  const isSnes = ['snes', 'supernintendo', 'sfc', 'superfamicom'].includes(cleanId);
+  const isSquare = ['ps1', 'psx', 'playstation', 'saturn', 'sega-cd', 'dreamcast', '3do', 'nds', 'ds'].includes(cleanId);
+
+  const cardAspectClass = isSnes 
+    ? 'aspect-[4/3]' 
+    : isSquare 
+    ? 'aspect-[1/1]' 
+    : 'aspect-[3/4]';
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 15 }}
@@ -229,7 +239,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onLaunch, systemName, 
       className="group relative flex flex-col bg-[#141418]/90 border border-white/5 rounded-xl overflow-hidden hover:border-red-500/30 hover:shadow-[0_10px_30px_rgba(230,0,18,0.15)] transition-all duration-300 cursor-pointer"
     >
       {/* Visual Game Boxart with Play overlay */}
-      <div className="relative w-full aspect-[4/3] bg-zinc-950 overflow-hidden border-b border-white/5">
+      <div className={`relative w-full ${cardAspectClass} bg-zinc-950 overflow-hidden border-b border-white/5`}>
         {!imageError && currentSrc ? (
           <img
             src={currentSrc}
