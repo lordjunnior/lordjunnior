@@ -431,7 +431,8 @@
         "genre": "Aventura / Plataforma",
         "dev": "Sonic Team",
         "pub": "Sega",
-        "desc": "A icônica e emocionante aventura em alta velocidade que dividiu a saga entre heróis e vilões, estreando Shadow the Hedgehog."
+        "desc": "A icônica e emocionante aventura em alta velocidade que dividiu a saga entre heróis e vilões, estreando Shadow the Hedgehog.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/99/Sonic_Adventure_2_cover.png"
       },
       {
         "title": "SoulCalibur",
@@ -439,7 +440,8 @@
         "genre": "Luta 3D",
         "dev": "Project Soul",
         "pub": "Namco",
-        "desc": "Considerado um divisor de águas nos jogos de luta 3D por sua fluidez absoluta nas 8 direções e gráficos que superavam o arcade."
+        "desc": "Considerado um divisor de águas nos jogos de luta 3D por sua fluidez absoluta nas 8 direções e gráficos que superavam o arcade.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/23/Soulcalibur_volume_1_cover.jpg"
       },
       {
         "title": "Shenmue",
@@ -447,7 +449,8 @@
         "genre": "Aventura / RPG",
         "dev": "Sega AM2",
         "pub": "Sega",
-        "desc": "Obra-prima visionária de Yu Suzuki que definiu o gênero mundo aberto e interativo em busca de vingança pela morte do pai."
+        "desc": "Obra-prima visionária de Yu Suzuki que definiu o gênero mundo aberto e interativo em busca de vingança pela morte do pai.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/ShenmueCover.jpg"
       },
       {
         "title": "Jet Set Radio",
@@ -455,7 +458,8 @@
         "genre": "Ação / Esportes",
         "dev": "Smilebit",
         "pub": "Sega",
-        "desc": "Revolucionou a estética gamer com visual cel-shaded vibrante, trilha sonora funk-eletrônica marcante e grafites nos patins."
+        "desc": "Revolucionou a estética gamer com visual cel-shaded vibrante, trilha sonora funk-eletrônica marcante e grafites nos patins.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/86/Jet_Set_Radio_grind_radio_cover_art.jpg"
       },
       {
         "title": "Crazy Taxi",
@@ -463,7 +467,8 @@
         "genre": "Corrida / Arcade",
         "dev": "Hitmaker",
         "pub": "Sega",
-        "desc": "Leve passageiros a destinos malucos com manobras insanas em alta velocidade ao som punk rock enérgico."
+        "desc": "Leve passageiros a destinos malucos com manobras insanas em alta velocidade ao som punk rock enérgico.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/23/Crazy_Taxi_NA_cover_art.jpg"
       },
       {
         "title": "Phantasy Star Online",
@@ -471,7 +476,8 @@
         "genre": "RPG / Online",
         "dev": "Sonic Team",
         "pub": "Sega",
-        "desc": "O pioneiro absoluto dos RPGs de ação online para consoles com cooperação futurista épica em tempo real."
+        "desc": "O pioneiro absoluto dos RPGs de ação online para consoles com cooperação futurista épica em tempo real.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/91/Phantasy_Star_Online_Coverart.png"
       },
       {
         "title": "Resident Evil Code: Veronica",
@@ -479,7 +485,8 @@
         "genre": "Survival Horror",
         "dev": "Capcom",
         "pub": "Capcom",
-        "desc": "O primeiro Resident Evil a apresentar cenários tridimensionais poligonais completos seguindo a aventura de Claire Redfield."
+        "desc": "O primeiro Resident Evil a apresentar cenários tridimensionais poligonais completos seguindo a aventura de Claire Redfield.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/ec/Resident_Evil_Code-_Veronica_cover.JPG"
       },
       {
         "title": "Marvel vs. Capcom 2: New Age of Heroes",
@@ -487,7 +494,8 @@
         "genre": "Luta 2D",
         "dev": "Capcom",
         "pub": "Capcom",
-        "desc": "O ápice dos jogos de luta tag-team com um massivo elenco de 56 personagens clássicos e combos de proporções colossais."
+        "desc": "O ápice dos jogos de luta tag-team com um massivo elenco de 56 personagens clássicos e combos de proporções colossais.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/30/MvC2_Cover_Art.png"
       },
       {
         "title": "Skies of Arcadia",
@@ -495,7 +503,8 @@
         "genre": "RPG",
         "dev": "Overworks",
         "pub": "Sega",
-        "desc": "Um dos RPGs mais amados de todos os tempos, focado em piratas do ar navegando pelas nuvens e explorando ilhas fantásticas."
+        "desc": "Um dos RPGs mais amados de todos os tempos, focado em piratas do ar navegando pelas nuvens e explorando ilhas fantásticas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b5/Skies_of_Arcadia_Cover.jpg"
       },
       {
         "title": "Ikaruga",
@@ -503,7 +512,8 @@
         "genre": "Shoot 'em up",
         "dev": "Treasure",
         "pub": "Sega",
-        "desc": "Um cult-classic brilhante baseado na alternância de polaridades (preto e branco) para absorver tiros inimigos e contra-atacar."
+        "desc": "Um cult-classic brilhante baseado na alternância de polaridades (preto e branco) para absorver tiros inimigos e contra-atacar.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c5/Ikaruga_cover_art.jpg"
       }
     ]
   },
@@ -904,7 +914,7 @@
         "dev": "Epic Games",
         "pub": "Microsoft Game Studios",
         "desc": "Definiu os padrões modernos de tiro em terceira pessoa com seu inovador sistema de cobertura e o combate brutal de Marcus Fenix contra os Locust.",
-        "image": "https://media.rawg.io/media/games/11c/11c296711516709848f074be07198ba4.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e0/Gears_of_war_cover.jpg"
       },
       {
         "title": "Halo 3",
@@ -913,7 +923,7 @@
         "dev": "Bungie",
         "pub": "Microsoft Game Studios",
         "desc": "O desfecho triunfante da trilogia original da Bungie, estabelecendo recordes históricos de vendas e consagrando o modo multiplayer na Xbox Live.",
-        "image": "https://media.rawg.io/media/games/043/043a0d5da2f05b0780f269a9cf67ec8e.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/05/Halo_3_final_boxart.jpeg"
       },
       {
         "title": "Mass Effect",
@@ -922,7 +932,7 @@
         "dev": "BioWare",
         "pub": "Microsoft Game Studios",
         "desc": "Uma espetacular e influente ópera espacial onde o Comandante Shepard recruta aliados e toma decisões dramáticas que impactam toda a galáxia.",
-        "image": "https://media.rawg.io/media/games/a6c/a6ccd34125c594d385cc3c0b0ad86ec1.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e8/MassEffect.jpg"
       },
       {
         "title": "Fable II",
@@ -931,7 +941,7 @@
         "dev": "Lionhead Studios",
         "pub": "Microsoft Game Studios",
         "desc": "A acolhedora e cativante sequência com um incrível sistema de simulação de vida, exploração rica acompanhado de seu cão leal e o clássico humor britânico.",
-        "image": "https://media.rawg.io/media/games/f47/f47021668270562e8bf5fcb980962325.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e9/Fable2boxart.jpg"
       },
       {
         "title": "Alan Wake",
@@ -940,7 +950,7 @@
         "dev": "Remedy Entertainment",
         "pub": "Microsoft Game Studios",
         "desc": "Um thriller psicológico cinematográfico soberbo onde o escritor Alan Wake usa a luz para combater uma presença sombria sobrenatural em Bright Falls.",
-        "image": "https://media.rawg.io/media/games/5c0/5c0dd40a0073cbfa7f0775d710bf3ca5.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e4/Alan_Wake_Xbox_360_cover.jpg"
       },
       {
         "title": "Lost Odyssey",
@@ -949,7 +959,7 @@
         "dev": "Mistwalker / Feelplus",
         "pub": "Microsoft Game Studios",
         "desc": "Um dos JRPGs mais aclamados e maduros de sua era, criado pelo pai de Final Fantasy, Hironobu Sakaguchi, narrando a emocionante jornada de um imortal de mil anos.",
-        "image": "https://media.rawg.io/media/games/a23/a23862cb23b209e7c53e05a8f9024f22.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/de/Lost_Odyssey_box_art.jpg"
       },
       {
         "title": "Left 4 Dead 2",
@@ -957,8 +967,8 @@
         "genre": "Tiro / Cooperativo",
         "dev": "Valve",
         "pub": "Valve",
-        "desc": "O ápice do combate cooperativo contra hordas de zumbis brutais, apresentando o inteligente AI Director que ajusta a tensão em tempo real.",
-        "image": "https://media.rawg.io/media/games/d58/d588991d29bc3f2e82098ca39f408225.jpg"
+        "desc": "O ápice do combate cooperativo contra hordas de zumbis brutais, apresentando o inteligente AI Director que ajusta a tension em tempo real.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/01/Left4dead2boxart.jpg"
       },
       {
         "title": "Dead Rising",
@@ -967,7 +977,7 @@
         "dev": "Capcom",
         "pub": "Capcom",
         "desc": "Frank West investiga um shopping sob quarentena repleto de zumbis, usando centenas de objetos cotidianos como armas improvisadas hilárias.",
-        "image": "https://media.rawg.io/media/games/944/944ca0f5d9472e61df3f71c4fa489112.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/90/Dead_Rising_Coverart.png"
       }
     ]
   }

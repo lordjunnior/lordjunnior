@@ -12,7 +12,6 @@ import {
   Play, 
   RotateCcw, 
   Upload, 
-  Link2, 
   HelpCircle, 
   Maximize2, 
   Gamepad2, 
@@ -73,8 +72,6 @@ const getEmulatorJSCore = (shortName: string, emulatorCore: string): string => {
 
 const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onClose }) => {
   const [activeRomUrl, setActiveRomUrl] = useState<string>(game.romUrl || '');
-  const [customUrlInput, setCustomUrlInput] = useState<string>('');
-  const [isUrlInputActive, setIsUrlInputActive] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isCooingRomActive, setIsCooingRomActive] = useState<boolean>(false);
@@ -143,19 +140,6 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
     setIsCooingRomActive(true);
     setErrorMessage(null);
     setIsLoading(true);
-  };
-
-  const handleCustomUrlSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!customUrlInput.trim()) return;
-
-    soundEngine.playToggle();
-    setActiveRomUrl(customUrlInput.trim());
-    setRomFileName('Custom URL ROM Link');
-    setIsCooingRomActive(true);
-    setErrorMessage(null);
-    setIsLoading(true);
-    setIsUrlInputActive(false);
   };
 
   const handleSelectPreset = (url: string, name: string) => {
@@ -515,7 +499,7 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
       {/* Bottom control room dashboard bar */}
       <div className="bg-zinc-950 p-5 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-5 z-20">
         
-        {/* Column 1: Game Metadata & G-Drive Atari Link (4 columns) */}
+        {/* Column 1: Game Metadata (4 columns) */}
         <div className="lg:col-span-4 space-y-3">
           <div className="space-y-1">
             <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
@@ -532,33 +516,10 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
               </p>
             </div>
           </div>
-
-          {/* User's Atari Google Drive Folder Link */}
-          {system.id.toLowerCase().includes('atari') && (
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 space-y-1">
-              <span className="text-[9px] font-retro text-emerald-400 block tracking-wider uppercase flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-emerald-400" />
-                Seu G-Drive de ROMs
-              </span>
-              <p className="text-[10px] text-zinc-400 leading-snug">
-                Organize seus jogos no Google Drive! Copie o link de compartilhamento de qualquer arquivo no seu Drive e use a ferramenta de Link Customizado ao lado.
-              </p>
-              <div className="pt-1">
-                <a 
-                  href="https://drive.google.com" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-black hover:underline cursor-pointer"
-                >
-                  Abrir Meu Google Drive ➔
-                </a>
-              </div>
-            </div>
-          )}
         </div>
 
-        {/* Column 2: Preset ROM Selector (3 columns) */}
-        <div id="preset-selector" className="lg:col-span-3 space-y-1.5">
+        {/* Column 2: Preset ROM Selector (4 columns) */}
+        <div id="preset-selector" className="lg:col-span-4 space-y-1.5">
           <label className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
             ROMs de Teste Rápidas
           </label>
@@ -583,13 +544,13 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
           ) : (
             <div className="text-[10px] text-zinc-500 leading-relaxed py-3 px-3 bg-white/5 rounded-xl border border-white/5">
               <p className="font-semibold text-zinc-400 mb-1">Dica de Emulação:</p>
-              Clique no botão do Google Drive à esquerda para visualizar sua biblioteca de Atari, ou envie sua antiga ROM baixada à direita.
+              Selecione uma das ROMs de teste rápidas à esquerda para experimentar o emulador instantaneamente, ou envie seu próprio arquivo ROM à direita.
             </div>
           )}
         </div>
 
-        {/* Column 3: Drag-and-drop Upload Area (3 columns) */}
-        <div id="local-upload-area" className="lg:col-span-3 space-y-1.5">
+        {/* Column 3: Drag-and-drop Upload Area & Keyboard Shortcuts (4 columns) */}
+        <div id="local-upload-area" className="lg:col-span-4 space-y-1.5">
           <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
             Carregar ROM Local
           </span>
@@ -606,56 +567,9 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
               <p className="text-[9px] text-zinc-500 font-mono">Suporta .zip, .nes, .sfc, .gba</p>
             </div>
           </div>
-        </div>
-
-        {/* Column 4: Custom URL and Keyboard Shortcuts (2 columns) */}
-        <div id="custom-link-options" className="lg:col-span-2 space-y-2">
-          <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
-            Link Externo/G-Drive
-          </span>
-
-          {!isUrlInputActive ? (
-            <button
-              onClick={() => {
-                soundEngine.playToggle();
-                setIsUrlInputActive(true);
-              }}
-              className="w-full px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl text-xs text-zinc-300 flex items-center justify-center gap-2 transition cursor-pointer"
-            >
-              <Link2 className="w-3.5 h-3.5 text-zinc-400" />
-              <span>Inserir Link de ROM (.zip)</span>
-            </button>
-          ) : (
-            <form onSubmit={handleCustomUrlSubmit} className="flex flex-col gap-1.5">
-              <input
-                type="url"
-                required
-                placeholder="Insira link do Drive ou Direct Link"
-                value={customUrlInput}
-                onChange={(e) => setCustomUrlInput(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/15 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500"
-              />
-              <div className="flex gap-1">
-                <button
-                  type="submit"
-                  className="flex-1 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-lg text-[10px] font-bold transition cursor-pointer"
-                >
-                  Ativar
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsUrlInputActive(false)}
-                  className="px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white rounded-lg text-[10px] transition cursor-pointer"
-                >
-                  Voltar
-                </button>
-              </div>
-            </form>
-          )}
-
           <div className="flex gap-1.5 text-[9px] leading-relaxed text-zinc-500 border-t border-white/5 pt-2">
             <HelpCircle className="w-3.5 h-3.5 text-zinc-650 flex-shrink-0" />
-            <p className="leading-snug">Setas movem. Ação mapiada para Z, X, C, V, Q, Enter, Shift.</p>
+            <p className="leading-snug">Setas movem. Ação mapeada para Z, X, C, V, Q, Enter, Shift.</p>
           </div>
         </div>
 
