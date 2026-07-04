@@ -31,6 +31,7 @@ export interface System {
   themeColor: string; // Tailwind color name like 'red-500', 'blue-500'
   emulatorCore: string; // EmulatorJS core identifier
   games: Game[];
+  isDemo?: boolean;
 }
 
 export type ScreenState = 'carousel' | 'gamelist';

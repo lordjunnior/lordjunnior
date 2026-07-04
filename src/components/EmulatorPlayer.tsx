@@ -459,9 +459,9 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-display font-black text-lg text-white">Falha ao baixar ROM de fábrica</h3>
+                <h3 className="font-display font-black text-lg text-white">Falha ao baixar ROM da sua nuvem privada</h3>
                 <p className="text-xs text-zinc-400 leading-relaxed font-mono">
-                  {errorMessage || 'Não conseguimos localizar o arquivo ROM configurado de fábrica para emulação automática (404 Not Found).'}
+                  {errorMessage || 'Não conseguimos localizar o arquivo ROM configurado no seu Google Drive (404 Not Found ou arquivo indisponível).'}
                 </p>
               </div>
 
@@ -471,11 +471,12 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
                   Como resolver isso agora mesmo?
                 </p>
                 <p className="text-zinc-400 text-[11px] leading-snug">
-                  Como arquivos ROM comerciais têm copyright protegido por lei, eles não podem ser incluídos por padrão no servidor. Mas você pode resolver isso instantaneamente com 2 opções:
+                  Como todos os jogos carregam exclusivamente do seu Google Drive particular, esta mensagem indica que o arquivo não pôde ser lido. Por favor:
                 </p>
                 <ul className="list-disc pl-4 text-zinc-400 text-[11px] space-y-1 mt-1">
-                  <li>Selecione uma <strong className="text-emerald-400 font-semibold">ROM Pública / Homebrew</strong> padrão de testes abaixo.</li>
-                  <li>Arraste / Carregue o <strong className="text-emerald-400 font-semibold">seu próprio arquivo ROM</strong> (.zip, .gba, .nes) utilizando a ferramenta de upload.</li>
+                  <li>Verifique se o arquivo da ROM correspondente existe na sua pasta do Google Drive.</li>
+                  <li>Certifique-se de que o arquivo esteja com permissão de leitura ativa.</li>
+                  <li>Recarregue a página e tente dar boot novamente no jogo.</li>
                 </ul>
               </div>
 
@@ -487,7 +488,7 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
                   }}
                   className="px-5 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white rounded-lg text-xs font-semibold cursor-pointer transition"
                 >
-                  Continuar mesmo assim
+                  Fechar Alerta
                 </button>
               </div>
             </div>

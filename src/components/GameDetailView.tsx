@@ -291,6 +291,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
   const isFavorite = game.favorite;
   const [isPlayingMock, setIsPlayingMock] = useState(false);
   const [loadingPlay, setLoadingPlay] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   // Get active system specs and configurations
   const cleanConsoleKey = system.id.toLowerCase().trim().replace(/[\s\-_]/g, '');
@@ -532,6 +533,12 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
 
   const handlePlayMock = () => {
     soundEngine.playSelect();
+    
+    if (system.isDemo) {
+      setIsDemoModalOpen(true);
+      return;
+    }
+
     setLoadingPlay(true);
     setTimeout(() => {
       setLoadingPlay(false);
@@ -1213,6 +1220,67 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
               game={game}
               onClose={handleClosePlayMock}
             />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Ilustrativo / Demo System Dialog Notice */}
+      <AnimatePresence>
+        {isDemoModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/95 backdrop-blur-md z-[3000] flex items-center justify-center p-4 select-none"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              className="relative w-full max-w-md bg-gradient-to-b from-[#1c1c28] to-[#0d0d12] border-2 border-yellow-500/30 rounded-3xl p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.9)] text-center space-y-6"
+            >
+              {/* Retro Warning Icon */}
+              <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 flex items-center justify-center mx-auto">
+                <Gamepad className="w-8 h-8 animate-bounce" />
+              </div>
+
+              <div className="space-y-2">
+                <span className="px-3 py-1 text-[8px] font-retro uppercase bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded-md tracking-wider">
+                  CONSOLE DE VITRINE
+                </span>
+                <h3 className="font-display font-black text-xl text-white tracking-tight uppercase">
+                  {system.name}
+                </h3>
+                <p className="text-xs text-zinc-400 font-mono">
+                  Console em modo de demonstração técnica
+                </p>
+              </div>
+
+              <div className="p-4 bg-yellow-500/5 rounded-2xl border border-yellow-500/10 text-xs text-left space-y-3 font-sans">
+                <p className="text-yellow-400 font-bold flex items-center gap-1.5 leading-none">
+                  <Info className="w-3.5 h-3.5" />
+                  Por que este console não abre?
+                </p>
+                <p className="text-zinc-400 text-[11px] leading-relaxed">
+                  Os consoles que <strong>não possuem arquivos de ROM localizados no seu Google Drive</strong> foram mantidos na página como <strong>vitrine ilustrativa</strong> para atrair público.
+                </p>
+                <p className="text-zinc-400 text-[11px] leading-relaxed border-t border-white/5 pt-2.5">
+                  Tendo público e recursos no futuro, você poderá ativar estes emuladores simplesmente adicionando as respectivas ROMs na sua nuvem privada!
+                </p>
+              </div>
+
+              <div className="flex justify-center">
+                <button
+                  onClick={() => {
+                    soundEngine.playBack();
+                    setIsDemoModalOpen(false);
+                  }}
+                  className="px-6 py-3 bg-zinc-850 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-white/5 rounded-xl text-xs font-retro uppercase font-black tracking-widest cursor-pointer transition active:translate-y-[2px]"
+                >
+                  ➔ Voltar ao Acervo
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
