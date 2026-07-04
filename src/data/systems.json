@@ -36,7 +36,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Explore um reino de Hyrule aberto e resgate pedaços da Triforce neste jogo de aventura incrível.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/41/Legend_of_Zelda_NES_Box_Art.png"
       },
       {
         "title": "Metroid",
@@ -63,7 +63,7 @@
         "dev": "Capcom",
         "pub": "Capcom",
         "desc": "Escolha seu chefe cibernético, roube seus poderes e curta uma das trilhas sonoras de chiptune mais marcantes de sempre.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/f/f1/Mega_Man_X_Coverart.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/6c/Mega_Man_2_box_art.jpg"
       },
       {
         "title": "Contra",
@@ -158,7 +158,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Link viaja entre mundos da Luz e das Trevas para derrotar Ganon e salvar Hyrule.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/8/83/The_Legend_of_Zelda_A_Link_to_the_Past_%26_Four_Swords_Game_Cover.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/21/The_Legend_of_Zelda_A_Link_to_the_Past_SNES_Game_Cover.png"
       },
       {
         "title": "Super Metroid",
@@ -239,7 +239,7 @@
         "dev": "Midway",
         "pub": "Acclaim",
         "desc": "Fatalities brutais, combos agressivos e lutadores icônicos digitalizados com extremo realismo.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/7/7e/Mortal_Kombat_11_cover_art.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/43/U_Mortal_Kombat_3_Boxart.jpg"
       }
     ]
   },
@@ -262,7 +262,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Revolucionou de vez os movimentos direcionais tridimensionais em mundos de exploração abertos incríveis.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/1/12/Super_Mario_64_DS_Coverart.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/50/Super_Mario_64_box_cover.jpg"
       },
       {
         "title": "The Legend of Zelda: Ocarina of Time",
@@ -271,7 +271,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Frequentemente votado o melhor videogame da história sob mecânicas de viagem no tempo e mira lendária em foco Z.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/3/30/The_Legend_of_Zelda_Ocarina_of_Time_3D_box_art.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/57/The_Legend_of_Zelda_Ocarina_of_Time.jpg"
       },
       {
         "title": "Mario Kart 64",
@@ -316,7 +316,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Faça um \"Barrel Roll\" com a clássica Arwing defendendo o sistema Lylat das hordas espaciais de Andross.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/0/03/StarFox2026Cover.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/63/Star_Fox_64_Box_Front.jpg"
       },
       {
         "title": "The Legend of Zelda: Majora's Mask",
@@ -325,7 +325,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Atmosfera sombria e melancólica de um relógio que corre 3 dias sem parar para salvar Termina da queda lunar.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5f/The_Legend_of_Zelda_Majora%27s_Mask_box_art.png"
       },
       {
         "title": "Perfect Dark",
@@ -393,7 +393,7 @@
         "dev": "Game Freak",
         "pub": "Nintendo",
         "desc": "A lendária faísca geradora do maior império de entretenimento móvel. Capture todos os originais 151 monstros!",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Red_and_Blue_cover_art.png"
       },
       {
         "title": "Super Mario Land",
@@ -411,7 +411,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Primeiro zelda portátil focado na misteriosa ilha de Koholint e no gigante Wind Fish adormecido.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e5/The_Legend_of_Zelda_Link%27s_Awakening_box_art.png"
       },
       {
         "title": "Kirby's Dream Land",
@@ -438,7 +438,7 @@
         "dev": "Game Freak",
         "pub": "Nintendo",
         "desc": "Edição especial inspirada no famoso anime com Pikachu seguindo seus passos fora do console.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/58/Pok%C3%A9mon_Yellow_cover_art.png"
       },
       {
         "title": "Donkey Kong Land",
@@ -483,7 +483,7 @@
         "dev": "Konami",
         "pub": "Konami",
         "desc": "Christopher Belmont deve usar chicotes elementais para combater demônios de Drácula em subsolos de castelo.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/5/51/Castlevania_1_cover.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ab/Castlevania_II_Belmont%27s_Revenge_cover_art.jpg"
       }
     ]
   },
@@ -506,7 +506,7 @@
         "dev": "Game Freak",
         "pub": "Nintendo",
         "desc": "A versão definitiva da segunda geração com a primeira protagonista feminina e animações vibrantes de sprites.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/dc/Pokemon_Crystal_Version_box_art.png"
       },
       {
         "title": "Pokemon - Gold Version",
@@ -515,7 +515,7 @@
         "dev": "Game Freak",
         "pub": "Nintendo",
         "desc": "Explore a região de Johto, descubra novos monstrinhos brilhantes e derrote os líderes de ginásio clássicos.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5b/Pok%C3%A9mon_Gold_and_Silver_cover_art.png"
       },
       {
         "title": "Pokemon - Silver Version",
@@ -524,7 +524,7 @@
         "dev": "Game Freak",
         "pub": "Nintendo",
         "desc": "Viva a fantástica aventura para capturar o lendário guardião dos oceanos Lugia na charmosa região de Johto.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5b/Pok%C3%A9mon_Gold_and_Silver_cover_art.png"
       },
       {
         "title": "Shantae",
@@ -542,7 +542,7 @@
         "dev": "Nintendo R&D1",
         "pub": "Nintendo",
         "desc": "O icônico anti-herói ganancioso Wario está de volta em uma aventura hilária onde ele é tecnicamente imortal.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Nintendo-Game-Boy-Color-FL.png/960px-Nintendo-Game-Boy-Color-FL.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/6f/Warioland2boxart.jpg"
       },
       {
         "title": "Resident Evil Gaiden",
@@ -578,7 +578,7 @@
         "dev": "Torus Games",
         "pub": "Activision",
         "desc": "Ajude o amigão da vizinhança Homem-Aranha a combater o Sexteto Sinistro no topo de arranha-céus.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/8/8d/Spider-Man_2000_game_cover.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/9f/Spider-Man_2_-_The_Sinister_Six_cover.png"
       },
       {
         "title": "Yu-Gi-Oh! - Dark Duel Stories",
@@ -610,7 +610,7 @@
         "dev": "Game Freak",
         "pub": "Nintendo",
         "desc": "A definitiva jornada em Hoenn com batalhas em dupla e a épica Battle Frontier para os campeões.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Game_Boy_Advance_Video_Pak.png/960px-Game_Boy_Advance_Video_Pak.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1f/Pokemon_Emerald_box_art.png"
       },
       {
         "title": "The Legend of Zelda: The Minish Cap",
@@ -619,7 +619,7 @@
         "dev": "Capcom / Flagship",
         "pub": "Nintendo",
         "desc": "Use o chapéu falante Ezlo para encolher e explorar mundos microscópicos secretos.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a5/The_Legend_of_Zelda_The_Minish_Cap_Game_Cover.png"
       },
       {
         "title": "Metroid Fusion",
@@ -646,7 +646,7 @@
         "dev": "Intelligent Systems",
         "pub": "Nintendo",
         "desc": "Karts portáteis coloridos com 40 circuitos clássicos e novas Copas de diversão extrema.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/3/38/Supermariokart_box.JPG"
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c5/Mario_Kart_Super_Circuit_Cover_Art.png"
       },
       {
         "title": "Fire Emblem",
@@ -673,7 +673,7 @@
         "dev": "Inti Creates",
         "pub": "Capcom",
         "desc": "Fatiando robôs de tirania neoclássica sob alta dose de velocidade e espadas laser com o lendário Zero.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/f/f1/Mega_Man_X_Coverart.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/80/Mega_Man_Zero_box_art.png"
       },
       {
         "title": "Advance Wars",
@@ -682,7 +682,7 @@
         "dev": "Intelligent Systems",
         "pub": "Nintendo",
         "desc": "Altamente carismático e viciante jogo de estratégia militar por turnos com tanques pixelados.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/e/e0/XXX_video_game_cover.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/60/Advance_wars_cover.jpg"
       },
       {
         "title": "WarioWare, Inc.",
@@ -700,7 +700,7 @@
         "dev": "Dimps / Sonic Team",
         "pub": "Sega",
         "desc": "O velocista azul brilha resgatando designs 2D espetaculares na tela brilhante portátil da rival.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nintendo-Game-Boy-Advance-Purple-FL.jpg/960px-Nintendo-Game-Boy-Advance-Purple-FL.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/96/Sonic_Advance_box_art.png"
       },
       {
         "title": "Pokémon FireRed",
@@ -709,7 +709,7 @@
         "dev": "Game Freak",
         "pub": "Nintendo",
         "desc": "O clássico remake vibrante em Kanto, expandindo a saga inicial com as ilhas Sevii ricas em tesouros.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/53/Pok%C3%A9mon_FireRed_and_LeafGreen_box_art.png"
       }
     ]
   },
@@ -750,7 +750,7 @@
         "dev": "Ancient",
         "pub": "Sega",
         "desc": "Versão 8-bit charmosa e diferente do clássico, com músicas inesquecíveis compostas por Yuzo Koshiro.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Sonic_The_Hedgehog.svg/960px-Sonic_The_Hedgehog.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e0/Sonic_the_Hedgehog_Sega_Master_System_box_art.jpg"
       },
       {
         "title": "Castle of Illusion",
@@ -777,7 +777,7 @@
         "dev": "Sega",
         "pub": "Sega",
         "desc": "Resgate reféns ninja infantis usando shurikens precisas contra sindicatos terroristas cibernéticos.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/4/45/Shinobi_sales_flyer.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/7b/Shinobi_Master_System_box_art.jpg"
       },
       {
         "title": "OutRun",
@@ -804,7 +804,7 @@
         "dev": "Sega",
         "pub": "Sega",
         "desc": "Esmague legionários romanos usando potions mágicas com Asterix ou carregando menires com Obelix.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Sega_Mark_III.jpg/960px-Sega_Mark_III.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/db/Asterix_Sega_Master_System_box_art.jpg"
       },
       {
         "title": "Kenseiden",
@@ -822,7 +822,7 @@
         "dev": "Sega",
         "pub": "Sega",
         "desc": "Lutas de artes marciais impressionantes inspiradas no famoso mangá pós-apocalíptico Fist of North Star.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/4/45/Shinobi_sales_flyer.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/ca/Black_Belt_Coverart.png"
       },
       {
         "title": "Ninja Gaiden",
@@ -831,7 +831,7 @@
         "dev": "Sega",
         "pub": "Sega",
         "desc": "Uma aventura totalmente exclusiva do Master System, mantendo as escaladas acrobáticas e agudeza 8-bit.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/2/20/Ninja_Gaiden_NES_box_art.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/29/Ninja_Gaiden_Sega_Master_System_box_art.jpg"
       }
     ]
   },
@@ -854,7 +854,7 @@
         "dev": "Sonic Team",
         "pub": "Sega",
         "desc": "A estonteante estreia de Tails voando em fases velozes como Chemical Plant com trilhas maravilhosas.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Sonic_The_Hedgehog.svg/960px-Sonic_The_Hedgehog.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/0c/Sonic_the_Hedgehog_2_cover.png"
       },
       {
         "title": "Streets of Rage 2",
@@ -899,7 +899,7 @@
         "dev": "Konami",
         "pub": "Konami",
         "desc": "Ataque inimigos com flexibilidade empunhando chicotes de Morris ou a lança comprida de Eric pela Europa.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Sega_Genesis_Mini_02.jpg/960px-Sega_Genesis_Mini_02.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/cc/Castlevania_Bloodlines_cover.jpg"
       },
       {
         "title": "Sonic & Knuckles",
@@ -908,7 +908,7 @@
         "dev": "Sonic Team",
         "pub": "Sega",
         "desc": "Inovador cartucho retrocompatível \"Lock-On\" permitindo jogar com o porco-espinho Knuckles em Sonic 3.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/4/46/300px-Sega_Mega_Drive_and_Genesis_Classics_cover.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b1/Sonic_%26_Knuckles_box_art.jpg"
       },
       {
         "title": "Golden Axe II",
@@ -917,7 +917,7 @@
         "dev": "Sega",
         "pub": "Sega",
         "desc": "Pancadaria bárbara medieval com guerreiros destemidos conjurando feitiços colossais na tela escura.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/a/ab/Golden_Axe_Promo_Flyer.jpeg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/be/Golden_Axe_II_Sega_Genesis_box_art.jpg"
       },
       {
         "title": "Earthworm Jim",
@@ -926,7 +926,7 @@
         "dev": "Shiny Entertainment",
         "pub": "Playmates",
         "desc": "Humor ácido nonsense estrelado por uma minhoca com super-traje espacial atirando em vacas voadoras.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/8/89/Earthworm_Jim_2_Neutral_Cover.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/8b/Earthworm_Jim_cover.png"
       },
       {
         "title": "Comix Zone",
@@ -935,7 +935,7 @@
         "dev": "Sega Technical Institute",
         "pub": "Sega",
         "desc": "Lute literalmente saltando por quadrinhos desenhados à mão neste incrível e desafiador clássico.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Sega_Genesis_Mini_02.jpg/960px-Sega_Genesis_Mini_02.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/bf/Comix_Zone_Sega_Genesis_box_art.jpg"
       },
       {
         "title": "Beyond Oasis",
@@ -944,7 +944,7 @@
         "dev": "Ancient",
         "pub": "Sega",
         "desc": "Aventura de ação dinâmica convocando espíritos elementares da água, fogo, sombra e plantas.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/4/46/300px-Sega_Mega_Drive_and_Genesis_Classics_cover.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/14/Beyond_Oasis_box_art.png"
       },
       {
         "title": "OutRunners",
@@ -953,7 +953,7 @@
         "dev": "Sega AM2",
         "pub": "Sega",
         "desc": "Divertido corrida arcade com trilha sonora contagiante, saltos irados e carros conversíveis charmosos.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Sega_Genesis_Mini_02.jpg/960px-Sega_Genesis_Mini_02.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/52/OutRunners_Genesis_cover.jpg"
       }
     ]
   },
@@ -1030,7 +1030,7 @@
         "dev": "Camelot",
         "pub": "Sega",
         "desc": "Fantástico combate tático 3D ambientado sob contendas militares em três campanhas heróicas.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/b/b4/Ambox_important.svg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/17/Shining_force_iii_part_one_front_cover.jpg"
       },
       {
         "title": "Daytona USA",
@@ -1107,7 +1107,7 @@
         "dev": "Square",
         "pub": "Sony",
         "desc": "O épico confronto ambiental contra Shinra e Sephiroth que abriu as portas dos RPGs orientais no oeste.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/7/75/Boxart_for_Final_Fantasy_VII_Rebirth.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c2/Final_Fantasy_VII_Box_Art.jpg"
       },
       {
         "title": "Metal Gear Solid",
@@ -1143,7 +1143,7 @@
         "dev": "Namco",
         "pub": "Namco",
         "desc": "Combate fluido 3D fantástico com personagens icônicos rápidos como Jin Kazama e Eddy Gordo.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/7/7d/Tekken_3_flyer.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f3/Tekken_3_covert.jpg"
       },
       {
         "title": "Silent Hill",
@@ -1220,7 +1220,7 @@
         "dev": "Activision",
         "pub": "Activision",
         "desc": "Harry corre pela selva desviando de jacarés e escorpiões selvagens coletando barras de ouro precioso.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5c/Pitfall%21_Activision_Cover_Art.jpg"
       },
       {
         "title": "River Raid",
@@ -1238,7 +1238,7 @@
         "dev": "Atari",
         "pub": "Atari",
         "desc": "Famosíssimo e controverso port do herói amarelo comedores de pastilhas em labirinto azulado.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/0/03/PacMan2600box.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/03/Pacman_cabinet_artwork.png"
       },
       {
         "title": "Space Invaders",
@@ -1256,7 +1256,7 @@
         "dev": "Activision",
         "pub": "Activision",
         "desc": "Clássica corrida automobilística de resistência desviando de carros à noite e em neves densas.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ad/Enduro_Activision_Cover_Art.jpg"
       },
       {
         "title": "Keystone Kapers",
@@ -1274,7 +1274,7 @@
         "dev": "Activision",
         "pub": "Activision",
         "desc": "Roderick Hero voa por minas subterrâneas com sua mochila à hélice para resgatar mineradores presos.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f9/HERO_Atari_2600.jpg"
       },
       {
         "title": "Frogger",
@@ -1283,7 +1283,7 @@
         "dev": "Konami",
         "pub": "Parker Brothers",
         "desc": "Ajude os pequenos sapos a atravessar a via expressa barulhenta e o rio selvagem com troncos flutuantes.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/0c/Frogger_Atari_2600_Box_Art.jpg"
       },
       {
         "title": "Adventure",
@@ -1301,7 +1301,7 @@
         "dev": "Atari",
         "pub": "Atari",
         "desc": "Guerreiros voadores mastigam escudos inimigos para ativar o canhão Zorlon letal destruidores de chefes.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Atari_2600%2B.jpg/960px-Atari_2600%2B.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f8/Yars%27_Revenge_Box_Art.png"
       },
       {
         "title": "Boxing",
@@ -1310,7 +1310,7 @@
         "dev": "Activision",
         "pub": "Activision",
         "desc": "Divertido combate de boxe em perspectiva top-down trocando golpes rápidos e ágeis.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/f/fc/Berzerk_arcade_flyer.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5f/Boxing_Activision_Cover_Art.jpg"
       },
       {
         "title": "Combat",
@@ -1319,7 +1319,7 @@
         "dev": "Atari",
         "pub": "Atari",
         "desc": "Combate épico de tanques de guerra com disparos ricocheteantes em labirintos simples digitais.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Atari_2600%2B.jpg/960px-Atari_2600%2B.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/52/Combat_Atari_2600_box_art.png"
       }
     ]
   },
@@ -1342,7 +1342,7 @@
         "dev": "Capcom",
         "pub": "Capcom",
         "desc": "Definiu as bases competitivas modernas do gênero luta com o emblemático dragão Hadouken de Ryu.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Arcade-20071020-a.jpg/960px-Arcade-20071020-a.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1d/SF2_character_art.jpg"
       },
       {
         "title": "Metal Slug",
@@ -1360,7 +1360,7 @@
         "dev": "Namco",
         "pub": "Namco",
         "desc": "Fugindo dos fantasmas coloridos em busca de comida de pastilhas em labirinto antológico.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/NewMAME.png/960px-NewMAME.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/03/Pacman_cabinet_artwork.png"
       },
       {
         "title": "Sunset Riders",
@@ -1405,7 +1405,7 @@
         "dev": "Konami",
         "pub": "Konami",
         "desc": "Ataque quadrilhas do Clã do Pé empunhando as armas ninjas lendárias de Leonardo e amigos.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/e/ea/NinjaBaseballBatMan_arcadeflyer.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/4c/Teenage_Mutant_Ninja_Turtles_arcade_flyer.png"
       },
       {
         "title": "Bubble Bobble",
@@ -1414,7 +1414,7 @@
         "dev": "Taito",
         "pub": "Taito",
         "desc": "Sopre bolhas brilhantes capturando monstros bizarros e estoure-os para acumular pontos altos.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/NewMAME.png/960px-NewMAME.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c4/Bubble_Bobble_flyer.jpg"
       },
       {
         "title": "OutRun",
@@ -1423,7 +1423,7 @@
         "dev": "Sega AM2",
         "pub": "Sega",
         "desc": "O clássico de corrida na costa ensolarada ouvindo música rítmica sob palmeiras tropicais.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Broforce_boss_sprites_2_%28cropped%29.jpg/960px-Broforce_boss_sprites_2_%28cropped%29.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/04/Out_Run_Coverart.png"
       },
       {
         "title": "Dig Dug",
@@ -1441,7 +1441,7 @@
         "dev": "GCC / Midway",
         "pub": "Midway",
         "desc": "O aclamado refinamento do clássico amarelo com labirintos mutáveis rápidos de velocidade alta.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/NewMAME.png/960px-NewMAME.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/3a/Ms._Pac-Man_flyer.png"
       }
     ]
   },
@@ -1464,7 +1464,7 @@
         "dev": "SNK",
         "pub": "SNK",
         "desc": "Equilíbrio máximo em combate tático 3x3 no ápice da prestigiada saga de lutadores da SNK.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/3/3b/The_King_of_Fighters_2002_arcade_flyer.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/fd/The_King_of_Fighters_%2798_cover.jpg"
       },
       {
         "title": "Metal Slug 3",
@@ -1554,7 +1554,7 @@
         "dev": "Nazca",
         "pub": "SNK",
         "desc": "O game de golfe mais dinâmico e relaxante e rítmico já feito com tacadas espetaculares.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/NeoGeo_Cartridge.jpg/960px-NeoGeo_Cartridge.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/10/Neo_Turf_Masters_flyer.png"
       },
       {
         "title": "Last Blade 2",
@@ -1961,7 +1961,7 @@
         "dev": "Project Soul",
         "pub": "Namco",
         "desc": "Considerado um divisor de águas nos jogos de luta 3D por sua fluidez absoluta nas 8 direções e gráficos que superavam o arcade.",
-        "image": "https://upload.wikimedia.org/wikipedia/en/2/23/Soulcalibur_volume_1_cover.jpg"
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b4/Soulcalibur_Dreamcast_Cover_Art.jpg"
       },
       {
         "title": "Shenmue",
@@ -2065,7 +2065,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Uma incrível jornada em estilo cel-shaded pelos vastos oceanos, com exploração náutica maravilhosa e muita magia.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/57/The_Legend_of_Zelda_The_Wind_Waker_GC_Game_Cover.png"
       },
       {
         "title": "Resident Evil 4",
@@ -2101,7 +2101,7 @@
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
         "desc": "Uma narrativa sombria onde Link se transforma em lobo para salvar Hyrule invasão da sinistra dimensão do Crepúsculo.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/40/The_Legend_of_Zelda_Twilight_Princess_GC_Game_Cover.png"
       },
       {
         "title": "Paper Mario: The Thousand-Year Door",
