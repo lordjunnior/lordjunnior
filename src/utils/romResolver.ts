@@ -28,7 +28,9 @@ const CONSOLE_FOLDERS: Record<string, string> = {
 
 // Helper to normalize strings for comparison
 const normalizeString = (str: string): string => {
-  return str
+  // Strip common retro emulator file extensions before normalizing
+  const cleanStr = str.replace(/\.(zip|nes|sfc|smc|bin|gba|gbc|gb|n64|z64|v64|sms)$/i, '');
+  return cleanStr
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '') // remove accents

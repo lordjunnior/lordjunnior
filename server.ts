@@ -109,11 +109,12 @@ async function startServer() {
         return res.status(400).send("API Error: ROM URL is required.");
       }
 
+      let fileId: string | null = null;
       // Convert Google Drive links automatically to direct download URLs
       if (romUrl.includes("drive.google.com") || romUrl.includes("docs.google.com")) {
         const dMatch = romUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
         const idMatch = romUrl.match(/[?&]id=([a-zA-Z0-9-_]+)/);
-        const fileId = (dMatch && dMatch[1]) || (idMatch && idMatch[1]);
+        fileId = (dMatch && dMatch[1]) || (idMatch && idMatch[1]);
         if (fileId) {
           romUrl = `https://docs.google.com/uc?export=download&id=${fileId}`;
           console.log(`[ROM PROXY] Converted Google Drive link to Google direct download: ${romUrl}`);
@@ -155,7 +156,7 @@ async function startServer() {
 
       console.log(`[ROM PROXY] Fetching ROM from source: ${romUrl}`);
 
-      const response = await fetch(romUrl, {
+      let response = await fetch(romUrl, {
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         }
@@ -166,7 +167,45 @@ async function startServer() {
         return res.status(response.status).send(`Failed to fetch ROM from origin: ${response.statusText}`);
       }
 
-      const contentType = response.headers.get("content-type") || "application/octet-stream";
+      let contentType = response.headers.get("content-type") || "application/octet-stream";
+
+      // If Google Drive returns an HTML response (warning screen), extract the confirm token
+      if (contentType.includes("text/html") && fileId) {
+        const html = await response.text();
+        const confirmMatch = html.match(/confirm=([a-zA-Z0-9_-]+)/);
+        if (confirmMatch) {
+          const confirmToken = confirmMatch[1];
+          const rawCookies = response.headers.get("set-cookie");
+          let cookieHeader = "";
+          if (rawCookies) {
+            cookieHeader = rawCookies.split(',').map(c => c.split(';')[0]).join('; ');
+          }
+
+          const confirmUrl = `https://docs.google.com/uc?export=download&id=${fileId}&confirm=${confirmToken}`;
+          console.log(`[ROM PROXY] Large Google Drive file warning detected. Re-fetching with confirm=${confirmToken}`);
+
+          const secondResponse = await fetch(confirmUrl, {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+              "Cookie": cookieHeader
+            }
+          });
+
+          if (!secondResponse.ok) {
+            console.error(`[ROM PROXY] Bypass request returned status: ${secondResponse.status}`);
+            return res.status(secondResponse.status).send(`Failed to fetch ROM after bypass: ${secondResponse.statusText}`);
+          }
+
+          response = secondResponse;
+          contentType = response.headers.get("content-type") || "application/octet-stream";
+        } else {
+          // If response was HTML but had no confirm token, serve original HTML (e.g. error page)
+          res.setHeader("Content-Type", contentType);
+          res.setHeader("Access-Control-Allow-Origin", "*");
+          return res.send(Buffer.from(html));
+        }
+      }
+
       const contentLength = response.headers.get("content-length");
 
       res.setHeader("Content-Type", contentType);

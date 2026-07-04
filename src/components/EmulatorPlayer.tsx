@@ -497,79 +497,60 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
       </div>
 
       {/* Bottom control room dashboard bar */}
-      <div className="bg-zinc-950 p-5 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-5 z-20">
+      <div className="bg-zinc-950 p-5 border-t border-white/10 grid grid-cols-1 lg:grid-cols-2 gap-5 z-20">
         
-        {/* Column 1: Game Metadata (4 columns) */}
-        <div className="lg:col-span-4 space-y-3">
-          <div className="space-y-1">
+        {/* Column 1: Game Metadata */}
+        <div className="space-y-3">
+          <div className="space-y-1.5">
             <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
               Ficha do Jogo
             </span>
-            <div className="bg-white/5 border border-white/5 rounded-xl p-3 space-y-2">
+            <div className="bg-white/5 border border-white/5 rounded-xl p-4 space-y-3">
               <div className="flex flex-wrap gap-2 text-[10px] font-mono text-zinc-400">
-                <span className="bg-zinc-800 px-2 py-0.5 rounded text-zinc-300">{game.genre}</span>
-                <span className="bg-zinc-850 px-2 py-0.5 rounded text-zinc-400">{game.year}</span>
-                <span className="text-zinc-500">• {game.developer || game.publisher || 'Retro'}</span>
+                <span className="bg-zinc-800 px-2.5 py-1 rounded text-zinc-300 font-semibold">{game.genre}</span>
+                <span className="bg-zinc-850 px-2.5 py-1 rounded text-zinc-400">{game.year}</span>
+                <span className="text-zinc-500 self-center">• {game.developer || game.publisher || 'Retro'}</span>
               </div>
-              <p className="text-xs text-zinc-300 leading-relaxed max-h-[60px] overflow-y-auto pr-1">
+              <p className="text-xs text-zinc-300 leading-relaxed max-h-[80px] overflow-y-auto pr-1">
                 {game.description || 'Nenhum resumo disponível para este título de console clássico.'}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Column 2: Preset ROM Selector (4 columns) */}
-        <div id="preset-selector" className="lg:col-span-4 space-y-1.5">
-          <label className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
-            ROMs de Teste Rápidas
-          </label>
-          
-          {presets.length > 0 ? (
-            <div className="flex flex-col gap-1.5">
-              {presets.map((preset, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSelectPreset(preset.url, preset.name)}
-                  className={`px-3 py-2 rounded-xl border text-left text-xs transition truncate cursor-pointer flex items-center justify-between ${
-                    activeRomUrl === preset.url 
-                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 font-semibold' 
-                      : 'bg-white/5 border-white/5 hover:bg-white/10 text-zinc-300'
-                  }`}
-                >
-                  <span className="truncate">{preset.name}</span>
-                  <Sparkles className="w-3.5 h-3.5 text-yellow-500 flex-shrink-0 ml-1" />
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="text-[10px] text-zinc-500 leading-relaxed py-3 px-3 bg-white/5 rounded-xl border border-white/5">
-              <p className="font-semibold text-zinc-400 mb-1">Dica de Emulação:</p>
-              Selecione uma das ROMs de teste rápidas à esquerda para experimentar o emulador instantaneamente, ou envie seu próprio arquivo ROM à direita.
-            </div>
-          )}
-        </div>
+        {/* Column 2: Google Drive Private Cloud Info Panel */}
+        <div className="space-y-3">
+          <div className="space-y-1.5">
+            <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
+              Conexão com Google Drive
+            </span>
+            <div className="bg-white/5 border border-white/5 rounded-xl p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wide font-mono">
+                    Nuvem Privada Conectada
+                  </span>
+                </div>
+                <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full text-emerald-400 font-mono">
+                  Bypass Proxy Ativo
+                </span>
+              </div>
+              
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                Este jogo está sendo carregado diretamente da sua coleção de ROMs hospedada de forma segura e otimizada no seu <strong className="text-zinc-200">Google Drive</strong>.
+              </p>
 
-        {/* Column 3: Drag-and-drop Upload Area & Keyboard Shortcuts (4 columns) */}
-        <div id="local-upload-area" className="lg:col-span-4 space-y-1.5">
-          <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
-            Carregar ROM Local
-          </span>
-          <div className="relative group rounded-xl border-2 border-dashed border-white/10 hover:border-emerald-500/40 bg-white/5 hover:bg-white/10 p-5 text-center cursor-pointer transition min-h-[100px] flex flex-col justify-center">
-            <input 
-              type="file" 
-              accept=".zip,.nes,.sfc,.smc,.bin,.gba,.gbc,.gb,.n64,.z64" 
-              onChange={handleFileUpload}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
-            />
-            <div className="space-y-1 relative z-2">
-              <Upload className="w-5 h-5 text-zinc-400 group-hover:text-emerald-400 mx-auto transition" />
-              <p className="text-xs font-semibold text-zinc-200">Arraste ou envie sua ROM</p>
-              <p className="text-[9px] text-zinc-500 font-mono">Suporta .zip, .nes, .sfc, .gba</p>
+              <div className="flex gap-2 text-[9px] leading-relaxed text-zinc-500 border-t border-white/5 pt-2.5">
+                <HelpCircle className="w-3.5 h-3.5 text-zinc-600 flex-shrink-0" />
+                <p className="leading-snug">
+                  <strong className="text-zinc-400">Controles do Emulador:</strong> Setas para mover. Z, X, C, V para ação. Q/Enter para Start. Shift para Select.
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-1.5 text-[9px] leading-relaxed text-zinc-500 border-t border-white/5 pt-2">
-            <HelpCircle className="w-3.5 h-3.5 text-zinc-650 flex-shrink-0" />
-            <p className="leading-snug">Setas movem. Ação mapeada para Z, X, C, V, Q, Enter, Shift.</p>
           </div>
         </div>
 
