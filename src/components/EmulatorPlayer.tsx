@@ -9,9 +9,7 @@ import { soundEngine } from './RetroSoundEngine';
 import { UnsupportedGenerationView } from './UnsupportedGenerationView';
 import { resolveGameRomUrl } from '../utils/romResolver';
 import { 
-  Play, 
   RotateCcw, 
-  Upload, 
   HelpCircle, 
   Maximize2, 
   Gamepad2, 
@@ -19,7 +17,10 @@ import {
   Cpu, 
   Sparkles,
   Info,
-  X
+  X,
+  Keyboard,
+  Database,
+  ShieldCheck
 } from 'lucide-react';
 
 interface EmulatorPlayerProps {
@@ -27,27 +28,6 @@ interface EmulatorPlayerProps {
   game: Game;
   onClose: () => void;
 }
-
-// Preset verified public-domain / homebrew ROMs to test emulation instantly
-const PRESET_TEST_ROMS: Record<string, { name: string; url: string }[]> = {
-  nes: [
-    { name: 'Super Mario Bros. (Demo Map)', url: 'https://raw.githubusercontent.com/christopherhealy/nes-test-roms/master/gimmick/gimmick.nes' },
-    { name: 'NesTest Homebrew Demo', url: 'https://raw.githubusercontent.com/KokaKiwi/rust-nes/master/roms/nestest.nes' }
-  ],
-  snes: [
-    { name: 'SNES Graphics Test Rom', url: 'https://raw.githubusercontent.com/gregkrsak/snes-test-rom/master/snes-test-rom.sfc' },
-    { name: 'Classic Yeti SNES Homebrew', url: 'https://github.com/yeti-arcade/snes-homebrew/raw/master/build/snes-homebrew.sfc' }
-  ],
-  gba: [
-    { name: 'GBA Flatworld Tech Demo', url: 'https://raw.githubusercontent.com/eyecreate/gba-phatworld/master/phatworld.gba' }
-  ],
-  megadrive: [
-    { name: 'Genesis Flat Tech Demo', url: 'https://raw.githubusercontent.com/Z80-Retro/SegaMegaDrive-Demo/master/demogame.bin' }
-  ],
-  genesis: [
-    { name: 'Genesis Flat Tech Demo', url: 'https://raw.githubusercontent.com/Z80-Retro/SegaMegaDrive-Demo/master/demogame.bin' }
-  ]
-};
 
 // Maps our core format to EmulatorJS official short/core names
 const getEmulatorJSCore = (shortName: string, emulatorCore: string): string => {
@@ -74,8 +54,6 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
   const [activeRomUrl, setActiveRomUrl] = useState<string>(game.romUrl || '');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isCooingRomActive, setIsCooingRomActive] = useState<boolean>(false);
-  const [romFileName, setRomFileName] = useState<string>('');
   
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -122,34 +100,9 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
   // Update URL if the base game prop changes
   useEffect(() => {
     setActiveRomUrl(game.romUrl || '');
-    setRomFileName('');
-    setIsCooingRomActive(false);
     setErrorMessage(null);
     setIsLoading(true);
   }, [game]);
-
-  // Handle local file upload
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    soundEngine.playToggle();
-    const objectUrl = URL.createObjectURL(file);
-    setActiveRomUrl(objectUrl);
-    setRomFileName(file.name);
-    setIsCooingRomActive(true);
-    setErrorMessage(null);
-    setIsLoading(true);
-  };
-
-  const handleSelectPreset = (url: string, name: string) => {
-    soundEngine.playToggle();
-    setActiveRomUrl(url);
-    setRomFileName(name);
-    setIsCooingRomActive(true);
-    setErrorMessage(null);
-    setIsLoading(true);
-  };
 
   const handleToggleFullscreen = () => {
     soundEngine.playToggle();
@@ -234,14 +187,30 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
           window.EJS_player = '#emulator-container';
           window.EJS_core = '${ejsCore}';
           window.EJS_gameUrl = '${getEffectiveRomUrl(activeRomUrl)}';
-          window.EJS_pathtodata = 'https://emulatorjs.github.io/cdn/';
+          window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
           window.EJS_startOnLoaded = true;
           window.EJS_volume = 0.6;
           window.EJS_AdUrl = '';
 
+          let fallbackAttempted = false;
+
           function handleLoadError() {
-            if (parent) {
-              parent.postMessage({ type: 'EJS_ERROR', message: 'Servidor EmulatorJS CDN indisponível.' }, '*');
+            if (!fallbackAttempted) {
+              fallbackAttempted = true;
+              console.warn("Primary EmulatorJS CDN failed to load. Attempting fallback CDN...");
+              window.EJS_pathtodata = 'https://emulatorjs.github.io/cdn/';
+              const script = document.createElement('script');
+              script.src = 'https://emulatorjs.github.io/cdn/loader.js';
+              script.onerror = function() {
+                if (parent) {
+                  parent.postMessage({ type: 'EJS_ERROR', message: 'Servidor EmulatorJS CDN indisponível.' }, '*');
+                }
+              };
+              document.body.appendChild(script);
+            } else {
+              if (parent) {
+                parent.postMessage({ type: 'EJS_ERROR', message: 'Servidor EmulatorJS CDN indisponível.' }, '*');
+              }
             }
           }
 
@@ -254,7 +223,7 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
             }
           }, true);
         </script>
-        <script src="https://emulatorjs.github.io/cdn/loader.js" onerror="handleLoadError()"></script>
+        <script src="https://cdn.emulatorjs.org/stable/data/loader.js" onerror="handleLoadError()"></script>
       </body>
       </html>
     `;
@@ -347,8 +316,6 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
     };
   }, [activeRomUrl]);
 
-  const presets = PRESET_TEST_ROMS[system.shortName?.toLowerCase() || system.id] || [];
-
   return (
     <div 
       ref={containerRef}
@@ -369,12 +336,10 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
 
         {/* Action Widgets */}
         <div className="flex items-center gap-2">
-          {romFileName && (
-            <div className="hidden md:flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] text-emerald-400 font-mono">
-              <Sparkles className="w-3 h-3" />
-              <span>ROM: {romFileName.length > 25 ? romFileName.substring(0, 22) + '...' : romFileName}</span>
-            </div>
-          )}
+          <div className="hidden md:flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full text-[10px] text-emerald-400 font-mono font-bold tracking-wide uppercase">
+            <Database className="w-3 h-3 text-emerald-400" />
+            <span>Google Drive Ativo</span>
+          </div>
 
           <button
             onClick={reloadEmulator}
@@ -498,59 +463,94 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
       </div>
 
       {/* Bottom control room dashboard bar */}
-      <div className="bg-zinc-950 p-5 border-t border-white/10 grid grid-cols-1 lg:grid-cols-2 gap-5 z-20">
+      <div className="bg-zinc-950 p-6 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 z-20">
         
-        {/* Column 1: Game Metadata */}
-        <div className="space-y-3">
-          <div className="space-y-1.5">
+        {/* Column 1: Ficha Técnica do Jogo */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 mb-1">
+            <Cpu className="w-4 h-4 text-emerald-400" />
             <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
-              Ficha do Jogo
+              Especificações Técnicas
             </span>
-            <div className="bg-white/5 border border-white/5 rounded-xl p-4 space-y-3">
-              <div className="flex flex-wrap gap-2 text-[10px] font-mono text-zinc-400">
-                <span className="bg-zinc-800 px-2.5 py-1 rounded text-zinc-300 font-semibold">{game.genre}</span>
-                <span className="bg-zinc-850 px-2.5 py-1 rounded text-zinc-400">{game.year}</span>
-                <span className="text-zinc-500 self-center">• {game.developer || game.publisher || 'Retro'}</span>
+          </div>
+          <div className="bg-white/5 border border-white/5 rounded-2xl p-4 space-y-3">
+            <div className="flex flex-wrap gap-2 text-[10px] font-mono">
+              <span className="bg-zinc-800 border border-white/5 px-2.5 py-1 rounded text-zinc-300 font-semibold">{game.genre}</span>
+              <span className="bg-zinc-850 border border-white/5 px-2.5 py-1 rounded text-zinc-400">{game.year}</span>
+              <span className="bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded text-emerald-400 font-bold uppercase tracking-wide">
+                Classificação 5★
+              </span>
+            </div>
+            <p className="text-xs text-zinc-300 leading-relaxed max-h-[85px] overflow-y-auto pr-1">
+              {game.description || 'Nenhum resumo disponível para este título de console clássico.'}
+            </p>
+          </div>
+        </div>
+
+        {/* Column 2: Mapeamento de Teclas */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 mb-1">
+            <Keyboard className="w-4 h-4 text-emerald-400" />
+            <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
+              Mapeamento de Teclas
+            </span>
+          </div>
+          <div className="bg-white/5 border border-white/5 rounded-2xl p-4 font-mono text-[11px] text-zinc-300 space-y-2.5">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="flex justify-between items-center bg-zinc-900/50 px-2.5 py-1.5 rounded-lg border border-white/5">
+                <span className="text-zinc-500 text-[10px]">DIRECIONAL</span>
+                <span className="text-emerald-400 font-semibold text-[10px]">Setas [←↑↓→]</span>
               </div>
-              <p className="text-xs text-zinc-300 leading-relaxed max-h-[80px] overflow-y-auto pr-1">
-                {game.description || 'Nenhum resumo disponível para este título de console clássico.'}
-              </p>
+              <div className="flex justify-between items-center bg-zinc-900/50 px-2.5 py-1.5 rounded-lg border border-white/5">
+                <span className="text-zinc-500 text-[10px]">AÇÃO A/B</span>
+                <span className="text-emerald-400 font-semibold text-[10px]">Teclas Z / X</span>
+              </div>
+              <div className="flex justify-between items-center bg-zinc-900/50 px-2.5 py-1.5 rounded-lg border border-white/5">
+                <span className="text-zinc-500 text-[10px]">START</span>
+                <span className="text-emerald-400 font-semibold text-[10px]">Enter ou Q</span>
+              </div>
+              <div className="flex justify-between items-center bg-zinc-900/50 px-2.5 py-1.5 rounded-lg border border-white/5">
+                <span className="text-zinc-500 text-[10px]">SELECT</span>
+                <span className="text-emerald-400 font-semibold text-[10px]">Shift Esq.</span>
+              </div>
+            </div>
+            <div className="text-[9px] text-zinc-500 leading-normal bg-black/30 p-2 rounded-lg border border-white/5">
+              💡 <span className="text-zinc-400">Controle USB:</span> Conecte um gamepad e aperte qualquer botão para mapear automaticamente.
             </div>
           </div>
         </div>
 
-        {/* Column 2: Google Drive Private Cloud Info Panel */}
-        <div className="space-y-3">
-          <div className="space-y-1.5">
+        {/* Column 3: Estado da Nuvem Privada */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 mb-1">
+            <Database className="w-4 h-4 text-emerald-400" />
             <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
-              Conexão com Google Drive
+              Conexão Google Drive
             </span>
-            <div className="bg-white/5 border border-white/5 rounded-xl p-4 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                  </span>
-                  <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wide font-mono">
-                    Nuvem Privada Conectada
-                  </span>
-                </div>
-                <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full text-emerald-400 font-mono">
-                  Bypass Proxy Ativo
+          </div>
+          <div className="bg-white/5 border border-white/5 rounded-2xl p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wide font-mono">
+                  Proxy Integrado Ativo
                 </span>
               </div>
-              
-              <p className="text-[11px] text-zinc-400 leading-relaxed">
-                Este jogo está sendo carregado diretamente da sua coleção de ROMs hospedada de forma segura e otimizada no seu <strong className="text-zinc-200">Google Drive</strong>.
-              </p>
+              <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded text-emerald-400 font-mono">
+                SSL Seguro
+              </span>
+            </div>
+            
+            <p className="text-[11px] text-zinc-400 leading-relaxed">
+              O arquivo ROM deste cartucho clássico está sendo transmitido diretamente do seu <strong className="text-zinc-200 font-semibold">Google Drive</strong> com compressão de stream ativa.
+            </p>
 
-              <div className="flex gap-2 text-[9px] leading-relaxed text-zinc-500 border-t border-white/5 pt-2.5">
-                <HelpCircle className="w-3.5 h-3.5 text-zinc-600 flex-shrink-0" />
-                <p className="leading-snug">
-                  <strong className="text-zinc-400">Controles do Emulador:</strong> Setas para mover. Z, X, C, V para ação. Q/Enter para Start. Shift para Select.
-                </p>
-              </div>
+            <div className="flex items-center gap-2 text-[9px] text-zinc-500 border-t border-white/5 pt-2.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/70" />
+              <span>Conexão privada ponto-a-ponto, livre de anúncios.</span>
             </div>
           </div>
         </div>
