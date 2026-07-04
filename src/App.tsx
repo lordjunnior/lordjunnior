@@ -405,7 +405,6 @@ export default function App() {
             navigateToPath('/');
             window.location.hash = `#/system/${gameMatch.system.id}`;
           }}
-          onNavigateToPath={navigateToPath}
           isMuted={isMuted}
           toggleMute={() => setIsMuted(prev => !prev)}
           onToggleFavorite={handleToggleFavorite}

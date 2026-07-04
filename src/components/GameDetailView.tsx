@@ -41,7 +41,6 @@ interface GameDetailViewProps {
   system: System;
   game: Game;
   onBack: () => void;
-  onNavigateToPath: (path: string) => void;
   isMuted: boolean;
   toggleMute: () => void;
   onToggleFavorite?: (systemId: string, gameTitle: string) => void;
@@ -106,6 +105,11 @@ const playBiosBootSound = (systemId: string, isMuted: boolean) => {
     const now = ctx.currentTime;
     const sysLower = systemId.toLowerCase();
     
+    // Auto-close AudioContext after play finishes (max sound duration is ~2.8s)
+    setTimeout(() => {
+      ctx.close().catch(() => {});
+    }, 3200);
+
     // NINTENDO ERAS (NES, SNES, N64, GBA, NDS, GBC)
     if (sysLower.includes('nes') || sysLower.includes('snes') || sysLower.includes('n64') || sysLower.includes('gba') || sysLower.includes('ds') || sysLower.includes('gameboy')) {
       const osc1 = ctx.createOscillator();
@@ -233,7 +237,6 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
   system,
   game,
   onBack,
-  onNavigateToPath,
   isMuted,
   toggleMute,
   onToggleFavorite,
@@ -524,8 +527,6 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
     soundEngine.playToggle();
     if (onToggleFavorite) {
       onToggleFavorite(system.id, game.title);
-    } else {
-      game.favorite = !game.favorite;
     }
   };
 

@@ -377,7 +377,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <div className="space-y-2">
                       <span className="text-[10px] font-retro text-zinc-500 tracking-widest block uppercase px-2">Jogos Encontrados ({matchingGames.length})</span>
                       <div className="flex flex-col gap-1.5">
-                        {matchingGames.map(({ systemId, ...item }, idx) => {
+                        {matchingGames.map((item, idx) => {
                           // Correct real system reference and calculate item rank in index
                           const realSystem = item.system;
                           const game = item.game;

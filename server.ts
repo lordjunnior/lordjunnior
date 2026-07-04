@@ -10,6 +10,82 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { buildDatabase } from "./src/utils/generateDb";
 
+import dns from "dns";
+import { promisify } from "util";
+
+const lookupAsync = promisify(dns.lookup);
+
+function isPrivateIp(ip: string): boolean {
+  if (ip === "127.0.0.1" || ip === "::1" || ip === "0.0.0.0") {
+    return true;
+  }
+  const ipv4Match = ip.match(/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/);
+  if (ipv4Match) {
+    const octet1 = parseInt(ipv4Match[1], 10);
+    const octet2 = parseInt(ipv4Match[2], 10);
+    
+    if (octet1 === 10) return true;
+    if (octet1 === 172 && octet2 >= 16 && octet2 <= 31) return true;
+    if (octet1 === 192 && octet2 === 168) return true;
+    if (octet1 === 127) return true;
+    if (octet1 === 169 && octet2 === 254) return true;
+    if (octet1 === 0) return true;
+  }
+  const cleanIp = ip.toLowerCase();
+  if (cleanIp.startsWith("fe80:") || cleanIp.startsWith("fc00:") || cleanIp.startsWith("fd00:")) {
+    return true;
+  }
+  return false;
+}
+
+interface RateLimitInfo {
+  count: number;
+  resetTime: number;
+}
+
+const ipLimits = new Map<string, RateLimitInfo>();
+
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minuto
+const RATE_LIMIT_MAX_REQUESTS = 10; // Máximo de 10 requisições por minuto por IP
+
+function getClientIp(req: any): string {
+  const xForwardedFor = req.headers["x-forwarded-for"];
+  if (typeof xForwardedFor === "string") {
+    return xForwardedFor.split(",")[0].trim();
+  } else if (Array.isArray(xForwardedFor)) {
+    return xForwardedFor[0].trim();
+  }
+  return req.socket.remoteAddress || "unknown";
+}
+
+function checkRateLimit(ip: string): { allowed: boolean; remaining: number; reset: number } {
+  const now = Date.now();
+  let info = ipLimits.get(ip);
+  if (!info || now > info.resetTime) {
+    info = {
+      count: 0,
+      resetTime: now + RATE_LIMIT_WINDOW_MS,
+    };
+  }
+
+  if (info.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return {
+      allowed: false,
+      remaining: 0,
+      reset: Math.ceil((info.resetTime - now) / 1000),
+    };
+  }
+
+  info.count += 1;
+  ipLimits.set(ip, info);
+
+  return {
+    allowed: true,
+    remaining: RATE_LIMIT_MAX_REQUESTS - info.count,
+    reset: Math.ceil((info.resetTime - now) / 1000),
+  };
+}
+
 dotenv.config();
 
 async function startServer() {
@@ -45,8 +121,36 @@ async function startServer() {
       }
 
       // Safe check to avoid SSRF
-      if (!romUrl.startsWith("http://") && !romUrl.startsWith("https://")) {
+      let parsedUrl: URL;
+      try {
+        parsedUrl = new URL(romUrl);
+      } catch (err) {
+        return res.status(400).send("API Error: Invalid URL structure.");
+      }
+
+      if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
         return res.status(400).send("API Error: Invalid URL scheme.");
+      }
+
+      const hostname = parsedUrl.hostname.toLowerCase();
+
+      // Check common private / local hostnames
+      if (
+        hostname === "localhost" ||
+        hostname === "localhost.localdomain" ||
+        hostname.endsWith(".local") ||
+        hostname.endsWith(".internal")
+      ) {
+        return res.status(400).send("API Error: Access to local or internal network is forbidden.");
+      }
+
+      try {
+        const lookup = await lookupAsync(hostname);
+        if (isPrivateIp(lookup.address)) {
+          return res.status(400).send("API Error: Access to private or local IP ranges is forbidden.");
+        }
+      } catch (dnsErr) {
+        return res.status(400).send("API Error: Unable to resolve hostname.");
       }
 
       console.log(`[ROM PROXY] Fetching ROM from source: ${romUrl}`);
@@ -84,6 +188,43 @@ async function startServer() {
     }
   });
 
+  // RAWG API Proxy
+  app.get("/api/rawg-proxy/*", async (req, res) => {
+    try {
+      const rawgApiKey = process.env.VITE_RAWG_API_KEY || process.env.RAWG_API_KEY;
+      if (!rawgApiKey || !rawgApiKey.trim()) {
+        return res.status(503).json({ error: "RAWG API Key is not configured on the server." });
+      }
+
+      const prefix = "/api/rawg-proxy/";
+      const index = req.originalUrl.indexOf(prefix);
+      if (index === -1) {
+        return res.status(400).json({ error: "Invalid proxy URL" });
+      }
+
+      const subpathAndQuery = req.originalUrl.substring(index + prefix.length);
+      const targetUrlStr = `https://api.rawg.io/api/${subpathAndQuery}`;
+      const targetUrl = new URL(targetUrlStr);
+      
+      // Inject API key safely on the server side
+      targetUrl.searchParams.set("key", rawgApiKey.trim());
+
+      console.log(`[RAWG PROXY] Requesting RAWG: ${targetUrl.pathname}`);
+
+      const response = await fetch(targetUrl.toString());
+
+      if (!response.ok) {
+        return res.status(response.status).json({ error: `RAWG API error: ${response.statusText}` });
+      }
+
+      const data = await response.json();
+      res.json(data);
+    } catch (error: any) {
+      console.error("[RAWG PROXY] Error:", error);
+      res.status(500).json({ error: error.message || "Internal RAWG proxy error" });
+    }
+  });
+
   // Initialize GoogleGenAI with Gemini API key
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
@@ -97,9 +238,25 @@ async function startServer() {
   // Translation route using Gemini 3.5 Flash
   app.post("/api/translate", async (req, res) => {
     try {
+      const clientIp = getClientIp(req);
+      const limitResult = checkRateLimit(clientIp);
+
+      if (!limitResult.allowed) {
+        return res.status(429).json({
+          error: `Limite de requisições excedido. Por favor, aguarde ${limitResult.reset} segundos.`
+        });
+      }
+
       const { text } = req.body;
       if (!text || typeof text !== "string" || !text.trim()) {
         return res.json({ translatedText: "" });
+      }
+
+      // Check text character length (max 2000 characters)
+      if (text.length > 2000) {
+        return res.status(400).json({
+          error: "Texto muito longo para tradução. O limite máximo é de 2000 caracteres."
+        });
       }
 
       const response = await ai.models.generateContent({

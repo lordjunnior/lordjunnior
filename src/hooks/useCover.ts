@@ -4,7 +4,6 @@
  */
 
 import { useState, useEffect } from 'react';
-import { RAWG_API_KEY } from '../config';
 
 // Global cache to persist across component mounts/unmounts
 const coverCache: Record<string, string | null> = {};
@@ -53,19 +52,11 @@ export function useCover(title: string, platform: string) {
       return;
     }
 
-    // 2. If the API key is not configured yet, skip request and return null
-    if (!RAWG_API_KEY || RAWG_API_KEY === 'COLOQUE_SUA_KEY_AQUI' || !RAWG_API_KEY.trim()) {
-      coverCache[cacheKey] = null;
-      setCoverUrl(null);
-      setLoading(false);
-      return;
-    }
-
     let isMounted = true;
     setLoading(true);
 
     const fetchImage = async () => {
-      const url = `https://api.rawg.io/api/games?key=${RAWG_API_KEY}&search=${encodeURIComponent(title)}&page_size=1`;
+      const url = `/api/rawg-proxy/games?search=${encodeURIComponent(title)}&page_size=1`;
       
       const data = await queuedFetch(url);
       

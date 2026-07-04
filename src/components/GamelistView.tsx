@@ -94,6 +94,11 @@ const playBiosBootSound = (systemId: string, isMuted: boolean) => {
     const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
     const id = systemId.toLowerCase();
     
+    // Auto-close AudioContext after play finishes (max sound duration is ~2.6s)
+    setTimeout(() => {
+      audioCtx.close().catch(() => {});
+    }, 3000);
+
     if (id.includes('ps') || id.includes('playstation')) {
       // Deep, cinematic synth sweep (PS2 Vibe)
       const osc = audioCtx.createOscillator();
@@ -157,6 +162,11 @@ const playCartridgeSlotSound = (isMuted: boolean) => {
   try {
     const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
     
+    // Auto-close AudioContext after play finishes (max sound duration is ~0.1s)
+    setTimeout(() => {
+      ctx.close().catch(() => {});
+    }, 200);
+
     // Low mechanical slot-in pop
     const clickOsc = ctx.createOscillator();
     const clickGain = ctx.createGain();

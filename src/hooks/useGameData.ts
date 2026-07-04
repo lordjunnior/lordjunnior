@@ -4,7 +4,6 @@
  */
 
 import { useState, useEffect } from 'react';
-import { RAWG_API_KEY } from '../config';
 
 export interface GameDetails {
   cover: string | null;
@@ -117,21 +116,13 @@ export function useGameData(title: string) {
       return;
     }
 
-    // 2. Return null if RAWG key is missing or not configured
-    if (!RAWG_API_KEY || RAWG_API_KEY === 'COLOQUE_SUA_KEY_AQUI' || !RAWG_API_KEY.trim()) {
-      cache.set(title, null);
-      setData(null);
-      setLoading(false);
-      return;
-    }
-
     let isMounted = true;
     setLoading(true);
 
     const fetchGameData = async () => {
       try {
         // First request: Search and find the game match
-        const searchUrl = `https://api.rawg.io/api/games?key=${RAWG_API_KEY}&search=${encodeURIComponent(title)}&page_size=1`;
+        const searchUrl = `/api/rawg-proxy/games?search=${encodeURIComponent(title)}&page_size=1`;
         const searchRes = await queuedFetch(searchUrl);
 
         if (!searchRes || !searchRes.results || searchRes.results.length === 0) {
@@ -147,11 +138,11 @@ export function useGameData(title: string) {
         const slug = gameResult.slug;
 
         // Second request: Fetch details
-        const detailsUrl = `https://api.rawg.io/api/games/${slug}?key=${RAWG_API_KEY}`;
+        const detailsUrl = `/api/rawg-proxy/games/${slug}`;
         const detailRes = await queuedFetch(detailsUrl);
 
         // Third request: Fetch screenshots
-        const screenshotsUrl = `https://api.rawg.io/api/games/${slug}/screenshots?key=${RAWG_API_KEY}`;
+        const screenshotsUrl = `/api/rawg-proxy/games/${slug}/screenshots`;
         const screenshotRes = await queuedFetch(screenshotsUrl);
 
         const screenshotsList: string[] = screenshotRes && screenshotRes.results
