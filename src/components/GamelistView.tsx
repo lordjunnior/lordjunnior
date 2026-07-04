@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { GameCover } from './GameCover';
 import { getLogoFileName } from '../utils/logoResolver';
-import { getSystemThemeColor, getConsoleSEOHeader } from './SystemCarousel';
+import { getSystemThemeColor, getConsoleSEOHeader, systemSpecsMap } from './SystemCarousel';
 
 export const getRichDescription = (title: string, systemName: string): string => {
   const cleanTitle = title.trim();
@@ -1042,6 +1042,53 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
           </div>
         </div>
 
+        {/* HIGH-LEVEL CENTRALIZED CONSOLE STATION MONITOR */}
+        <div className="hidden md:flex items-center gap-3 bg-black/65 border border-white/10 rounded-full py-1.5 pl-2 pr-5 shadow-[0_0_20px_rgba(0,0,0,0.85)] backdrop-blur-md relative overflow-hidden group">
+          {/* Shimmer effect inside the monitor pill */}
+          <div className="absolute inset-y-0 -left-16 w-8 bg-white/5 skew-x-12 group-hover:animate-shimmer-sweep" style={{ animationDuration: '3.5s' }} />
+          
+          {/* Miniature console glowing image */}
+          <div className="relative w-9 h-9 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center p-1 shrink-0 overflow-hidden">
+            <div 
+              className="absolute inset-0 opacity-25 blur-sm"
+              style={{ backgroundColor: activeGlowColor }}
+            />
+            <img 
+              src={getCentralConsoleLogoUrl(system.id)} 
+              alt={system.name}
+              className="w-7 h-7 object-contain relative z-10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col min-w-[140px]">
+            <div className="flex items-center gap-2">
+              <span 
+                className="text-xs font-sans font-black tracking-widest uppercase transition-all duration-300"
+                style={{ 
+                  color: activeGlowColor,
+                  textShadow: `0 0 10px ${activeGlowColor}50`
+                }}
+              >
+                {system.name}
+              </span>
+              <span className="text-[7px] bg-white/10 border border-white/10 px-1.5 py-0.5 rounded text-gray-400 font-mono tracking-wider uppercase font-bold shrink-0">
+                {systemSpecsMap[system.id.toLowerCase()]?.generation || `${system.releaseYear} ERA`}
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5 text-[8px] text-gray-500 uppercase tracking-[0.15em] font-medium leading-none mt-0.5">
+              <span className="text-gray-400">{systemSpecsMap[system.id.toLowerCase()]?.manufacturer || system.manufacturer}</span>
+              <span>•</span>
+              <span className="font-mono text-[7px] tracking-normal text-gray-500 truncate max-w-[120px]">
+                {systemSpecsMap[system.id.toLowerCase()]?.cpu || "EMULATOR ACTIVE"}
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Dynamic Clock & Controls */}
         <div className="flex items-center gap-4">
           {/* Quick Stats */}
@@ -1111,8 +1158,103 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
         
         {/* COLUNA 1: SIDEBAR (NAVIGATION & GAMES SCROLLER) */}
         <aside className={`${mobileTab === 'list' ? 'flex' : 'hidden'} lg:flex w-full lg:w-[320px] flex-shrink-0 flex-col gap-4 overflow-hidden h-[calc(100vh-220px)] lg:h-full`}>
+          {/* HIGH-LEVEL CONSOLE IDENTIFICATION HUD PANEL */}
+          <div className="bg-gradient-to-b from-black/85 via-black/60 to-black/40 border border-white/10 rounded-2xl p-4 flex flex-col gap-3 backdrop-blur-md relative overflow-hidden shadow-2xl shrink-0">
+            {/* Pulsing Corner Tech Accents */}
+            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2" style={{ borderColor: activeGlowColor }} />
+            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2" style={{ borderColor: activeGlowColor }} />
+            
+            {/* Ambient system theme color background glow */}
+            <div 
+              className="absolute -top-16 -right-16 w-32 h-32 rounded-full blur-[40px] opacity-25 pointer-events-none transition-all duration-500"
+              style={{ backgroundColor: activeGlowColor }}
+            />
+
+            {/* Header: Manufacturer & Logo */}
+            <div className="flex justify-between items-start">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[8px] text-gray-500 uppercase tracking-[0.25em] font-black leading-none">
+                  SISTEMA SELECIONADO
+                </span>
+                <span className="text-[9px] font-mono text-zinc-400 font-extrabold uppercase tracking-widest mt-0.5 leading-none">
+                  {systemSpecsMap[system.id.toLowerCase()]?.manufacturer || system.manufacturer}
+                </span>
+              </div>
+              
+              {/* Animated status light */}
+              <div className="flex items-center gap-1.5 bg-zinc-900/60 border border-white/5 px-2 py-0.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: activeGlowColor, boxShadow: `0 0 8px ${activeGlowColor}` }} />
+                <span className="text-[7.5px] font-mono font-bold text-zinc-400 uppercase tracking-widest leading-none">Ativo</span>
+              </div>
+            </div>
+
+            {/* Mid Section: Logo / Graphic & Big Name */}
+            <div className="flex items-center gap-4 mt-1">
+              {/* Console graphic with holographic laser scan */}
+              <div className="relative w-14 h-14 bg-zinc-950 rounded-xl border border-white/5 flex items-center justify-center p-1.5 shrink-0 group shadow-inner overflow-hidden">
+                {/* Scanner ray line scanning vertically */}
+                <div 
+                  className="absolute inset-x-0 h-[1.5px] opacity-60 pointer-events-none shadow-[0_0_5px_var(--theme-color)] animate-scan-laser"
+                  style={{ 
+                    backgroundColor: activeGlowColor,
+                  }}
+                />
+                
+                <img 
+                  src={getCentralConsoleLogoUrl(system.id)} 
+                  alt={system.name}
+                  className="w-10 h-10 object-contain relative z-10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
+
+              <div className="flex flex-col min-w-0">
+                <h2 
+                  className="text-base font-sans font-black tracking-tight uppercase leading-none truncate"
+                  style={{ 
+                    color: activeGlowColor,
+                    textShadow: `0 0 10px ${activeGlowColor}35`
+                  }}
+                >
+                  {system.name}
+                </h2>
+                <span className="text-[8px] text-zinc-400 font-bold tracking-wider uppercase mt-1 leading-none">
+                  {systemSpecsMap[system.id.toLowerCase()]?.generation || "Console Retrô"}
+                </span>
+                <span className="text-[7px] text-zinc-500 font-mono tracking-widest mt-1 uppercase leading-none">
+                  LANÇAMENTO: {system.releaseYear || systemSpecsMap[system.id.toLowerCase()]?.releaseYear || "N/A"}
+                </span>
+              </div>
+            </div>
+
+            {/* Mini Specs Terminal Box */}
+            <div className="bg-black/45 border border-white/5 rounded-xl p-2.5 font-mono text-[7.5px] text-zinc-400 flex flex-col gap-1 shadow-inner">
+              <div className="flex justify-between items-center leading-none">
+                <span className="text-zinc-600 uppercase font-bold text-[7px]">CPU:</span>
+                <span className="text-zinc-300 truncate pl-2 max-w-[160px] font-bold text-right text-[7.5px]">
+                  {systemSpecsMap[system.id.toLowerCase()]?.cpu || "8-Bit Core"}
+                </span>
+              </div>
+              <div className="flex justify-between items-center leading-none mt-1">
+                <span className="text-zinc-600 uppercase font-bold text-[7px]">RAM:</span>
+                <span className="text-zinc-300 truncate pl-2 max-w-[160px] text-right text-[7.5px]">
+                  {systemSpecsMap[system.id.toLowerCase()]?.ram || "16 KB"}
+                </span>
+              </div>
+              <div className="flex justify-between items-center border-t border-white/5 pt-1.5 mt-1 text-zinc-500 leading-none">
+                <span className="text-[7px] font-bold">MÍDIA:</span>
+                <span className="text-zinc-400 font-extrabold uppercase text-[7.5px]">
+                  {systemSpecsMap[system.id.toLowerCase()]?.media || "ROM CART"}
+                </span>
+              </div>
+            </div>
+          </div>
+
           {/* Section 1: Dashboard Navigation Tabs */}
-          <div className="bg-black/30 border border-white/5 rounded-2xl p-2.5 flex flex-col gap-1 backdrop-blur-md">
+          <div className="bg-black/30 border border-white/5 rounded-2xl p-2.5 flex flex-col gap-1 backdrop-blur-md shrink-0">
             {[
               { id: 'overview', label: 'Visão Geral', icon: Eye },
               { id: 'trivia', label: 'Segredos & Trivia', icon: Sparkles },
@@ -1145,7 +1287,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             {/* Header / Search Controls */}
             <div className="p-3 border-b border-white/5 flex flex-col gap-2">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black uppercase tracking-widest text-[#E60012]">Seu Acervo Sagrado: O Resgate das Capas Originais</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#E60012]">Acervo {system.name}</span>
                 
                 {/* Heart Filter Toggle */}
                 <button 

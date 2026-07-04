@@ -47,3 +47,14 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+@keyframes scan-laser {
+  0% { top: 0%; opacity: 0.2; }
+  50% { top: 100%; opacity: 0.8; }
+  100% { top: 0%; opacity: 0.2; }
+}
+
+.animate-scan-laser {
+  animation: scan-laser 3s infinite ease-in-out;
+}
+
+
