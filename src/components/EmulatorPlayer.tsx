@@ -71,15 +71,7 @@ const getEmulatorJSCore = (shortName: string, emulatorCore: string): string => {
   return emulatorCore || normalized;
 };
 
-export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, onClose }) => {
-  const isUnsupportedGeneration = ['playstation2', 'playstation3', 'xbox', 'xbox360'].includes(system.id.toLowerCase());
-  
-  if (isUnsupportedGeneration) {
-    return (
-      <UnsupportedGenerationView system={system} game={game} onClose={onClose} />
-    );
-  }
-
+const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onClose }) => {
   const [activeRomUrl, setActiveRomUrl] = useState<string>(game.romUrl || '');
   const [customUrlInput, setCustomUrlInput] = useState<string>('');
   const [isUrlInputActive, setIsUrlInputActive] = useState<boolean>(false);
@@ -546,19 +538,19 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
             <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 space-y-1">
               <span className="text-[9px] font-retro text-emerald-400 block tracking-wider uppercase flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-emerald-400" />
-                Sua Pasta Atari no G-Drive
+                Seu G-Drive de ROMs
               </span>
               <p className="text-[10px] text-zinc-400 leading-snug">
-                Você enviou seus jogos! Copie o link de compartilhamento de qualquer arquivo no seu Drive e use a ferramenta de Link Customizado ao lado.
+                Organize seus jogos no Google Drive! Copie o link de compartilhamento de qualquer arquivo no seu Drive e use a ferramenta de Link Customizado ao lado.
               </p>
               <div className="pt-1">
                 <a 
-                  href="https://drive.google.com/drive/folders/1PScgOL0WKO0Jo8rDTYywuzsUB3fAb5Ap" 
+                  href="https://drive.google.com" 
                   target="_blank" 
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-black hover:underline cursor-pointer"
                 >
-                  Abrir G-Drive Atari ➔
+                  Abrir Meu Google Drive ➔
                 </a>
               </div>
             </div>
@@ -671,4 +663,16 @@ export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, on
 
     </div>
   );
+};
+
+export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, onClose }) => {
+  const isUnsupportedGeneration = ['playstation2', 'playstation3', 'xbox', 'xbox360'].includes(system.id.toLowerCase());
+  
+  if (isUnsupportedGeneration) {
+    return (
+      <UnsupportedGenerationView system={system} game={game} onClose={onClose} />
+    );
+  }
+
+  return <EmulatorPlayerInner system={system} game={game} onClose={onClose} />;
 };

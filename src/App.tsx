@@ -18,18 +18,8 @@ import { getGameSlug, findGameBySlug } from './utils/routeUtils';
 import { soundEngine } from './components/RetroSoundEngine';
 import { motion, AnimatePresence } from 'motion/react';
 
-// Force synchronous route reset on application init/reload to prevent landing inside emulators
-if (typeof window !== 'undefined') {
-  if (window.location.hash) {
-    window.location.hash = '';
-  }
-  if (window.location.pathname !== '/') {
-    window.history.replaceState(null, '', '/');
-  }
-}
-
+// Dynamic JSON database state
 export default function App() {
-  // Dynamic JSON database state
   const [systems, setSystems] = useState<System[]>(systemsData);
   const [isLoadingDb, setIsLoadingDb] = useState<boolean>(true);
 
@@ -250,7 +240,12 @@ export default function App() {
   }, [isGlobalSearchOpen]);
 
   // Path-based HTML5 Location Router Synchronization
-  const [currentPath, setCurrentPath] = useState<string>('/');
+  const [currentPath, setCurrentPath] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return window.location.pathname;
+    }
+    return '/';
+  });
 
   useEffect(() => {
     const handlePopState = () => {
@@ -286,17 +281,6 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('retro_crt', String(isCrtEnabled));
   }, [isCrtEnabled]);
-
-  // Forçar sempre a tela inicial (carousel) e a rota raiz no primeiro carregamento do aplicativo ou ao atualizar a página (reload)
-  useEffect(() => {
-    if (window.location.hash) {
-      window.location.hash = '';
-    }
-    if (window.location.pathname !== '/') {
-      window.history.replaceState(null, '', '/');
-      setCurrentPath('/');
-    }
-  }, []);
 
   // URL Hash-based robust SPA Router emulation.
   useEffect(() => {
