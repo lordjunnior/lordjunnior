@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import completeRomMapping from '../data/complete_rom_mapping.json';
+
 // Mapping of classic system IDs to their corresponding folder names on Archive.org ni-romsets collection
 const CONSOLE_FOLDERS: Record<string, string> = {
   nes: 'Nintendo - Nintendo Entertainment System',
@@ -23,6 +25,78 @@ const CONSOLE_FOLDERS: Record<string, string> = {
   ds: 'Nintendo - Nintendo DS',
   pcengine: 'NEC - PC Engine - TurboGrafx-16',
 };
+
+// Helper to normalize strings for comparison
+const normalizeString = (str: string): string => {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // remove accents
+    .replace(/[^a-z0-9]/g, '') // remove non-alphanumeric characters
+    .trim();
+};
+
+/**
+ * Tries to find a matching ROM file in the user's Google Drive list.
+ * Supports fuzzy matching on title or exact ROM file names.
+ */
+export const getGoogleDriveRomUrl = (systemId: string, titleOrFilename: string): string | null => {
+  const normSystem = systemId.toLowerCase();
+  
+  // Map system aliases to completeRomMapping keys if necessary
+  let mappingKey = normSystem;
+  if (normSystem === 'atari2600') mappingKey = 'atari';
+  if (normSystem === 'megadrive') mappingKey = 'genesis';
+  if (normSystem === 'gamegear' || normSystem === 'gg') mappingKey = 'sms';
+  
+  const systemFiles = (completeRomMapping as Record<string, Array<{ id: string; name: string }>>)[mappingKey];
+  if (!systemFiles || systemFiles.length === 0) {
+    return null;
+  }
+  
+  // 1. Try to find if there is an exact filename mapping first from EXACT_ROM_MAPPINGS
+  let targetFilename = titleOrFilename;
+  if (EXACT_ROM_MAPPINGS[normSystem] && EXACT_ROM_MAPPINGS[normSystem][titleOrFilename]) {
+    targetFilename = EXACT_ROM_MAPPINGS[normSystem][titleOrFilename];
+  }
+  
+  const normTarget = normalizeString(targetFilename);
+  const normTitle = normalizeString(titleOrFilename);
+  
+  // 2. Perform intelligent matching
+  // First pass: Exact or near-exact match on normalized filename
+  let match = systemFiles.find(f => {
+    const fn = normalizeString(f.name);
+    return fn === normTarget || fn === normTitle;
+  });
+  
+  // Second pass: Check if the Google Drive file name contains the game title or vice-versa
+  if (!match) {
+    match = systemFiles.find(f => {
+      const fn = normalizeString(f.name);
+      return fn.includes(normTitle) || normTitle.includes(fn) || fn.includes(normTarget) || normTarget.includes(fn);
+    });
+  }
+  
+  // Third pass: Try split search (if all words of the title are found in the drive file name)
+  if (!match) {
+    const titleWords = titleOrFilename.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 2);
+    if (titleWords.length > 0) {
+      match = systemFiles.find(f => {
+        const fn = f.name.toLowerCase();
+        return titleWords.every(word => fn.includes(word));
+      });
+    }
+  }
+  
+  if (match) {
+    console.log(`Matched "${titleOrFilename}" with Google Drive ROM: "${match.name}" (ID: ${match.id})`);
+    return `https://docs.google.com/uc?export=download&id=${match.id}`;
+  }
+  
+  return null;
+};
+
 
 // Hand-curated exact filename mapping for popular games to prevent any "404 Not Found"
 // Files are zipped inside the Archive.org ni-romsets collection.
@@ -248,6 +322,12 @@ export const EXACT_ROM_MAPPINGS: Record<string, Record<string, string>> = {
  */
 export const resolveGameRomUrl = (systemId: string, titleOrFilename: string): string => {
   const normSystem = systemId.toLowerCase();
+
+  // Try resolving with user's Google Drive mapping first!
+  const driveUrl = getGoogleDriveRomUrl(systemId, titleOrFilename);
+  if (driveUrl) {
+    return driveUrl;
+  }
 
   // Extract base filename if a path is provided
   let baseName = titleOrFilename.replace(/^\/+/, '').split('/').pop() || titleOrFilename;
