@@ -11,18 +11,114 @@
     "themeColor": "from-[#E60012] to-black",
     "emulatorCore": "fceumm",
     "gameDefs": [
-      { "title": "Super Mario Bros.", "year": "1985", "genre": "Plataforma", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "O clássico de plataforma lendário que salvou a indústria e definiu o encanador mais famoso do mundo." },
-      { "title": "Super Mario Bros. 3", "year": "1988", "genre": "Plataforma", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Amplamente considerado um dos melhores jogos de 8-bits com mapa de mundos inovador e a roupa lendária Tanooki." },
-      { "title": "The Legend of Zelda", "year": "1986", "genre": "Aventura", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Explore um reino de Hyrule aberto e resgate pedaços da Triforce neste jogo de aventura incrível." },
-      { "title": "Metroid", "year": "1986", "genre": "Metroidvania", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Controle a caçadora Samus Aran nas profundezas alienígenas de Zebes contra piratas espaciais selvagens." },
-      { "title": "Castlevania", "year": "1986", "genre": "Ação", "dev": "Konami", "pub": "Konami", "desc": "Empunhe o lendário chicote Vampire Killer de Simon Belmont e infiltre-se no castelo do próprio Conde Drácula." },
-      { "title": "Mega Man 2", "year": "1988", "genre": "Plataforma", "dev": "Capcom", "pub": "Capcom", "desc": "Escolha seu chefe cibernético, roube seus poderes e curta uma das trilhas sonoras de chiptune mais marcantes de sempre." },
-      { "title": "Contra", "year": "1987", "genre": "Run and Gun", "dev": "Konami", "pub": "Konami", "desc": "Ação cooperativa frenética com código Konami e hordas de inimigos implacáveis tentando destruir as selvas." },
-      { "title": "Duck Hunt", "year": "1984", "genre": "Puzzle", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Atire nos patos voando com a pistola Zapper original enquanto desvia das risadas sarcásticas de seu cão retriever." },
-      { "title": "Punch-Out!!", "year": "1987", "genre": "Esporte", "dev": "Nintendo R&D3", "pub": "Nintendo", "desc": "Ajude Little Mac a galgar as divisões de boxe mundiais desafiando lutadores excêntricos e o formidável Mike Tyson." },
-      { "title": "Kirby's Adventure", "year": "1993", "genre": "Plataforma", "dev": "HAL Laboratory", "pub": "Nintendo", "desc": "A incrível estreia de Kirby copiando as habilidades únicas de inimigos com cores vibrantes no fim da era 8-bit." },
-      { "title": "Double Dragon II", "year": "1989", "genre": "Beat 'em Up", "dev": "Technōs", "pub": "Acclaim", "desc": "Billy e Jimmy Lee lutam nas perigosas ruas dominadas pela gangue Black Warriors para vingar Marian." },
-      { "title": "Ninja Gaiden", "year": "1988", "genre": "Ação", "dev": "Tecmo", "pub": "Tecmo", "desc": "Acuidade ninja impressionante, narrativa cinematográfica icônica e uma das dificuldades mais cruéis de todos os tempos." }
+      {
+        "title": "Super Mario Bros.",
+        "year": "1985",
+        "genre": "Plataforma",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "O clássico de plataforma lendário que salvou a indústria e definiu o encanador mais famoso do mundo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/03/Super_Mario_Bros._box_art.png"
+      },
+      {
+        "title": "Super Mario Bros. 3",
+        "year": "1988",
+        "genre": "Plataforma",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Amplamente considerado um dos melhores jogos de 8-bits com mapa de mundos inovador e a roupa lendária Tanooki.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a5/Super_Mario_Bros._3_coverart.png"
+      },
+      {
+        "title": "The Legend of Zelda",
+        "year": "1986",
+        "genre": "Aventura",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Explore um reino de Hyrule aberto e resgate pedaços da Triforce neste jogo de aventura incrível.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+      },
+      {
+        "title": "Metroid",
+        "year": "1986",
+        "genre": "Metroidvania",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "Controle a caçadora Samus Aran nas profundezas alienígenas de Zebes contra piratas espaciais selvagens.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5d/Metroid_boxart.jpg"
+      },
+      {
+        "title": "Castlevania",
+        "year": "1986",
+        "genre": "Ação",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Empunhe o lendário chicote Vampire Killer de Simon Belmont e infiltre-se no castelo do próprio Conde Drácula.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/51/Castlevania_1_cover.png"
+      },
+      {
+        "title": "Mega Man 2",
+        "year": "1988",
+        "genre": "Plataforma",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Escolha seu chefe cibernético, roube seus poderes e curta uma das trilhas sonoras de chiptune mais marcantes de sempre.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f1/Mega_Man_X_Coverart.png"
+      },
+      {
+        "title": "Contra",
+        "year": "1987",
+        "genre": "Run and Gun",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Ação cooperativa frenética com código Konami e hordas de inimigos implacáveis tentando destruir as selvas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/65/Contra_cover.jpg"
+      },
+      {
+        "title": "Duck Hunt",
+        "year": "1984",
+        "genre": "Puzzle",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "Atire nos patos voando com a pistola Zapper original enquanto desvia das risadas sarcásticas de seu cão retriever.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/14/DuckHuntBox.jpg"
+      },
+      {
+        "title": "Punch-Out!!",
+        "year": "1987",
+        "genre": "Esporte",
+        "dev": "Nintendo R&D3",
+        "pub": "Nintendo",
+        "desc": "Ajude Little Mac a galgar as divisões de boxe mundiais desafiando lutadores excêntricos e o formidável Mike Tyson.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c8/Mike_Tyson%27s_Punch-Out%21%21_NES_Box.jpg"
+      },
+      {
+        "title": "Kirby's Adventure",
+        "year": "1993",
+        "genre": "Plataforma",
+        "dev": "HAL Laboratory",
+        "pub": "Nintendo",
+        "desc": "A incrível estreia de Kirby copiando as habilidades únicas de inimigos com cores vibrantes no fim da era 8-bit.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ae/Kirby%27s_Adventure_Coverart.png"
+      },
+      {
+        "title": "Double Dragon II",
+        "year": "1989",
+        "genre": "Beat 'em Up",
+        "dev": "Technōs",
+        "pub": "Acclaim",
+        "desc": "Billy e Jimmy Lee lutam nas perigosas ruas dominadas pela gangue Black Warriors para vingar Marian.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1a/Double_Dragon_II_box_art.jpg"
+      },
+      {
+        "title": "Ninja Gaiden",
+        "year": "1988",
+        "genre": "Ação",
+        "dev": "Tecmo",
+        "pub": "Tecmo",
+        "desc": "Acuidade ninja impressionante, narrativa cinematográfica icônica e uma das dificuldades mais cruéis de todos os tempos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/20/Ninja_Gaiden_NES_box_art.jpg"
+      }
     ]
   },
   {
@@ -37,18 +133,114 @@
     "themeColor": "from-[#4F46E5] to-black",
     "emulatorCore": "snes9x",
     "gameDefs": [
-      { "title": "Super Mario World", "year": "1990", "genre": "Plataforma", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Acompanhe Mario e Luigi na Dinosaur Land para salvar a Princesa Peach com a ajuda do fiel dinossauro Yoshi!" },
-      { "title": "Chrono Trigger", "year": "1995", "genre": "RPG", "dev": "Square", "pub": "Square", "desc": "Uma obra-prima absoluta sobre viagem temporal, criada por designers gigantescos como Akira Toriyama." },
-      { "title": "The Legend of Zelda: A Link to the Past", "year": "1991", "genre": "Aventura", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Link viaja entre mundos da Luz e das Trevas para derrotar Ganon e salvar Hyrule." },
-      { "title": "Super Metroid", "year": "1994", "genre": "Metroidvania", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Uma aventura cheia de atmosfera incrível no claustrofóbico Planeta Zebes estabelecendo padrões ao gênero." },
-      { "title": "Donkey Kong Country", "year": "1994", "genre": "Plataforma", "dev": "Rare", "pub": "Nintendo", "desc": "Revolucionários gráficos 3D pré-renderizados num game de plataforma dinâmico com trilha sonora espetacular." },
-      { "title": "Mega Man X", "year": "1993", "genre": "Ação", "dev": "Capcom", "pub": "Capcom", "desc": "Evolução moderna e madura do herói clássico, com saltos na parede e armaduras secretas épicas." },
-      { "title": "Street Fighter II Turbo", "year": "1992", "genre": "Luta", "dev": "Capcom", "pub": "Capcom", "desc": "O auge da pancadaria 16-bit com velocidade fluida e precisão de comandos perfeitos para torneios." },
-      { "title": "Final Fantasy VI", "year": "1994", "genre": "RPG", "dev": "Square", "pub": "Square", "desc": "História magnífica com Kefka sendo um dos vilões mais marcantes e cruéis de todos os tempos." },
-      { "title": "Super Mario Kart", "year": "1992", "genre": "Corrida", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Fundador do subgênero de corrida com mascotes e armadilhas divertidas para festas barulhentas." },
-      { "title": "Yoshi's Island", "year": "1995", "genre": "Plataforma", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Pixel-art desenhada à mão simulando giz de cera. Ajude Yoshi a guiar com segurança o bebê chorão Mario." },
-      { "title": "EarthBound", "year": "1994", "genre": "RPG", "dev": "Ape / HAL", "pub": "Nintendo", "desc": "Cômico e esquisito RPG ambientado no subúrbio americano com crianças armadas com tacos de beisebol." },
-      { "title": "Ultimate Mortal Kombat 3", "year": "1995", "genre": "Luta", "dev": "Midway", "pub": "Acclaim", "desc": "Fatalities brutais, combos agressivos e lutadores icônicos digitalizados com extremo realismo." }
+      {
+        "title": "Super Mario World",
+        "year": "1990",
+        "genre": "Plataforma",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Acompanhe Mario e Luigi na Dinosaur Land para salvar a Princesa Peach com a ajuda do fiel dinossauro Yoshi!",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/32/Super_Mario_World_Coverart.png"
+      },
+      {
+        "title": "Chrono Trigger",
+        "year": "1995",
+        "genre": "RPG",
+        "dev": "Square",
+        "pub": "Square",
+        "desc": "Uma obra-prima absoluta sobre viagem temporal, criada por designers gigantescos como Akira Toriyama.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a7/Chrono_Trigger_2.jpg"
+      },
+      {
+        "title": "The Legend of Zelda: A Link to the Past",
+        "year": "1991",
+        "genre": "Aventura",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Link viaja entre mundos da Luz e das Trevas para derrotar Ganon e salvar Hyrule.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/83/The_Legend_of_Zelda_A_Link_to_the_Past_%26_Four_Swords_Game_Cover.jpg"
+      },
+      {
+        "title": "Super Metroid",
+        "year": "1994",
+        "genre": "Metroidvania",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "Uma aventura cheia de atmosfera incrível no claustrofóbico Planeta Zebes estabelecendo padrões ao gênero.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e4/Smetroidbox.jpg"
+      },
+      {
+        "title": "Donkey Kong Country",
+        "year": "1994",
+        "genre": "Plataforma",
+        "dev": "Rare",
+        "pub": "Nintendo",
+        "desc": "Revolucionários gráficos 3D pré-renderizados num game de plataforma dinâmico com trilha sonora espetacular.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1a/Donkey_Kong_Country_SNES_cover.png"
+      },
+      {
+        "title": "Mega Man X",
+        "year": "1993",
+        "genre": "Ação",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Evolução moderna e madura do herói clássico, com saltos na parede e armaduras secretas épicas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f1/Mega_Man_X_Coverart.png"
+      },
+      {
+        "title": "Street Fighter II Turbo",
+        "year": "1992",
+        "genre": "Luta",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "O auge da pancadaria 16-bit com velocidade fluida e precisão de comandos perfeitos para torneios.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/81/Street_Fighter_II_Hyper_Fighting_cover.jpg"
+      },
+      {
+        "title": "Final Fantasy VI",
+        "year": "1994",
+        "genre": "RPG",
+        "dev": "Square",
+        "pub": "Square",
+        "desc": "História magnífica com Kefka sendo um dos vilões mais marcantes e cruéis de todos os tempos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/3e/Final_Fantasy_VI_box_art.jpg"
+      },
+      {
+        "title": "Super Mario Kart",
+        "year": "1992",
+        "genre": "Corrida",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Fundador do subgênero de corrida com mascotes e armadilhas divertidas para festas barulhentas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/38/Supermariokart_box.JPG"
+      },
+      {
+        "title": "Yoshi's Island",
+        "year": "1995",
+        "genre": "Plataforma",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Pixel-art desenhada à mão simulando giz de cera. Ajude Yoshi a guiar com segurança o bebê chorão Mario.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/9a/Yoshi%27s_Island_%28Super_Mario_World_2%29_box_art.jpg"
+      },
+      {
+        "title": "EarthBound",
+        "year": "1994",
+        "genre": "RPG",
+        "dev": "Ape / HAL",
+        "pub": "Nintendo",
+        "desc": "Cômico e esquisito RPG ambientado no subúrbio americano com crianças armadas com tacos de beisebol.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1f/EarthBound_Box.jpg"
+      },
+      {
+        "title": "Ultimate Mortal Kombat 3",
+        "year": "1995",
+        "genre": "Luta",
+        "dev": "Midway",
+        "pub": "Acclaim",
+        "desc": "Fatalities brutais, combos agressivos e lutadores icônicos digitalizados com extremo realismo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/7e/Mortal_Kombat_11_cover_art.png"
+      }
     ]
   },
   {
@@ -63,18 +255,114 @@
     "themeColor": "from-[#3B82F6] to-black",
     "emulatorCore": "mupen64plus_next",
     "gameDefs": [
-      { "title": "Super Mario 64", "year": "1996", "genre": "Plataforma 3D", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Revolucionou de vez os movimentos direcionais tridimensionais em mundos de exploração abertos incríveis." },
-      { "title": "The Legend of Zelda: Ocarina of Time", "year": "1998", "genre": "Aventura 3D", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Frequentemente votado o melhor videogame da história sob mecânicas de viagem no tempo e mira lendária em foco Z." },
-      { "title": "Mario Kart 64", "year": "1996", "genre": "Corrida", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Vibrante clássico multijogador de sofá excelente para disputar ligas épicas e batalhas de balões." },
-      { "title": "GoldenEye 007", "year": "1997", "genre": "FPS", "dev": "Rare", "pub": "Nintendo", "desc": "Consolidou as bases para tiroteios tácticos em primeira pessoa no joystick com multiplayer inesquecível." },
-      { "title": "Super Smash Bros.", "year": "1999", "genre": "Luta", "dev": "HAL Laboratory", "pub": "Nintendo", "desc": "Personagens lendários da Nintendo se enfrentam em combates divertidos de empurrar oponentes para fora." },
-      { "title": "Banjo-Kazooie", "year": "1998", "genre": "Plataforma 3D", "dev": "Rare", "pub": "Nintendo", "desc": "A fantástica odisseia do urso e sua ave de estimação coletando notas musicais em mundos mágicos." },
-      { "title": "Star Fox 64", "year": "1997", "genre": "Shoot 'em Up", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Faça um \"Barrel Roll\" com a clássica Arwing defendendo o sistema Lylat das hordas espaciais de Andross." },
-      { "title": "The Legend of Zelda: Majora's Mask", "year": "2000", "genre": "Aventura 3D", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Atmosfera sombria e melancólica de um relógio que corre 3 dias sem parar para salvar Termina da queda lunar." },
-      { "title": "Perfect Dark", "year": "2000", "genre": "FPS", "dev": "Rare", "pub": "Rare", "desc": "Inovador shooter futurista de espionagem com armas avançadas de raios-X e simuladores multiplayer insanos." },
-      { "title": "Diddy Kong Racing", "year": "1997", "genre": "Corrida", "dev": "Rare", "pub": "Nintendo", "desc": "Uma mistura fantástica de corrida de karts, karts aquáticos e aviões numa ilha cheia de missões e segredos." },
-      { "title": "Paper Mario", "year": "2000", "genre": "RPG", "dev": "Intelligent Systems", "pub": "Nintendo", "desc": "Um charmoso RPG onde Mario assume formas de papel bidimensional em um mundo vibrante e interativo." },
-      { "title": "F-Zero X", "year": "1998", "genre": "Corrida", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Altíssima velocidade em 60 frames por segundo estáveis com 30 naves disputando em pistas tubulares piradas." }
+      {
+        "title": "Super Mario 64",
+        "year": "1996",
+        "genre": "Plataforma 3D",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Revolucionou de vez os movimentos direcionais tridimensionais em mundos de exploração abertos incríveis.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/12/Super_Mario_64_DS_Coverart.png"
+      },
+      {
+        "title": "The Legend of Zelda: Ocarina of Time",
+        "year": "1998",
+        "genre": "Aventura 3D",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Frequentemente votado o melhor videogame da história sob mecânicas de viagem no tempo e mira lendária em foco Z.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/30/The_Legend_of_Zelda_Ocarina_of_Time_3D_box_art.png"
+      },
+      {
+        "title": "Mario Kart 64",
+        "year": "1996",
+        "genre": "Corrida",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Vibrante clássico multijogador de sofá excelente para disputar ligas épicas e batalhas de balões.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a4/Mario_Kart_64_box.png"
+      },
+      {
+        "title": "GoldenEye 007",
+        "year": "1997",
+        "genre": "FPS",
+        "dev": "Rare",
+        "pub": "Nintendo",
+        "desc": "Consolidou as bases para tiroteios tácticos em primeira pessoa no joystick com multiplayer inesquecível.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/13/GoldenEye_007_N64_cover.jpg"
+      },
+      {
+        "title": "Super Smash Bros.",
+        "year": "1999",
+        "genre": "Luta",
+        "dev": "HAL Laboratory",
+        "pub": "Nintendo",
+        "desc": "Personagens lendários da Nintendo se enfrentam em combates divertidos de empurrar oponentes para fora.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/42/Supersmashbox.jpg"
+      },
+      {
+        "title": "Banjo-Kazooie",
+        "year": "1998",
+        "genre": "Plataforma 3D",
+        "dev": "Rare",
+        "pub": "Nintendo",
+        "desc": "A fantástica odisseia do urso e sua ave de estimação coletando notas musicais em mundos mágicos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/12/Banjo_Kazooie_Cover.png"
+      },
+      {
+        "title": "Star Fox 64",
+        "year": "1997",
+        "genre": "Shoot 'em Up",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Faça um \"Barrel Roll\" com a clássica Arwing defendendo o sistema Lylat das hordas espaciais de Andross.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/03/StarFox2026Cover.jpg"
+      },
+      {
+        "title": "The Legend of Zelda: Majora's Mask",
+        "year": "2000",
+        "genre": "Aventura 3D",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Atmosfera sombria e melancólica de um relógio que corre 3 dias sem parar para salvar Termina da queda lunar.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+      },
+      {
+        "title": "Perfect Dark",
+        "year": "2000",
+        "genre": "FPS",
+        "dev": "Rare",
+        "pub": "Rare",
+        "desc": "Inovador shooter futurista de espionagem com armas avançadas de raios-X e simuladores multiplayer insanos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/32/Perfect_dark_box.jpg"
+      },
+      {
+        "title": "Diddy Kong Racing",
+        "year": "1997",
+        "genre": "Corrida",
+        "dev": "Rare",
+        "pub": "Nintendo",
+        "desc": "Uma mistura fantástica de corrida de karts, karts aquáticos e aviões numa ilha cheia de missões e segredos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/72/Diddy_Kong_Racing_Cover_Art.png"
+      },
+      {
+        "title": "Paper Mario",
+        "year": "2000",
+        "genre": "RPG",
+        "dev": "Intelligent Systems",
+        "pub": "Nintendo",
+        "desc": "Um charmoso RPG onde Mario assume formas de papel bidimensional em um mundo vibrante e interativo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/02/Paper_Mario_Box_Art.png"
+      },
+      {
+        "title": "F-Zero X",
+        "year": "1998",
+        "genre": "Corrida",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Altíssima velocidade em 60 frames por segundo estáveis com 30 naves disputando em pistas tubulares piradas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/21/F-Zero_X_box_art.jpg"
+      }
     ]
   },
   {
@@ -89,46 +377,222 @@
     "themeColor": "from-[#525252] to-black",
     "emulatorCore": "gambatte",
     "gameDefs": [
-      { "title": "Tetris", "year": "1989", "genre": "Puzzle", "dev": "Alexey Pajitnov", "pub": "Nintendo", "desc": "O viciante quebra-cabeças soviético empacotado que catapultou a popularidade móvel definitiva mundial." },
-      { "title": "Pokémon Red & Blue", "year": "1996", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "A lendária faísca geradora do maior império de entretenimento móvel. Capture todos os originais 151 monstros!" },
-      { "title": "Super Mario Land", "year": "1989", "genre": "Plataforma", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Curioso spin-off em Sarasaland com aeronaves e novas mecânicas projetadas por Gunpei Yokoi." },
-      { "title": "The Legend of Zelda: Link's Awakening", "year": "1993", "genre": "Aventura", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Primeiro zelda portátil focado na misteriosa ilha de Koholint e no gigante Wind Fish adormecido." },
-      { "title": "Kirby's Dream Land", "year": "1992", "genre": "Plataforma", "dev": "HAL Laboratory", "pub": "Nintendo", "desc": "O nascimento da fofura rosa voando sugando oponentes do malvado King Dedede." },
-      { "title": "Metroid II: Return of Samus", "year": "1991", "genre": "Metroidvania", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "A caçada sistemática dos ninhos Metroids no Planeta SR388, culminando na adoção do bebê." },
-      { "title": "Pokémon Yellow", "year": "1998", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "Edição especial inspirada no famoso anime com Pikachu seguindo seus passos fora do console." },
-      { "title": "Donkey Kong Land", "year": "1995", "genre": "Plataforma", "dev": "Rare", "pub": "Nintendo", "desc": "Adaptação engenhosa com compactos sprites 3D da lendária selva na pequena tela monocromática." },
-       { "title": "Wario Land: Super Mario Land 3", "year": "1994", "genre": "Plataforma", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "A divertida mudança de holofote colocando o ganancioso Wario caçando moedas e tesouros lendários." },
-       { "title": "Dr. Mario", "year": "1990", "genre": "Puzzle", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Elimine vírus coloridos jogando cápsulas de remédios simétricos em partidas desafiadoras." },
-       { "title": "Mega Man V", "year": "1994", "genre": "Plataforma", "dev": "Capcom", "pub": "Capcom", "desc": "Diferente de ports anteriores, apresenta vilões chefes inspirados no zodíaco celestial chamados Stardroids." },
-       { "title": "Castlevania II: Belmont's Revenge", "year": "1991", "genre": "Ação", "dev": "Konami", "pub": "Konami", "desc": "Christopher Belmont deve usar chicotes elementais para combater demônios de Drácula em subsolos de castelo." }
-     ]
-   },
-   {
-     "id": "gbc",
-     "name": "Game Boy Color",
-     "shortName": "gbc",
-     "logo": "GAME BOY COLOR",
-     "badgeColor": "bg-[#C084FC] border-fuchsia-400 text-white hover:shadow-[0_0_15px_rgba(192,132,252,0.4)]",
-     "releaseYear": "1998",
-     "manufacturer": "Nintendo",
-     "backgroundImage": "/systems/gbc.svg",
-     "themeColor": "from-[#A21CAF] to-[#0F172A]",
-     "emulatorCore": "gambatte",
-     "gameDefs": [
-       { "title": "Pokemon - Crystal Version", "year": "2000", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "A versão definitiva da segunda geração com a primeira protagonista feminina e animações vibrantes de sprites." },
-       { "title": "Pokemon - Gold Version", "year": "1999", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "Explore a região de Johto, descubra novos monstrinhos brilhantes e derrote os líderes de ginásio clássicos." },
-       { "title": "Pokemon - Silver Version", "year": "1999", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "Viva a fantástica aventura para capturar o lendário guardião dos oceanos Lugia na charmosa região de Johto." },
-       { "title": "Shantae", "year": "2002", "genre": "Plataforma / Metroidvania", "dev": "WayForward", "pub": "Capcom", "desc": "Ajude a charmosa meio-gênio Shantae a chicotear cabelos e dançar a dança do ventre para salvar Sequin Land." },
-       { "title": "Wario Land II", "year": "1998", "genre": "Plataforma", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "O icônico anti-herói ganancioso Wario está de volta em uma aventura hilária onde ele é tecnicamente imortal." },
-       { "title": "Resident Evil Gaiden", "year": "2001", "genre": "Aventura / Terror", "dev": "Capcom", "pub": "Capcom", "desc": "Controle Leon S. Kennedy e Barry Burton investigando uma infestação viral terrível a bordo do navio Starlight." },
-       { "title": "Alone in the Dark - The New Nightmare", "year": "2001", "genre": "Survival Horror", "dev": "Spiral House", "pub": "Infogrames", "desc": "Explore mistérios e horror sobrenatural na Ilha das Sombras nesta excelente adaptação de terror portátil." },
-       { "title": "Tetris DX", "year": "1998", "genre": "Puzzle", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "A versão colorida definitiva com novos modos viciantes, perfis de salvamento e IA inteligente aprimorada." },
-       { "title": "Spider-Man 2 - The Sinister Six", "year": "2001", "genre": "Ação / Plataforma", "dev": "Torus Games", "pub": "Activision", "desc": "Ajude o amigão da vizinhança Homem-Aranha a combater o Sexteto Sinistro no topo de arranha-céus." },
-       { "title": "Yu-Gi-Oh! - Dark Duel Stories", "year": "2000", "genre": "Estratégia / Cartas", "dev": "Konami", "pub": "Konami", "desc": "Duele contra personagens do anime clássico com regras e construções de baralhos excelentes." }
-     ]
-   },
-   {
-     "id": "gba",
+      {
+        "title": "Tetris",
+        "year": "1989",
+        "genre": "Puzzle",
+        "dev": "Alexey Pajitnov",
+        "pub": "Nintendo",
+        "desc": "O viciante quebra-cabeças soviético empacotado que catapultou a popularidade móvel definitiva mundial.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/4a/Tetris_Boxshot.jpg"
+      },
+      {
+        "title": "Pokémon Red & Blue",
+        "year": "1996",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "A lendária faísca geradora do maior império de entretenimento móvel. Capture todos os originais 151 monstros!",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+      },
+      {
+        "title": "Super Mario Land",
+        "year": "1989",
+        "genre": "Plataforma",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "Curioso spin-off em Sarasaland com aeronaves e novas mecânicas projetadas por Gunpei Yokoi.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/22/Super-mario-land-gameboy-boxart.png"
+      },
+      {
+        "title": "The Legend of Zelda: Link's Awakening",
+        "year": "1993",
+        "genre": "Aventura",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Primeiro zelda portátil focado na misteriosa ilha de Koholint e no gigante Wind Fish adormecido.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+      },
+      {
+        "title": "Kirby's Dream Land",
+        "year": "1992",
+        "genre": "Plataforma",
+        "dev": "HAL Laboratory",
+        "pub": "Nintendo",
+        "desc": "O nascimento da fofura rosa voando sugando oponentes do malvado King Dedede.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/6a/Kirbys-dream-land-gameboy-boxart.png"
+      },
+      {
+        "title": "Metroid II: Return of Samus",
+        "year": "1991",
+        "genre": "Metroidvania",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "A caçada sistemática dos ninhos Metroids no Planeta SR388, culminando na adoção do bebê.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/93/Metroid2_boxart.jpg"
+      },
+      {
+        "title": "Pokémon Yellow",
+        "year": "1998",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "Edição especial inspirada no famoso anime com Pikachu seguindo seus passos fora do console.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+      },
+      {
+        "title": "Donkey Kong Land",
+        "year": "1995",
+        "genre": "Plataforma",
+        "dev": "Rare",
+        "pub": "Nintendo",
+        "desc": "Adaptação engenhosa com compactos sprites 3D da lendária selva na pequena tela monocromática.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/23/Donkey_Kong_94_box_art.jpg"
+      },
+      {
+        "title": "Wario Land: Super Mario Land 3",
+        "year": "1994",
+        "genre": "Plataforma",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "A divertida mudança de holofote colocando o ganancioso Wario caçando moedas e tesouros lendários.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b8/Wario_Land_Super_Mario_Land_3_cover.png"
+      },
+      {
+        "title": "Dr. Mario",
+        "year": "1990",
+        "genre": "Puzzle",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "Elimine vírus coloridos jogando cápsulas de remédios simétricos em partidas desafiadoras.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f8/Dr._Mario_box_art.jpg"
+      },
+      {
+        "title": "Mega Man V",
+        "year": "1994",
+        "genre": "Plataforma",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Diferente de ports anteriores, apresenta vilões chefes inspirados no zodíaco celestial chamados Stardroids.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f5/Megamanvbox.jpg"
+      },
+      {
+        "title": "Castlevania II: Belmont's Revenge",
+        "year": "1991",
+        "genre": "Ação",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Christopher Belmont deve usar chicotes elementais para combater demônios de Drácula em subsolos de castelo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/51/Castlevania_1_cover.png"
+      }
+    ]
+  },
+  {
+    "id": "gbc",
+    "name": "Game Boy Color",
+    "shortName": "gbc",
+    "logo": "GAME BOY COLOR",
+    "badgeColor": "bg-[#C084FC] border-fuchsia-400 text-white hover:shadow-[0_0_15px_rgba(192,132,252,0.4)]",
+    "releaseYear": "1998",
+    "manufacturer": "Nintendo",
+    "backgroundImage": "/systems/gbc.svg",
+    "themeColor": "from-[#A21CAF] to-[#0F172A]",
+    "emulatorCore": "gambatte",
+    "gameDefs": [
+      {
+        "title": "Pokemon - Crystal Version",
+        "year": "2000",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "A versão definitiva da segunda geração com a primeira protagonista feminina e animações vibrantes de sprites.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+      },
+      {
+        "title": "Pokemon - Gold Version",
+        "year": "1999",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "Explore a região de Johto, descubra novos monstrinhos brilhantes e derrote os líderes de ginásio clássicos.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+      },
+      {
+        "title": "Pokemon - Silver Version",
+        "year": "1999",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "Viva a fantástica aventura para capturar o lendário guardião dos oceanos Lugia na charmosa região de Johto.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+      },
+      {
+        "title": "Shantae",
+        "year": "2002",
+        "genre": "Plataforma / Metroidvania",
+        "dev": "WayForward",
+        "pub": "Capcom",
+        "desc": "Ajude a charmosa meio-gênio Shantae a chicotear cabelos e dançar a dança do ventre para salvar Sequin Land.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/44/Shantae_Cover.jpg"
+      },
+      {
+        "title": "Wario Land II",
+        "year": "1998",
+        "genre": "Plataforma",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "O icônico anti-herói ganancioso Wario está de volta em uma aventura hilária onde ele é tecnicamente imortal.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Nintendo-Game-Boy-Color-FL.png/960px-Nintendo-Game-Boy-Color-FL.png"
+      },
+      {
+        "title": "Resident Evil Gaiden",
+        "year": "2001",
+        "genre": "Aventura / Terror",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Controle Leon S. Kennedy e Barry Burton investigando uma infestação viral terrível a bordo do navio Starlight.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/dd/Resident_Evil_Gaiden_Boxart.gif"
+      },
+      {
+        "title": "Alone in the Dark - The New Nightmare",
+        "year": "2001",
+        "genre": "Survival Horror",
+        "dev": "Spiral House",
+        "pub": "Infogrames",
+        "desc": "Explore mistérios e horror sobrenatural na Ilha das Sombras nesta excelente adaptação de terror portátil.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/bf/Alone_in_the_Dark_The_New_Nightmare_cover_art.jpg"
+      },
+      {
+        "title": "Tetris DX",
+        "year": "1998",
+        "genre": "Puzzle",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "A versão colorida definitiva com novos modos viciantes, perfis de salvamento e IA inteligente aprimorada.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/4a/Tetris_Boxshot.jpg"
+      },
+      {
+        "title": "Spider-Man 2 - The Sinister Six",
+        "year": "2001",
+        "genre": "Ação / Plataforma",
+        "dev": "Torus Games",
+        "pub": "Activision",
+        "desc": "Ajude o amigão da vizinhança Homem-Aranha a combater o Sexteto Sinistro no topo de arranha-céus.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/8d/Spider-Man_2000_game_cover.jpg"
+      },
+      {
+        "title": "Yu-Gi-Oh! - Dark Duel Stories",
+        "year": "2000",
+        "genre": "Estratégia / Cartas",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Duele contra personagens do anime clássico com regras e construções de baralhos excelentes.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a2/Yu-Gi-Oh%21_Dark_Duel_Stories_box_art.jpg"
+      }
+    ]
+  },
+  {
+    "id": "gba",
     "name": "Game Boy Advance",
     "shortName": "gba",
     "logo": "GAME BOY ADVANCE",
@@ -139,18 +603,114 @@
     "themeColor": "from-[#10B981] to-black",
     "emulatorCore": "mgba",
     "gameDefs": [
-      { "title": "Pokémon Emerald", "year": "2004", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "A definitiva jornada em Hoenn com batalhas em dupla e a épica Battle Frontier para os campeões." },
-      { "title": "The Legend of Zelda: The Minish Cap", "year": "2004", "genre": "Aventura", "dev": "Capcom / Flagship", "pub": "Nintendo", "desc": "Use o chapéu falante Ezlo para encolher e explorar mundos microscópicos secretos." },
-      { "title": "Metroid Fusion", "year": "2002", "genre": "Metroidvania", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Estressante clima de thriller espacial corporativo fugindo da letal cópia parasitária SA-X." },
-      { "title": "Castlevania: Aria of Sorrow", "year": "2003", "genre": "Metroidvania", "dev": "Konami", "pub": "Konami", "desc": "Inovador sistema de almas táticas absorvendo bônus ativos e ataques dos monstros do castelo dócil." },
-      { "title": "Mario Kart: Super Circuit", "year": "2001", "genre": "Corrida", "dev": "Intelligent Systems", "pub": "Nintendo", "desc": "Karts portáteis coloridos com 40 circuitos clássicos e novas Copas de diversão extrema." },
-      { "title": "Fire Emblem", "year": "2003", "genre": "RPG Tático", "dev": "Intelligent Systems", "pub": "Nintendo", "desc": "Táticas de grade implacáveis e mortes permanentes dramáticas lideradas por Lyn, Eliwood e Hector." },
-      { "title": "Golden Sun", "year": "2001", "genre": "RPG", "dev": "Camelot", "pub": "Nintendo", "desc": "RPG com inovador visual pseudo-3D e magias de quebra-cabeças no mapa chamadas Psynergy." },
-      { "title": "Mega Man Zero", "year": "2002", "genre": "Ação", "dev": "Inti Creates", "pub": "Capcom", "desc": "Fatiando robôs de tirania neoclássica sob alta dose de velocidade e espadas laser com o lendário Zero." },
-      { "title": "Advance Wars", "year": "2001", "genre": "RPG Tático", "dev": "Intelligent Systems", "pub": "Nintendo", "desc": "Altamente carismático e viciante jogo de estratégia militar por turnos com tanques pixelados." },
-      { "title": "WarioWare, Inc.", "year": "2003", "genre": "Puzzle", "dev": "Nintendo R&D1", "pub": "Nintendo", "desc": "Frenética colagem de micro-jogos hilários de 5 segundos testando seus reflexos sob pressão constante." },
-      { "title": "Sonic Advance", "year": "2001", "genre": "Plataforma", "dev": "Dimps / Sonic Team", "pub": "Sega", "desc": "O velocista azul brilha resgatando designs 2D espetaculares na tela brilhante portátil da rival." },
-      { "title": "Pokémon FireRed", "year": "2004", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "O clássico remake vibrante em Kanto, expandindo a saga inicial com as ilhas Sevii ricas em tesouros." }
+      {
+        "title": "Pokémon Emerald",
+        "year": "2004",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "A definitiva jornada em Hoenn com batalhas em dupla e a épica Battle Frontier para os campeões.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Game_Boy_Advance_Video_Pak.png/960px-Game_Boy_Advance_Video_Pak.png"
+      },
+      {
+        "title": "The Legend of Zelda: The Minish Cap",
+        "year": "2004",
+        "genre": "Aventura",
+        "dev": "Capcom / Flagship",
+        "pub": "Nintendo",
+        "desc": "Use o chapéu falante Ezlo para encolher e explorar mundos microscópicos secretos.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
+      },
+      {
+        "title": "Metroid Fusion",
+        "year": "2002",
+        "genre": "Metroidvania",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "Estressante clima de thriller espacial corporativo fugindo da letal cópia parasitária SA-X.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5d/Metroid_boxart.jpg"
+      },
+      {
+        "title": "Castlevania: Aria of Sorrow",
+        "year": "2003",
+        "genre": "Metroidvania",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Inovador sistema de almas táticas absorvendo bônus ativos e ataques dos monstros do castelo dócil.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ab/AriaofSorrowCover.jpg"
+      },
+      {
+        "title": "Mario Kart: Super Circuit",
+        "year": "2001",
+        "genre": "Corrida",
+        "dev": "Intelligent Systems",
+        "pub": "Nintendo",
+        "desc": "Karts portáteis coloridos com 40 circuitos clássicos e novas Copas de diversão extrema.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/38/Supermariokart_box.JPG"
+      },
+      {
+        "title": "Fire Emblem",
+        "year": "2003",
+        "genre": "RPG Tático",
+        "dev": "Intelligent Systems",
+        "pub": "Nintendo",
+        "desc": "Táticas de grade implacáveis e mortes permanentes dramáticas lideradas por Lyn, Eliwood e Hector.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/4d/Fire_Emblem_The_Blazing_Blade_box_art.png"
+      },
+      {
+        "title": "Golden Sun",
+        "year": "2001",
+        "genre": "RPG",
+        "dev": "Camelot",
+        "pub": "Nintendo",
+        "desc": "RPG com inovador visual pseudo-3D e magias de quebra-cabeças no mapa chamadas Psynergy.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f8/Golden_Sun_video_game_box_art.jpg"
+      },
+      {
+        "title": "Mega Man Zero",
+        "year": "2002",
+        "genre": "Ação",
+        "dev": "Inti Creates",
+        "pub": "Capcom",
+        "desc": "Fatiando robôs de tirania neoclássica sob alta dose de velocidade e espadas laser com o lendário Zero.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f1/Mega_Man_X_Coverart.png"
+      },
+      {
+        "title": "Advance Wars",
+        "year": "2001",
+        "genre": "RPG Tático",
+        "dev": "Intelligent Systems",
+        "pub": "Nintendo",
+        "desc": "Altamente carismático e viciante jogo de estratégia militar por turnos com tanques pixelados.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e0/XXX_video_game_cover.jpg"
+      },
+      {
+        "title": "WarioWare, Inc.",
+        "year": "2003",
+        "genre": "Puzzle",
+        "dev": "Nintendo R&D1",
+        "pub": "Nintendo",
+        "desc": "Frenética colagem de micro-jogos hilários de 5 segundos testando seus reflexos sob pressão constante.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/84/Warioware1box.jpg"
+      },
+      {
+        "title": "Sonic Advance",
+        "year": "2001",
+        "genre": "Plataforma",
+        "dev": "Dimps / Sonic Team",
+        "pub": "Sega",
+        "desc": "O velocista azul brilha resgatando designs 2D espetaculares na tela brilhante portátil da rival.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nintendo-Game-Boy-Advance-Purple-FL.jpg/960px-Nintendo-Game-Boy-Advance-Purple-FL.jpg"
+      },
+      {
+        "title": "Pokémon FireRed",
+        "year": "2004",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "O clássico remake vibrante em Kanto, expandindo a saga inicial com as ilhas Sevii ricas em tesouros.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/960px-International_Pok%C3%A9mon_logo.svg.png"
+      }
     ]
   },
   {
@@ -165,18 +725,114 @@
     "themeColor": "from-[#B91C1C] to-black",
     "emulatorCore": "genesis_plus_gx",
     "gameDefs": [
-      { "title": "Alex Kidd in Miracle World", "year": "1986", "genre": "Plataforma", "dev": "Sega", "pub": "Sega", "desc": "Dispute partidas barulhentas de pedra-papel-tesouro e guie o herói Alex comendo bolinho de arroz." },
-      { "title": "Phantasy Star", "year": "1987", "genre": "RPG", "dev": "Sega", "pub": "Sega", "desc": "Fascinantes labirintos 3D em primeira pessoa no espaço, muito à frente do tempo de computadores." },
-      { "title": "Sonic the Hedgehog", "year": "1991", "genre": "Plataforma", "dev": "Ancient", "pub": "Sega", "desc": "Versão 8-bit charmosa e diferente do clássico, com músicas inesquecíveis compostas por Yuzo Koshiro." },
-      { "title": "Castle of Illusion", "year": "1990", "genre": "Plataforma", "dev": "Sega", "pub": "Sega", "desc": "Ajude Mickey Mouse a coletar gemas mágicas na floresta sinistra para salvar Minnie do terrível castelo." },
-      { "title": "Wonder Boy III: The Dragon's Trap", "year": "1989", "genre": "RPG", "dev": "Westone", "pub": "Sega", "desc": "Amado jogo de plataforma e exploração com transformações em dragão, leão e camaleão." },
-      { "title": "Shinobi", "year": "1987", "genre": "Ação", "dev": "Sega", "pub": "Sega", "desc": "Resgate reféns ninja infantis usando shurikens precisas contra sindicatos terroristas cibernéticos." },
-      { "title": "OutRun", "year": "1986", "genre": "Corrida", "dev": "Sega AM2", "pub": "Sega", "desc": "Selecione sua estação de rádio preferida e dirija uma Ferrari conversível em paisagens praianas maravilhosas." },
-      { "title": "Psycho Fox", "year": "1989", "genre": "Plataforma", "dev": "Screamers", "pub": "Sega", "desc": "Arremesse passarinhos contra monstros e alterne entre raposa, macaco, hipopótamo e tigre velocistas." },
-      { "title": "Asterix", "year": "1991", "genre": "Plataforma", "dev": "Sega", "pub": "Sega", "desc": "Esmague legionários romanos usando potions mágicas com Asterix ou carregando menires com Obelix." },
-      { "title": "Kenseiden", "year": "1988", "genre": "Ação", "dev": "Sega", "pub": "Sega", "desc": "Empunhe a espada lendária na pele de Hayato combatendo feiticeiros feudais corruptos no Japão antigo." },
-      { "title": "Black Belt", "year": "1986", "genre": "Beat 'em Up", "dev": "Sega", "pub": "Sega", "desc": "Lutas de artes marciais impressionantes inspiradas no famoso mangá pós-apocalíptico Fist of North Star." },
-      { "title": "Ninja Gaiden", "year": "1992", "genre": "Ação", "dev": "Sega", "pub": "Sega", "desc": "Uma aventura totalmente exclusiva do Master System, mantendo as escaladas acrobáticas e agudeza 8-bit." }
+      {
+        "title": "Alex Kidd in Miracle World",
+        "year": "1986",
+        "genre": "Plataforma",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Dispute partidas barulhentas de pedra-papel-tesouro e guie o herói Alex comendo bolinho de arroz.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ae/AlexKiddInMiracleWorldBox.jpg"
+      },
+      {
+        "title": "Phantasy Star",
+        "year": "1987",
+        "genre": "RPG",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Fascinantes labirintos 3D em primeira pessoa no espaço, muito à frente do tempo de computadores.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/34/Phantasy_Star_MS_cover.png"
+      },
+      {
+        "title": "Sonic the Hedgehog",
+        "year": "1991",
+        "genre": "Plataforma",
+        "dev": "Ancient",
+        "pub": "Sega",
+        "desc": "Versão 8-bit charmosa e diferente do clássico, com músicas inesquecíveis compostas por Yuzo Koshiro.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Sonic_The_Hedgehog.svg/960px-Sonic_The_Hedgehog.svg.png"
+      },
+      {
+        "title": "Castle of Illusion",
+        "year": "1990",
+        "genre": "Plataforma",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Ajude Mickey Mouse a coletar gemas mágicas na floresta sinistra para salvar Minnie do terrível castelo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/da/Castle_of_Illusion_Coverart.png"
+      },
+      {
+        "title": "Wonder Boy III: The Dragon's Trap",
+        "year": "1989",
+        "genre": "RPG",
+        "dev": "Westone",
+        "pub": "Sega",
+        "desc": "Amado jogo de plataforma e exploração com transformações em dragão, leão e camaleão.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b3/Wonder_Boy_III_The_Dragon%27s_Trap_Cover_Art.png"
+      },
+      {
+        "title": "Shinobi",
+        "year": "1987",
+        "genre": "Ação",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Resgate reféns ninja infantis usando shurikens precisas contra sindicatos terroristas cibernéticos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/45/Shinobi_sales_flyer.png"
+      },
+      {
+        "title": "OutRun",
+        "year": "1986",
+        "genre": "Corrida",
+        "dev": "Sega AM2",
+        "pub": "Sega",
+        "desc": "Selecione sua estação de rádio preferida e dirija uma Ferrari conversível em paisagens praianas maravilhosas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/04/Out_Run_Coverart.png"
+      },
+      {
+        "title": "Psycho Fox",
+        "year": "1989",
+        "genre": "Plataforma",
+        "dev": "Screamers",
+        "pub": "Sega",
+        "desc": "Arremesse passarinhos contra monstros e alterne entre raposa, macaco, hipopótamo e tigre velocistas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1b/PsychoFoxUSBoxShotSMS.jpg"
+      },
+      {
+        "title": "Asterix",
+        "year": "1991",
+        "genre": "Plataforma",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Esmague legionários romanos usando potions mágicas com Asterix ou carregando menires com Obelix.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Sega_Mark_III.jpg/960px-Sega_Mark_III.jpg"
+      },
+      {
+        "title": "Kenseiden",
+        "year": "1988",
+        "genre": "Ação",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Empunhe a espada lendária na pele de Hayato combatendo feiticeiros feudais corruptos no Japão antigo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/71/Kenseiden_Coverart.png"
+      },
+      {
+        "title": "Black Belt",
+        "year": "1986",
+        "genre": "Beat 'em Up",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Lutas de artes marciais impressionantes inspiradas no famoso mangá pós-apocalíptico Fist of North Star.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/45/Shinobi_sales_flyer.png"
+      },
+      {
+        "title": "Ninja Gaiden",
+        "year": "1992",
+        "genre": "Ação",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Uma aventura totalmente exclusiva do Master System, mantendo as escaladas acrobáticas e agudeza 8-bit.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/20/Ninja_Gaiden_NES_box_art.jpg"
+      }
     ]
   },
   {
@@ -191,18 +847,114 @@
     "themeColor": "from-[#4338CA] to-black",
     "emulatorCore": "genesis_plus_gx",
     "gameDefs": [
-      { "title": "Sonic the Hedgehog 2", "year": "1992", "genre": "Plataforma", "dev": "Sonic Team", "pub": "Sega", "desc": "A estonteante estreia de Tails voando em fases velozes como Chemical Plant com trilhas maravilhosas." },
-      { "title": "Streets of Rage 2", "year": "1992", "genre": "Beat 'em Up", "dev": "Sega", "pub": "Sega", "desc": "Gráficos gigantes, jogabilidade cirúrgica de brawlers urbanos com trilha sonora house eletrônica clássica." },
-      { "title": "Gunstar Heroes", "year": "1993", "genre": "Run and Gun", "dev": "Treasure", "pub": "Sega", "desc": "Frenesi extremo combinando projéteis e explosões estonteantes no auge da arquitetura 16-bit." },
-      { "title": "Phantasy Star IV", "year": "1993", "genre": "RPG", "dev": "Sega R&D2", "pub": "Sega", "desc": "Conclusão lendária da história espacial em Algo com cenas de mangá cinematográficas vibrantes." },
-      { "title": "Shinobi III: Return of the Ninja Master", "year": "1993", "genre": "Ação", "dev": "Sega", "pub": "Sega", "desc": "Joe Musashi cavalga e desliza empunhando katanas e ninjutsas mágicos destruidores em bando vilão." },
-      { "title": "Castlevania: Bloodlines", "year": "1994", "genre": "Ação", "dev": "Konami", "pub": "Konami", "desc": "Ataque inimigos com flexibilidade empunhando chicotes de Morris ou a lança comprida de Eric pela Europa." },
-      { "title": "Sonic & Knuckles", "year": "1994", "genre": "Plataforma", "dev": "Sonic Team", "pub": "Sega", "desc": "Inovador cartucho retrocompatível \"Lock-On\" permitindo jogar com o porco-espinho Knuckles em Sonic 3." },
-      { "title": "Golden Axe II", "year": "1991", "genre": "Beat 'em Up", "dev": "Sega", "pub": "Sega", "desc": "Pancadaria bárbara medieval com guerreiros destemidos conjurando feitiços colossais na tela escura." },
-      { "title": "Earthworm Jim", "year": "1994", "genre": "Run and Gun", "dev": "Shiny Entertainment", "pub": "Playmates", "desc": "Humor ácido nonsense estrelado por uma minhoca com super-traje espacial atirando em vacas voadoras." },
-      { "title": "Comix Zone", "year": "1995", "genre": "Beat 'em Up", "dev": "Sega Technical Institute", "pub": "Sega", "desc": "Lute literalmente saltando por quadrinhos desenhados à mão neste incrível e desafiador clássico." },
-      { "title": "Beyond Oasis", "year": "1994", "genre": "RPG", "dev": "Ancient", "pub": "Sega", "desc": "Aventura de ação dinâmica convocando espíritos elementares da água, fogo, sombra e plantas." },
-      { "title": "OutRunners", "year": "1993", "genre": "Corrida", "dev": "Sega AM2", "pub": "Sega", "desc": "Divertido corrida arcade com trilha sonora contagiante, saltos irados e carros conversíveis charmosos." }
+      {
+        "title": "Sonic the Hedgehog 2",
+        "year": "1992",
+        "genre": "Plataforma",
+        "dev": "Sonic Team",
+        "pub": "Sega",
+        "desc": "A estonteante estreia de Tails voando em fases velozes como Chemical Plant com trilhas maravilhosas.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Sonic_The_Hedgehog.svg/960px-Sonic_The_Hedgehog.svg.png"
+      },
+      {
+        "title": "Streets of Rage 2",
+        "year": "1992",
+        "genre": "Beat 'em Up",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Gráficos gigantes, jogabilidade cirúrgica de brawlers urbanos com trilha sonora house eletrônica clássica.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/52/Streets_of_Rage_2_box_art.jpg"
+      },
+      {
+        "title": "Gunstar Heroes",
+        "year": "1993",
+        "genre": "Run and Gun",
+        "dev": "Treasure",
+        "pub": "Sega",
+        "desc": "Frenesi extremo combinando projéteis e explosões estonteantes no auge da arquitetura 16-bit.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f6/Gunstar_Heroes_Genesis_cover_art.jpg"
+      },
+      {
+        "title": "Phantasy Star IV",
+        "year": "1993",
+        "genre": "RPG",
+        "dev": "Sega R&D2",
+        "pub": "Sega",
+        "desc": "Conclusão lendária da história espacial em Algo com cenas de mangá cinematográficas vibrantes.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/67/Phantasy_Star_EotM_cover.jpg"
+      },
+      {
+        "title": "Shinobi III: Return of the Ninja Master",
+        "year": "1993",
+        "genre": "Ação",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Joe Musashi cavalga e desliza empunhando katanas e ninjutsas mágicos destruidores em bando vilão.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/89/Shinobi_III_Return_of_the_Ninja_Master_box_art.jpg"
+      },
+      {
+        "title": "Castlevania: Bloodlines",
+        "year": "1994",
+        "genre": "Ação",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Ataque inimigos com flexibilidade empunhando chicotes de Morris ou a lança comprida de Eric pela Europa.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Sega_Genesis_Mini_02.jpg/960px-Sega_Genesis_Mini_02.jpg"
+      },
+      {
+        "title": "Sonic & Knuckles",
+        "year": "1994",
+        "genre": "Plataforma",
+        "dev": "Sonic Team",
+        "pub": "Sega",
+        "desc": "Inovador cartucho retrocompatível \"Lock-On\" permitindo jogar com o porco-espinho Knuckles em Sonic 3.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/46/300px-Sega_Mega_Drive_and_Genesis_Classics_cover.jpg"
+      },
+      {
+        "title": "Golden Axe II",
+        "year": "1991",
+        "genre": "Beat 'em Up",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Pancadaria bárbara medieval com guerreiros destemidos conjurando feitiços colossais na tela escura.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ab/Golden_Axe_Promo_Flyer.jpeg"
+      },
+      {
+        "title": "Earthworm Jim",
+        "year": "1994",
+        "genre": "Run and Gun",
+        "dev": "Shiny Entertainment",
+        "pub": "Playmates",
+        "desc": "Humor ácido nonsense estrelado por uma minhoca com super-traje espacial atirando em vacas voadoras.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/89/Earthworm_Jim_2_Neutral_Cover.png"
+      },
+      {
+        "title": "Comix Zone",
+        "year": "1995",
+        "genre": "Beat 'em Up",
+        "dev": "Sega Technical Institute",
+        "pub": "Sega",
+        "desc": "Lute literalmente saltando por quadrinhos desenhados à mão neste incrível e desafiador clássico.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Sega_Genesis_Mini_02.jpg/960px-Sega_Genesis_Mini_02.jpg"
+      },
+      {
+        "title": "Beyond Oasis",
+        "year": "1994",
+        "genre": "RPG",
+        "dev": "Ancient",
+        "pub": "Sega",
+        "desc": "Aventura de ação dinâmica convocando espíritos elementares da água, fogo, sombra e plantas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/46/300px-Sega_Mega_Drive_and_Genesis_Classics_cover.jpg"
+      },
+      {
+        "title": "OutRunners",
+        "year": "1993",
+        "genre": "Corrida",
+        "dev": "Sega AM2",
+        "pub": "Sega",
+        "desc": "Divertido corrida arcade com trilha sonora contagiante, saltos irados e carros conversíveis charmosos.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Sega_Genesis_Mini_02.jpg/960px-Sega_Genesis_Mini_02.jpg"
+      }
     ]
   },
   {
@@ -217,18 +969,114 @@
     "themeColor": "from-[#0F766E] to-black",
     "emulatorCore": "yabause",
     "gameDefs": [
-      { "title": "Nights into Dreams...", "year": "1996", "genre": "Aventura", "dev": "Sonic Team", "pub": "Sega", "desc": "Voe livremente por cenários de sonhos deslumbrantes sob looping acrobáticos hipnotizantes." },
-      { "title": "Sega Rally Championship", "year": "1995", "genre": "Corrida", "dev": "Sega AM3", "pub": "Sega", "desc": "Considerado um divisor de águas para jogos focado em terrenos alternados de terra vegetal e asfalto liso." },
-      { "title": "Virtua Fighter 2", "year": "1995", "genre": "Luta 3D", "dev": "Sega AM2", "pub": "Sega", "desc": "Física poligonal de artes marciais complexas fluindo a lisos e estonteantes 60 quadros virtuais." },
-      { "title": "Panzer Dragoon Saga", "year": "1998", "genre": "RPG", "dev": "Team Andromeda", "pub": "Sega", "desc": "RPG cult extraordinário com batalhas táticas tridimensionais voando acima de dragões lendários." },
-      { "title": "Guardian Heroes", "year": "1996", "genre": "Beat 'em Up", "dev": "Treasure", "pub": "Sega", "desc": "Combates side-scrolling em múltiplas planos de profundidade fundidos com elements marcantes de evolução RPG." },
-      { "title": "Radiant Silvergun", "year": "1998", "genre": "Shoot 'em Up", "dev": "Treasure", "pub": "Sega", "desc": "Incrivelmente sofisticada mecânica de naves sem powerups extras, usando 7 armas ativas desde o início." },
-      { "title": "Shining Force III", "year": "1997", "genre": "RPG Tático", "dev": "Camelot", "pub": "Sega", "desc": "Fantástico combate tático 3D ambientado sob contendas militares em três campanhas heróicas." },
-      { "title": "Daytona USA", "year": "1995", "genre": "Corrida", "dev": "Sega AM2", "pub": "Sega", "desc": "O clássico hino \"Let's Go Away\" nas curvas fechadas de circuitos solares virtuais espetaculares." },
-      { "title": "Virtua Cop", "year": "1995", "genre": "FPS", "dev": "Sega AM2", "pub": "Sega", "desc": "Disparos táticos rápidos eliminando marginais urbanos em assaltos à mão armada perigosos." },
-      { "title": "Panzer Dragoon II Zwei", "year": "1996", "genre": "Shoot 'em Up", "dev": "Team Andromeda", "pub": "Sega", "desc": "Melhorias técnicas incríveis atirando raio laser guiado a bordo de dragão em terra devastada." },
-      { "title": "Astal", "year": "1995", "genre": "Plataforma", "dev": "Sega", "pub": "Sega", "desc": "Lindo jogo de plataforma desenhado à mão com arte de fantasia de cristal e cores aquarela ricas." },
-      { "title": "Saturn Bomberman", "year": "1996", "genre": "Puzzle", "dev": "Hudson Soft", "pub": "Sega", "desc": "Excepcional caos de bombas suportando até 10 jogadores nos consoles de mesa expansíveis." }
+      {
+        "title": "Nights into Dreams...",
+        "year": "1996",
+        "genre": "Aventura",
+        "dev": "Sonic Team",
+        "pub": "Sega",
+        "desc": "Voe livremente por cenários de sonhos deslumbrantes sob looping acrobáticos hipnotizantes.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/33/NightsIntoDreamsBox.jpg"
+      },
+      {
+        "title": "Sega Rally Championship",
+        "year": "1995",
+        "genre": "Corrida",
+        "dev": "Sega AM3",
+        "pub": "Sega",
+        "desc": "Considerado um divisor de águas para jogos focado em terrenos alternados de terra vegetal e asfalto liso.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/0a/Sega_Rally_Championship_box_art.jpg"
+      },
+      {
+        "title": "Virtua Fighter 2",
+        "year": "1995",
+        "genre": "Luta 3D",
+        "dev": "Sega AM2",
+        "pub": "Sega",
+        "desc": "Física poligonal de artes marciais complexas fluindo a lisos e estonteantes 60 quadros virtuais.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/01/Virtua-fighter-2-box.jpg"
+      },
+      {
+        "title": "Panzer Dragoon Saga",
+        "year": "1998",
+        "genre": "RPG",
+        "dev": "Team Andromeda",
+        "pub": "Sega",
+        "desc": "RPG cult extraordinário com batalhas táticas tridimensionais voando acima de dragões lendários.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/64/PanzerDragoonSagaBox.jpg"
+      },
+      {
+        "title": "Guardian Heroes",
+        "year": "1996",
+        "genre": "Beat 'em Up",
+        "dev": "Treasure",
+        "pub": "Sega",
+        "desc": "Combates side-scrolling em múltiplas planos de profundidade fundidos com elements marcantes de evolução RPG.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/69/GH_front_cover.jpg"
+      },
+      {
+        "title": "Radiant Silvergun",
+        "year": "1998",
+        "genre": "Shoot 'em Up",
+        "dev": "Treasure",
+        "pub": "Sega",
+        "desc": "Incrivelmente sofisticada mecânica de naves sem powerups extras, usando 7 armas ativas desde o início.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/ff/Radiant_Silvergun_flyer.jpg"
+      },
+      {
+        "title": "Shining Force III",
+        "year": "1997",
+        "genre": "RPG Tático",
+        "dev": "Camelot",
+        "pub": "Sega",
+        "desc": "Fantástico combate tático 3D ambientado sob contendas militares em três campanhas heróicas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b4/Ambox_important.svg"
+      },
+      {
+        "title": "Daytona USA",
+        "year": "1995",
+        "genre": "Corrida",
+        "dev": "Sega AM2",
+        "pub": "Sega",
+        "desc": "O clássico hino \"Let's Go Away\" nas curvas fechadas de circuitos solares virtuais espetaculares.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c2/Daytona_USA_arcade_flyer.jpg"
+      },
+      {
+        "title": "Virtua Cop",
+        "year": "1995",
+        "genre": "FPS",
+        "dev": "Sega AM2",
+        "pub": "Sega",
+        "desc": "Disparos táticos rápidos eliminando marginais urbanos em assaltos à mão armada perigosos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b2/Virtua_Cop_Cover.jpg"
+      },
+      {
+        "title": "Panzer Dragoon II Zwei",
+        "year": "1996",
+        "genre": "Shoot 'em Up",
+        "dev": "Team Andromeda",
+        "pub": "Sega",
+        "desc": "Melhorias técnicas incríveis atirando raio laser guiado a bordo de dragão em terra devastada.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/73/Panzercover.jpg"
+      },
+      {
+        "title": "Astal",
+        "year": "1995",
+        "genre": "Plataforma",
+        "dev": "Sega",
+        "pub": "Sega",
+        "desc": "Lindo jogo de plataforma desenhado à mão com arte de fantasia de cristal e cores aquarela ricas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a1/Astal_Coverart.jpg"
+      },
+      {
+        "title": "Saturn Bomberman",
+        "year": "1996",
+        "genre": "Puzzle",
+        "dev": "Hudson Soft",
+        "pub": "Sega",
+        "desc": "Excepcional caos de bombas suportando até 10 jogadores nos consoles de mesa expansíveis.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/6c/Saturn_Bomberman_Coverart.png"
+      }
     ]
   },
   {
@@ -243,18 +1091,114 @@
     "themeColor": "from-[#3F3F46] to-black",
     "emulatorCore": "pcsx_rearmed",
     "gameDefs": [
-      { "title": "Castlevania: Symphony of the Night", "year": "1997", "genre": "Metroidvania", "dev": "Konami", "pub": "Konami", "desc": "Alucard desbrava o castelo mutável de Drácula, lançando bases absolutas ao subgênero em 2D belíssimo." },
-      { "title": "Final Fantasy VII", "year": "1997", "genre": "RPG", "dev": "Square", "pub": "Sony", "desc": "O épico confronto ambiental contra Shinra e Sephiroth que abriu as portas dos RPGs orientais no oeste." },
-      { "title": "Metal Gear Solid", "year": "1998", "genre": "Ação", "dev": "Konami", "pub": "Konami", "desc": "Tático furtivo inesquecível de Hideo Kojima com quebra de quarta parede e diálogos cinematográficos." },
-      { "title": "Resident Evil 2", "year": "1998", "genre": "Survival Horror", "dev": "Capcom", "pub": "Capcom", "desc": "Leon e Claire exploram uma delegacia sitiada por hordas de monstros sob infecção do vírus-T." },
-      { "title": "Crash Bandicoot 3: Warped", "year": "1998", "genre": "Plataforma 3D", "dev": "Naughty Dog", "pub": "Sony", "desc": "O mascote corre por eras antigas montado em dinossauros, motos antigas e jatos d'água velozes." },
-      { "title": "Tekken 3", "year": "1998", "genre": "Luta 3D", "dev": "Namco", "pub": "Namco", "desc": "Combate fluido 3D fantástico com personagens icônicos rápidos como Jin Kazama e Eddy Gordo." },
-      { "title": "Silent Hill", "year": "1999", "genre": "Survival Horror", "dev": "Team Silent", "pub": "Konami", "desc": "Terror psicológico angustiante em névoas densas procurando sua filha em cidade abandonada maldita." },
-      { "title": "Gran Turismo 2", "year": "1999", "genre": "Corrida", "dev": "Polyphony Digital", "pub": "Sony", "desc": "O simulador definitivo com centenas de carros reais licenciados e trilha com cardigans espetaculares." },
-      { "title": "Tony Hawk's Pro Skater 2", "year": "2000", "genre": "Esporte", "dev": "Neversoft", "pub": "Activision", "desc": "Execução de manobras de skate insanas com uma das trilhas sonoras punk/rock mais marcantes de sempre." },
-      { "title": "Chrono Cross", "year": "1999", "genre": "RPG", "dev": "Square", "pub": "Square", "desc": "Aventura paralela em dimensões alternadas rica em dezenas de personagens recrutáveis fabulosos." },
-      { "title": "Tomb Raider II", "year": "1997", "genre": "Aventura", "dev": "Core Design", "pub": "Eidos", "desc": "Lara Croft em buscas místicas da Adaga de Xian na Grande Muralha da China com saltos táticos." },
-      { "title": "Spyro the Dragon", "year": "1998", "genre": "Plataforma 3D", "dev": "Insomniac Games", "pub": "Sony", "desc": "Plane livremente por reinos mágicos resgatando dragões cristalizados aprisionados pelo malvado Gnorc." }
+      {
+        "title": "Castlevania: Symphony of the Night",
+        "year": "1997",
+        "genre": "Metroidvania",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Alucard desbrava o castelo mutável de Drácula, lançando bases absolutas ao subgênero em 2D belíssimo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1a/Castlevania_Symphony_of_the_Night_covert.jpg"
+      },
+      {
+        "title": "Final Fantasy VII",
+        "year": "1997",
+        "genre": "RPG",
+        "dev": "Square",
+        "pub": "Sony",
+        "desc": "O épico confronto ambiental contra Shinra e Sephiroth que abriu as portas dos RPGs orientais no oeste.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/75/Boxart_for_Final_Fantasy_VII_Rebirth.png"
+      },
+      {
+        "title": "Metal Gear Solid",
+        "year": "1998",
+        "genre": "Ação",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Tático furtivo inesquecível de Hideo Kojima com quebra de quarta parede e diálogos cinematográficos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/8d/Metal_Gear_Solid_cover.jpg"
+      },
+      {
+        "title": "Resident Evil 2",
+        "year": "1998",
+        "genre": "Survival Horror",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Leon e Claire exploram uma delegacia sitiada por hordas de monstros sob infecção do vírus-T.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/90/Resident_Evil_2_box_art.png"
+      },
+      {
+        "title": "Crash Bandicoot 3: Warped",
+        "year": "1998",
+        "genre": "Plataforma 3D",
+        "dev": "Naughty Dog",
+        "pub": "Sony",
+        "desc": "O mascote corre por eras antigas montado em dinossauros, motos antigas e jatos d'água velozes.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/3e/Crash_Bandicoot_3_Warped_Original_Box_Art.jpg"
+      },
+      {
+        "title": "Tekken 3",
+        "year": "1998",
+        "genre": "Luta 3D",
+        "dev": "Namco",
+        "pub": "Namco",
+        "desc": "Combate fluido 3D fantástico com personagens icônicos rápidos como Jin Kazama e Eddy Gordo.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/7d/Tekken_3_flyer.jpg"
+      },
+      {
+        "title": "Silent Hill",
+        "year": "1999",
+        "genre": "Survival Horror",
+        "dev": "Team Silent",
+        "pub": "Konami",
+        "desc": "Terror psicológico angustiante em névoas densas procurando sua filha em cidade abandonada maldita.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/96/Silent_Hill_video_game_cover.png"
+      },
+      {
+        "title": "Gran Turismo 2",
+        "year": "1999",
+        "genre": "Corrida",
+        "dev": "Polyphony Digital",
+        "pub": "Sony",
+        "desc": "O simulador definitivo com centenas de carros reais licenciados e trilha com cardigans espetaculares.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c8/Gran_Turismo_-_Cover_-_JP.jpg"
+      },
+      {
+        "title": "Tony Hawk's Pro Skater 2",
+        "year": "2000",
+        "genre": "Esporte",
+        "dev": "Neversoft",
+        "pub": "Activision",
+        "desc": "Execução de manobras de skate insanas com uma das trilhas sonoras punk/rock mais marcantes de sempre.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/41/Tony_Hawk%27s_Pro_Skater_2_cover.png"
+      },
+      {
+        "title": "Chrono Cross",
+        "year": "1999",
+        "genre": "RPG",
+        "dev": "Square",
+        "pub": "Square",
+        "desc": "Aventura paralela em dimensões alternadas rica em dezenas de personagens recrutáveis fabulosos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/9/9a/Chronocrossbox.jpg"
+      },
+      {
+        "title": "Tomb Raider II",
+        "year": "1997",
+        "genre": "Aventura",
+        "dev": "Core Design",
+        "pub": "Eidos",
+        "desc": "Lara Croft em buscas místicas da Adaga de Xian na Grande Muralha da China com saltos táticos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/18/Tomb_Raider_II_cover_art.jpg"
+      },
+      {
+        "title": "Spyro the Dragon",
+        "year": "1998",
+        "genre": "Plataforma 3D",
+        "dev": "Insomniac Games",
+        "pub": "Sony",
+        "desc": "Plane livremente por reinos mágicos resgatando dragões cristalizados aprisionados pelo malvado Gnorc.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/53/Spyro_the_Dragon_cover.jpg"
+      }
     ]
   },
   {
@@ -269,18 +1213,114 @@
     "themeColor": "from-[#92400E] to-black",
     "emulatorCore": "stella",
     "gameDefs": [
-      { "title": "Pitfall!", "year": "1982", "genre": "Plataforma", "dev": "Activision", "pub": "Activision", "desc": "Harry corre pela selva desviando de jacarés e escorpiões selvagens coletando barras de ouro precioso." },
-      { "title": "River Raid", "year": "1982", "genre": "Shoot 'em Up", "dev": "Activision", "pub": "Activision", "desc": "Suba o rio derrubando barcos inimigos, helicópteros e aviões enquanto recarrega gás essencial." },
-      { "title": "Pac-Man", "year": "1982", "genre": "Puzzle", "dev": "Atari", "pub": "Atari", "desc": "Famosíssimo e controverso port do herói amarelo comedores de pastilhas em labirinto azulado." },
-      { "title": "Space Invaders", "year": "1980", "genre": "Shoot 'em Up", "dev": "Taito", "pub": "Atari", "desc": "Primeira adaptação para console do revolucionário duelo espacial contra alienígenas agressivos." },
-      { "title": "Enduro", "year": "1983", "genre": "Corrida", "dev": "Activision", "pub": "Activision", "desc": "Clássica corrida automobilística de resistência desviando de carros à noite e em neves densas." },
-      { "title": "Keystone Kapers", "year": "1983", "genre": "Ação", "dev": "Activision", "pub": "Activision", "desc": "O policial Kelly corre no shopping perseguindo o fugitivo Harry desviando de carrinhos de bebê." },
-      { "title": "H.E.R.O.", "year": "1984", "genre": "Ação", "dev": "Activision", "pub": "Activision", "desc": "Roderick Hero voa por minas subterrâneas com sua mochila à hélice para resgatar mineradores presos." },
-      { "title": "Frogger", "year": "1982", "genre": "Action", "dev": "Konami", "pub": "Parker Brothers", "desc": "Ajude os pequenos sapos a atravessar a via expressa barulhenta e o rio selvagem com troncos flutuantes." },
-      { "title": "Adventure", "year": "1980", "genre": "Aventura", "dev": "Warren Robinett", "pub": "Atari", "desc": "Básico jogo geométrico que fundou mecânicas de RPG e o primeiríssimo Easter Egg escondido de computação." },
-      { "title": "Yars' Revenge", "year": "1982", "genre": "Shoot 'em Up", "dev": "Atari", "pub": "Atari", "desc": "Guerreiros voadores mastigam escudos inimigos para ativar o canhão Zorlon letal destruidores de chefes." },
-      { "title": "Boxing", "year": "1980", "genre": "Esporte", "dev": "Activision", "pub": "Activision", "desc": "Divertido combate de boxe em perspectiva top-down trocando golpes rápidos e ágeis." },
-      { "title": "Combat", "year": "1977", "genre": "Ação", "dev": "Atari", "pub": "Atari", "desc": "Combate épico de tanques de guerra com disparos ricocheteantes em labirintos simples digitais." }
+      {
+        "title": "Pitfall!",
+        "year": "1982",
+        "genre": "Plataforma",
+        "dev": "Activision",
+        "pub": "Activision",
+        "desc": "Harry corre pela selva desviando de jacarés e escorpiões selvagens coletando barras de ouro precioso.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+      },
+      {
+        "title": "River Raid",
+        "year": "1982",
+        "genre": "Shoot 'em Up",
+        "dev": "Activision",
+        "pub": "Activision",
+        "desc": "Suba o rio derrubando barcos inimigos, helicópteros e aviões enquanto recarrega gás essencial.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/db/River_Raid_cover.jpg"
+      },
+      {
+        "title": "Pac-Man",
+        "year": "1982",
+        "genre": "Puzzle",
+        "dev": "Atari",
+        "pub": "Atari",
+        "desc": "Famosíssimo e controverso port do herói amarelo comedores de pastilhas em labirinto azulado.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/03/PacMan2600box.jpg"
+      },
+      {
+        "title": "Space Invaders",
+        "year": "1980",
+        "genre": "Shoot 'em Up",
+        "dev": "Taito",
+        "pub": "Atari",
+        "desc": "Primeira adaptação para console do revolucionário duelo espacial contra alienígenas agressivos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/53/Space-Invaders-Atari-2600-box-art.jpg"
+      },
+      {
+        "title": "Enduro",
+        "year": "1983",
+        "genre": "Corrida",
+        "dev": "Activision",
+        "pub": "Activision",
+        "desc": "Clássica corrida automobilística de resistência desviando de carros à noite e em neves densas.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+      },
+      {
+        "title": "Keystone Kapers",
+        "year": "1983",
+        "genre": "Ação",
+        "dev": "Activision",
+        "pub": "Activision",
+        "desc": "O policial Kelly corre no shopping perseguindo o fugitivo Harry desviando de carrinhos de bebê.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a9/Keystone-kapers-atari2600-cover.jpg"
+      },
+      {
+        "title": "H.E.R.O.",
+        "year": "1984",
+        "genre": "Ação",
+        "dev": "Activision",
+        "pub": "Activision",
+        "desc": "Roderick Hero voa por minas subterrâneas com sua mochila à hélice para resgatar mineradores presos.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+      },
+      {
+        "title": "Frogger",
+        "year": "1982",
+        "genre": "Action",
+        "dev": "Konami",
+        "pub": "Parker Brothers",
+        "desc": "Ajude os pequenos sapos a atravessar a via expressa barulhenta e o rio selvagem com troncos flutuantes.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/960px-Atari-2600-Wood-4Sw-Set.png"
+      },
+      {
+        "title": "Adventure",
+        "year": "1980",
+        "genre": "Aventura",
+        "dev": "Warren Robinett",
+        "pub": "Atari",
+        "desc": "Básico jogo geométrico que fundou mecânicas de RPG e o primeiríssimo Easter Egg escondido de computação.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/6/60/Adventure_Box_Front.jpg"
+      },
+      {
+        "title": "Yars' Revenge",
+        "year": "1982",
+        "genre": "Shoot 'em Up",
+        "dev": "Atari",
+        "pub": "Atari",
+        "desc": "Guerreiros voadores mastigam escudos inimigos para ativar o canhão Zorlon letal destruidores de chefes.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Atari_2600%2B.jpg/960px-Atari_2600%2B.jpg"
+      },
+      {
+        "title": "Boxing",
+        "year": "1980",
+        "genre": "Esporte",
+        "dev": "Activision",
+        "pub": "Activision",
+        "desc": "Divertido combate de boxe em perspectiva top-down trocando golpes rápidos e ágeis.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/fc/Berzerk_arcade_flyer.jpg"
+      },
+      {
+        "title": "Combat",
+        "year": "1977",
+        "genre": "Ação",
+        "dev": "Atari",
+        "pub": "Atari",
+        "desc": "Combate épico de tanques de guerra com disparos ricocheteantes em labirintos simples digitais.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Atari_2600%2B.jpg/960px-Atari_2600%2B.jpg"
+      }
     ]
   },
   {
@@ -295,18 +1335,114 @@
     "themeColor": "from-[#D97706] to-black",
     "emulatorCore": "fbneo",
     "gameDefs": [
-      { "title": "Street Fighter II: The World Warrior", "year": "1991", "genre": "Luta", "dev": "Capcom", "pub": "Capcom", "desc": "Definiu as bases competitivas modernas do gênero luta com o emblemático dragão Hadouken de Ryu." },
-      { "title": "Metal Slug", "year": "1996", "genre": "Run and Gun", "dev": "Nazca", "pub": "SNK", "desc": "Pixel-art artesanal magnífica de soldados destruindo exércitos de rebeldes com tanques de metal." },
-      { "title": "Pac-Man", "year": "1980", "genre": "Puzzle", "dev": "Namco", "pub": "Namco", "desc": "Fugindo dos fantasmas coloridos em busca de comida de pastilhas em labirinto antológico." },
-      { "title": "Sunset Riders", "year": "1991", "genre": "Run and Gun", "dev": "Konami", "pub": "Konami", "desc": "Perseguição a xerifes corruptos e bandidos no faroeste com tiroteios coloridos em 4 pistoleiros." },
-      { "title": "Galaga", "year": "1981", "genre": "Shoot 'em Up", "dev": "Namco", "pub": "Namco", "desc": "Combate de naves espaciais clássicas enfrentando hordas de insetos cósmicos táticos atiradores." },
-      { "title": "Cadillacs and Dinosaurs", "year": "1993", "genre": "Beat 'em Up", "dev": "Capcom", "pub": "Capcom", "desc": "O brawler absoluto das locadoras controlando Mustapha e espancando caçadores futuristas." },
-      { "title": "The Simpsons Game", "year": "1991", "genre": "Beat 'em Up", "dev": "Konami", "pub": "Konami", "desc": "Divertida pancadaria cartoon salvando Maggie das mãos de sequestradores pela barulhenta Springfield." },
-      { "title": "Teenage Mutant Ninja Turtles", "year": "1989", "genre": "Beat 'em Up", "dev": "Konami", "pub": "Konami", "desc": "Ataque quadrilhas do Clã do Pé empunhando as armas ninjas lendárias de Leonardo e amigos." },
-      { "title": "Bubble Bobble", "year": "1986", "genre": "Plataforma", "dev": "Taito", "pub": "Taito", "desc": "Sopre bolhas brilhantes capturando monstros bizarros e estoure-os para acumular pontos altos." },
-      { "title": "OutRun", "year": "1986", "genre": "Corrida", "dev": "Sega AM2", "pub": "Sega", "desc": "O clássico de corrida na costa ensolarada ouvindo música rítmica sob palmeiras tropicais." },
-      { "title": "Dig Dug", "year": "1982", "genre": "Puzzle", "dev": "Namco", "pub": "Namco", "desc": "Cave galeria subterrâneas inflando dragões e monstros até explodi-los com sua bomba de ar." },
-      { "title": "Ms. Pac-Man", "year": "1982", "genre": "Puzzle", "dev": "GCC / Midway", "pub": "Midway", "desc": "O aclamado refinamento do clássico amarelo com labirintos mutáveis rápidos de velocidade alta." }
+      {
+        "title": "Street Fighter II: The World Warrior",
+        "year": "1991",
+        "genre": "Luta",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Definiu as bases competitivas modernas do gênero luta com o emblemático dragão Hadouken de Ryu.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Arcade-20071020-a.jpg/960px-Arcade-20071020-a.jpg"
+      },
+      {
+        "title": "Metal Slug",
+        "year": "1996",
+        "genre": "Run and Gun",
+        "dev": "Nazca",
+        "pub": "SNK",
+        "desc": "Pixel-art artesanal magnífica de soldados destruindo exércitos de rebeldes com tanques de metal.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/4e/Metal_slug_box.jpg"
+      },
+      {
+        "title": "Pac-Man",
+        "year": "1980",
+        "genre": "Puzzle",
+        "dev": "Namco",
+        "pub": "Namco",
+        "desc": "Fugindo dos fantasmas coloridos em busca de comida de pastilhas em labirinto antológico.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/NewMAME.png/960px-NewMAME.png"
+      },
+      {
+        "title": "Sunset Riders",
+        "year": "1991",
+        "genre": "Run and Gun",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Perseguição a xerifes corruptos e bandidos no faroeste com tiroteios coloridos em 4 pistoleiros.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a1/Sunset_Riders_Arcade_Flyer.png"
+      },
+      {
+        "title": "Galaga",
+        "year": "1981",
+        "genre": "Shoot 'em Up",
+        "dev": "Namco",
+        "pub": "Namco",
+        "desc": "Combate de naves espaciais clássicas enfrentando hordas de insetos cósmicos táticos atiradores.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5f/Galaxian_flyer.jpg"
+      },
+      {
+        "title": "Cadillacs and Dinosaurs",
+        "year": "1993",
+        "genre": "Beat 'em Up",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "O brawler absoluto das locadoras controlando Mustapha e espancando caçadores futuristas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/42/Cadillacs_and_Dinosaurs_flyer.jpg"
+      },
+      {
+        "title": "The Simpsons Game",
+        "year": "1991",
+        "genre": "Beat 'em Up",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Divertida pancadaria cartoon salvando Maggie das mãos de sequestradores pela barulhenta Springfield.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/14/The_Simpsons_Game_box_art.jpg"
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles",
+        "year": "1989",
+        "genre": "Beat 'em Up",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Ataque quadrilhas do Clã do Pé empunhando as armas ninjas lendárias de Leonardo e amigos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/ea/NinjaBaseballBatMan_arcadeflyer.png"
+      },
+      {
+        "title": "Bubble Bobble",
+        "year": "1986",
+        "genre": "Plataforma",
+        "dev": "Taito",
+        "pub": "Taito",
+        "desc": "Sopre bolhas brilhantes capturando monstros bizarros e estoure-os para acumular pontos altos.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/NewMAME.png/960px-NewMAME.png"
+      },
+      {
+        "title": "OutRun",
+        "year": "1986",
+        "genre": "Corrida",
+        "dev": "Sega AM2",
+        "pub": "Sega",
+        "desc": "O clássico de corrida na costa ensolarada ouvindo música rítmica sob palmeiras tropicais.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Broforce_boss_sprites_2_%28cropped%29.jpg/960px-Broforce_boss_sprites_2_%28cropped%29.jpg"
+      },
+      {
+        "title": "Dig Dug",
+        "year": "1982",
+        "genre": "Puzzle",
+        "dev": "Namco",
+        "pub": "Namco",
+        "desc": "Cave galeria subterrâneas inflando dragões e monstros até explodi-los com sua bomba de ar.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/51/Dig_Dug_Atari_2600_Artwork.png"
+      },
+      {
+        "title": "Ms. Pac-Man",
+        "year": "1982",
+        "genre": "Puzzle",
+        "dev": "GCC / Midway",
+        "pub": "Midway",
+        "desc": "O aclamado refinamento do clássico amarelo com labirintos mutáveis rápidos de velocidade alta.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/NewMAME.png/960px-NewMAME.png"
+      }
     ]
   },
   {
@@ -321,18 +1457,114 @@
     "themeColor": "from-[#CA8A04] to-black",
     "emulatorCore": "fbneo",
     "gameDefs": [
-      { "title": "The King of Fighters '98", "year": "1998", "genre": "Luta", "dev": "SNK", "pub": "SNK", "desc": "Equilíbrio máximo em combate tático 3x3 no ápice da prestigiada saga de lutadores da SNK." },
-      { "title": "Metal Slug 3", "year": "2000", "genre": "Run and Gun", "dev": "SNK", "pub": "SNK", "desc": "Aventura absurda contra invasões de alienígenas mutantes, zumbis famintos e robôs gigantes gigantescos." },
-      { "title": "Garou: Mark of the Wolves", "year": "1999", "genre": "Luta", "dev": "SNK", "pub": "SNK", "desc": "Refinadíssimo clássico protagonizado por Rock Howard com animações suntuosas e combates técnicos." },
-      { "title": "Samurai Shodown II", "year": "1994", "genre": "Luta", "dev": "SNK", "pub": "SNK", "desc": "Duelos mortais precisos sangrentos usando espadas feudais, focando em contra-ataques cirúrgicos." },
-      { "title": "Sengoku 3", "year": "2001", "genre": "Beat 'em Up", "dev": "Noise Factory", "pub": "SNK", "desc": "Controle heróis ninja épicos desferindo combos de espada aéreos contra exércitos fantasmas do mal." },
-      { "title": "Shock Troopers", "year": "1997", "genre": "Run and Gun", "dev": "Saurus", "pub": "SNK", "desc": "Atire em soldados mercenários em visão isométrica escolhendo seu time tático de heróis de elite." },
-      { "title": "Bust-A-Move", "year": "1994", "genre": "Puzzle", "dev": "Taito", "pub": "SNK", "desc": "Dispare bolhas coloridas brilhantes emparelhando trincas de cores idênticas neste viciante quebra-cabeças." },
-      { "title": "Windjammers", "year": "1994", "genre": "Esporte", "dev": "Data East", "pub": "SNK", "desc": "Disputas alucinantes jogando discos de arremesso em quadras fechadas com poderes especiais rápidos." },
-      { "title": "Fatal Fury Special", "year": "1993", "genre": "Luta", "dev": "SNK", "pub": "SNK", "desc": "O clássico de porrada reunindo heróis como Terry Bogard e Mai Shiranui no renomado torneio." },
-      { "title": "Blazing Star", "year": "1998", "genre": "Shoot 'em Up", "dev": "Yumekobo", "pub": "SNK", "desc": "Lindo shoot 'em up horizontal com naves em renderizações pré-renderizadas de efeito futurista exuberante." },
-      { "title": "Neo Turf Masters", "year": "1996", "genre": "Esporte", "dev": "Nazca", "pub": "SNK", "desc": "O game de golfe mais dinâmico e relaxante e rítmico já feito com tacadas espetaculares." },
-      { "title": "Last Blade 2", "year": "1998", "genre": "Luta", "dev": "SNK", "pub": "SNK", "desc": "Duelos dramáticos românticos feudais usando katanas, sob o sistema de luta Repel e Super Desperations." }
+      {
+        "title": "The King of Fighters '98",
+        "year": "1998",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Equilíbrio máximo em combate tático 3x3 no ápice da prestigiada saga de lutadores da SNK.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/3b/The_King_of_Fighters_2002_arcade_flyer.jpg"
+      },
+      {
+        "title": "Metal Slug 3",
+        "year": "2000",
+        "genre": "Run and Gun",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Aventura absurda contra invasões de alienígenas mutantes, zumbis famintos e robôs gigantes gigantescos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/50/Metal_Slug_3_arcade_flyer.jpg"
+      },
+      {
+        "title": "Garou: Mark of the Wolves",
+        "year": "1999",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Refinadíssimo clássico protagonizado por Rock Howard com animações suntuosas e combates técnicos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a3/Garou_-_Mark_of_the_Wolves_Coverart.jpg"
+      },
+      {
+        "title": "Samurai Shodown II",
+        "year": "1994",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Duelos mortais precisos sangrentos usando espadas feudais, focando em contra-ataques cirúrgicos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e8/Samurai_Shodown_II_arcade_flyer.jpg"
+      },
+      {
+        "title": "Sengoku 3",
+        "year": "2001",
+        "genre": "Beat 'em Up",
+        "dev": "Noise Factory",
+        "pub": "SNK",
+        "desc": "Controle heróis ninja épicos desferindo combos de espada aéreos contra exércitos fantasmas do mal.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1f/Sengoku_3_cover.jpg"
+      },
+      {
+        "title": "Shock Troopers",
+        "year": "1997",
+        "genre": "Run and Gun",
+        "dev": "Saurus",
+        "pub": "SNK",
+        "desc": "Atire em soldados mercenários em visão isométrica escolhendo seu time tático de heróis de elite.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f1/Shock_Troopers_arcade_flyer.jpg"
+      },
+      {
+        "title": "Bust-A-Move",
+        "year": "1994",
+        "genre": "Puzzle",
+        "dev": "Taito",
+        "pub": "SNK",
+        "desc": "Dispare bolhas coloridas brilhantes emparelhando trincas de cores idênticas neste viciante quebra-cabeças.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/0a/Puzzle_Bobble_arcade_flyer.jpg"
+      },
+      {
+        "title": "Windjammers",
+        "year": "1994",
+        "genre": "Esporte",
+        "dev": "Data East",
+        "pub": "SNK",
+        "desc": "Disputas alucinantes jogando discos de arremesso em quadras fechadas com poderes especiais rápidos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/dc/Windjammers_flyer.jpg"
+      },
+      {
+        "title": "Fatal Fury Special",
+        "year": "1993",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "O clássico de porrada reunindo heróis como Terry Bogard e Mai Shiranui no renomado torneio.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/17/Fatal_Fury_Special_cover_Japan.jpg"
+      },
+      {
+        "title": "Blazing Star",
+        "year": "1998",
+        "genre": "Shoot 'em Up",
+        "dev": "Yumekobo",
+        "pub": "SNK",
+        "desc": "Lindo shoot 'em up horizontal com naves em renderizações pré-renderizadas de efeito futurista exuberante.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/d4/Blazing_Star_flyer.png"
+      },
+      {
+        "title": "Neo Turf Masters",
+        "year": "1996",
+        "genre": "Esporte",
+        "dev": "Nazca",
+        "pub": "SNK",
+        "desc": "O game de golfe mais dinâmico e relaxante e rítmico já feito com tacadas espetaculares.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/NeoGeo_Cartridge.jpg/960px-NeoGeo_Cartridge.jpg"
+      },
+      {
+        "title": "Last Blade 2",
+        "year": "1998",
+        "genre": "Luta",
+        "dev": "SNK",
+        "pub": "SNK",
+        "desc": "Duelos dramáticos românticos feudais usando katanas, sob o sistema de luta Repel e Super Desperations.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f6/The_Last_Blade_2_cover.jpg"
+      }
     ]
   },
   {
@@ -347,18 +1579,114 @@
     "themeColor": "from-[#047857] to-black",
     "emulatorCore": "desmume",
     "gameDefs": [
-      { "title": "Mario Kart DS", "year": "2005", "genre": "Corrida", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Excelente corrida portátil com o inovador modo canhão Mission Mode e partidas online épicas." },
-      { "title": "New Super Mario Bros.", "year": "2006", "genre": "Plataforma", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "O retorno magnífico do herói às origens de plataforma 2D sob gráficos 3D modernos." },
-      { "title": "Pokémon HeartGold", "year": "2009", "genre": "RPG", "dev": "Game Freak", "pub": "Nintendo", "desc": "Remake amplamente admirador cobrindo as regiões clássicas Johto e Kanto com monstrinhos seguindo você." },
-      { "title": "GTA: Chinatown Wars", "year": "2009", "genre": "Ação", "dev": "Rockstar Leeds", "pub": "Rockstar", "desc": "Brilhante retorno das clássicas câmeras por cima e mini-games interativos na caneta stylus." },
-      { "title": "Castlevania: Dawn of Sorrow", "year": "2005", "genre": "Metroidvania", "dev": "Konami", "pub": "Konami", "desc": "Soma Cruz aventura-se selando runas mágicas na tela tátil segurando demônios malignos." },
-      { "title": "Professor Layton", "year": "2007", "genre": "Puzzle", "dev": "Level-5", "pub": "Nintendo", "desc": "Desvende enigmas lógicos desafiadores e mistérios britânicos charmosos em vilarejos pintados." },
-      { "title": "Zelda: Phantom Hourglass", "year": "2007", "genre": "Aventura", "dev": "Nintendo EAD", "pub": "Nintendo", "desc": "Navegue os mares desenhando rotas de navios e comandando bumerangues com toques na tela." },
-      { "title": "Chrono Trigger DS", "year": "2008", "genre": "RPG", "dev": "Square", "pub": "Square Enix", "desc": "Excelente versão da obra-prima temporal contendo masmorras extras e telas de status organizadas." },
-      { "title": "Mario & Luigi: Bowser", "year": "2009", "genre": "RPG", "dev": "AlphaDream", "pub": "Nintendo", "desc": "Divertido RPG de turnos onde você comanda os irmãos explorando o estômago gigante do Bowser." },
-      { "title": "Elite Beat Agents", "year": "2006", "genre": "Puzzle", "dev": "iNiS", "pub": "Nintendo", "desc": "Rítmico hilário de agentes engravatados dançando e ajudando cidadãos sob problemas loucos." },
-      { "title": "Radiant Historia", "year": "2010", "genre": "RPG", "dev": "Atlus", "pub": "Atlus", "desc": "Incrivelmente profundo JRPG tático focado em viagens temporais por linhas de história paralelas." },
-      { "title": "Phoenix Wright: Ace Attorney", "year": "2005", "genre": "Puzzle", "dev": "Capcom", "pub": "Capcom", "desc": "Grite \"Objection!\" no tribunal desmascarando mentirosos com evidências precisas em crimes misteriosos." }
+      {
+        "title": "Mario Kart DS",
+        "year": "2005",
+        "genre": "Corrida",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Excelente corrida portátil com o inovador modo canhão Mission Mode e partidas online épicas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/86/Mario_Kart_DS_cover.jpg"
+      },
+      {
+        "title": "New Super Mario Bros.",
+        "year": "2006",
+        "genre": "Plataforma",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "O retorno magnífico do herói às origens de plataforma 2D sob gráficos 3D modernos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e9/New_Super_Mario_Bros_box_art.jpg"
+      },
+      {
+        "title": "Pokémon HeartGold",
+        "year": "2009",
+        "genre": "RPG",
+        "dev": "Game Freak",
+        "pub": "Nintendo",
+        "desc": "Remake amplamente admirador cobrindo as regiões clássicas Johto e Kanto com monstrinhos seguindo você.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b3/HeartGold_Box_Art.png"
+      },
+      {
+        "title": "GTA: Chinatown Wars",
+        "year": "2009",
+        "genre": "Ação",
+        "dev": "Rockstar Leeds",
+        "pub": "Rockstar",
+        "desc": "Brilhante retorno das clássicas câmeras por cima e mini-games interativos na caneta stylus.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/29/Grand_Theft_Auto_Chinatown_Wars_Box_Art.jpg"
+      },
+      {
+        "title": "Castlevania: Dawn of Sorrow",
+        "year": "2005",
+        "genre": "Metroidvania",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "Soma Cruz aventura-se selando runas mágicas na tela tátil segurando demônios malignos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ab/AriaofSorrowCover.jpg"
+      },
+      {
+        "title": "Professor Layton",
+        "year": "2007",
+        "genre": "Puzzle",
+        "dev": "Level-5",
+        "pub": "Nintendo",
+        "desc": "Desvende enigmas lógicos desafiadores e mistérios britânicos charmosos em vilarejos pintados.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/87/Professor_Layton_and_the_Curious_Village_box_art.jpg"
+      },
+      {
+        "title": "Zelda: Phantom Hourglass",
+        "year": "2007",
+        "genre": "Aventura",
+        "dev": "Nintendo EAD",
+        "pub": "Nintendo",
+        "desc": "Navegue os mares desenhando rotas de navios e comandando bumerangues com toques na tela.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5e/The_Legend_of_Zelda_Phantom_Hourglass_Game_Cover.jpg"
+      },
+      {
+        "title": "Chrono Trigger DS",
+        "year": "2008",
+        "genre": "RPG",
+        "dev": "Square",
+        "pub": "Square Enix",
+        "desc": "Excelente versão da obra-prima temporal contendo masmorras extras e telas de status organizadas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a7/Chrono_Trigger_2.jpg"
+      },
+      {
+        "title": "Mario & Luigi: Bowser",
+        "year": "2009",
+        "genre": "RPG",
+        "dev": "AlphaDream",
+        "pub": "Nintendo",
+        "desc": "Divertido RPG de turnos onde você comanda os irmãos explorando o estômago gigante do Bowser.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/ba/Mario_%26_Luigi_-_Parnters_In_Time_%28box_art%29.jpg"
+      },
+      {
+        "title": "Elite Beat Agents",
+        "year": "2006",
+        "genre": "Puzzle",
+        "dev": "iNiS",
+        "pub": "Nintendo",
+        "desc": "Rítmico hilário de agentes engravatados dançando e ajudando cidadãos sob problemas loucos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/df/Elite_Beat_Agents_cover_art.jpg"
+      },
+      {
+        "title": "Radiant Historia",
+        "year": "2010",
+        "genre": "RPG",
+        "dev": "Atlus",
+        "pub": "Atlus",
+        "desc": "Incrivelmente profundo JRPG tático focado em viagens temporais por linhas de história paralelas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/7a/Radiant_Historia_Cover_Art.jpg"
+      },
+      {
+        "title": "Phoenix Wright: Ace Attorney",
+        "year": "2005",
+        "genre": "Puzzle",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Grite \"Objection!\" no tribunal desmascarando mentirosos com evidências precisas em crimes misteriosos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/11/Phoenix_Wright_-_Ace_Attorney_Coverart.png"
+      }
     ]
   },
   {
@@ -373,18 +1701,114 @@
     "themeColor": "from-[#EA580C] to-black",
     "emulatorCore": "mednafen_pce_fast",
     "gameDefs": [
-      { "title": "Castlevania: Rondo of Blood", "year": "1993", "genre": "Ação", "dev": "Konami", "pub": "Konami", "desc": "O espetacular game em CD no papel de Richter Belmont com trilha sonora cantada e caminhos secretos." },
-      { "title": "Bonk's Adventure", "year": "1989", "genre": "Plataforma", "dev": "Red Company", "pub": "Hudson", "desc": "O carismático mascote cabeçudo esmaga dinossauros dando cabeçadas acrobáticas em vulcões." },
-      { "title": "Soldier Blade", "year": "1992", "genre": "Shoot 'em Up", "dev": "Hudson Soft", "pub": "Hudson", "desc": "Rápido e tecnicamente sublime shoot 'em up vertical com arsenal de laser colorido fluido." },
-      { "title": "Military Madness", "year": "1989", "genre": "RPG Tático", "dev": "Hudson Soft", "pub": "Hudson", "desc": "Simulador tático hexagonal futurista batalhando exércitos na superfície da lua." },
-      { "title": "Alien Crush", "year": "1988", "genre": "Puzzle", "dev": "Compile", "pub": "Naxat Soft", "desc": "Fabuloso jogo de pinball com tema de biologia alienígena bizarra e chefes assustadores." },
-      { "title": "Ys Book I & II", "year": "1989", "genre": "RPG", "dev": "Falcom", "pub": "Hudson", "desc": "Inovadores RPGs em CD integrando trilhas sinfônicas arrebatadoras e cenas dubladas sofisticadas." },
-      { "title": "Neutopia", "year": "1989", "genre": "Aventura", "dev": "Hudson Soft", "pub": "Hudson", "desc": "Maravilhoso jogo de aventura com labirintos secretos e bússolas mágicas que rivalizam o clássico Zelda." },
-      { "title": "Dungeon Explorer", "year": "1989", "genre": "RPG", "dev": "Atlus", "pub": "Hudson", "desc": "Emocionante dungeon-crawler dinâmico cooperativo suportando até 5 aventureiros heróis na tela." },
-      { "title": "Splatterhouse", "year": "1990", "genre": "Ação", "dev": "Namco", "pub": "Namco", "desc": "Controle Rick trajando a máscara bizarra da força esmagando demônios em mansão mal-assombrada." },
-      { "title": "Ninja Spirit", "year": "1988", "genre": "Ação", "dev": "Irem", "pub": "Irem", "desc": "Incrível velocidade ninja multiplicando sombras guerreiras contra samurais e arqueiros feudais." },
-      { "title": "Air Zonk", "year": "1992", "genre": "Shoot 'em Up", "dev": "Red Company", "pub": "Hudson", "desc": "Extremamente carismático shooter cyberpunk com design de punk futurista e parceiros engraçados." },
-      { "title": "Galaga '90", "year": "1989", "genre": "Shoot 'em Up", "dev": "Namco", "pub": "Namco", "desc": "Colorida transição do clássico arcades com múltiplas dimensões espaciais e trilhas rápidas." }
+      {
+        "title": "Castlevania: Rondo of Blood",
+        "year": "1993",
+        "genre": "Ação",
+        "dev": "Konami",
+        "pub": "Konami",
+        "desc": "O espetacular game em CD no papel de Richter Belmont com trilha sonora cantada e caminhos secretos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/23/Castlevania_Dracula_X_Rondo_of_Blood_Japan_Cover.jpg"
+      },
+      {
+        "title": "Bonk's Adventure",
+        "year": "1989",
+        "genre": "Plataforma",
+        "dev": "Red Company",
+        "pub": "Hudson",
+        "desc": "O carismático mascote cabeçudo esmaga dinossauros dando cabeçadas acrobáticas em vulcões.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e4/Bonk%27s_Adventure_Cover.jpg"
+      },
+      {
+        "title": "Soldier Blade",
+        "year": "1992",
+        "genre": "Shoot 'em Up",
+        "dev": "Hudson Soft",
+        "pub": "Hudson",
+        "desc": "Rápido e tecnicamente sublime shoot 'em up vertical com arsenal de laser colorido fluido.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/d/dd/Soldier_Blade_Coverart.png"
+      },
+      {
+        "title": "Military Madness",
+        "year": "1989",
+        "genre": "RPG Tático",
+        "dev": "Hudson Soft",
+        "pub": "Hudson",
+        "desc": "Simulador tático hexagonal futurista batalhando exércitos na superfície da lua.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/53/Military_Madness_Coverart.png"
+      },
+      {
+        "title": "Alien Crush",
+        "year": "1988",
+        "genre": "Puzzle",
+        "dev": "Compile",
+        "pub": "Naxat Soft",
+        "desc": "Fabuloso jogo de pinball com tema de biologia alienígena bizarra e chefes assustadores.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e4/Alien_Crush_Cover.png"
+      },
+      {
+        "title": "Ys Book I & II",
+        "year": "1989",
+        "genre": "RPG",
+        "dev": "Falcom",
+        "pub": "Hudson",
+        "desc": "Inovadores RPGs em CD integrando trilhas sinfônicas arrebatadoras e cenas dubladas sofisticadas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/3/36/Ys_I_%26_II_TurboGrafx-CD.png"
+      },
+      {
+        "title": "Neutopia",
+        "year": "1989",
+        "genre": "Aventura",
+        "dev": "Hudson Soft",
+        "pub": "Hudson",
+        "desc": "Maravilhoso jogo de aventura com labirintos secretos e bússolas mágicas que rivalizam o clássico Zelda.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/ca/Neutopia_Coverart.png"
+      },
+      {
+        "title": "Dungeon Explorer",
+        "year": "1989",
+        "genre": "RPG",
+        "dev": "Atlus",
+        "pub": "Hudson",
+        "desc": "Emocionante dungeon-crawler dinâmico cooperativo suportando até 5 aventureiros heróis na tela.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/ec/Dungeon_Explorer.png"
+      },
+      {
+        "title": "Splatterhouse",
+        "year": "1990",
+        "genre": "Ação",
+        "dev": "Namco",
+        "pub": "Namco",
+        "desc": "Controle Rick trajando a máscara bizarra da força esmagando demônios em mansão mal-assombrada.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1d/Splatterhouse_arcade_flyer.png"
+      },
+      {
+        "title": "Ninja Spirit",
+        "year": "1988",
+        "genre": "Ação",
+        "dev": "Irem",
+        "pub": "Irem",
+        "desc": "Incrível velocidade ninja multiplicando sombras guerreiras contra samurais e arqueiros feudais.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e0/Ninja_Spirit_Cover.jpg"
+      },
+      {
+        "title": "Air Zonk",
+        "year": "1992",
+        "genre": "Shoot 'em Up",
+        "dev": "Red Company",
+        "pub": "Hudson",
+        "desc": "Extremamente carismático shooter cyberpunk com design de punk futurista e parceiros engraçados.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/e5/Air_Zonk_Coverart.png"
+      },
+      {
+        "title": "Galaga '90",
+        "year": "1989",
+        "genre": "Shoot 'em Up",
+        "dev": "Namco",
+        "pub": "Namco",
+        "desc": "Colorida transição do clássico arcades com múltiplas dimensões espaciais e trilhas rápidas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/2a/Galaga_%2788_cover.png"
+      }
     ]
   },
   {
@@ -399,18 +1823,114 @@
     "themeColor": "from-[#312E81] to-black",
     "emulatorCore": "opera",
     "gameDefs": [
-      { "title": "Gex", "year": "1994", "genre": "Plataforma", "dev": "Crystal Dynamics", "pub": "BMG Interactive", "desc": "Acarismática lagartixa falante viciada em TV navega mundos de canais de filmes bizarros." },
-      { "title": "Road Rash", "year": "1994", "genre": "Corrida", "dev": "EA", "pub": "EA", "desc": "Incrível combate de moto-clube com pancadaria nas pistas e trilha grunge clássica de Soundgarden." },
-      { "title": "Super Street Fighter II Turbo", "year": "1994", "genre": "Luta", "dev": "Capcom", "pub": "Capcom", "desc": "Aclamada adaptação impecável do clássico de luta contendo músicas orquestradas em CD espetaculares." },
-      { "title": "The Need for Speed", "year": "1994", "genre": "Corrida", "dev": "EA Canada", "pub": "EA", "desc": "O nascimento da franquia milionária focada em super-esportivos e vídeos detalhados das marcas." },
-      { "title": "Crash 'N Burn", "year": "1993", "genre": "Corrida", "dev": "Crystal Dynamics", "pub": "3DO", "desc": "Intensa corrida apocalíptica com tanques e carros futuristas armados com canhões pesados." },
-      { "title": "Alone in the Dark", "year": "1993", "genre": "Aventura", "dev": "Infogrames", "pub": "Interplay", "desc": "O avô dos jogos de terror poligonal tridimensional explorando o mistério da mansão Decerto." },
-      { "title": "Killing Time", "year": "1995", "genre": "FPS", "dev": "Studio 3DO", "pub": "3DO", "desc": "Engenhoso shooter de terror repleto de fantasmas em vídeos digitalizados dentro de ilhas misteriosas." },
-      { "title": "D", "year": "1995", "genre": "Aventura", "dev": "WARP", "pub": "Acclaim", "desc": "O suspense interativo gótico em rendering detalhado projetado pelo célebre designer Kenji Eno." },
-      { "title": "Way of the Warrior", "year": "1994", "genre": "Luta", "dev": "Naughty Dog", "pub": "Universal", "desc": "Brutal e caricata porrada digitalizada com trilha sonora licenciada da banda White Zombie." },
-      { "title": "Syndicate", "year": "1995", "genre": "RPG Tático", "dev": "Bullfrog", "pub": "Electronic Arts", "desc": "Comande agentes ciborgues espionando megacorporações em visão tática de ficção futurista." },
-      { "title": "PO'ed", "year": "1995", "genre": "FPS", "dev": "Any Channel", "pub": "3DO", "desc": "Bizarro jogo de tiro onde um cozinheiro voador usa frigideiras contra alienígenas mutantes rústicos." },
-      { "title": "Return Fire", "year": "1995", "genre": "RPG Tático", "dev": "Silent Software", "pub": "3DO", "desc": "Conduza tanques, jipes e helicópteros em disputas táticas para capturar bandeiras ao som de música clássica." }
+      {
+        "title": "Gex",
+        "year": "1994",
+        "genre": "Plataforma",
+        "dev": "Crystal Dynamics",
+        "pub": "BMG Interactive",
+        "desc": "Acarismática lagartixa falante viciada em TV navega mundos de canais de filmes bizarros.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/2d/GexCover.jpg"
+      },
+      {
+        "title": "Road Rash",
+        "year": "1994",
+        "genre": "Corrida",
+        "dev": "EA",
+        "pub": "EA",
+        "desc": "Incrível combate de moto-clube com pancadaria nas pistas e trilha grunge clássica de Soundgarden.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/8/8b/Road_Rash_3DO_Cover.jpg"
+      },
+      {
+        "title": "Super Street Fighter II Turbo",
+        "year": "1994",
+        "genre": "Luta",
+        "dev": "Capcom",
+        "pub": "Capcom",
+        "desc": "Aclamada adaptação impecável do clássico de luta contendo músicas orquestradas em CD espetaculares.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/29/Super_Street_Fighter_II_Turbo_%28flyer%29.png"
+      },
+      {
+        "title": "The Need for Speed",
+        "year": "1994",
+        "genre": "Corrida",
+        "dev": "EA Canada",
+        "pub": "EA",
+        "desc": "O nascimento da franquia milionária focada em super-esportivos e vídeos detalhados das marcas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a4/The_Need_for_Speed_Box_Art.png"
+      },
+      {
+        "title": "Crash 'N Burn",
+        "year": "1993",
+        "genre": "Corrida",
+        "dev": "Crystal Dynamics",
+        "pub": "3DO",
+        "desc": "Intensa corrida apocalíptica com tanques e carros futuristas armados com canhões pesados.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5e/Crash_n_Burn_3DO_box.jpg"
+      },
+      {
+        "title": "Alone in the Dark",
+        "year": "1993",
+        "genre": "Aventura",
+        "dev": "Infogrames",
+        "pub": "Interplay",
+        "desc": "O avô dos jogos de terror poligonal tridimensional explorando o mistério da mansão Decerto.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ab/Alone_in_the_Dark_Cover.jpg"
+      },
+      {
+        "title": "Killing Time",
+        "year": "1995",
+        "genre": "FPS",
+        "dev": "Studio 3DO",
+        "pub": "3DO",
+        "desc": "Engenhoso shooter de terror repleto de fantasmas em vídeos digitalizados dentro de ilhas misteriosas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1f/Killing_Time_3DO_Cover.jpg"
+      },
+      {
+        "title": "D",
+        "year": "1995",
+        "genre": "Aventura",
+        "dev": "WARP",
+        "pub": "Acclaim",
+        "desc": "O suspense interativo gótico em rendering detalhado projetado pelo célebre designer Kenji Eno.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/f/f9/D_3DO_covert_art.jpg"
+      },
+      {
+        "title": "Way of the Warrior",
+        "year": "1994",
+        "genre": "Luta",
+        "dev": "Naughty Dog",
+        "pub": "Universal",
+        "desc": "Brutal e caricata porrada digitalizada com trilha sonora licenciada da banda White Zombie.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c2/Way_of_the_Warrior_Coverart.jpg"
+      },
+      {
+        "title": "Syndicate",
+        "year": "1995",
+        "genre": "RPG Tático",
+        "dev": "Bullfrog",
+        "pub": "Electronic Arts",
+        "desc": "Comande agentes ciborgues espionando megacorporações em visão tática de ficção futurista.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/59/Syndicate_Coverart.png"
+      },
+      {
+        "title": "PO'ed",
+        "year": "1995",
+        "genre": "FPS",
+        "dev": "Any Channel",
+        "pub": "3DO",
+        "desc": "Bizarro jogo de tiro onde um cozinheiro voador usa frigideiras contra alienígenas mutantes rústicos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1d/Po%27ed_Coverart.jpg"
+      },
+      {
+        "title": "Return Fire",
+        "year": "1995",
+        "genre": "RPG Tático",
+        "dev": "Silent Software",
+        "pub": "3DO",
+        "desc": "Conduza tanques, jipes e helicópteros em disputas táticas para capturar bandeiras ao som de música clássica.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/7b/Return_fire_3do_front_cover.jpg"
+      }
     ]
   },
   {
@@ -535,7 +2055,8 @@
         "genre": "Luta 3D",
         "dev": "HAL Laboratory",
         "pub": "Nintendo",
-        "desc": "O mais icônico e frenético jogo de luta competitivo de crossovers da Nintendo de todos os tempos."
+        "desc": "O mais icônico e frenético jogo de luta competitivo de crossovers da Nintendo de todos os tempos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/42/Supersmashbox.jpg"
       },
       {
         "title": "The Legend of Zelda: The Wind Waker",
@@ -543,7 +2064,8 @@
         "genre": "Aventura 3D",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "Uma incrível jornada em estilo cel-shaded pelos vastos oceanos, com exploração náutica maravilhosa e muita magia."
+        "desc": "Uma incrível jornada em estilo cel-shaded pelos vastos oceanos, com exploração náutica maravilhosa e muita magia.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
       },
       {
         "title": "Resident Evil 4",
@@ -551,7 +2073,8 @@
         "genre": "Survival Horror",
         "dev": "Capcom",
         "pub": "Capcom",
-        "desc": "Revolucionou a indústria de ação em terceira pessoa com sua fantástica câmera sobre o ombro e aventura tensa na Europa."
+        "desc": "Revolucionou a indústria de ação em terceira pessoa com sua fantástica câmera sobre o ombro e aventura tensa na Europa.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1a/Resident_Evil_4_box_art.png"
       },
       {
         "title": "Metroid Prime",
@@ -559,7 +2082,8 @@
         "genre": "Aventura / FPS",
         "dev": "Retro Studios",
         "pub": "Nintendo",
-        "desc": "A genial transição tridimensional em primeira pessoa de Samus Aran em um planeta hostil repleto de segredos profundos."
+        "desc": "A genial transição tridimensional em primeira pessoa de Samus Aran em um planeta hostil repleto de segredos profundos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5d/Metroid_boxart.jpg"
       },
       {
         "title": "Super Mario Sunshine",
@@ -567,7 +2091,8 @@
         "genre": "Plataforma 3D",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "Mario viaja para a ilha tropical Delfino e faz uso da engenhoca de água F.L.U.D.D. para limpar a sujeira e recuperar Shines."
+        "desc": "Mario viaja para a ilha tropical Delfino e faz uso da engenhoca de água F.L.U.D.D. para limpar a sujeira e recuperar Shines.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/0/05/Super_Mario_Sunshine_Box_Art.png"
       },
       {
         "title": "The Legend of Zelda: Twilight Princess",
@@ -575,7 +2100,8 @@
         "genre": "Aventura 3D",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "Uma narrativa sombria onde Link se transforma em lobo para salvar Hyrule invasão da sinistra dimensão do Crepúsculo."
+        "desc": "Uma narrativa sombria onde Link se transforma em lobo para salvar Hyrule invasão da sinistra dimensão do Crepúsculo.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Zelda_2017.svg/960px-Zelda_2017.svg.png"
       },
       {
         "title": "Paper Mario: The Thousand-Year Door",
@@ -583,7 +2109,8 @@
         "genre": "RPG",
         "dev": "Intelligent Systems",
         "pub": "Nintendo",
-        "desc": "Considerado o ápice dos RPGs de papel do Mario, trazendo humor incomparável, combate teatral refinado e companheiros únicos."
+        "desc": "Considerado o ápice dos RPGs de papel do Mario, trazendo humor incomparável, combate teatral refinado e companheiros únicos.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/52/Paper_Mario_The_Thousand_Year_Door_Cover_Art.png"
       },
       {
         "title": "Luigi's Mansion",
@@ -591,7 +2118,8 @@
         "genre": "Aventura / Terror",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "O game de estreia do console focado em Luigi caçando fantasmas com o aspirador Poltergust 3000 em uma mansão mal-assombrada."
+        "desc": "O game de estreia do console focado em Luigi caçando fantasmas com o aspirador Poltergust 3000 em uma mansão mal-assombrada.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5e/Lmbox.jpg"
       },
       {
         "title": "F-Zero GX",
@@ -599,7 +2127,8 @@
         "genre": "Corrida",
         "dev": "Amusement Vision",
         "pub": "Nintendo",
-        "desc": "Velocidade surrealista em pistas desafiadoras futuristas a mais de 1000 km/h, exigindo reflexos dignos de um supercarro ninja."
+        "desc": "Velocidade surrealista em pistas desafiadoras futuristas a mais de 1000 km/h, exigindo reflexos dignos de um supercarro ninja.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a2/F-Zero_GX_Cover.jpg"
       },
       {
         "title": "Pikmin 2",
@@ -607,7 +2136,8 @@
         "genre": "Estratégia",
         "dev": "Nintendo EAD",
         "pub": "Nintendo",
-        "desc": "Comande hordas de criaturinhas coloridas Pikmin junto aos exploradores Olimar e Louie para resgatar tesouros alienígenas incríveis."
+        "desc": "Comande hordas de criaturinhas coloridas Pikmin junto aos exploradores Olimar e Louie para resgatar tesouros alienígenas incríveis.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/13/Pikmin_cover_art.jpg"
       }
     ]
   },
@@ -629,7 +2159,8 @@
         "genre": "Ação / Mundo Aberto",
         "dev": "Rockstar North",
         "pub": "Rockstar Games",
-        "desc": "O jogo de mundo aberto definitivo da geração, com ricas mecânicas RPG e história inesquecível no estado de San Andreas."
+        "desc": "O jogo de mundo aberto definitivo da geração, com ricas mecânicas RPG e história inesquecível no estado de San Andreas.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c2/GTASanAndreasCoverArt.jpg"
       },
       {
         "title": "Resident Evil 4",
@@ -637,7 +2168,8 @@
         "genre": "Survival Horror / Ação",
         "dev": "Capcom",
         "pub": "Capcom",
-        "desc": "A clássica jornada de resgate de Leon S. Kennedy na Europa rural que revolucionou o gênero shooter com perspectiva em terceira pessoa."
+        "desc": "A clássica jornada de resgate de Leon S. Kennedy na Europa rural que revolucionou o gênero shooter com perspectiva em terceira pessoa.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/1a/Resident_Evil_4_box_art.png"
       },
       {
         "title": "God of War II",
@@ -645,7 +2177,8 @@
         "genre": "Hack and Slash",
         "dev": "Santa Monica Studio",
         "pub": "Sony Computer Entertainment",
-        "desc": "Kratos desafia o Rei dos Deuses Zeus em uma jornada épica com combates colossais e o ápice visual do console."
+        "desc": "Kratos desafia o Rei dos Deuses Zeus em uma jornada épica com combates colossais e o ápice visual do console.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/5/5d/God_of_War_Collection_Cover.jpg"
       },
       {
         "title": "Shadow of the Colossus",
@@ -653,7 +2186,8 @@
         "genre": "Aventura / Épico",
         "dev": "Team Ico",
         "pub": "Sony Computer Entertainment",
-        "desc": "Uma poética e solitária aventura minimalista onde você deve rastrear e escalar 16 colossos majestosos para salvar uma garota."
+        "desc": "Uma poética e solitária aventura minimalista onde você deve rastrear e escalar 16 colossos majestosos para salvar uma garota.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/c5/Shadow_of_the_Colossus_Cover_Art.jpg"
       },
       {
         "title": "Metal Gear Solid 3: Snake Eater",
@@ -661,7 +2195,8 @@
         "genre": "Ação / Stealth",
         "dev": "Kojima Productions",
         "pub": "Konami",
-        "desc": "A fascinante origem do lendário Big Boss nas selvas da Guerra Fria com inovador sistema de camuflagem e sobrevivência militar."
+        "desc": "A fascinante origem do lendário Big Boss nas selvas da Guerra Fria com inovador sistema de camuflagem e sobrevivência militar.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/b/b3/MGS3_Snake_Eater_box_art.jpg"
       },
       {
         "title": "Kingdom Hearts II",
@@ -669,7 +2204,8 @@
         "genre": "Action RPG",
         "dev": "Square Enix",
         "pub": "Square Enix",
-        "desc": "Fusão brilhante e mágica entre os heróis de Final Fantasy e os mundos clássicos da Disney sob o comando de Sora e sua Keyblade."
+        "desc": "Fusão brilhante e mágica entre os heróis de Final Fantasy e os mundos clássicos da Disney sob o comando de Sora e sua Keyblade.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/c/ca/Kingdom_Hearts_II_Box_Art.jpg"
       },
       {
         "title": "Final Fantasy X",
@@ -677,7 +2213,8 @@
         "genre": "RPG",
         "dev": "Square",
         "pub": "Square",
-        "desc": "Uma emocionante jornada em busca de derrotar a destrutiva entidade Sin em um mundo aquático tropical deslumbrante e melancólico."
+        "desc": "Uma emocionante jornada em busca de derrotar a destrutiva entidade Sin em um mundo aquático tropical deslumbrante e melancólico.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/a7/Ffxboxart.jpg"
       },
       {
         "title": "Silent Hill 2",
@@ -685,7 +2222,8 @@
         "genre": "Survival Horror",
         "dev": "Team Silent",
         "pub": "Konami",
-        "desc": "Uma obra de arte do terror psicológico envolvendo luto, culpa inconsciente e símbolos macabros na misteriosa cidade sob a névoa."
+        "desc": "Uma obra de arte do terror psicológico envolvendo luto, culpa inconsciente e símbolos macabros na misteriosa cidade sob a névoa.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/23/Silent_Hill_2_box_art.jpg"
       },
       {
         "title": "Devil May Cry 3: Dante's Awakening",
@@ -693,7 +2231,8 @@
         "genre": "Hack and Slash / Ação",
         "dev": "Capcom",
         "pub": "Capcom",
-        "desc": "A aventura prequel que estabeleceu a jogabilidade estilosa, combos acrobáticos, humor sarcástico de Dante e seu desafiador irmão Vergil."
+        "desc": "A aventura prequel que estabeleceu a jogabilidade estilosa, combos acrobáticos, humor sarcástico de Dante e seu desafiador irmão Vergil.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/7/76/Devil_May_Cry_3_boxshot.jpg"
       },
       {
         "title": "Gran Turismo 4",
@@ -701,7 +2240,8 @@
         "genre": "Corrida / Simulador",
         "dev": "Polyphony Digital",
         "pub": "Sony Computer Entertainment",
-        "desc": "O auge da simulação de automobilismo com mais de 700 carros realistas, pistas lendárias do mundo inteiro e física ultra-precisa."
+        "desc": "O auge da simulação de automobilismo com mais de 700 carros realistas, pistas lendárias do mundo inteiro e física ultra-precisa.",
+        "image": "https://upload.wikimedia.org/wikipedia/en/a/ad/Gran_Turismo_4_copertina.jpg"
       }
     ]
   },
