@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { getRecalboxArtName, VERIFIED_ARTS } from '../utils/logoResolver';
 
 interface BackgroundHeroProps {
   systemId: string;
@@ -12,52 +13,11 @@ interface BackgroundHeroProps {
   activeScreen?: 'carousel' | 'gamelist';
 }
 
-const getLogoFileName = (id: string): string => {
-  const map: Record<string, string> = {
-    nes: 'nes',
-    snes: 'snes',
-    n64: 'n64',
-    gb: 'gb',
-    gba: 'gba',
-    sms: 'mastersystem',
-    genesis: 'megadrive',
-    saturn: 'saturn',
-    ps1: 'psx',
-    ps2: 'ps2',
-    ps3: 'ps3',
-    xbox: 'xbox',
-    xbox360: 'xbox360',
-    atari: 'atari2600',
-    arcade: 'mame',
-    neogeo: 'neogeo',
-    nds: 'nds',
-    pce: 'pcengine',
-    '3do': '3do',
-    neogeopocket: 'ngp',
-    turbografx: 'pcengine',
-    fba_libretro: 'fba',
-    dreamcast: 'dreamcast',
-    gamecube: 'gamecube'
-  };
-  return map[id] || id;
-};
-
-const VERIFIED_ARTS = new Set([
-  'nes', 'snes', 'n64', 'gb', 'gbc', 'gba', 'nds',
-  'megadrive', 'mastersystem', 'gamegear', 'segacd', 'sega32x',
-  'sg1000', 'psx', 'ps2', 'ps3', 'xbox', 'xbox360', 'atari2600', 'atari7800', 'neogeo', 'ngp',
-  'mame', 'fba', 'colecovision', 'pcengine', 'pcenginecd',
-  'wonderswan', 'wonderswancolor', 'virtualboy', '3do',
-  'msx', 'msx1', 'msx2', 'lynx', 'dreamcast', 'saturn', 'gamecube',
-  'atarist', 'c64', 'amiga600', 'amiga1200', 'amstradcpc',
-  'zxspectrum', 'vectrex', 'cavestory', 'favorites', 'dos'
-]);
-
 export const BackgroundHero: React.FC<BackgroundHeroProps> = ({ systemId, glowColor, activeScreen = 'carousel' }) => {
   const isMainScreen = activeScreen === 'carousel';
   const logoUrl = "/logos/backgrounds/logo.jpeg";
   
-  const logoFileName = getLogoFileName(systemId);
+  const logoFileName = getRecalboxArtName(systemId);
   const consoleArtUrl = VERIFIED_ARTS.has(logoFileName)
     ? `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/${logoFileName}.jpg`
     : `https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/arts/favorites.jpg`;

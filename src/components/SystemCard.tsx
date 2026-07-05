@@ -7,37 +7,13 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { System } from '../types';
 import { Gamepad2 } from 'lucide-react';
+import { getRecalboxLogoName } from '../utils/logoResolver';
 
 interface SystemCardProps {
   system: System;
   isActive: boolean;
   onClick: () => void;
 }
-
-const getLogoFileName = (id: string): string => {
-  const map: Record<string, string> = {
-    nes: 'nes',
-    snes: 'snes',
-    n64: 'n64',
-    gb: 'gameboy',
-    gbc: 'gameboycolor',
-    gameboycolor: 'gameboycolor',
-    gba: 'gba',
-    sms: 'mastersystem',
-    genesis: 'megadrive',
-    saturn: 'saturn',
-    ps1: 'psx',
-    atari: 'atari2600',
-    arcade: 'arcade',
-    neogeo: 'neogeo',
-    nds: 'nintendods',
-    pce: 'pcengine',
-    '3do': '3do',
-    dreamcast: 'dreamcast',
-    gamecube: 'gamecube'
-  };
-  return map[id] || id;
-};
 
 export const SystemCard: React.FC<SystemCardProps> = ({
   system,
@@ -82,7 +58,7 @@ export const SystemCard: React.FC<SystemCardProps> = ({
         <div className="h-14 flex items-center justify-center mb-2">
           {!imageError && (
             <img 
-              src={`https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/logos/${getLogoFileName(system.id)}.png`} 
+              src={`https://raw.githubusercontent.com/lordjunnior/recalbox-theme/main/assets/logos/${getRecalboxLogoName(system.id)}.png`} 
               alt={system.name} 
               referrerPolicy="no-referrer"
               className={`h-11 w-auto max-w-[140px] object-contain transition-all duration-300 ${

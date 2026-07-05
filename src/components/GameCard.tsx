@@ -32,15 +32,15 @@ const getConsoleColorClass = (systemId: string): string => {
   const cleanId = (systemId || '').toLowerCase();
   const map: Record<string, string> = {
     nes: 'from-rose-600 to-red-800 border-rose-500/30',
-    snes: 'from-violet-650 to-indigo-800 border-violet-500/30',
+    snes: 'from-violet-600 to-indigo-800 border-violet-500/30',
     n64: 'from-blue-600 to-indigo-900 border-blue-500/30',
     gb: 'from-emerald-600 to-teal-800 border-emerald-500/30',
     gbc: 'from-teal-600 to-cyan-800 border-teal-500/30',
     gba: 'from-purple-600 to-fuchsia-800 border-purple-500/30',
     sms: 'from-blue-700 to-sky-900 border-blue-600/30',
     mastersystem: 'from-blue-700 to-sky-900 border-blue-600/30',
-    genesis: 'from-slate-700 to-zinc-900 border-slate-650/30',
-    megadrive: 'from-slate-700 to-zinc-900 border-slate-650/30',
+    genesis: 'from-slate-700 to-zinc-900 border-slate-600/30',
+    megadrive: 'from-slate-700 to-zinc-900 border-slate-600/30',
     saturn: 'from-neutral-600 to-stone-850 border-neutral-500/30',
     ps1: 'from-teal-600 to-cyan-800 border-teal-500/30',
     psx: 'from-teal-600 to-cyan-800 border-teal-500/30',
@@ -49,11 +49,11 @@ const getConsoleColorClass = (systemId: string): string => {
     arcade: 'from-yellow-600 to-amber-850 border-yellow-500/30',
     mame: 'from-yellow-600 to-amber-850 border-yellow-500/30',
     fba: 'from-yellow-600 to-amber-850 border-yellow-500/30',
-    neogeo: 'from-rose-700 to-stone-950 border-rose-650/30',
-    nds: 'from-cyan-650 to-blue-800 border-cyan-500/30',
+    neogeo: 'from-rose-700 to-stone-950 border-rose-600/30',
+    nds: 'from-cyan-600 to-blue-800 border-cyan-500/30',
     pce: 'from-pink-600 to-fuchsia-800 border-pink-500/30',
     pcengine: 'from-pink-600 to-fuchsia-800 border-pink-500/30',
-    '3do': 'from-zinc-700 to-neutral-900 border-zinc-650/30'
+    '3do': 'from-zinc-700 to-neutral-900 border-zinc-600/30'
   };
   return map[cleanId] || 'from-zinc-800 to-zinc-950 border-zinc-700/30';
 };

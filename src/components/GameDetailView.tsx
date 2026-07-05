@@ -974,7 +974,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                 <img
                   src={screenshots[activeScreenshot]}
                   alt={`${game.title} preview`}
-                  className="w-full h-full object-cover select-none relative z-10 transition-transform duration-500 scale-102"
+                  className="w-full h-full object-cover select-none relative z-10 transition-transform duration-500 scale-[1.02]"
                 />
 
                 {/* Maximize expand helper button */}
@@ -1167,7 +1167,7 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
       </main>
 
       {/* Symmetrical gamer tactile footer HUD guide */}
-      <footer className="relative z-10 w-full bg-[#070709] border-t border-white/5 py-4.5 px-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-zinc-500 text-[11px] font-mono">
+      <footer className="relative z-10 w-full bg-[#070709] border-t border-white/5 py-4 px-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-zinc-500 text-[11px] font-mono">
         <div>
           LORDTECA RETRO DIGITAL COMPILATION SYSTEM © 2026. ALL ROMS RUN AT MAX NATIVE PERFORMANCE.
         </div>

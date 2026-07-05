@@ -84,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Global Search Button */}
         <button
           onClick={onSearchClick}
-          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/60 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/60 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-400 hover:text-white shadow-md uppercase"
           title="Pesquisa Global de Consoles e Jogos (Atalho: S / F)"
           id="btn-header-search"
         >
@@ -95,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Audio / Mute feedback */}
         <button
           onClick={toggleMute}
-          className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-md ${
+          className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-md ${
             !isMuted
               ? 'bg-red-500/10 border-red-500/20 text-red-400'
               : 'bg-zinc-900/50 hover:bg-[#27272a]/60 border-white/10 text-zinc-500'
@@ -117,10 +117,10 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => {
               setIsProfileOpen(!isProfileOpen);
             }}
-            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-md ${
+            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-md ${
               user
                 ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                : 'bg-zinc-900/40 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350'
+                : 'bg-zinc-900/40 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-400'
             }`}
             title={user ? `Sincronizado: ${user.email}` : 'Salvar Favoritos na Nuvem (Login)'}
             id="btn-header-cloud"
@@ -131,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({
               <Cloud className="w-3.5 h-3.5" />
             )}
             <span className="hidden xs:inline">{user ? 'SALVO' : 'NUVEM'}</span>
-            <span className={`w-1.5 h-1.5 rounded-full ${user ? 'bg-emerald-450 animate-pulse' : 'bg-zinc-500'}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${user ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-500'}`} />
           </button>
 
           {/* Profile Dropdown */}
@@ -153,7 +153,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <div className="text-[9px] font-mono font-bold text-emerald-450 flex items-center gap-1.5 bg-emerald-500/5 px-2.5 py-1.5 rounded-lg border border-emerald-500/10">
+                    <div className="text-[9px] font-mono font-bold text-emerald-400 flex items-center gap-1.5 bg-emerald-500/5 px-2.5 py-1.5 rounded-lg border border-emerald-500/10">
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
                       SINC. NUVEM ATIVA
                     </div>
@@ -162,7 +162,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setIsProfileOpen(false);
                         onLogout();
                       }}
-                      className="w-full text-center py-2 bg-red-600/10 hover:bg-red-650/20 text-red-400 hover:text-white text-[10px] font-mono font-bold tracking-wider rounded-xl border border-red-500/10 hover:border-red-500/30 transition-all duration-200 cursor-pointer uppercase"
+                      className="w-full text-center py-2 bg-red-600/10 hover:bg-red-600/20 text-red-400 hover:text-white text-[10px] font-mono font-bold tracking-wider rounded-xl border border-red-500/10 hover:border-red-500/30 transition-all duration-200 cursor-pointer uppercase"
                     >
                       Sair da Conta
                     </button>
@@ -195,7 +195,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Settings button */}
         <button
           onClick={onSettingsClick}
-          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.8 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/40 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-350 hover:text-white shadow-md uppercase"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-xl border text-[10px] font-mono font-black tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer bg-zinc-900/40 hover:bg-zinc-800/80 border-white/10 hover:border-white/20 text-zinc-400 hover:text-white shadow-md uppercase"
           title="Ajustes do Painel e Preferências Retro"
           id="btn-header-settings"
         >

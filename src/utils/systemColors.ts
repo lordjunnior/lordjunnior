@@ -37,8 +37,8 @@ export function getSystemBadgeColor(id: string): string {
     sms: 'bg-[#0000AA] border-blue-600 text-white hover:shadow-[0_0_12px_rgba(0,0,170,0.3)]',
     mastersystem: 'bg-[#0000AA] border-blue-600 text-white hover:shadow-[0_0_12px_rgba(0,0,170,0.3)]',
     gamegear: 'bg-[#F59E0B] border-amber-500 text-white hover:shadow-[0_0_12px_rgba(245,158,11,0.3)]',
-    saturn: 'bg-[#374151] border-gray-650 text-white hover:shadow-[0_0_12px_rgba(55,65,81,0.3)]',
-    segasaturn: 'bg-[#374151] border-gray-650 text-white hover:shadow-[0_0_12px_rgba(55,65,81,0.3)]',
+    saturn: 'bg-[#374151] border-gray-500 text-white hover:shadow-[0_0_12px_rgba(55,65,81,0.3)]',
+    segasaturn: 'bg-[#374151] border-gray-500 text-white hover:shadow-[0_0_12px_rgba(55,65,81,0.3)]',
     dreamcast: 'bg-[#FF5500] border-orange-400 text-white hover:shadow-[0_0_12px_rgba(255,85,0,0.3)]',
 
     // Outros Gigantes de Mesa & Portáteis

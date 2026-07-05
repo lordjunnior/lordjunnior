@@ -59,7 +59,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: 'spring', stiffness: 320, damping: 26 }}
-            className="relative w-full max-w-md bg-gradient-to-b from-[#182535] to-[#0e1620] border-2 border-red-650/50 rounded-3xl p-6 sm:p-8 shadow-[0_20px_55px_rgba(0,0,0,0.9),0_0_40px_rgba(230,0,18,0.15)] text-left font-sans overflow-hidden"
+            className="relative w-full max-w-md bg-gradient-to-b from-[#182535] to-[#0e1620] border-2 border-red-600/50 rounded-3xl p-6 sm:p-8 shadow-[0_20px_55px_rgba(0,0,0,0.9),0_0_40px_rgba(230,0,18,0.15)] text-left font-sans overflow-hidden"
           >
             {/* Efeitos visuais cibernéticos decorativos */}
             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-600" />
@@ -93,9 +93,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <div className="flex items-center justify-between gap-4 mb-2">
                   <div className="flex items-center gap-2.5">
                     {isMuted ? (
-                      <VolumeX className="w-4.5 h-4.5 text-zinc-400 shrink-0" />
+                      <VolumeX className="w-4 h-4 text-zinc-400 shrink-0" />
                     ) : (
-                      <Volume2 className="w-4.5 h-4.5 text-emerald-400 shrink-0 animate-bounce" />
+                      <Volume2 className="w-4 h-4 text-emerald-400 shrink-0 animate-bounce" />
                     )}
                     <div>
                       <h3 className="text-xs font-bold text-white uppercase tracking-wider">
@@ -129,7 +129,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   <div className="mt-3 pt-3 border-t border-white/5 flex justify-end">
                     <button
                       onClick={handleTestSound}
-                      className="px-3 py-1.5 bg-[#121c25] hover:bg-[#1e2e3d] text-[9px] font-mono font-bold text-zinc-300 hover:text-white rounded-lg border border-white/5 transition-all duration-250 cursor-pointer flex items-center gap-1.5"
+                      className="px-3 py-1.5 bg-[#121c25] hover:bg-[#1e2e3d] text-[9px] font-mono font-bold text-zinc-300 hover:text-white rounded-lg border border-white/5 transition-all duration-200 cursor-pointer flex items-center gap-1.5"
                     >
                       {showTestConfirm ? (
                         <>
@@ -150,8 +150,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               {/* Opção 2: Preservação Livre e Soberana */}
               <div className="bg-[#0b1118]/80 border border-white/5 rounded-2xl p-4 transition-all duration-300 hover:border-red-500/10">
                 <div className="flex items-start gap-3">
-                  <div className="p-2.5 bg-red-650/10 rounded-xl border border-red-500/20 text-red-500 shrink-0">
-                    <FolderHeart className="w-4.5 h-4.5" />
+                  <div className="p-2.5 bg-red-600/10 rounded-xl border border-red-500/20 text-red-500 shrink-0">
+                    <FolderHeart className="w-4 h-4" />
                   </div>
                   <div>
                     <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-1">

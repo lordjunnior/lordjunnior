@@ -773,7 +773,7 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
 
               <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-zinc-700 via-amber-700 to-zinc-900 border border-black/40 flex items-center justify-center shadow-inner relative">
                 <div className="w-2.5 h-0.5 bg-black/60 transform rotate-12" />
-                <div className="w-2.5 h-0.5 bg-black/60 absolute transform -rotate-78" />
+                <div className="w-2.5 h-0.5 bg-black/60 absolute transform -rotate-[78deg]" />
               </div>
             </div>
           )}

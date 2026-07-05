@@ -1418,7 +1418,7 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                   <GameCover 
                     game={selectedGame} 
                     systemId={system.id} 
-                    className="w-full h-full object-cover scale-102" 
+                    className="w-full h-full object-cover scale-[1.02]" 
                     isThumbnail={false}
                   />
                   {/* Glowing Sweep overlay reflection */}

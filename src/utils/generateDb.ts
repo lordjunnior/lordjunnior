@@ -914,7 +914,7 @@ const MASTER_TEMPLATES = {
     name: "Sega Master System",
     shortName: "sms",
     logo: "Master System",
-    badgeColor: "bg-[#0000AA] border-blue-650 text-white hover:shadow-[0_0_15px_rgba(0,0,170,0.4)]",
+    badgeColor: "bg-[#0000AA] border-blue-500 text-white hover:shadow-[0_0_15px_rgba(0,0,170,0.4)]",
     releaseYear: "1985",
     manufacturer: "Sega",
     backgroundImage: "/systems/sms.svg",

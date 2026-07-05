@@ -198,3 +198,88 @@ export function getLibretroSystemFolderName(systemId: string): string {
   return map[cleanId] || '';
 }
 
+/**
+ * Returns the customized folder/filename for the remote Recalbox theme logo assets on GitHub.
+ */
+export function getRecalboxLogoName(id: string): string {
+  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  const map: Record<string, string> = {
+    nes: 'nes',
+    snes: 'snes',
+    n64: 'n64',
+    gb: 'gameboy',
+    gbc: 'gameboycolor',
+    gameboycolor: 'gameboycolor',
+    gba: 'gba',
+    sms: 'mastersystem',
+    genesis: 'megadrive',
+    megadrive: 'megadrive',
+    saturn: 'saturn',
+    ps1: 'psx',
+    psx: 'psx',
+    playstation: 'psx',
+    atari: 'atari2600',
+    atari2600: 'atari2600',
+    arcade: 'arcade',
+    neogeo: 'neogeo',
+    nds: 'nintendods',
+    pce: 'pcengine',
+    pcengine: 'pcengine',
+    '3do': '3do',
+    dreamcast: 'dreamcast',
+    gamecube: 'gamecube',
+    gc: 'gamecube'
+  };
+  return map[cleanId] || cleanId;
+}
+
+/**
+ * Returns the customized folder/filename for the remote Recalbox theme background/art assets on GitHub.
+ */
+export function getRecalboxArtName(id: string): string {
+  const cleanId = id.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  const map: Record<string, string> = {
+    nes: 'nes',
+    snes: 'snes',
+    n64: 'n64',
+    gb: 'gb',
+    gba: 'gba',
+    sms: 'mastersystem',
+    genesis: 'megadrive',
+    megadrive: 'megadrive',
+    saturn: 'saturn',
+    ps1: 'psx',
+    ps2: 'ps2',
+    ps3: 'ps3',
+    xbox: 'xbox',
+    xbox360: 'xbox360',
+    atari: 'atari2600',
+    arcade: 'mame',
+    neogeo: 'neogeo',
+    nds: 'nds',
+    pce: 'pcengine',
+    pcengine: 'pcengine',
+    '3do': '3do',
+    neogeopocket: 'ngp',
+    turbografx: 'pcengine',
+    fba_libretro: 'fba',
+    dreamcast: 'dreamcast',
+    gamecube: 'gamecube'
+  };
+  return map[cleanId] || cleanId;
+}
+
+/**
+ * Set of system art identifiers verified to exist on the remote Recalbox assets server.
+ */
+export const VERIFIED_ARTS = new Set([
+  'nes', 'snes', 'n64', 'gb', 'gbc', 'gba', 'nds',
+  'megadrive', 'mastersystem', 'gamegear', 'segacd', 'sega32x',
+  'sg1000', 'psx', 'ps2', 'ps3', 'xbox', 'xbox360', 'atari2600', 'atari7800', 'neogeo', 'ngp',
+  'mame', 'fba', 'colecovision', 'pcengine', 'pcenginecd',
+  'wonderswan', 'wonderswancolor', 'virtualboy', '3do',
+  'msx', 'msx1', 'msx2', 'lynx', 'dreamcast', 'saturn', 'gamecube',
+  'atarist', 'c64', 'amiga600', 'amiga1200', 'amstradcpc',
+  'zxspectrum', 'vectrex', 'cavestory', 'favorites', 'dos'
+]);
+

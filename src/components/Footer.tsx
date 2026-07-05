@@ -28,6 +28,7 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
   const [localIsOpen, setLocalIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const isOpen = setIsDonateOpen ? isDonateOpen : localIsOpen;
   const setIsOpen = setIsDonateOpen ? setIsDonateOpen : setLocalIsOpen;
@@ -35,10 +36,21 @@ export const Footer: React.FC<FooterProps> = ({
   // Endereço Lightning da Wallet of Satoshi
   const lnAddress = "securecorn53@walletofsatoshi.com"; 
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(lnAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        await navigator.clipboard.writeText(lnAddress);
+        setCopied(true);
+        setCopyError(false);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        throw new Error("Clipboard API not available or supported in this context");
+      }
+    } catch (err) {
+      console.warn("Falha ao copiar para a área de transferência:", err);
+      setCopyError(true);
+      setTimeout(() => setCopyError(false), 3000);
+    }
   };
 
   return (
@@ -60,7 +72,7 @@ export const Footer: React.FC<FooterProps> = ({
             onClick={activeScreen === 'gamelist' ? onGoBack : undefined}
             className={`flex items-center gap-2.5 ${activeScreen === 'gamelist' ? 'cursor-pointer hover:opacity-80 active:scale-95 transition-all' : ''}`}
           >
-            <div className="w-[24px] h-[24px] rounded-full bg-[#eac428] text-zinc-950 flex items-center justify-center text-[10px] font-black shadow-[0_0_10px_rgba(234,196,40,0.4)] border border-yellow-450 font-retro leading-none">
+            <div className="w-[24px] h-[24px] rounded-full bg-[#eac428] text-zinc-950 flex items-center justify-center text-[10px] font-black shadow-[0_0_10px_rgba(234,196,40,0.4)] border border-yellow-500 font-retro leading-none">
               B
             </div>
             <span className="text-[10px] font-mono font-black uppercase tracking-widest text-zinc-200">
@@ -89,7 +101,7 @@ export const Footer: React.FC<FooterProps> = ({
               onClick={onRandomGame}
               className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-all font-sans"
             >
-              <div className="w-[24px] h-[24px] rounded-full bg-blue-650 text-white flex items-center justify-center text-[10px] font-black shadow-[0_0_10px_rgba(59,130,246,0.4)] border border-blue-450 font-retro leading-none">
+              <div className="w-[24px] h-[24px] rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-black shadow-[0_0_10px_rgba(59,130,246,0.4)] border border-blue-400 font-retro leading-none">
                 X
               </div>
               <span className="text-[10px] font-mono font-black uppercase tracking-widest text-zinc-200">
@@ -162,7 +174,7 @@ export const Footer: React.FC<FooterProps> = ({
               <p className="text-xs sm:text-[13px] text-zinc-300 mt-4 px-1 leading-relaxed text-justify sm:text-center">
                 O LordTecaRetro é o maior portal independente dedicado à preservação cultural de jogos clássicos, operando sem fins lucrativos e livre da burocracia dos grandes estúdios. Nós garantimos que suas melhores memórias continuem jogáveis instantaneamente, sem anúncios irritantes e de graça. Mas, manter a infraestrutura de altíssima velocidade para alimentar este acervo de ROMs exige servidores de alto custo e banda dedicada.
               </p>
-              <p className="text-xs sm:text-[13px] text-zinc-350 mt-3 px-1 leading-relaxed text-justify sm:text-center">
+              <p className="text-xs sm:text-[13px] text-zinc-400 mt-3 px-1 leading-relaxed text-justify sm:text-center">
                 Milhares de entusiastas de retrogaming financiam essa causa de forma colaborativa através do modelo descentralizado de Valor por Valor. Se os nossos emuladores resgataram um sorriso ou geraram valor real para o seu dia hoje, retribua de forma consciente enviando alguns satoshis. Jogadores soberanos preservam sua própria infância, o futuro dos clássicos depende do engajamento direto de quem joga.
               </p>
 
@@ -188,21 +200,27 @@ export const Footer: React.FC<FooterProps> = ({
 
               {/* Input de Cópia de Alta Interatividade */}
               <div className="bg-[#0b1118]/90 border border-white/5 rounded-2xl p-2.5 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs max-w-sm mx-auto shadow-inner">
-                <span className="text-zinc-350 truncate select-all px-2.5 text-[11px] w-full text-center sm:text-left selection:bg-amber-500 max-w-[200px] sm:max-w-xs">
+                <span className="text-zinc-400 truncate select-all px-2.5 text-[11px] w-full text-center sm:text-left selection:bg-amber-500 max-w-[200px] sm:max-w-xs">
                   {lnAddress}
                 </span>
                 
                 <button
                   onClick={handleCopy}
-                  className={`w-full sm:w-auto flex items-center justify-center gap-1.5 px-4.5 py-2.5 text-[10px] font-retro uppercase rounded-xl transition-all duration-300 shrink-0 cursor-pointer ${
+                  className={`w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 text-[10px] font-retro uppercase rounded-xl transition-all duration-300 shrink-0 cursor-pointer ${
                     copied 
                       ? 'bg-emerald-600 text-white shadow-[0_0_12px_rgba(16,185,129,0.35)]' 
+                      : copyError
+                      ? 'bg-red-600 text-white shadow-[0_0_12px_rgba(220,38,38,0.35)] border border-red-500/30 font-bold'
                       : 'bg-amber-500 hover:bg-amber-400 text-zinc-950 shadow-[0_0_10px_rgba(245,158,11,0.25)] font-bold'
                   }`}
                 >
                   {copied ? (
                     <>
                       <Check className="w-3.5 h-3.5" /> Copiado!
+                    </>
+                  ) : copyError ? (
+                    <>
+                      <X className="w-3.5 h-3.5" /> Cópia Manual
                     </>
                   ) : (
                     <>

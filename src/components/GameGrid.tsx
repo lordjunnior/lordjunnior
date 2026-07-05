@@ -100,11 +100,11 @@ export const GameGrid: React.FC<GameGridProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <div className="bg-zinc-[#1c1c24]/90 border border-white/5 py-1.5 px-3.5 rounded-lg flex flex-col justify-center">
+            <div className="bg-[#1c1c24]/90 border border-white/5 py-1.5 px-3.5 rounded-lg flex flex-col justify-center">
               <span className="text-[8px] font-mono font-bold text-zinc-500 uppercase tracking-widest">Jogos Disponíveis</span>
               <span className="text-xl font-retro text-[#E60012] select-none text-[12px] tabular-nums mt-0.5">{system.gameCount}</span>
             </div>
-            <div className="bg-zinc-[#1c1c24]/90 border border-white/5 py-1.5 px-3.5 rounded-lg flex flex-col justify-center">
+            <div className="bg-[#1c1c24]/90 border border-white/5 py-1.5 px-3.5 rounded-lg flex flex-col justify-center">
               <span className="text-[8px] font-mono font-bold text-zinc-500 uppercase tracking-widest">Emulator Core</span>
               <span className="text-[11px] font-mono text-emerald-400 font-bold tracking-wider mt-1">{system.emulatorCore}.so</span>
             </div>
@@ -203,7 +203,7 @@ export const GameGrid: React.FC<GameGridProps> = ({
           <div className="w-full py-16 flex flex-col justify-center items-center text-center">
             <AlertTriangle className="w-14 h-14 text-zinc-700 mb-4 stroke-[1.5]" />
             <span className="font-retro text-[10px] text-zinc-500 tracking-widest block uppercase">Nenhum título encontrado</span>
-            <span className="text-xs text-zinc-600 mt-2 font-medium">Tente ajustar seus termos de pesquisa ou remover os fitros ativos.</span>
+            <span className="text-xs text-zinc-600 mt-2 font-medium">Tente ajustar seus termos de pesquisa ou remover os filtros ativos.</span>
             <button
               onClick={() => {
                 setSearchQuery('');
