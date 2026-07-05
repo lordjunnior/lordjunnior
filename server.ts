@@ -227,6 +227,78 @@ async function startServer() {
     }
   });
 
+  // Image proxy route to bypass Wikipedia hotlinking protection and CORS issues
+  app.get("/api/image-proxy", async (req, res) => {
+    try {
+      const imageUrl = req.query.url as string;
+      if (!imageUrl) {
+        return res.status(400).send("API Error: Image URL is required.");
+      }
+
+      // Safe check to avoid SSRF
+      let parsedUrl: URL;
+      try {
+        parsedUrl = new URL(imageUrl);
+      } catch (err) {
+        return res.status(400).send("API Error: Invalid URL structure.");
+      }
+
+      if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+        return res.status(400).send("API Error: Invalid URL scheme.");
+      }
+
+      const hostname = parsedUrl.hostname.toLowerCase();
+      if (
+        hostname === "localhost" ||
+        hostname === "localhost.localdomain" ||
+        hostname.endsWith(".local") ||
+        hostname.endsWith(".internal")
+      ) {
+        return res.status(400).send("API Error: Access to local/internal network is forbidden.");
+      }
+
+      try {
+        const lookup = await lookupAsync(hostname);
+        if (isPrivateIp(lookup.address)) {
+          return res.status(400).send("API Error: Access to private or local IP ranges is forbidden.");
+        }
+      } catch (dnsErr) {
+        return res.status(400).send("API Error: Unable to resolve hostname.");
+      }
+
+      console.log(`[IMAGE PROXY] Fetching image from source: ${imageUrl}`);
+
+      const response = await fetch(imageUrl, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        }
+      });
+
+      if (!response.ok) {
+        console.error(`[IMAGE PROXY] Source returned status: ${response.status} ${response.statusText}`);
+        return res.status(response.status).send(`Failed to fetch image from origin: ${response.statusText}`);
+      }
+
+      const contentType = response.headers.get("content-type") || "image/jpeg";
+      const contentLength = response.headers.get("content-length");
+
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+      res.setHeader("Cache-Control", "public, max-age=604800"); // cache for 7 days
+      
+      if (contentLength) {
+        res.setHeader("Content-Length", contentLength);
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+      res.send(Buffer.from(arrayBuffer));
+    } catch (error: any) {
+      console.error("[IMAGE PROXY] Error:", error);
+      res.status(500).send(`Internal image proxy error: ${error.message || error}`);
+    }
+  });
+
   // RAWG API Proxy
   app.get("/api/rawg-proxy/*", async (req, res) => {
     try {

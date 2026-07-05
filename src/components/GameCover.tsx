@@ -634,7 +634,7 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
   const prioritizeImage = useMemo(() => {
     if (!game.image) return false;
     const sysId = actualSystemId.toLowerCase().trim();
-    if (sysId === 'playstation3' || sysId === 'ps3' || sysId === 'playstation2' || sysId === 'ps2') {
+    if (sysId === 'playstation3' || sysId === 'ps3' || sysId === 'playstation2' || sysId === 'ps2' || sysId === 'xbox360' || sysId === 'xbox') {
       return true;
     }
     if (game.image.includes('wikimedia.org') || game.image.includes('upload.wikimedia.org')) {
@@ -648,17 +648,23 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
   const [loaded, setLoaded] = useState(false);
   const [isFatalError, setIsFatalError] = useState(false);
 
+  const getProxyUrl = (url: string): string => {
+    if (!url) return '';
+    if (url.startsWith('/') || url.startsWith('data:')) return url;
+    return `/api/image-proxy?url=${encodeURIComponent(url)}`;
+  };
+
   useEffect(() => {
     setIsFatalError(false);
     setLoaded(false);
     if (prioritizeImage && game.image) {
-      setSrc(game.image);
+      setSrc(getProxyUrl(game.image));
       setAttempt(0);
     } else if (candidates.length > 0) {
-      setSrc(candidates[0]);
+      setSrc(getProxyUrl(candidates[0]));
       setAttempt(1);
     } else if (game.image) {
-      setSrc(game.image);
+      setSrc(getProxyUrl(game.image));
       setAttempt(0);
     } else {
       setSrc('');
@@ -669,17 +675,17 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
   const handleError = () => {
     if (prioritizeImage && attempt === 0) {
       if (candidates.length > 0) {
-        setSrc(candidates[0]);
+        setSrc(getProxyUrl(candidates[0]));
         setAttempt(1);
       } else {
         setIsFatalError(true);
         setLoaded(true);
       }
     } else if (attempt > 0 && attempt < candidates.length) {
-      setSrc(candidates[attempt]);
+      setSrc(getProxyUrl(candidates[attempt]));
       setAttempt(prev => prev + 1);
-    } else if (attempt > 0 && game.image && !prioritizeImage && src !== game.image) {
-      setSrc(game.image);
+    } else if (attempt > 0 && game.image && !prioritizeImage && src !== getProxyUrl(game.image)) {
+      setSrc(getProxyUrl(game.image));
       setAttempt(0);
     } else {
       setIsFatalError(true);

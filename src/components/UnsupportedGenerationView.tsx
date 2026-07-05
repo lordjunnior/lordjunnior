@@ -297,35 +297,37 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
         {/* Painel Central - Bento Grid Style */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
-          {/* Lado Esquerdo: Capa do Jogo Selecionado e Curiosidades (lg:col-span-4) */}
-          <div className="lg:col-span-4 flex flex-col gap-5 justify-between bg-zinc-950/45 border border-white/5 rounded-2xl p-5 relative overflow-hidden">
-            <div className="absolute inset-0 bg-radial-gradient opacity-[0.05]" style={{ backgroundImage: `radial-gradient(circle at center, ${specs.glowColor} 0%, transparent 70%)` }} />
-            
-            <div className="space-y-4 relative z-10">
-              <div className="aspect-[3/4] w-40 mx-auto rounded-xl overflow-hidden border border-white/10 shadow-lg shadow-black/80 relative group">
-                <GameCover game={activeGame} systemId={system.id} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent p-3 flex flex-col justify-end">
-                  <span className="text-[8px] font-retro text-zinc-400 block uppercase tracking-wider">{system.name}</span>
-                  <p className="text-xs font-bold truncate leading-none mt-1">{activeGame.title}</p>
-                </div>
-              </div>
-
-              <div className="space-y-1 text-center">
-                <span className="text-[10px] font-retro text-zinc-500 uppercase tracking-widest block">VOCÊ IA JOGAR</span>
-                <h3 className="text-sm font-black text-white">{activeGame.title}</h3>
-                <p className="text-[10px] font-mono text-zinc-400">{activeGame.genre} • {activeGame.year}</p>
-              </div>
+          {/* Lado Esquerdo: Capa do Jogo Selecionado que preenche por completo o bloco (lg:col-span-4) */}
+          <div className="lg:col-span-4 min-h-[450px] lg:min-h-full flex flex-col justify-end bg-zinc-950 border border-white/10 rounded-2xl relative overflow-hidden group shadow-2xl shadow-black">
+            {/* Imagem de Capa em tela cheia do bloco */}
+            <div className="absolute inset-0 z-0">
+              <GameCover game={activeGame} systemId={system.id} className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" />
+              {/* Degradê escuro para garantir leitura do texto no topo e na base */}
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-black/30" />
             </div>
 
-            {/* Curiosidades Rápidas */}
-            <div className="relative z-10 border-t border-white/5 pt-4 grid grid-cols-2 gap-4 text-center mt-3">
-              <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2.5">
-                <span className="text-[8px] text-zinc-500 font-mono block uppercase tracking-wider">VENDIDOS</span>
-                <span className="text-xs font-bold text-zinc-200 mt-1 block">{specs.unitsSold}</span>
+            {/* Conteúdo sobreposto */}
+            <div className="relative z-10 p-5 flex flex-col gap-4 w-full bg-gradient-to-t from-zinc-950 via-zinc-950/90 to-transparent">
+              <div className="space-y-1.5">
+                <span className="text-[9px] font-retro text-zinc-400 block tracking-widest uppercase">VOCÊ IA JOGAR</span>
+                <h3 className="text-base font-black text-white leading-tight drop-shadow-md">{activeGame.title}</h3>
+                <p className="text-[10px] font-mono text-zinc-300 flex items-center gap-2">
+                  <span>{activeGame.genre}</span>
+                  <span className="opacity-45">•</span>
+                  <span>{activeGame.year}</span>
+                </p>
               </div>
-              <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2.5">
-                <span className="text-[8px] text-zinc-500 font-mono block uppercase tracking-wider">LANÇADO EM</span>
-                <span className="text-xs font-bold text-zinc-200 mt-1 block">{specs.releaseYear}</span>
+
+              {/* Curiosidades Rápidas */}
+              <div className="border-t border-white/10 pt-4 grid grid-cols-2 gap-3 text-center">
+                <div className="bg-white/[0.03] border border-white/5 rounded-xl p-2">
+                  <span className="text-[8px] text-zinc-400 font-mono block uppercase tracking-wider">VENDIDOS</span>
+                  <span className="text-xs font-bold text-white mt-1 block">{specs.unitsSold}</span>
+                </div>
+                <div className="bg-white/[0.03] border border-white/5 rounded-xl p-2">
+                  <span className="text-[8px] text-zinc-400 font-mono block uppercase tracking-wider">LANÇADO EM</span>
+                  <span className="text-xs font-bold text-white mt-1 block">{specs.releaseYear}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -380,9 +382,10 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
                   soundEngine.playSelect();
                   onClose();
                 }}
-                className="w-full sm:w-auto px-6 py-2.5 bg-white text-zinc-950 font-retro text-[9px] font-black uppercase tracking-widest rounded-lg flex items-center justify-center cursor-pointer hover:bg-zinc-200 active:scale-95 transition-all shadow-md shadow-black"
+                className="w-full sm:w-auto px-6 py-2.5 bg-white text-zinc-950 font-retro text-[9px] font-black uppercase tracking-widest rounded-lg flex items-center gap-2 justify-center cursor-pointer hover:bg-zinc-200 active:scale-95 transition-all shadow-md shadow-black"
               >
-                ➔ Jogar Consoles Ativos
+                <ArrowLeft className="w-3.5 h-3.5 shrink-0" />
+                <span>Jogar Consoles Ativos</span>
               </button>
             </div>
 
