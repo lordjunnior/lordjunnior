@@ -1,18 +1,20 @@
-# Olá, eu sou o Lord! 👋
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-Bem-vindo ao meu espaço no GitHub.
+# Run and deploy your AI Studio app
 
-## 🚀 Sobre Mim
-Desenvolvedor apaixonado por tecnologia e criação. Este repositório é onde documento meus experimentos e projetos.
+This contains everything you need to run your app locally.
 
----
+View your app in AI Studio: https://ai.studio/apps/499e5f6e-072d-4f63-9599-e43027c358f7
 
-## 🛠️ Meus Projetos
-Em breve, este espaço contará com links para os projetos que estou desenvolvendo. 
+## Run Locally
 
----
+**Prerequisites:**  Node.js
 
-## 📬 Vamos nos conectar?
-* **GitHub:** [github.com/lordjunnior](https://github.com/lordjunnior)
 
-*Este README foi personalizado para representar meu perfil pessoal.*
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
