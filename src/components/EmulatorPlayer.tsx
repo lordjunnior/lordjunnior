@@ -214,14 +214,14 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
             }
           }
 
-          // Capture general load failures
+          // Capture general runtime js errors (ignore harmless asset/resource load warnings)
           window.addEventListener('error', function(e) {
-            // Ignore handleLoadError errors since handled or benign iframe errors
-            if (e.message && e.message.includes('handleLoadError')) return;
+            if (!e.message) return;
+            if (e.message.includes('handleLoadError')) return;
             if (parent) {
-              parent.postMessage({ type: 'EJS_ERROR', message: e.message || 'Erro ao carregar recurso do Core' }, '*');
+              parent.postMessage({ type: 'EJS_ERROR', message: e.message }, '*');
             }
-          }, true);
+          }, false);
         </script>
         <script src="https://cdn.emulatorjs.org/stable/data/loader.js" onerror="handleLoadError()"></script>
       </body>

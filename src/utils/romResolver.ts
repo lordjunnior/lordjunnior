@@ -334,6 +334,11 @@ export const resolveGameRomUrl = (systemId: string, titleOrFilename: string): st
   // Extract base filename if a path is provided
   let baseName = titleOrFilename.replace(/^\/+/, '').split('/').pop() || titleOrFilename;
 
+  // Use EXACT_ROM_MAPPINGS to get the actual zip file name for Archive.org
+  if (EXACT_ROM_MAPPINGS[normSystem] && EXACT_ROM_MAPPINGS[normSystem][baseName]) {
+    baseName = EXACT_ROM_MAPPINGS[normSystem][baseName];
+  }
+
   // NES (Nintendo Entertainment System) - Split by Letter Groups
   if (normSystem === 'nes') {
     // Standardize No-Intro title naming if starting with "The "
