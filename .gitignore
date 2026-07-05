@@ -7,12 +7,12 @@ coverage/
 .env*
 !.env.example
 
-# Temporary & Drive scraping artifacts
-temp_*
-drive_*.html
-*.cjs
-folder_mapping.json
-folders.json
-roms_drive_mapping.json
-complete_rom_mapping.json
-scripts_content.txt
+# Temporary & Drive scraping artifacts (somente na raiz do projeto)
+/temp_*
+/drive_*.html
+/*.cjs
+/folder_mapping.json
+/folders.json
+/roms_drive_mapping.json
+/complete_rom_mapping.json
+/scripts_content.txt
