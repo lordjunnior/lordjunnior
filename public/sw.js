@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const CACHE_NAME = 'lordteca-retro-v1';
+const CACHE_NAME = 'lordteca-retro-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -46,20 +46,36 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Handle caching strategies
+  // App shell (HTML navigation, JS, CSS, db.json): NETWORK-FIRST.
+  // This guarantees that after every deploy, the browser always gets the
+  // latest code first. Cache is only used as a fallback when offline.
+  const isAppShell = event.request.mode === 'navigate' ||
+                      url.pathname === '/db.json' ||
+                      url.pathname.endsWith('.js') ||
+                      url.pathname.endsWith('.css') ||
+                      url.pathname.startsWith('/src/') ||
+                      url.pathname.startsWith('/@');
+
+  if (isAppShell) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Everything else (ROMs, cover art, logos, fonts): CACHE-FIRST.
+  // These are immutable/rarely-changing assets, so serving from cache is safe and fast.
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Return cached immediately, but refresh background for main dynamic assets
-        if (url.pathname === '/db.json' || url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
-          fetch(event.request)
-            .then((networkResponse) => {
-              if (networkResponse && networkResponse.status === 200) {
-                caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
-              }
-            })
-            .catch(() => {}); // ignore offline background refresh failures
-        }
         return cachedResponse;
       }
 
@@ -83,12 +99,8 @@ self.addEventListener('fetch', (event) => {
                           url.pathname.includes('/logos/') ||
                           url.pathname.includes('Named_Boxarts');
 
-          // 3. Static Assets, Modules, and fonts
-          const isStatic = url.pathname.startsWith('/src/') || 
-                          url.pathname.startsWith('/@') || 
-                          url.pathname.endsWith('.js') || 
-                          url.pathname.endsWith('.css') || 
-                          url.pathname.includes('fonts.googleapis') || 
+          // 3. Fonts
+          const isStatic = url.pathname.includes('fonts.googleapis') || 
                           url.pathname.includes('fonts.gstatic');
 
           if (isRom || isCover || isStatic) {
