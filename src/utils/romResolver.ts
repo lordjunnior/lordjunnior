@@ -93,7 +93,7 @@ export const getGoogleDriveRomUrl = (systemId: string, titleOrFilename: string):
   
   if (match) {
     console.log(`Matched "${titleOrFilename}" with Google Drive ROM: "${match.name}" (ID: ${match.id})`);
-    return `https://docs.google.com/uc?export=download&id=${match.id}`;
+    return `https://drive.google.com/uc?export=download&id=${match.id}`;
   }
   
   return null;

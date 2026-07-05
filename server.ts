@@ -116,7 +116,7 @@ async function startServer() {
         const idMatch = romUrl.match(/[?&]id=([a-zA-Z0-9-_]+)/);
         fileId = (dMatch && dMatch[1]) || (idMatch && idMatch[1]);
         if (fileId) {
-          romUrl = `https://docs.google.com/uc?export=download&id=${fileId}`;
+          romUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
           console.log(`[ROM PROXY] Converted Google Drive link to Google direct download: ${romUrl}`);
         }
       }
@@ -181,7 +181,7 @@ async function startServer() {
             cookieHeader = rawCookies.split(',').map(c => c.split(';')[0]).join('; ');
           }
 
-          const confirmUrl = `https://docs.google.com/uc?export=download&id=${fileId}&confirm=${confirmToken}`;
+          const confirmUrl = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=${confirmToken}`;
           console.log(`[ROM PROXY] Large Google Drive file warning detected. Re-fetching with confirm=${confirmToken}`);
 
           const secondResponse = await fetch(confirmUrl, {
