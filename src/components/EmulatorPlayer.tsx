@@ -338,7 +338,7 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
         <div className="flex items-center gap-2">
           <div className="hidden md:flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full text-[10px] text-emerald-400 font-mono font-bold tracking-wide uppercase">
             <Database className="w-3 h-3 text-emerald-400" />
-            <span>Google Drive Ativo</span>
+            <span>Nuvem Ativa</span>
           </div>
 
           <button
@@ -381,6 +381,7 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
             src={iframeSrc}
             title={`Emulator Screen for ${game.title}`}
             sandbox="allow-scripts allow-same-origin allow-pointer-lock"
+            allow="autoplay; gamepad; keyboard"
             className="w-full h-full border-0 bg-zinc-950 z-10"
             onLoad={() => {
               // Give a tiny buffer for cores to initiate
@@ -424,9 +425,9 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-display font-black text-lg text-white">Falha ao baixar ROM da sua nuvem privada</h3>
+                <h3 className="font-display font-black text-lg text-white">Falha ao baixar ROM do acervo de preservação</h3>
                 <p className="text-xs text-zinc-400 leading-relaxed font-mono">
-                  {errorMessage || 'Não conseguimos localizar o arquivo ROM configurado no seu Google Drive (404 Not Found ou arquivo indisponível).'}
+                  {errorMessage || 'Não conseguimos localizar o arquivo ROM configurado no servidor CDN de preservação digital.'}
                 </p>
               </div>
 
@@ -436,11 +437,11 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
                   Como resolver isso agora mesmo?
                 </p>
                 <p className="text-zinc-400 text-[11px] leading-snug">
-                  Como todos os jogos carregam exclusivamente do seu Google Drive particular, esta mensagem indica que o arquivo não pôde ser lido. Por favor:
+                  Como todos os jogos carregam de servidores de preservação integrados de alta velocidade, esta mensagem indica uma falha de conexão ou arquivo temporariamente offline. Por favor:
                 </p>
                 <ul className="list-disc pl-4 text-zinc-400 text-[11px] space-y-1 mt-1">
-                  <li>Verifique se o arquivo da ROM correspondente existe na sua pasta do Google Drive.</li>
-                  <li>Certifique-se de que o arquivo esteja com permissão de leitura ativa.</li>
+                  <li>Verifique sua conexão de rede.</li>
+                  <li>Certifique-se de que nenhum bloqueador de anúncios ou firewall está impedindo a requisição do emulador.</li>
                   <li>Recarregue a página e tente dar boot novamente no jogo.</li>
                 </ul>
               </div>
@@ -520,12 +521,12 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
           </div>
         </div>
 
-        {/* Column 3: Estado da Nuvem Privada */}
+        {/* Column 3: Estado da Nuvem de Preservação */}
         <div className="space-y-2">
           <div className="flex items-center gap-2 mb-1">
             <Database className="w-4 h-4 text-emerald-400" />
             <span className="text-[10px] font-retro text-zinc-400 uppercase tracking-widest block">
-              Conexão Google Drive
+              Conexão Cloud CDN
             </span>
           </div>
           <div className="bg-white/5 border border-white/5 rounded-2xl p-4 space-y-3">
@@ -536,7 +537,7 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
                 <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wide font-mono">
-                  Proxy Integrado Ativo
+                  Transmissão Ativa
                 </span>
               </div>
               <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded text-emerald-400 font-mono">
@@ -545,12 +546,12 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
             </div>
             
             <p className="text-[11px] text-zinc-400 leading-relaxed">
-              O arquivo ROM deste cartucho clássico está sendo transmitido diretamente do seu <strong className="text-zinc-200 font-semibold">Google Drive</strong> com compressão de stream ativa.
+              O arquivo ROM deste cartucho clássico está sendo transmitido diretamente do <strong className="text-zinc-200 font-semibold">servidor de preservação CDN de alta velocidade</strong> com compressão de stream ativa.
             </p>
 
             <div className="flex items-center gap-2 text-[9px] text-zinc-500 border-t border-white/5 pt-2.5">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/70" />
-              <span>Conexão privada ponto-a-ponto, livre de anúncios.</span>
+              <span>Conexão privada de alta fidelidade, livre de anúncios.</span>
             </div>
           </div>
         </div>

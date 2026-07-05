@@ -78,7 +78,7 @@ export const parseRawSystems = (rawList: any[]): System[] => {
           publisher: predefMatch?.pub || 'Retro Publisher',
           players: '1-2 Jogadores',
           rating: idx % 3 === 0 ? 5 : 4,
-          description: predefMatch?.desc || `Sua ROM privada "${cleanedTitle}" carregada com segurança diretamente do Google Drive com performance de hardware nativa.`,
+          description: predefMatch?.desc || `Cartucho clássico "${cleanedTitle}" carregado com segurança diretamente do servidor de preservação digital com performance nativa.`,
           image: predefMatch?.image || `/covers/${slug}.svg`,
           romUrl: `https://docs.google.com/uc?export=download&id=${item.id}`,
           favorite: idx < 3

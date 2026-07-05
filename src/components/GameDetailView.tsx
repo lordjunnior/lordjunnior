@@ -317,7 +317,21 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
     setTimeout(() => setScreenStaticPulse(false), 220);
   };
 
-  const isUnsupportedGeneration = ['playstation2', 'playstation3', 'xbox', 'xbox360'].includes(system.id.toLowerCase());
+  const isUnsupportedGeneration = [
+    'playstation2', 'ps2', 
+    'playstation3', 'ps3', 
+    'xbox', 'xboxclassic', 
+    'xbox360', 
+    'saturn', 
+    'ps1', 'psx', 'playstation', 
+    'arcade', 'mame',
+    'neogeo', 
+    'nds', 'ds', 
+    'pce', 'pcengine', 'turbografx',
+    '3do', 
+    'dreamcast', 
+    'gamecube'
+  ].includes(system.id.toLowerCase().trim());
 
   const unsupportedUiConfig = useMemo(() => {
     const configMap: Record<string, { glowColor: string; badgeBg: string; btnBg: string; text: string }> = {
@@ -325,32 +339,50 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
         glowColor: 'text-[#005cff]',
         badgeBg: 'from-[#005cff]/10 to-transparent border-[#005cff]/20',
         btnBg: 'from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 shadow-[0_6px_25px_rgba(0,92,255,0.35)]',
-        text: 'VER COMPATIBILIDADE'
+        text: 'VER DIAGNÓSTICO DO LAB'
+      },
+      ps2: {
+        glowColor: 'text-[#005cff]',
+        badgeBg: 'from-[#005cff]/10 to-transparent border-[#005cff]/20',
+        btnBg: 'from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 shadow-[0_6px_25px_rgba(0,92,255,0.35)]',
+        text: 'VER DIAGNÓSTICO DO LAB'
       },
       playstation3: {
         glowColor: 'text-[#e60012]',
         badgeBg: 'from-[#e60012]/10 to-transparent border-[#e60012]/20',
         btnBg: 'from-red-600 to-red-800 hover:from-red-500 hover:to-red-700 shadow-[0_6px_25px_rgba(230,0,18,0.35)]',
-        text: 'VER COMPATIBILIDADE'
+        text: 'VER DIAGNÓSTICO DO LAB'
+      },
+      ps3: {
+        glowColor: 'text-[#e60012]',
+        badgeBg: 'from-[#e60012]/10 to-transparent border-[#e60012]/20',
+        btnBg: 'from-red-600 to-red-800 hover:from-red-500 hover:to-red-700 shadow-[0_6px_25px_rgba(230,0,18,0.35)]',
+        text: 'VER DIAGNÓSTICO DO LAB'
       },
       xbox: {
         glowColor: 'text-[#107c10]',
         badgeBg: 'from-[#107c10]/10 to-transparent border-[#107c10]/20',
         btnBg: 'from-green-700 to-green-900 hover:from-green-600 hover:to-green-800 shadow-[0_6px_25px_rgba(16,124,16,0.35)]',
-        text: 'VER COMPATIBILIDADE'
+        text: 'VER DIAGNÓSTICO DO LAB'
+      },
+      xboxclassic: {
+        glowColor: 'text-[#107c10]',
+        badgeBg: 'from-[#107c10]/10 to-transparent border-[#107c10]/20',
+        btnBg: 'from-green-700 to-green-900 hover:from-green-600 hover:to-green-800 shadow-[0_6px_25px_rgba(16,124,16,0.35)]',
+        text: 'VER DIAGNÓSTICO DO LAB'
       },
       xbox360: {
         glowColor: 'text-[#5a9e1e]',
         badgeBg: 'from-[#5a9e1e]/10 to-transparent border-[#5a9e1e]/20',
         btnBg: 'from-emerald-600 to-emerald-800 hover:from-emerald-500 hover:to-emerald-700 shadow-[0_6px_25px_rgba(90,158,30,0.35)]',
-        text: 'VER COMPATIBILIDADE'
+        text: 'VER DIAGNÓSTICO DO LAB'
       }
     };
     return configMap[system.id.toLowerCase()] || {
-      glowColor: 'text-emerald-400',
-      badgeBg: 'from-emerald-500/5 to-transparent border-emerald-500/10',
-      btnBg: 'from-emerald-400 to-emerald-600 hover:from-emerald-300 hover:to-emerald-500 shadow-[0_6px_25px_rgba(16,185,129,0.3)]',
-      text: 'DAR BOOT NO SISTEMA'
+      glowColor: 'text-amber-400',
+      badgeBg: 'from-amber-500/10 to-transparent border-amber-500/20',
+      btnBg: 'from-amber-600 to-orange-700 hover:brightness-110 shadow-[0_6px_25px_rgba(245,158,11,0.3)]',
+      text: 'VER DIAGNÓSTICO DO LAB'
     };
   }, [system.id]);
 
@@ -1262,10 +1294,10 @@ export const GameDetailView: React.FC<GameDetailViewProps> = ({
                   Por que este console não abre?
                 </p>
                 <p className="text-zinc-400 text-[11px] leading-relaxed">
-                  Os consoles que <strong>não possuem arquivos de ROM localizados no seu Google Drive</strong> foram mantidos na página como <strong>vitrine ilustrativa</strong> para atrair público.
+                  Os consoles que <strong>não possuem arquivos de ROM disponíveis para transmissão imediata</strong> foram mantidos na página como <strong>vitrine ilustrativa</strong> para preservação histórica.
                 </p>
                 <p className="text-zinc-400 text-[11px] leading-relaxed border-t border-white/5 pt-2.5">
-                  Tendo público e recursos no futuro, você poderá ativar estes emuladores simplesmente adicionando as respectivas ROMs na sua nuvem privada!
+                  Tendo público e recursos no futuro, novos núcleos e acervos de jogos serão adicionados diretamente ao nosso sistema de emulação em nuvem!
                 </p>
               </div>
 

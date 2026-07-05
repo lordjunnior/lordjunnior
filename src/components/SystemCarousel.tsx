@@ -823,24 +823,110 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
 
   const isSystemSupported = (systemId: string): boolean => {
     const cleanId = systemId.toLowerCase().trim();
-    return !['ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xboxclassic', 'xbox360'].includes(cleanId);
+    const unsupported = [
+      'playstation2', 'ps2', 
+      'playstation3', 'ps3', 
+      'xbox', 'xboxclassic', 
+      'xbox360', 
+      'saturn', 
+      'ps1', 'psx', 'playstation', 
+      'arcade', 'mame',
+      'neogeo', 
+      'nds', 'ds', 
+      'pce', 'pcengine', 'turbografx',
+      '3do', 
+      'dreamcast', 
+      'gamecube'
+    ];
+    return !unsupported.includes(cleanId);
+  };
+
+  const getSystemNostalgicCta = (systemId: string): string => {
+    const id = systemId.toLowerCase().trim();
+    if (id.includes('ps3') || id.includes('playstation3')) {
+      return 'LAB CELL BROAD BAND • ENTRAR';
+    }
+    if (id.includes('ps2') || id.includes('playstation2')) {
+      return 'LAB EMOTION ENGINE • ENTRAR';
+    }
+    if (id.includes('ps1') || id.includes('psx') || id.includes('playstation')) {
+      return 'LAB CD-ROM DRIVE • ENTRAR';
+    }
+    if (id.includes('nds') || id.includes('ds')) {
+      return 'LAB DUPLA TELA TOQUE • ENTRAR';
+    }
+    if (id.includes('xbox360')) {
+      return 'LAB XENON STREAMING • ENTRAR';
+    }
+    if (id.includes('xbox') || id.includes('xboxclassic')) {
+      return 'LAB PODER VERDE • ENTRAR';
+    }
+    if (id.includes('pce') || id.includes('pcengine') || id.includes('turbografx')) {
+      return 'LAB CD-ROM SINC • ENTRAR';
+    }
+    if (id.includes('saturn')) {
+      return 'LAB DUAL SH-2 • ENTRAR';
+    }
+    if (id.includes('dreamcast')) {
+      return 'LAB POWERVR GRAPHICS • ENTRAR';
+    }
+    if (id.includes('gamecube')) {
+      return 'LAB CUBINHO ROXO • ENTRAR';
+    }
+    if (id.includes('arcade') || id.includes('mame')) {
+      return 'LAB DE FLIPERAMAS • ENTRAR';
+    }
+    if (id.includes('neogeo')) {
+      return 'LAB ROLLS ROYCE MVS • ENTRAR';
+    }
+    if (id.includes('3do')) {
+      return 'LAB PANASONIC CD • ENTRAR';
+    }
+    return 'LAB PRESERVAÇÃO RETRÔ • ENTRAR';
   };
 
   const getSystemStatus = (systemId: string) => {
     const cleanId = systemId.toLowerCase().trim();
-    if (['ps2', 'playstation2'].includes(cleanId)) {
-      return { label: 'Web Beta em Pesquisa', color: '#ff9800', isPlayable: false };
+    if (['playstation2', 'ps2'].includes(cleanId)) {
+      return { label: 'Emotion WebGL em Calibragem', color: '#ff9800', isPlayable: false };
     }
-    if (['ps3', 'playstation3'].includes(cleanId)) {
-      return { label: 'WASM em Otimização', color: '#ea580c', isPlayable: false };
+    if (['playstation3', 'ps3'].includes(cleanId)) {
+      return { label: 'Arquitetura Cell em Pesquisa', color: '#ea580c', isPlayable: false };
+    }
+    if (['ps1', 'psx', 'playstation'].includes(cleanId)) {
+      return { label: 'Streaming de CD em Otimização', color: '#3b82f6', isPlayable: false };
     }
     if (['xbox', 'xboxclassic'].includes(cleanId)) {
-      return { label: 'Kernel em Desenvolvimento', color: '#a855f7', isPlayable: false };
+      return { label: 'DirectX WebGPU em Desenvolvimento', color: '#10b981', isPlayable: false };
     }
     if (['xbox360'].includes(cleanId)) {
-      return { label: 'Streaming em Pesquisa', color: '#ec4899', isPlayable: false };
+      return { label: 'Serviço Xenon em Adaptação', color: '#22c55e', isPlayable: false };
     }
-    return { label: 'Disponível', color: '#10b981', isPlayable: true };
+    if (['nds', 'ds'].includes(cleanId)) {
+      return { label: 'Interface de Dupla Tela em Estudo', color: '#6366f1', isPlayable: false };
+    }
+    if (['pce', 'pcengine', 'turbografx'].includes(cleanId)) {
+      return { label: 'Sincronização de CD-ROM em Andamento', color: '#f43f5e', isPlayable: false };
+    }
+    if (['saturn'].includes(cleanId)) {
+      return { label: 'Navegação SH-2 Dual-Core', color: '#64748b', isPlayable: false };
+    }
+    if (['dreamcast'].includes(cleanId)) {
+      return { label: 'Processamento PowerVR em Progresso', color: '#f97316', isPlayable: false };
+    }
+    if (['gamecube'].includes(cleanId)) {
+      return { label: 'Compilação Gekko Core WebGPU', color: '#a855f7', isPlayable: false };
+    }
+    if (['arcade', 'mame'].includes(cleanId)) {
+      return { label: 'Mapeamento Multi-Placa em Progresso', color: '#eab308', isPlayable: false };
+    }
+    if (['neogeo'].includes(cleanId)) {
+      return { label: 'Mapeamento MVS em Validação', color: '#06b6d4', isPlayable: false };
+    }
+    if (['3do'].includes(cleanId)) {
+      return { label: 'Decodificação FMV em Calibragem', color: '#8b5cf6', isPlayable: false };
+    }
+    return { label: 'Nativo Web WASM', color: '#10b981', isPlayable: true };
   };
 
   // Filter systems list based on category and search
@@ -1736,7 +1822,7 @@ export const SystemCarousel: React.FC<SystemCarouselProps> = ({
                     </>
                   ) : (
                     <>
-                      DESBLOQUEAR EM BREVE <span className="group-hover/btn:translate-x-1 transition-transform duration-300 inline-block">➔</span>
+                      {getSystemNostalgicCta(activeSystem.id)} <span className="group-hover/btn:translate-x-1 transition-transform duration-300 inline-block">➔</span>
                     </>
                   )}
                 </span>

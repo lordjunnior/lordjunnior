@@ -251,7 +251,22 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
 
   const isSystemSupported = (systemId: string): boolean => {
     const cleanId = systemId.toLowerCase().trim();
-    return !['ps2', 'playstation2', 'ps3', 'playstation3', 'xbox', 'xboxclassic', 'xbox360'].includes(cleanId);
+    const unsupported = [
+      'playstation2', 'ps2', 
+      'playstation3', 'ps3', 
+      'xbox', 'xboxclassic', 
+      'xbox360', 
+      'saturn', 
+      'ps1', 'psx', 'playstation', 
+      'arcade', 'mame',
+      'neogeo', 
+      'nds', 'ds', 
+      'pce', 'pcengine', 'turbografx',
+      '3do', 
+      'dreamcast', 
+      'gamecube'
+    ];
+    return !unsupported.includes(cleanId);
   };
 
   const filteredGames = useMemo(() => {
@@ -1183,8 +1198,10 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
               
               {/* Animated status light */}
               <div className="flex items-center gap-1.5 bg-zinc-900/60 border border-white/5 px-2 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: activeGlowColor, boxShadow: `0 0 8px ${activeGlowColor}` }} />
-                <span className="text-[7.5px] font-mono font-bold text-zinc-400 uppercase tracking-widest leading-none">Ativo</span>
+                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: isSystemSupported(system.id) ? activeGlowColor : '#ea580c', boxShadow: `0 0 8px ${isSystemSupported(system.id) ? activeGlowColor : '#ea580c'}` }} />
+                <span className="text-[7.5px] font-mono font-bold text-zinc-400 uppercase tracking-widest leading-none">
+                  {isSystemSupported(system.id) ? 'Ativo' : 'Calibragem'}
+                </span>
               </div>
             </div>
 
@@ -1252,6 +1269,17 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
               </div>
             </div>
           </div>
+
+          {/* If unsupported, show a small glowing badge under identification HUD */}
+          {!isSystemSupported(system.id) && (
+            <div className="bg-amber-600/10 border border-amber-500/20 rounded-xl p-3 flex gap-2.5 items-start text-[9.5px] text-zinc-300 leading-normal shrink-0">
+              <Info className="w-4 h-4 text-amber-500 shrink-0 mt-0.5 animate-pulse" />
+              <div>
+                <p className="font-extrabold text-amber-400 uppercase tracking-wider text-[8px] font-mono leading-none">Modo Lab Ativo</p>
+                <p className="text-zinc-400 text-[8.5px] mt-1 font-sans leading-normal">Jogos em mapeamento e catalogação. Boot em desenvolvimento de alta fidelidade.</p>
+              </div>
+            </div>
+          )}
 
           {/* Section 1: Dashboard Navigation Tabs */}
           <div className="bg-black/30 border border-white/5 rounded-2xl p-2.5 flex flex-col gap-1 backdrop-blur-md shrink-0">
@@ -1502,6 +1530,92 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                     {selectedGame.description || `Redescubra este clássico absoluto do console ${system.name}. Re-imaginamento e jogabilidade icônica original misturado com os clássicos no LordTecaRetro com velocidade máxima de carregamento.`}
                   </p>
 
+                  {/* If system is unsupported, display a gorgeous, nostalgic Laboratory Warning Banner */}
+                  {!isSystemSupported(system.id) && (
+                    <div className="bg-gradient-to-b from-zinc-950/90 via-zinc-900/75 to-zinc-950/90 border border-amber-500/20 rounded-2xl p-4.5 flex flex-col gap-4 shadow-[0_0_25px_rgba(245,158,11,0.06)] hover:border-amber-400/40 hover:shadow-[0_0_35px_rgba(245,158,11,0.12)] transition-all duration-300 relative overflow-hidden shrink-0 group">
+                      {/* Decorative elements */}
+                      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] opacity-30" />
+                      <div className="absolute -right-12 -bottom-12 w-32 h-32 rounded-full border border-amber-500/5 pointer-events-none flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
+                        <div className="w-24 h-24 rounded-full border border-amber-500/5 flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-full border border-amber-500/5" />
+                        </div>
+                      </div>
+                      
+                      {/* Header Section */}
+                      <div className="flex justify-between items-start">
+                        <div className="flex flex-col gap-1">
+                          <div className="flex items-center gap-1.5">
+                            <Cpu className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+                            <span className="text-[7.5px] font-mono text-amber-500/70 tracking-widest uppercase">
+                              COD: PRJ-WASM-PRESERVE
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-retro text-amber-400 uppercase tracking-widest font-black">
+                            LABORATÓRIO DE PRESERVAÇÃO ATIVA
+                          </span>
+                        </div>
+                        <div className="bg-amber-500/10 border border-amber-500/30 rounded-full px-2 py-0.5 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                          <span className="text-[7px] font-mono text-amber-400 font-bold uppercase tracking-wider">
+                            CALIBRANDO EMULADOR WEB
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* NLP & SEO Content */}
+                      <div className="flex flex-col gap-2">
+                        <p className="text-[10.5px] leading-relaxed text-zinc-300 font-sans">
+                          Sua <strong className="text-white">jornada afetiva</strong> através do tempo está salvaguardada sob engenharia de altíssima fidelidade. O <strong style={{ color: activeGlowColor || '#f59e0b' }}>{system.name}</strong> está sendo transcompilado pelo nosso <strong className="text-amber-400 font-semibold">Emulador Web Grátis</strong> em núcleos nativos <strong className="text-white">WebAssembly (WASM)</strong> para garantir máximo desempenho sem lag ou downloads de arquivos pesados.
+                        </p>
+                        <p className="text-[9px] leading-relaxed text-zinc-400 font-sans italic opacity-90 border-l-2 border-amber-500/30 pl-2">
+                          "Permita-se redescobrir os mundos virtuais lendários que moldaram sua infância, vislumbrando o auge da preservação digital de consoles clássicos diretamente no seu navegador."
+                        </p>
+                      </div>
+
+                      {/* Technical Sub-systems Progress Bars (UI/UX Art Direction) */}
+                      <div className="bg-black/40 border border-white/5 rounded-xl p-3 flex flex-col gap-2.5">
+                        <div className="flex justify-between items-center text-[7.5px] font-mono text-zinc-400">
+                          <span className="flex items-center gap-1">
+                            <span className="w-1 h-1 rounded-full bg-amber-500" />
+                            WASM CORE ENGINE
+                          </span>
+                          <span className="text-amber-400 font-bold">85% CONCLUÍDO</span>
+                        </div>
+                        <div className="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden border border-white/5 relative">
+                          <div className="bg-gradient-to-r from-amber-600 to-amber-400 h-full w-[85%] rounded-full animate-pulse" />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2 mt-0.5 pt-2 border-t border-white/5">
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-[7px] text-zinc-500 font-mono uppercase tracking-wider">Mapeador de Shaders</span>
+                            <div className="flex items-center gap-1">
+                              <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                              <span className="text-[8px] font-mono text-emerald-400 font-bold uppercase">WebGPU OTIMIZADO</span>
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-[7px] text-zinc-500 font-mono uppercase tracking-wider">Latência Estimada</span>
+                            <div className="flex items-center gap-1">
+                              <span className="w-1 h-1 rounded-full bg-amber-500 animate-pulse" />
+                              <span className="text-[8px] font-mono text-amber-400 font-bold uppercase">&lt; 3.5ms DE RESPOSTA</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Footer & Interactive Diagnostics Launch Trigger */}
+                      <div className="flex justify-between items-center text-[8.5px] font-mono text-zinc-400 border-t border-white/5 pt-2 mt-0.5">
+                        <span className="text-zinc-500">Sabor nostalgia preservado.</span>
+                        <button 
+                          onClick={() => handleLaunchGame(selectedGame)}
+                          className="text-amber-400 hover:text-white font-black uppercase tracking-[0.1em] flex items-center gap-1 cursor-pointer transition-all duration-300 transform hover:translate-x-1 py-1 px-2.5 rounded bg-amber-500/5 hover:bg-amber-500/15 border border-amber-500/20"
+                        >
+                          Diagnóstico do Lab ➔
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Dossier Card Container (Translucid backdrop blur) */}
                   <div className="bg-black/30 border border-white/5 rounded-2xl p-5 flex flex-col gap-4 backdrop-blur-md">
                     <span className="text-[9px] text-zinc-500 uppercase tracking-[0.25em] font-bold">Dossier de Desempenho</span>
@@ -1555,13 +1669,17 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
                       {/* Play Action */}
                       <button 
                         onClick={() => handleLaunchGame(selectedGame)}
-                        className="flex-1 bg-gradient-to-r from-[var(--theme-color)] to-indigo-700 text-white font-black uppercase text-[10px] tracking-[0.25em] py-3.5 px-4 rounded-xl hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg relative overflow-hidden group"
-                        style={{ boxShadow: '0 0 20px var(--theme-color)' } as React.CSSProperties}
+                        className={`flex-1 bg-gradient-to-r ${isSystemSupported(system.id) ? 'from-[var(--theme-color)] to-indigo-700' : 'from-amber-600 to-orange-700'} text-white font-black uppercase text-[10px] tracking-[0.25em] py-3.5 px-4 rounded-xl hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg relative overflow-hidden group`}
+                        style={{ boxShadow: isSystemSupported(system.id) ? '0 0 20px var(--theme-color)' : '0 0 20px rgba(245,158,11,0.35)' }}
                       >
                         {/* Shimmer sweep effect */}
                         <div className="absolute inset-y-0 -left-16 w-8 bg-white/20 skew-x-12 group-hover:animate-shimmer-sweep" />
-                        <Gamepad className="w-4 h-4 text-white" />
-                        <span>Jogar Agora</span>
+                        {isSystemSupported(system.id) ? (
+                          <Gamepad className="w-4 h-4 text-white" />
+                        ) : (
+                          <Cpu className="w-4 h-4 text-white animate-pulse" />
+                        )}
+                        <span>{isSystemSupported(system.id) ? "Jogar Agora" : "Ver Diag. Lab"}</span>
                       </button>
 
                       {/* Favorite Button */}

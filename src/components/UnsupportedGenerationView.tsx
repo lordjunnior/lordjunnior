@@ -230,7 +230,13 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
   game,
   onClose
 }) => {
-  const systemId = system.id.toLowerCase();
+  let systemId = system.id.toLowerCase().trim();
+  if (systemId === 'ps2') systemId = 'playstation2';
+  if (systemId === 'ps3') systemId = 'playstation3';
+  if (systemId === 'psx' || systemId === 'ps1' || systemId === 'playstation') systemId = 'ps1';
+  if (systemId === 'ds') systemId = 'nds';
+  if (systemId === 'pcengine' || systemId === 'turbografx') systemId = 'pce';
+  if (systemId === 'xboxclassic') systemId = 'xbox';
   
   // Encontra as especificações corretas ou cai em um fallback genérico
   const specs = unsupportedSpecsMap[systemId] || {
