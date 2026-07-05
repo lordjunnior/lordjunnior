@@ -365,7 +365,7 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-700 hover:bg-red-600 border border-red-500/30 text-white font-retro text-[9px] uppercase font-black tracking-widest shadow-lg transition cursor-pointer"
             title="Sair da Emulação"
           >
-            <span>➔ Voltar</span>
+            <span>Voltar</span>
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
 import { EmulatorPlayer } from './EmulatorPlayer';
+import { UnsupportedGenerationView } from './UnsupportedGenerationView';
 import { getGameGameplayVideoUrl, getSystemGameplayVideoUrl } from '../utils/videoResolver';
 import { 
   ArrowLeft, Search, Check, Cpu, Layers, Clock, Sparkles, Tv, Gamepad, 
@@ -1906,84 +1907,14 @@ export const GamelistView: React.FC<GamelistViewProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[700] bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[1200] bg-black overflow-hidden flex flex-col w-full h-screen"
           >
-            <motion.div 
-              initial={{ scale: 0.9, y: 30 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 30 }}
-              transition={{ type: 'spring', damping: 25 }}
-              className="w-full max-w-2xl bg-zinc-950 border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col gap-6 shadow-3xl text-zinc-100 font-sans"
-            >
-              {/* Header */}
-              <div className="flex justify-between items-start">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-[#E60012]/10 text-[#E60012] border border-[#E60012]/20 rounded-2xl shadow-inner">
-                    <Cpu className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <span className="text-[8px] text-[#E60012] uppercase tracking-[0.25em] font-black">Laboratório de Compatibilidade</span>
-                    <h2 className="text-xl font-black uppercase tracking-tight text-white mt-0.5">Testes Avançados</h2>
-                  </div>
-                </div>
-                
-                <button 
-                  onClick={handleCloseLab}
-                  className="px-4 py-1.5 rounded-full border border-white/10 hover:border-white/20 hover:bg-white/5 text-[9px] font-black uppercase tracking-widest transition-colors cursor-pointer"
-                >
-                  Fechar
-                </button>
-              </div>
-
-              {/* Lab Content Info details */}
-              <div className="flex flex-col gap-4">
-                <div className="bg-white/2 border border-white/5 rounded-2xl p-4 flex flex-col gap-2">
-                  <span className="text-[8.5px] text-zinc-500 uppercase tracking-widest font-black">Relatório do Sistema</span>
-                  <p className="text-[11px] leading-relaxed text-zinc-400">
-                    O console <span className="text-white font-extrabold">{system.name}</span> é de altíssima geração (sistemas de 128 bits ou superiores) e requer aceleração de hardware dedicada para decodificação da BIOS em tempo real.
-                  </p>
-                  <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden mt-1 relative">
-                    <div className="absolute inset-y-0 left-0 bg-amber-500 rounded-full animate-pulse" style={{ width: '85%' }} />
-                  </div>
-                  <div className="flex justify-between items-center text-[8px] text-amber-500 font-mono uppercase tracking-wider">
-                    <span>STATUS: 85% Concluído (Fase de Otimização JIT)</span>
-                    <span>v4.81</span>
-                  </div>
-                </div>
-
-                {/* Specs list */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 bg-white/2 border border-white/5 rounded-xl flex flex-col gap-1">
-                    <span className="text-[8px] text-zinc-500 uppercase tracking-widest">Motor de Execução</span>
-                    <span className="text-[10px] text-white font-bold font-mono">D3D12 / WASM COMPILING</span>
-                  </div>
-                  <div className="p-3 bg-white/2 border border-white/5 rounded-xl flex flex-col gap-1">
-                    <span className="text-[8px] text-zinc-500 uppercase tracking-widest">FPS Projetado</span>
-                    <span className="text-[10px] text-white font-bold font-mono">60 FPS ESTÁVEL</span>
-                  </div>
-                </div>
-
-                <div className="border-t border-white/5 pt-4 flex flex-col gap-3">
-                  <p className="text-[10px] leading-relaxed text-zinc-500 text-center">
-                    Gostaria de ser notificado assim que o emulador nativo deste console estiver liberado no LordTecaRetro? Ative sua inscrição abaixo.
-                  </p>
-
-                  <button
-                    onClick={() => handleToggleSubscribe(system.id)}
-                    className={`w-full py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.25em] transition-all cursor-pointer flex items-center justify-center gap-2 border ${
-                      subscribedConsoles.includes(system.id)
-                        ? 'bg-emerald-600/10 border-emerald-500/50 text-emerald-400'
-                        : 'bg-white/5 border-white/10 text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <Check className={`w-4 h-4 ${subscribedConsoles.includes(system.id) ? 'opacity-100 text-emerald-400' : 'opacity-0'}`} />
-                    <span>
-                      {subscribedConsoles.includes(system.id) ? '✓ Inscrito com Sucesso' : 'Inscrever-me para Alerta de Liberação'}
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </motion.div>
+            <UnsupportedGenerationView 
+              system={system} 
+              game={labGame} 
+              onClose={handleCloseLab} 
+            />
           </motion.div>
         )}
       </AnimatePresence>

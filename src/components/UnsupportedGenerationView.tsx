@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { System, Game } from '../types';
 import { soundEngine } from './RetroSoundEngine';
@@ -230,6 +230,12 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
   game,
   onClose
 }) => {
+  const [activeGame, setActiveGame] = useState<Game>(game);
+
+  useEffect(() => {
+    setActiveGame(game);
+  }, [game]);
+
   let systemId = system.id.toLowerCase().trim();
   if (systemId === 'ps2') systemId = 'playstation2';
   if (systemId === 'ps3') systemId = 'playstation3';
@@ -256,12 +262,12 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
 
   // Coleta até 4 jogos do sistema para a vitrine inferior, excluindo se necessário o jogo selecionado
   const otherGames = system.games
-    .filter(g => g.title !== game.title)
+    .filter(g => g.title !== activeGame.title)
     .slice(0, 4);
 
   return (
     <div 
-      className={`relative flex flex-col w-full h-full min-h-[500px] bg-gradient-to-b ${specs.themeGradient} border border-white/10 rounded-3xl overflow-hidden shadow-2xl font-sans text-white`}
+      className={`relative flex flex-col w-full h-full min-h-screen bg-gradient-to-b ${specs.themeGradient} overflow-hidden font-sans text-white`}
     >
       {/* Barra de controle superior */}
       <div className="flex justify-between items-center bg-black/45 px-6 py-4 border-b border-white/5 z-20">
@@ -281,7 +287,7 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-white font-retro text-[9px] uppercase font-black tracking-widest shadow-lg transition cursor-pointer group"
         >
           <ArrowLeft className="w-3.5 h-3.5 text-zinc-400 group-hover:-translate-x-1 transition-transform" />
-          <span>➔ Voltar</span>
+          <span>Voltar</span>
         </button>
       </div>
 
@@ -297,17 +303,17 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
             
             <div className="space-y-4 relative z-10">
               <div className="aspect-[3/4] w-40 mx-auto rounded-xl overflow-hidden border border-white/10 shadow-lg shadow-black/80 relative group">
-                <GameCover game={game} systemId={system.id} className="w-full h-full object-cover" />
+                <GameCover game={activeGame} systemId={system.id} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent p-3 flex flex-col justify-end">
                   <span className="text-[8px] font-retro text-zinc-400 block uppercase tracking-wider">{system.name}</span>
-                  <p className="text-xs font-bold truncate leading-none mt-1">{game.title}</p>
+                  <p className="text-xs font-bold truncate leading-none mt-1">{activeGame.title}</p>
                 </div>
               </div>
 
               <div className="space-y-1 text-center">
                 <span className="text-[10px] font-retro text-zinc-500 uppercase tracking-widest block">VOCÊ IA JOGAR</span>
-                <h3 className="text-sm font-black text-white">{game.title}</h3>
-                <p className="text-[10px] font-mono text-zinc-400">{game.genre} • {game.year}</p>
+                <h3 className="text-sm font-black text-white">{activeGame.title}</h3>
+                <p className="text-[10px] font-mono text-zinc-400">{activeGame.genre} • {activeGame.year}</p>
               </div>
             </div>
 
@@ -400,17 +406,7 @@ export const UnsupportedGenerationView: React.FC<UnsupportedGenerationViewProps>
                 key={item.id}
                 onClick={() => {
                   soundEngine.playSelect();
-                  // Força troca para visualizar este jogo na tela de incompatibilidade de forma dinâmica
-                  window.location.hash = '';
-                  setTimeout(() => {
-                    const cleanTitle = item.title
-                      .toLowerCase()
-                      .normalize('NFD')
-                      .replace(/[\u0300-\u036f]/g, '')
-                      .replace(/[^a-z0-9]+/g, '-')
-                      .replace(/(^-|-$)/g, '');
-                    window.location.pathname = `/game/${system.id}-${cleanTitle}`;
-                  }, 50);
+                  setActiveGame(item);
                 }}
                 className="group relative aspect-[3/4] bg-zinc-900 rounded-xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 cursor-pointer"
               >

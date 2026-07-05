@@ -631,6 +631,18 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
     return getLibretroCandidates(cleanTitle, actualSystemId, originalCleanTitle);
   }, [game.title, actualSystemId]);
 
+  const prioritizeImage = useMemo(() => {
+    if (!game.image) return false;
+    const sysId = actualSystemId.toLowerCase().trim();
+    if (sysId === 'playstation3' || sysId === 'ps3' || sysId === 'playstation2' || sysId === 'ps2') {
+      return true;
+    }
+    if (game.image.includes('wikimedia.org') || game.image.includes('upload.wikimedia.org')) {
+      return true;
+    }
+    return false;
+  }, [game.image, actualSystemId]);
+
   const [src, setSrc] = useState<string>('');
   const [attempt, setAttempt] = useState<number>(0);
   const [loaded, setLoaded] = useState(false);
@@ -639,7 +651,10 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
   useEffect(() => {
     setIsFatalError(false);
     setLoaded(false);
-    if (candidates.length > 0) {
+    if (prioritizeImage && game.image) {
+      setSrc(game.image);
+      setAttempt(0);
+    } else if (candidates.length > 0) {
       setSrc(candidates[0]);
       setAttempt(1);
     } else if (game.image) {
@@ -649,13 +664,21 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
       setSrc('');
       setIsFatalError(true);
     }
-  }, [game.image, candidates]);
+  }, [game.image, candidates, prioritizeImage]);
 
   const handleError = () => {
-    if (attempt > 0 && attempt < candidates.length) {
+    if (prioritizeImage && attempt === 0) {
+      if (candidates.length > 0) {
+        setSrc(candidates[0]);
+        setAttempt(1);
+      } else {
+        setIsFatalError(true);
+        setLoaded(true);
+      }
+    } else if (attempt > 0 && attempt < candidates.length) {
       setSrc(candidates[attempt]);
       setAttempt(prev => prev + 1);
-    } else if (attempt > 0 && game.image && src !== game.image) {
+    } else if (attempt > 0 && game.image && !prioritizeImage && src !== game.image) {
       setSrc(game.image);
       setAttempt(0);
     } else {
