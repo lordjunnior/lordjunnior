@@ -1,0 +1,115 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile metadata",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uid",
+        "email"
+      ]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "description": "A favorite game entry",
+      "type": "object",
+      "properties": {
+        "systemId": {
+          "type": "string"
+        },
+        "gameTitle": {
+          "type": "string"
+        },
+        "gameId": {
+          "type": "string"
+        },
+        "addedAt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "systemId",
+        "gameTitle",
+        "addedAt"
+      ]
+    },
+    "CustomGame": {
+      "title": "CustomGame",
+      "description": "A custom added ROM/game by the user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "systemId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "developer": {
+          "type": "string"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "players": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "romUrl": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "systemId",
+        "title",
+        "romUrl",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/users/{userId}/favorites/{gameKey}": {
+      "schema": "Favorite",
+      "description": "The user's favorite games"
+    },
+    "/users/{userId}/customGames/{gameId}": {
+      "schema": "CustomGame",
+      "description": "Custom ROMs added by the user"
+    }
+  }
+}

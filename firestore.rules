@@ -1,0 +1,89 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all rule
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isVerifiedOwner(userId) {
+      return isOwner(userId) && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-\\:\\+]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Entity validations
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email'])
+        && data.keys().size() <= 4
+        && data.uid is string
+        && data.uid.size() <= 128
+        && data.email is string
+        && data.email.size() <= 256;
+    }
+
+    function isValidFavorite(data) {
+      return data.keys().hasAll(['systemId', 'gameTitle', 'addedAt'])
+        && data.keys().size() <= 6
+        && data.systemId is string
+        && data.systemId.size() <= 64
+        && data.gameTitle is string
+        && data.gameTitle.size() <= 256
+        && data.addedAt is string
+        && data.addedAt.size() <= 64;
+    }
+
+    function isValidCustomGame(data) {
+      return data.keys().hasAll(['id', 'systemId', 'title', 'romUrl', 'createdAt'])
+        && data.keys().size() <= 15
+        && data.id is string
+        && data.id.size() <= 128
+        && data.systemId is string
+        && data.systemId.size() <= 64
+        && data.title is string
+        && data.title.size() <= 256
+        && data.romUrl is string
+        && data.romUrl.size() <= 2048
+        && data.createdAt is string
+        && data.createdAt.size() <= 64;
+    }
+
+    // Document matches
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create, update: if isVerifiedOwner(userId) && isValidUser(incoming());
+      allow delete: if false; // Users shouldn't be deleted by clients
+
+      match /favorites/{gameKey} {
+        allow list, get: if isOwner(userId);
+        allow create, update: if isVerifiedOwner(userId) && isValidFavorite(incoming()) && isValidId(gameKey);
+        allow delete: if isVerifiedOwner(userId);
+      }
+
+      match /customGames/{gameId} {
+        allow list, get: if isOwner(userId);
+        allow create, update: if isVerifiedOwner(userId) && isValidCustomGame(incoming()) && isValidId(gameId);
+        allow delete: if isVerifiedOwner(userId);
+      }
+    }
+  }
+}

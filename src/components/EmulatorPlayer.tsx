@@ -562,7 +562,11 @@ const EmulatorPlayerInner: React.FC<EmulatorPlayerProps> = ({ system, game, onCl
 };
 
 export const EmulatorPlayer: React.FC<EmulatorPlayerProps> = ({ system, game, onClose }) => {
-  const isUnsupportedGeneration = ['playstation2', 'playstation3', 'xbox', 'xbox360'].includes(system.id.toLowerCase());
+  const isUnsupportedGeneration = [
+    'playstation2', 'playstation3', 'xbox', 'xbox360',
+    'saturn', 'ps1', 'playstation', 'arcade', 'neogeo',
+    'nds', 'ds', 'pce', 'pcengine', '3do', 'dreamcast', 'gamecube'
+  ].includes(system.id.toLowerCase());
   
   if (isUnsupportedGeneration) {
     return (

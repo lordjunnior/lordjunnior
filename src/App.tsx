@@ -18,10 +18,96 @@ import { getGameSlug, findGameBySlug } from './utils/routeUtils';
 import { soundEngine } from './components/RetroSoundEngine';
 import { motion, AnimatePresence } from 'motion/react';
 
+// Firebase integrations
+import { auth, signInWithPopup, signOut, googleAuthProvider } from './lib/firebase';
+import { 
+  syncUserMetadata, 
+  getFavoritesFromCloud, 
+  saveFavoriteToCloud, 
+  removeFavoriteFromCloud, 
+  testConnection 
+} from './lib/firebaseUtils';
+
 // Dynamic JSON database state
 export default function App() {
   const [systems, setSystems] = useState<System[]>(systemsData);
   const [isLoadingDb, setIsLoadingDb] = useState<boolean>(true);
+  const [user, setUser] = useState<any>(null);
+
+  // Connection validation and auth state listener
+  useEffect(() => {
+    testConnection();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        try {
+          await syncUserMetadata(currentUser.uid, currentUser.email || '');
+          const cloudFavs = await getFavoritesFromCloud(currentUser.uid);
+          
+          // Merge local favorites to cloud
+          const raw = localStorage.getItem('retro_favorites');
+          let localFavs: string[] = [];
+          if (raw) {
+            try {
+              const parsed = JSON.parse(raw);
+              if (Array.isArray(parsed)) localFavs = parsed;
+            } catch {}
+          }
+          
+          const mergedFavs = Array.from(new Set([...cloudFavs, ...localFavs]));
+          
+          // Save any new local favorites to the cloud
+          for (const fav of mergedFavs) {
+            if (!cloudFavs.includes(fav)) {
+              const parts = fav.split('::');
+              const sysId = parts[0];
+              const title = parts.slice(1).join('::');
+              if (sysId && title) {
+                await saveFavoriteToCloud(currentUser.uid, sysId, title);
+              }
+            }
+          }
+          
+          localStorage.setItem('retro_favorites', JSON.stringify(mergedFavs));
+          
+          // Update systems favorited status
+          setSystems(prev => prev.map(sys => ({
+            ...sys,
+            games: sys.games.map(g => ({
+              ...g,
+              favorite: mergedFavs.includes(`${sys.id}::${g.title}`)
+            }))
+          })));
+        } catch (e) {
+          console.error('[RetroHub] Error syncing favorites to cloud on login:', e);
+        }
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogin = async () => {
+    try {
+      soundEngine.playSelect();
+      await signInWithPopup(auth, googleAuthProvider);
+    } catch (err) {
+      console.error('[RetroHub] Error signing in with Google:', err);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      soundEngine.playBack();
+      await signOut(auth);
+    } catch (err) {
+      console.error('[RetroHub] Error signing out:', err);
+    }
+  };
 
   // Helper function to sync favorites from localStorage or initialize with defaults
   const applySavedFavorites = (systemsList: System[]): System[] => {
@@ -69,7 +155,7 @@ export default function App() {
     }
   };
 
-  const handleToggleFavorite = (systemId: string, gameTitle: string) => {
+  const handleToggleFavorite = async (systemId: string, gameTitle: string) => {
     try {
       const raw = localStorage.getItem('retro_favorites');
       let favoriteKeys: string[] = [];
@@ -98,10 +184,17 @@ export default function App() {
         favoriteKeys = currentFavs;
       }
 
-      if (favoriteKeys.includes(compositeKey)) {
-        favoriteKeys = favoriteKeys.filter(k => k !== compositeKey);
-      } else {
+      const isAdding = !favoriteKeys.includes(compositeKey);
+      if (isAdding) {
         favoriteKeys.push(compositeKey);
+        if (auth.currentUser) {
+          await saveFavoriteToCloud(auth.currentUser.uid, systemId, gameTitle);
+        }
+      } else {
+        favoriteKeys = favoriteKeys.filter(k => k !== compositeKey);
+        if (auth.currentUser) {
+          await removeFavoriteFromCloud(auth.currentUser.uid, systemId, gameTitle);
+        }
       }
 
       localStorage.setItem('retro_favorites', JSON.stringify(favoriteKeys));
@@ -422,6 +515,9 @@ export default function App() {
                 onSearchClick={() => setIsGlobalSearchOpen(true)}
                 onSettingsClick={() => setIsSettingsOpen(true)}
                 glowColor={activeGlowColor}
+                user={user}
+                onLogin={handleLogin}
+                onLogout={handleLogout}
               />
             )}
           </>
