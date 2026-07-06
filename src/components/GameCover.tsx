@@ -654,9 +654,34 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
     return `/api/image-proxy?url=${encodeURIComponent(url)}`;
   };
 
+  // Cache local (por navegador) do resultado já resolvido pra essa capa, pra não
+  // ficar tentando dezenas de URLs candidatas de novo toda vez que a pessoa
+  // revisitar o mesmo jogo. Isso evita gastar cota de requisições da Vercel
+  // repetindo buscas cujo resultado a gente já sabe.
+  const cacheKey = `ltr-cover:${actualSystemId}::${game.title}`;
+
   useEffect(() => {
     setIsFatalError(false);
     setLoaded(false);
+
+    let cached: string | null = null;
+    try {
+      cached = localStorage.getItem(cacheKey);
+    } catch (e) {
+      // localStorage indisponível (modo privado, cota cheia, etc.) - segue sem cache
+    }
+
+    if (cached === 'NOT_FOUND') {
+      setSrc('');
+      setIsFatalError(true);
+      return;
+    }
+    if (cached) {
+      setSrc(cached);
+      setAttempt(candidates.length); // já resolvido, não precisa ciclar candidatos
+      return;
+    }
+
     if (prioritizeImage && game.image) {
       setSrc(getProxyUrl(game.image));
       setAttempt(0);
@@ -670,7 +695,16 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
       setSrc('');
       setIsFatalError(true);
     }
-  }, [game.image, candidates, prioritizeImage]);
+  }, [game.image, candidates, prioritizeImage, cacheKey]);
+
+  const handleImageLoaded = () => {
+    setLoaded(true);
+    try {
+      if (src) localStorage.setItem(cacheKey, src);
+    } catch (e) {
+      // ignora falha ao gravar cache
+    }
+  };
 
   const handleError = () => {
     if (prioritizeImage && attempt === 0) {
@@ -680,6 +714,7 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
       } else {
         setIsFatalError(true);
         setLoaded(true);
+        try { localStorage.setItem(cacheKey, 'NOT_FOUND'); } catch (e) {}
       }
     } else if (attempt > 0 && attempt < candidates.length) {
       setSrc(getProxyUrl(candidates[attempt]));
@@ -690,6 +725,7 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
     } else {
       setIsFatalError(true);
       setLoaded(true);
+      try { localStorage.setItem(cacheKey, 'NOT_FOUND'); } catch (e) {}
     }
   };
 
@@ -991,7 +1027,7 @@ export const GameCover: React.FC<GameCoverProps> = ({ game, systemId, className,
         src={src || undefined}
         alt=""
         onError={handleError}
-        onLoad={() => setLoaded(true)}
+        onLoad={handleImageLoaded}
         className={`${className} transition-all duration-300 ${loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         loading="lazy"
         referrerPolicy="no-referrer"

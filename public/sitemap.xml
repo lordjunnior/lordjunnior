@@ -2,112 +2,112 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Main Home console interface -->
   <url>
-    <loc>https://retrostation.build/</loc>
+    <loc>https://lordtecaretro.vercel.app/</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- snes detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/snes</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/snes</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- genesis detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/genesis</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/genesis</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- nes detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/nes</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/nes</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- psx detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/ps1</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/ps1</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- gba detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/gba</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/gba</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- n64 detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/n64</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/n64</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- gb detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/gb</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/gb</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- sms detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/sms</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/sms</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- saturn detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/saturn</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/saturn</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- atari detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/atari</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/atari</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- arcade detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/arcade</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/arcade</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- neogeo detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/neogeo</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/neogeo</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- nds detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/nds</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/nds</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- pce detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/pce</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/pce</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- 3do detailed game list grid -->
   <url>
-    <loc>https://retrostation.build/#/system/3do</loc>
+    <loc>https://lordtecaretro.vercel.app/#/system/3do</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
