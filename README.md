@@ -42,7 +42,7 @@ Gosto de trabalhar de ponta a ponta: entender o problema, desenhar a experiênci
   <tr>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/meusite">
-        <img src="assets/profile-header.svg" alt="Soberania Individual — capa do projeto" width="100%" />
+        <img src="assets/projects/soberania.svg" alt="Arte de apresentação do projeto Soberania Individual" width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/meusite">01 · Soberania Individual</a></h3>
       Plataforma web que organiza conteúdo e ferramentas práticas sobre autonomia financeira, segurança digital e preparação pessoal.
@@ -51,7 +51,7 @@ Gosto de trabalhar de ponta a ponta: entender o problema, desenhar a experiênci
     </td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/PrismaEnsino">
-        <img src="https://raw.githubusercontent.com/lordjunnior/lordjunnior/main/assets/profile-side-panel.svg" alt="Prisma Ensino — painel visual" width="100%" />
+        <img src="assets/projects/prisma-ensino.svg" alt="Arte de apresentação do projeto Prisma Ensino" width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/PrismaEnsino">02 · Prisma Ensino</a></h3>
       Aplicação educacional com fluxos de IA para apoiar professores na criação de atividades, planos de aula, histórias e materiais pedagógicos.
@@ -61,14 +61,14 @@ Gosto de trabalhar de ponta a ponta: entender o problema, desenhar a experiênci
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <img src="assets/profile-side-panel.svg" alt="Right Time — ferramenta profissional" width="100%" />
+      <img src="assets/projects/right-time.svg" alt="Arte de apresentação do projeto Right Time" width="100%" />
       <h3>03 · Right Time</h3>
       Ferramenta de controle de jornada com cálculo de horas, registro fotográfico com timestamp e exportação de relatório para o RH.
       <p><code>React</code> <code>TypeScript</code> <code>PDF</code></p>
       <sub>Projeto em repositório privado.</sub>
     </td>
     <td width="50%" valign="top">
-      <img src="assets/profile-header.svg" alt="Produtos digitais em desenvolvimento" width="100%" />
+      <img src="assets/projects/lab-digital.svg" alt="Arte de apresentação dos produtos em desenvolvimento" width="100%" />
       <h3>04 · Produtos em desenvolvimento</h3>
       **Monkey** — conceito de marketplace para comercialização de produtos e conteúdos digitais.  
       **Criativos Infinitos** — ferramenta de criação de conteúdo para influenciadores.  
