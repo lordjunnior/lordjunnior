@@ -41,7 +41,7 @@ Não me interessa tecnologia como vitrine. Interessa-me o que ela permite constr
       <p>Projeto de entretenimento retrô que busca tornar a experiência de acesso a jogos clássicos simples e direta pelo navegador.</p>
       <p><strong>Foco técnico</strong><br>Aplicação web, organização de interface, integração de serviços e metadados para compartilhamento.</p>
       <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>Express</code> <code>Firebase</code></p>
-      <p><a href="https://lordtecaretro.vercel.app/">Visitar projeto →</a></p>
+      <p><a href="https://lordtecaretro.vercel.app/">Visitar projeto →</a> · <a href="docs/lordtecaretro-setup.md">Executar localmente</a></p>
     </td>
     <td width="50%" valign="top">
       <h3>04 / Laboratório de IA local</h3>
