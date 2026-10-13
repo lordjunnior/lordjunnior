@@ -1,25 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
-  <title id="title">Junnior — Software, IA aplicada e produtos digitais</title>
-  <desc id="desc">Identidade visual profissional com tipografia editorial, linhas técnicas e acento dourado.</desc>
-  <rect width="1200" height="300" fill="#F7F8FA"/>
-  <rect x="0" y="0" width="12" height="300" fill="#D4AF37"/>
-  <g stroke="#DCE1E8" stroke-width="1" fill="none">
-    <path d="M700 0V300M800 0V300M900 0V300M1000 0V300M1100 0V300"/>
-    <path d="M650 50H1200M650 100H1200M650 150H1200M650 200H1200M650 250H1200"/>
-    <path d="M680 265L845 100L935 190L1090 35L1170 115" stroke="#B9C4D2" stroke-width="2"/>
-    <circle cx="845" cy="100" r="5" fill="#D4AF37" stroke="none"/>
-    <circle cx="1090" cy="35" r="5" fill="#D4AF37" stroke="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Junnior — Engenharia de software e inteligência artificial aplicada</title>
+  <desc id="desc">Capa editorial de portfólio com tipografia forte, módulos geométricos e detalhes dourados.</desc>
+  <rect width="1200" height="360" fill="#F6F5F1"/>
+  <rect x="0" y="0" width="14" height="360" fill="#C7A45D"/>
+  <path d="M720 0H1200V360H820L720 260Z" fill="#E9E8E1"/>
+  <g stroke="#D0D2CB" stroke-width="1" fill="none" opacity=".85">
+    <path d="M760 0V360M840 0V360M920 0V360M1000 0V360M1080 0V360M1160 0V360"/>
+    <path d="M720 60H1200M720 120H1200M720 180H1200M720 240H1200M720 300H1200"/>
+  </g>
+  <g fill="none" stroke="#0A192F" stroke-width="2">
+    <path d="M752 282L858 176L925 243L1056 112L1148 204"/>
+    <path d="M752 282H1148" stroke="#C7A45D" stroke-dasharray="4 8"/>
+  </g>
+  <g fill="#C7A45D">
+    <circle cx="858" cy="176" r="6"/>
+    <circle cx="1056" cy="112" r="6"/>
+    <circle cx="1148" cy="204" r="6"/>
   </g>
   <g font-family="Inter, Arial, Helvetica, sans-serif">
-    <text x="72" y="80" fill="#526174" font-size="16" font-weight="700" letter-spacing="4">DESENVOLVIMENTO · SISTEMAS · PRODUTO</text>
-    <text x="68" y="158" fill="#0A192F" font-size="66" font-weight="800" letter-spacing="-2">JUNNIOR</text>
-    <rect x="72" y="183" width="64" height="5" fill="#D4AF37"/>
-    <text x="72" y="225" fill="#24364B" font-size="24" font-weight="500">Software e inteligência artificial aplicada</text>
-    <text x="72" y="260" fill="#526174" font-size="17" font-weight="500">Produtos digitais construídos para resolver problemas reais.</text>
+    <text x="68" y="76" fill="#5A6470" font-size="15" font-weight="700" letter-spacing="4">SOFTWARE · INTELIGÊNCIA ARTIFICIAL · PRODUTO</text>
+    <text x="64" y="166" fill="#0A192F" font-size="78" font-weight="800" letter-spacing="-3">JUNNIOR</text>
+    <rect x="68" y="190" width="78" height="5" fill="#C7A45D"/>
+    <text x="68" y="239" fill="#26364A" font-size="26" font-weight="600">Construindo sistemas digitais.</text>
+    <text x="68" y="276" fill="#5A6470" font-size="19" font-weight="500">Da ideia à aplicação: tecnologia com propósito e execução.</text>
   </g>
-  <g fill="#0A192F">
-    <rect x="1064" y="218" width="12" height="12" rx="2"/>
-    <rect x="1088" y="218" width="12" height="12" rx="2" opacity=".65"/>
-    <rect x="1112" y="218" width="12" height="12" rx="2" opacity=".35"/>
+  <g transform="translate(68 318)" font-family="Inter, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#5A6470">
+    <text x="0" y="0">DESENVOLVIMENTO WEB</text><circle cx="196" cy="-4" r="2.5" fill="#C7A45D"/><text x="212" y="0">IA APLICADA</text><circle cx="326" cy="-4" r="2.5" fill="#C7A45D"/><text x="342" y="0">AUTOMAÇÃO</text>
+  </g>
+  <g transform="translate(1060 34)">
+    <rect width="88" height="88" rx="8" fill="#0A192F"/>
+    <path d="M20 22H68V30H38V42H62V50H38V66H20Z" fill="#F6F5F1"/>
+    <rect x="48" y="58" width="20" height="8" fill="#C7A45D"/>
   </g>
 </svg>
