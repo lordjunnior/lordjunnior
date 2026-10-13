@@ -1,51 +1,95 @@
 <div align="center">
-  <img src="assets/profile-header.svg" alt="Junnior — Software, IA aplicada e produtos digitais" width="100%" />
+  <img src="assets/profile-header.svg" alt="Junnior — Engenharia de software e inteligência artificial aplicada" width="100%" />
 </div>
 
 <p align="center">
-  <strong>Desenvolvimento de software · Inteligência artificial aplicada · Produtos digitais</strong>
+  <a href="https://lordjunnior.com.br/"><strong>PORTFÓLIO</strong></a>
+  &nbsp; · &nbsp;
+  <a href="https://github.com/lordjunnior?tab=repositories"><strong>REPOSITÓRIOS</strong></a>
+  &nbsp; · &nbsp;
+  <a href="https://github.com/lordjunnior/meusite"><strong>PROJETO PRINCIPAL</strong></a>
 </p>
 
-Desenvolvedor independente com atuação multidisciplinar. Trabalho na concepção e evolução de aplicações web, ferramentas digitais e experiências de produto, conectando engenharia, automação e experiência do usuário.
+# Software, IA aplicada e produtos digitais
 
-Meu foco é construir soluções úteis, com atenção à arquitetura, clareza de uso e manutenção do projeto.
+Sou desenvolvedor independente e trabalho na interseção entre software, inteligência artificial, automação e experiência de produto. Transformo ideias em aplicações e ferramentas digitais, acompanhando o processo da concepção à implementação e evolução.
 
-## Projetos em destaque
+Não me interessa tecnologia como vitrine. Interessa-me o que ela permite construir, simplificar e colocar em funcionamento.
 
-### [Soberania Individual](https://lordjunnior.com.br/)
-Plataforma editorial e de ferramentas práticas sobre autonomia financeira, segurança digital, preparação para crises e autonomia pessoal.
+## Projetos selecionados
 
-**Tecnologias:** React, TypeScript, Vite, Tailwind CSS.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/meusite">01 / Soberania Individual</a></h3>
+      <p>Uma plataforma de conteúdo e ferramentas práticas voltada à autonomia financeira, segurança digital e preparação pessoal.</p>
+      <p><strong>Foco técnico</strong><br>Aplicação web, arquitetura de conteúdo, experiência responsiva, recursos interativos e otimização de ativos.</p>
+      <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>Tailwind CSS</code></p>
+      <p><a href="https://lordjunnior.com.br/">Visitar projeto →</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/PrismaEnsino">02 / Prisma Ensino</a></h3>
+      <p>Aplicação educacional com ferramentas para apoiar professores na criação de exercícios e conteúdos personalizados, com referência à BNCC.</p>
+      <p><strong>Foco técnico</strong><br>Interface de produto, fluxos de criação, estado da aplicação e integração com serviços de IA.</p>
+      <p><code>React</code> <code>TypeScript</code> <code>Vite</code></p>
+      <p><a href="https://github.com/lordjunnior/PrismaEnsino">Explorar código →</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lordjunnior">03 / LordTecaRetro</a></h3>
+      <p>Projeto de entretenimento retrô que busca tornar a experiência de acesso a jogos clássicos simples e direta pelo navegador.</p>
+      <p><strong>Foco técnico</strong><br>Aplicação web, organização de interface, integração de serviços e metadados para compartilhamento.</p>
+      <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>Express</code> <code>Firebase</code></p>
+      <p><a href="https://lordtecaretro.vercel.app/">Visitar projeto →</a></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>04 / Laboratório de IA local</h3>
+      <p>Experimentação com modelos locais e ferramentas de geração e automação para desenvolver fluxos de trabalho privados e adaptáveis.</p>
+      <p><strong>Foco técnico</strong><br>Execução local de modelos, integração de ferramentas e desenho de fluxos de produção.</p>
+      <p><code>Ollama</code> <code>LM Studio</code> <code>ComfyUI</code></p>
+      <p>Pesquisa e experimentação contínuas.</p>
+    </td>
+  </tr>
+</table>
 
-[Ver código-fonte](https://github.com/lordjunnior/meusite) · [Abrir projeto](https://lordjunnior.com.br/)
+## Stack de trabalho
 
-### [Prisma Ensino](https://prisma-ensino.vercel.app/)
-Aplicação voltada ao trabalho pedagógico, com recursos para criação de exercícios personalizados alinhados à BNCC e produção de conteúdo educacional.
+<table>
+  <tr>
+    <td><strong>Aplicações</strong></td>
+    <td>TypeScript · JavaScript · React · Vite · Node.js</td>
+  </tr>
+  <tr>
+    <td><strong>Dados e serviços</strong></td>
+    <td>Supabase · Firebase · APIs · integrações</td>
+  </tr>
+  <tr>
+    <td><strong>IA aplicada</strong></td>
+    <td>Modelos generativos · Ollama · LM Studio · ComfyUI</td>
+  </tr>
+  <tr>
+    <td><strong>Produto e interface</strong></td>
+    <td>Design de interface · prototipação · experiência do usuário</td>
+  </tr>
+</table>
 
-**Tecnologias:** React, TypeScript, Vite.
+## Como abordo um projeto
 
-[Ver repositório](https://github.com/lordjunnior/PrismaEnsino) · [Abrir aplicação](https://prisma-ensino.vercel.app/)
+**01 — Entender o problema.** Definir a necessidade, as restrições e o resultado esperado.
 
-### [LordTecaRetro](https://lordtecaretro.vercel.app/)
-Projeto web de entretenimento retrô, com foco em acesso simples a clássicos diretamente pelo navegador.
+**02 — Desenhar a solução.** Estruturar os fluxos, a interface e as integrações necessárias antes de adicionar complexidade.
 
-**Tecnologias:** React, TypeScript, Vite, Express e Firebase.
+**03 — Implementar e validar.** Construir, testar os caminhos principais e corrigir problemas observados.
 
-[Ver código-fonte](https://github.com/lordjunnior/lordjunnior) · [Abrir projeto](https://lordtecaretro.vercel.app/)
+**04 — Evoluir com critério.** Melhorar desempenho, acessibilidade, manutenção e clareza sem adicionar recursos só por adicionar.
 
-## Áreas de trabalho
+## Para explorar
 
-- **Aplicações web:** interfaces, fluxos de usuário e integração de serviços.
-- **IA aplicada:** experimentação e integração de modelos em ferramentas e produtos.
-- **Automação:** redução de tarefas repetitivas e conexão entre sistemas.
-- **Produto digital:** transformar uma necessidade em uma solução clara, testável e evolutiva.
-
-## Tecnologias
-
-`TypeScript` · `JavaScript` · `React` · `Vite` · `Node.js` · `Tailwind CSS` · `Supabase` · `Firebase`
-
-Também trabalho com ferramentas locais de IA e produção visual quando fazem sentido para o problema.
+- [Todos os repositórios públicos](https://github.com/lordjunnior?tab=repositories)
+- [Site e portfólio](https://lordjunnior.com.br/)
+- [Código e documentação do projeto principal](https://github.com/lordjunnior/meusite)
 
 ---
 
-**Contato e portfólio:** [lordjunnior.com.br](https://lordjunnior.com.br/)
+<p align="center"><sub>Junnior · Software, sistemas e soluções digitais</sub></p>
