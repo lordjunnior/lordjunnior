@@ -1,39 +1,51 @@
-# Junnior (Lord)
+<div align="center">
+  <img src="assets/profile-header.svg" alt="Junnior — Software, IA aplicada e produtos digitais" width="100%" />
+</div>
 
-Desenvolvedor independente com atuação multidisciplinar em inteligência artificial aplicada, desenvolvimento web, automação, design estratégico e produção audiovisual.
+<p align="center">
+  <strong>Desenvolvimento de software · Inteligência artificial aplicada · Produtos digitais</strong>
+</p>
 
-Meu trabalho conecta tecnologia e comunicação para transformar ideias em ferramentas digitais, interfaces e fluxos de produção úteis.
+Desenvolvedor independente com atuação multidisciplinar. Trabalho na concepção e evolução de aplicações web, ferramentas digitais e experiências de produto, conectando engenharia, automação e experiência do usuário.
 
-## Áreas de atuação
+Meu foco é construir soluções úteis, com atenção à arquitetura, clareza de uso e manutenção do projeto.
 
-- **Inteligência artificial aplicada:** modelos, ferramentas e fluxos de trabalho com IA, incluindo execução local.
-- **Desenvolvimento web:** interfaces, aplicações e prototipação de produtos digitais.
-- **Automação:** integração de ferramentas e otimização de processos.
-- **Design e comunicação:** direção visual, interfaces e produção audiovisual.
+## Projetos em destaque
 
-## Ferramentas
+### [Soberania Individual](https://lordjunnior.com.br/)
+Plataforma editorial e de ferramentas práticas sobre autonomia financeira, segurança digital, preparação para crises e autonomia pessoal.
 
-- **IA e execução local:** Ollama, LM Studio, ComfyUI, Pinokio e Hermes
-- **Design e audiovisual:** Photoshop, Figma, Canva, CorelDRAW, CapCut e Sony Vegas
-- **Desenvolvimento:** tecnologias web e ferramentas escolhidas conforme os requisitos de cada projeto
+**Tecnologias:** React, TypeScript, Vite, Tailwind CSS.
 
-## Princípios de trabalho
+[Ver código-fonte](https://github.com/lordjunnior/meusite) · [Abrir projeto](https://lordjunnior.com.br/)
 
-- Resolver problemas reais com soluções práticas.
-- Prototipar, testar e melhorar continuamente.
-- Automatizar tarefas repetitivas sem abrir mão do controle sobre o resultado.
-- Priorizar clareza, utilidade e manutenção a longo prazo.
+### [Prisma Ensino](https://prisma-ensino.vercel.app/)
+Aplicação voltada ao trabalho pedagógico, com recursos para criação de exercícios personalizados alinhados à BNCC e produção de conteúdo educacional.
 
-## Projetos
+**Tecnologias:** React, TypeScript, Vite.
 
-Este perfil reúne aplicações, experimentos e projetos em desenvolvimento. Consulte os repositórios para conhecer o código, os objetivos e as tecnologias utilizadas em cada trabalho.
+[Ver repositório](https://github.com/lordjunnior/PrismaEnsino) · [Abrir aplicação](https://prisma-ensino.vercel.app/)
 
-## Executar este projeto localmente
+### [LordTecaRetro](https://lordtecaretro.vercel.app/)
+Projeto web de entretenimento retrô, com foco em acesso simples a clássicos diretamente pelo navegador.
 
-**Pré-requisito:** Node.js
+**Tecnologias:** React, TypeScript, Vite, Express e Firebase.
 
-1. Instale as dependências:
-   `npm install`
-2. Configure no arquivo `.env.local` as variáveis de ambiente exigidas pela aplicação.
-3. Inicie o servidor de desenvolvimento:
-   `npm run dev`
+[Ver código-fonte](https://github.com/lordjunnior/lordjunnior) · [Abrir projeto](https://lordtecaretro.vercel.app/)
+
+## Áreas de trabalho
+
+- **Aplicações web:** interfaces, fluxos de usuário e integração de serviços.
+- **IA aplicada:** experimentação e integração de modelos em ferramentas e produtos.
+- **Automação:** redução de tarefas repetitivas e conexão entre sistemas.
+- **Produto digital:** transformar uma necessidade em uma solução clara, testável e evolutiva.
+
+## Tecnologias
+
+`TypeScript` · `JavaScript` · `React` · `Vite` · `Node.js` · `Tailwind CSS` · `Supabase` · `Firebase`
+
+Também trabalho com ferramentas locais de IA e produção visual quando fazem sentido para o problema.
+
+---
+
+**Contato e portfólio:** [lordjunnior.com.br](https://lordjunnior.com.br/)
