@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">Junnior — Software, IA aplicada e produtos digitais</title>
+  <desc id="desc">Identidade visual profissional com tipografia editorial, linhas técnicas e acento dourado.</desc>
+  <rect width="1200" height="300" fill="#F7F8FA"/>
+  <rect x="0" y="0" width="12" height="300" fill="#D4AF37"/>
+  <g stroke="#DCE1E8" stroke-width="1" fill="none">
+    <path d="M700 0V300M800 0V300M900 0V300M1000 0V300M1100 0V300"/>
+    <path d="M650 50H1200M650 100H1200M650 150H1200M650 200H1200M650 250H1200"/>
+    <path d="M680 265L845 100L935 190L1090 35L1170 115" stroke="#B9C4D2" stroke-width="2"/>
+    <circle cx="845" cy="100" r="5" fill="#D4AF37" stroke="none"/>
+    <circle cx="1090" cy="35" r="5" fill="#D4AF37" stroke="none"/>
+  </g>
+  <g font-family="Inter, Arial, Helvetica, sans-serif">
+    <text x="72" y="80" fill="#526174" font-size="16" font-weight="700" letter-spacing="4">DESENVOLVIMENTO · SISTEMAS · PRODUTO</text>
+    <text x="68" y="158" fill="#0A192F" font-size="66" font-weight="800" letter-spacing="-2">JUNNIOR</text>
+    <rect x="72" y="183" width="64" height="5" fill="#D4AF37"/>
+    <text x="72" y="225" fill="#24364B" font-size="24" font-weight="500">Software e inteligência artificial aplicada</text>
+    <text x="72" y="260" fill="#526174" font-size="17" font-weight="500">Produtos digitais construídos para resolver problemas reais.</text>
+  </g>
+  <g fill="#0A192F">
+    <rect x="1064" y="218" width="12" height="12" rx="2"/>
+    <rect x="1088" y="218" width="12" height="12" rx="2" opacity=".65"/>
+    <rect x="1112" y="218" width="12" height="12" rx="2" opacity=".35"/>
+  </g>
+</svg>
