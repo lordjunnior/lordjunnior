@@ -1,20 +1,45 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Junnior (Lord)
 
-# Run and deploy your AI Studio app
+Desenvolvedor independente e profissional multidisciplinar, com atuação em inteligência artificial aplicada, desenvolvimento de interfaces, design estratégico e produção audiovisual.
 
-This contains everything you need to run your app locally.
+Transformo ideias em soluções práticas: ferramentas digitais, experiências web e fluxos de produção que conectam tecnologia, criatividade e comunicação.
 
-View your app in AI Studio: https://ai.studio/apps/499e5f6e-072d-4f63-9599-e43027c358f7
+## Áreas de atuação
 
-## Run Locally
+- **Inteligência artificial aplicada:** experimentação com modelos, ferramentas e fluxos de trabalho com IA, incluindo soluções locais.
+- **Desenvolvimento web:** interfaces frontend e prototipação de produtos digitais.
+- **Automação de processos criativos:** integração de ferramentas para reduzir tarefas repetitivas e organizar fluxos de produção.
+- **Design e comunicação:** direção visual, design de interfaces e conteúdo audiovisual.
 
-**Prerequisites:**  Node.js
+## Ferramentas e tecnologias
 
+**IA e fluxos locais:** Ollama, LM Studio, ComfyUI, Pinokio e Hermes  
+**Design e audiovisual:** Photoshop, Figma, Canva, CorelDRAW, CapCut e Sony Vegas  
+**Desenvolvimento:** tecnologias web e ferramentas de prototipação, conforme as necessidades de cada projeto
 
-1. Install dependencies:
+## Como trabalho
+
+- Priorizo soluções úteis, claras e sustentáveis.
+- Combino pesquisa, prototipação e testes para evoluir ideias.
+- Busco automatizar tarefas repetitivas sem perder o controle sobre o resultado.
+- Aprendo construindo, documentando e melhorando continuamente.
+
+## Projeto neste repositório
+
+Este repositório também contém uma aplicação criada com o Google AI Studio.
+
+[Abrir a aplicação no Google AI Studio](https://ai.studio/apps/499e5f6e-072d-4f63-9599-e43027c358f7)
+
+### Executar localmente
+
+**Pré-requisito:** Node.js
+
+1. Instale as dependências:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Configure sua chave `GEMINI_API_KEY` no arquivo `.env.local`.
+3. Inicie a aplicação:
    `npm run dev`
+
+---
+
+Explore os repositórios para acompanhar projetos, aplicações e experimentos em desenvolvimento.
