@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="250" viewBox="0 0 1200 250" role="img" aria-labelledby="title desc">
+  <title id="title">Junnior — laboratório de produtos digitais</title>
+  <desc id="desc">Painel visual com as áreas software, IA aplicada, ferramentas e plataformas.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8f6ef"/>
+      <stop offset="1" stop-color="#e8edf2"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0d2b45"/>
+      <stop offset="1" stop-color="#b68a42"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="250" rx="18" fill="url(#bg)"/>
+  <path d="M0 205 H1200" stroke="#d3d9dc" stroke-width="1"/>
+  <path d="M0 224 H1200" stroke="#d3d9dc" stroke-width="1"/>
+  <path d="M800 0 L1060 250 M900 0 L1160 250 M1000 0 L1200 200" stroke="#d6dde0" stroke-width="1" fill="none"/>
+  <rect x="48" y="36" width="7" height="145" rx="3.5" fill="url(#line)"/>
+  <text x="78" y="72" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="4" fill="#9a763b">INDEPENDENT BUILDER / BRAZIL</text>
+  <text x="76" y="133" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="800" letter-spacing="-2" fill="#102b43">JUNNIOR</text>
+  <text x="80" y="165" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#40576a">Software, IA aplicada e produtos digitais</text>
+  <g transform="translate(820 45)">
+    <rect width="320" height="44" rx="8" fill="#102b43"/>
+    <text x="20" y="28" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="1.4" fill="#ffffff">PRODUCT ENGINEERING</text>
+    <rect y="56" width="320" height="44" rx="8" fill="#ffffff" stroke="#ccd5da"/>
+    <text x="20" y="84" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="1.4" fill="#102b43">AI + AUTOMATION</text>
+    <rect y="112" width="320" height="44" rx="8" fill="#ffffff" stroke="#ccd5da"/>
+    <text x="20" y="140" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="1.4" fill="#102b43">TOOLS + PLATFORMS</text>
+  </g>
+  <text x="80" y="222" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#52697a">IDEIA → IMPLEMENTAÇÃO → EVOLUÇÃO</text>
+</svg>
