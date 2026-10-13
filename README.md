@@ -78,6 +78,36 @@ Gosto de trabalhar de ponta a ponta: entender o problema, desenhar a experiênci
   </tr>
 </table>
 
+## Ferramentas autorais em produção e desenvolvimento
+
+Além dos projetos independentes, desenvolvi ferramentas interativas integradas à plataforma **Soberania Individual**. Elas resolvem problemas específicos com calculadoras, simuladores, geradores e interfaces próprias.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://lordjunnior.com.br/ferramentas">Bitcoin e soberania financeira</a></h3>
+      <ul>
+        <li><strong>Gerador de Entropia BIP-39:</strong> geração local de mnemônicos com aleatoriedade criptográfica do navegador, lista oficial e validação de checksum.</li>
+        <li><strong>Bitcoin vs. Imóveis:</strong> simulador comparativo de valorização.</li>
+        <li><strong>O Último Bloco:</strong> visualização de dinâmica de oferta do Bitcoin.</li>
+        <li><strong>SaveSat:</strong> comparação de taxas e spreads de saque.</li>
+        <li><strong>Lucro do Bitcoin:</strong> simulador de preço médio, retorno e projeções.</li>
+      </ul>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://lordjunnior.com.br/ferramentas">Utilitários e análise</a></h3>
+      <ul>
+        <li><strong>Calculadora Taxa de Fuga:</strong> estimativa de custos de mudança internacional.</li>
+        <li><strong>Tradutor de Novilíngua:</strong> dicionário satírico interativo.</li>
+        <li><strong>HoraJusta:</strong> ferramenta de registro de jornada e cálculo de horas.</li>
+        <li><strong>VerificaBR:</strong> conceito de análise de dados públicos, identificado como projeto em teste.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+**[Abrir o hub de ferramentas →](https://lordjunnior.com.br/ferramentas)**
+
 ## Outras frentes do laboratório
 
 <details>
