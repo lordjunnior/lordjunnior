@@ -27,7 +27,7 @@
 
 **Eu conecto estratégia, experiência do usuário, design e código para transformar ideias em produtos digitais funcionais.**
 
-Sou desenvolvedor independente, designer e educador digital em Santa Catarina, Brasil. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios.
+Sou desenvolvedor independente, designer e educador digital em Santa Catarina, Brasil. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios. Meu laboratório reúne **62 repositórios** entre produtos, protótipos e estudos técnicos, com diferentes estágios de maturidade.
 
 Minha forma de trabalhar resolve um problema comum: quando estratégia, interface, desenvolvimento e publicação ficam desconectados, o produto perde clareza. Eu consigo conduzir essas etapas de forma integrada, mantendo o objetivo do projeto visível do primeiro esboço ao deploy.
 
@@ -67,7 +67,7 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
   <tr>
     <td width="50%" valign="top">
       <a href="https://lordtecaretro.vercel.app/">
-        <img src="assets/projects/lab-digital.svg" alt="LordTecaRetro — projeto web de entretenimento retrô acessível pelo navegador." width="100%" />
+        <img src="assets/projects/lab-digital.svg" alt="Ilustração conceitual de portfólio para um projeto web; não é uma captura de tela do LordTecaRetro." width="100%" />
       </a>
       <h3><a href="https://lordtecaretro.vercel.app/">03 · LordTecaRetro</a></h3>
       Projeto de entretenimento retrô com experiência de acesso pelo navegador. Uma demonstração de como organizar uma ideia de nicho em uma experiência digital navegável.
