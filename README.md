@@ -67,16 +67,16 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
   <tr>
     <td width="50%" valign="top">
       <a href="https://lordtecaretro.vercel.app/">
-        <img src="assets/projects/lordtecaretro.svg" alt="LordTecaRetro — Centro de entretenimento retrô no navegador." width="100%" />
+        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Ilustração conceitual de portfólio para um projeto web; não é uma captura de tela do LordTecaRetro." width="100%" />
       </a>
       <h3><a href="https://lordtecaretro.vercel.app/">03 · LordTecaRetro</a></h3>
-      **Um centro de entretenimento retrô gratuito, direto no navegador.** Reúne a nostalgia dos jogos clássicos e a praticidade de jogar sem pagar, sem anúncios e sem precisar instalar programas desconhecidos. O LordTecaRetro transforma emuladores e jogos retrô em uma experiência acessível: escolha o jogo, abra e jogue. Para quem procura emuladores online grátis, jogos clássicos no navegador e diversão sem mensalidade, a proposta é simples: voltar aos clássicos sem complicação, cobrança ou interrupções publicitárias.
+      **Um centro de entretenimento retrô gratuito, direto no navegador.** Reúna a nostalgia dos jogos clássicos e a praticidade de jogar sem pagar, sem anúncios e sem precisar instalar programas desconhecidos. O LordTecaRetro transforma emuladores e jogos retrô em uma experiência acessível: escolha o jogo, abra e jogue. Para quem procura emuladores online grátis, jogos clássicos no navegador e diversão sem mensalidade, a proposta é simples: voltar aos clássicos sem complicação, cobrança ou interrupções publicitárias.
       <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>Express</code> <code>Firebase</code></p>
       <a href="https://lordtecaretro.vercel.app/">Acessar projeto →</a> · <a href="https://github.com/lordjunnior/LordTecaRetro">Ver código →</a>
     </td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/cofre-fantasma">
-        <img src="assets/projects/cofre-fantasma.svg" alt="Cofre Fantasma — Autocustódia de Bitcoin com Air-Gap." width="100%" />
+        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Cofre Fantasma — projeto de autocustódia de Bitcoin com dispositivo air-gap e troca de dados por QR code." width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/cofre-fantasma">04 · Cofre Fantasma</a></h3>
       Manual técnico para estruturar um cofre de Bitcoin isolado da internet com hardware acessível, comunicação por QR code e operação em memória volátil. Um caminho para estudar autocustódia air-gap sem depender exclusivamente de carteiras comerciais.
@@ -87,7 +87,7 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
   <tr>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/zero-rastro">
-        <img src="assets/projects/zero-rastro.svg" alt="Zero Rastro — Arsenal de privacidade digital e higiene de dados." width="100%" />
+        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Zero Rastro — arsenal de privacidade digital, higiene de metadados e ferramentas locais." width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/zero-rastro">05 · Zero Rastro</a></h3>
       Arsenal defensivo de privacidade digital para reduzir pegadas, metadados expostos e dependência de serviços em nuvem. Reúne procedimentos e ferramentas locais de código aberto para quem quer recuperar controle sobre os próprios dados.
@@ -96,7 +96,7 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
     </td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/chave-blindada">
-        <img src="assets/projects/chave-blindada.svg" alt="Chave Blindada — Arquitetura de custódia com limiar FROST." width="100%" />
+        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Chave Blindada — arquitetura de custódia de Bitcoin com assinatura por limiar FROST." width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/chave-blindada">06 · Chave Blindada</a></h3>
       Projeto de estudo e documentação sobre assinatura por limiar FROST, geração distribuída de chaves e regras de autorização M-de-N. A proposta é eliminar o ponto único de falha: nenhum dispositivo isolado deve concentrar todo o poder de movimentar os fundos.
