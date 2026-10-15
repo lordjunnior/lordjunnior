@@ -104,6 +104,26 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
       <a href="https://github.com/lordjunnior/chave-blindada">Explorar o projeto →</a>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/pericia-oculta">
+        <img src="assets/projects/pericia-oculta.svg?v=20261015" alt="Perícia Oculta — ferramenta de inspeção e análise profunda de metadados em arquivos digitais." width="100%" />
+      </a>
+      <h3><a href="https://github.com/lordjunnior/pericia-oculta">07 · Perícia Oculta</a></h3>
+      Ferramenta de análise forense de metadados para investigar a estrutura interna de arquivos digitais e identificar informações que podem passar despercebidas: dados de câmera, coordenadas GPS, software utilizado e timestamps originais. Também permite purgar metadados, ajudando a compreender e controlar o que um arquivo revela sobre sua origem.
+      <p><code>Privacidade</code> <code>Metadados</code> <code>Análise forense</code> <code>Arquivos digitais</code></p>
+      <a href="https://github.com/lordjunnior/pericia-oculta">Explorar o projeto →</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/anula-rastro">
+        <img src="assets/projects/anula-rastro.svg?v=20261015" alt="Anula-Rastro — ferramenta de limpeza profunda e remoção ativa de metadados de arquivos." width="100%" />
+      </a>
+      <h3><a href="https://github.com/lordjunnior/anula-rastro">08 · Anula-Rastro</a></h3>
+      Ferramenta de limpeza profunda voltada à remoção ativa de metadados de imagens, áudio, vídeo e documentos PDF. Complementa a inspeção com uma etapa prática de higienização dos arquivos antes do envio ou da publicação, reduzindo a exposição de informações embutidas que podem comprometer a privacidade.
+      <p><code>Privacidade digital</code> <code>Limpeza de metadados</code> <code>Imagens</code> <code>Áudio e vídeo</code> <code>PDF</code></p>
+      <a href="https://github.com/lordjunnior/anula-rastro">Explorar o projeto →</a>
+    </td>
+  </tr>
 </table>
 
 ## Ferramentas autorais: transformar problemas em soluções utilizáveis
