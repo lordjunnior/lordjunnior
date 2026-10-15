@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+<title id="title">Anula-Rastro — limpeza profunda de metadados</title><desc id="desc">Identidade visual editorial para ferramenta de remoção de metadados em arquivos digitais.</desc>
+<rect width="1200" height="420" rx="18" fill="#f3f5f7"/><rect x="28" y="28" width="1144" height="364" rx="12" fill="#fff" stroke="#d7dde4" stroke-width="2"/>
+<rect x="60" y="60" width="7" height="300" rx="3" fill="#27715d"/>
+<g transform="translate(100 105)" fill="none" stroke="#27715d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 0h102l48 48v154H22z"/><path d="M124 0v48h48"/><path d="M48 82h92M48 112h92M48 142h53"/><circle cx="135" cy="163" r="34" fill="#e3f2ec"/><path d="M118 163l12 12 23-26"/></g>
+<text x="330" y="122" fill="#4c6c62" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="5">HIGIENE DE ARQUIVOS</text>
+<text x="330" y="205" fill="#163d33" font-family="Arial,sans-serif" font-size="66" font-weight="700">ANULA-RASTRO</text>
+<text x="332" y="258" fill="#435f56" font-family="Arial,sans-serif" font-size="29">Remoção ativa de metadados</text>
+<text x="332" y="306" fill="#647c73" font-family="Arial,sans-serif" font-size="21">Imagens · áudio · vídeo · documentos PDF</text>
+<rect x="332" y="330" width="228" height="34" rx="17" fill="#e3f2ec"/><text x="446" y="353" fill="#27715d" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="1">LIMPEZA PROFUNDA</text>
+</svg>
