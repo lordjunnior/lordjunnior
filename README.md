@@ -70,25 +70,45 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
         <img src="assets/projects/lab-digital.svg" alt="Ilustração conceitual de portfólio para um projeto web; não é uma captura de tela do LordTecaRetro." width="100%" />
       </a>
       <h3><a href="https://lordtecaretro.vercel.app/">03 · LordTecaRetro</a></h3>
-      Projeto de entretenimento retrô com experiência de acesso pelo navegador. Uma demonstração de como organizar uma ideia de nicho em uma experiência digital navegável.
+      **Um centro de entretenimento retrô gratuito, direto no navegador.** Reúna a nostalgia dos jogos clássicos e a praticidade de jogar sem pagar, sem anúncios e sem precisar instalar programas desconhecidos. O LordTecaRetro transforma emuladores e jogos retrô em uma experiência acessível: escolha o jogo, abra e jogue. Para quem procura emuladores online grátis, jogos clássicos no navegador e diversão sem mensalidade, a proposta é simples: voltar aos clássicos sem complicação, cobrança ou interrupções publicitárias.
       <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>Express</code> <code>Firebase</code></p>
       <a href="https://lordtecaretro.vercel.app/">Acessar projeto →</a> · <a href="https://github.com/lordjunnior/LordTecaRetro">Ver código →</a>
     </td>
     <td width="50%" valign="top">
-      <a href="https://github.com/lordjunnior/right-time">
-        <img src="assets/projects/right-time.svg" alt="Right Time — ferramenta de controle de jornada e organização de registros de trabalho." width="100%" />
+      <a href="https://github.com/lordjunnior/cofre-fantasma">
+        <img src="assets/projects/lab-digital.svg" alt="Cofre Fantasma — projeto de autocustódia de Bitcoin com dispositivo air-gap e troca de dados por QR code." width="100%" />
       </a>
-      <h3><a href="https://github.com/lordjunnior/right-time">04 · Right Time</a></h3>
-      Ferramenta de controle de jornada com cálculo de horas, registro fotográfico com timestamp e exportação de relatório para o RH.
-      <p><code>React</code> <code>TypeScript</code> <code>PDF</code></p>
-      <sub>Repositório privado; apresentação conceitual do projeto.</sub>
+      <h3><a href="https://github.com/lordjunnior/cofre-fantasma">04 · Cofre Fantasma</a></h3>
+      Manual técnico para estruturar um cofre de Bitcoin isolado da internet com hardware acessível, comunicação por QR code e operação em memória volátil. Um caminho para estudar autocustódia air-gap sem depender exclusivamente de carteiras comerciais.
+      <p><code>Bitcoin</code> <code>Air-Gap</code> <code>Autocustódia</code> <code>Segurança</code></p>
+      <a href="https://github.com/lordjunnior/cofre-fantasma">Explorar o projeto →</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/zero-rastro">
+        <img src="assets/projects/lab-digital.svg" alt="Zero Rastro — arsenal de privacidade digital, higiene de metadados e ferramentas locais." width="100%" />
+      </a>
+      <h3><a href="https://github.com/lordjunnior/zero-rastro">05 · Zero Rastro</a></h3>
+      Arsenal defensivo de privacidade digital para reduzir pegadas, metadados expostos e dependência de serviços em nuvem. Reúne procedimentos e ferramentas locais de código aberto para quem quer recuperar controle sobre os próprios dados.
+      <p><code>Privacidade</code> <code>Metadados</code> <code>Open Source</code> <code>Segurança digital</code></p>
+      <a href="https://github.com/lordjunnior/zero-rastro">Explorar o projeto →</a>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/chave-blindada">
+        <img src="assets/projects/lab-digital.svg" alt="Chave Blindada — arquitetura de custódia de Bitcoin com assinatura por limiar FROST." width="100%" />
+      </a>
+      <h3><a href="https://github.com/lordjunnior/chave-blindada">06 · Chave Blindada</a></h3>
+      Projeto de estudo e documentação sobre assinatura por limiar FROST, geração distribuída de chaves e regras de autorização M-de-N. A proposta é eliminar o ponto único de falha: nenhum dispositivo isolado deve concentrar todo o poder de movimentar os fundos.
+      <p><code>Bitcoin</code> <code>FROST</code> <code>Threshold Signatures</code> <code>Autocustódia</code></p>
+      <a href="https://github.com/lordjunnior/chave-blindada">Explorar o projeto →</a>
     </td>
   </tr>
 </table>
 
 ## Ferramentas autorais: transformar problemas em soluções utilizáveis
 
-Também desenvolvo utilitários, simuladores, calculadoras e experiências interativas. Eles mostram outra parte do meu trabalho: decompor uma necessidade em regras claras, construir uma interface objetiva e entregar algo que as pessoas possam usar.
+Além dos projetos de maior escopo, desenvolvo utilitários, simuladores, calculadoras e experiências interativas no meu site. Eles mostram outra parte do meu trabalho: decompor uma necessidade em regras claras, construir uma interface objetiva e entregar algo que as pessoas possam usar.
 
 <table>
   <tr>
