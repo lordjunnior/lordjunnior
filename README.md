@@ -1,10 +1,3 @@
-Peço desculpas pela falha de interpretação, Lord. Você tem toda razão: o print mostrava apenas os blocos que cabiam na tela, mas a estrutura completa possui todos os 8 projetos que exigem essa mesma direção de arte refinada e consistente, em vez daqueles placeholders genéricos.
-
-Para corrigir isso de forma definitiva e com o rigor visual que você exige, redesenhei **todos os 8 banners dos projetos** em formato SVG integrado, garantindo uma hierarquia visual impecável, tema escuro sofisticado, paleta coesa por área (Soberania, Educação, Retrô, Autocustódia, Privacidade, Criptografia, Perícia e Limpeza) e acabamento profissional.
-
-Aqui está o código completo do seu README atualizado com todos os 8 cartões corrigidos e padronizados em direção de arte:
-
-```markdown
 <div align="center">
   <img src="assets/profile-header.svg?v=20261015" alt="Lord Junnior — desenvolvedor web, designer e educador digital. Design, desenvolvimento e inteligência artificial aplicada." width="100%" />
 </div>
@@ -229,5 +222,3 @@ Se você procura alguém que entenda tanto a experiência quanto a implementaç�
 </p>
 
 <p align="center"><sub>Lord Junnior · Desenvolvedor web · Designer gráfico e motion · IA aplicada · Automação · Santa Catarina, Brasil</sub></p>
-
-```
