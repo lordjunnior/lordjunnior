@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="assets/profile-header.svg" alt="Lord Junnior — desenvolvedor web, designer e educador digital. Da ideia ao produto no ar." width="100%" />
+  <img src="assets/profile-header.svg?v=20261015" alt="Lord Junnior — desenvolvedor web, designer e educador digital. Da ideia ao produto no ar." width="100%" />
 </div>
 
 <p align="center">
-  <img src="assets/proof-strip.svg" alt="Mais de 17 anos de experiência em design e motion; atuação multidisciplinar em estratégia, design, código e IA; produtos digitais, ferramentas autorais e projetos open source." width="100%" />
+  <img src="assets/proof-strip.svg?v=20261015" alt="Mais de 17 anos de experiência em design e motion; atuação multidisciplinar em estratégia, design, código e IA; produtos digitais, ferramentas autorais e projetos open source." width="100%" />
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@
 
 **Eu conecto estratégia, experiência do usuário, design e código para transformar ideias em produtos digitais funcionais.**
 
-Sou desenvolvedor independente, designer e educador digital em Santa Catarina, Brasil. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios. Meu portfólio reúne produtos digitais publicados, ferramentas autorais, projetos de código aberto, protótipos e estudos técnicos. A experiência acumulada desde 2008 atravessa diferentes formatos e tecnologias, do design e audiovisual ao desenvolvimento de aplicações, automações e inteligência artificial aplicada.
+Sou desenvolvedor independente, designer e educador digital em Santa Catarina, Brasil. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios. Meu portfólio reúne produtos digitais publicados, ferramentas autorais e projetos de código aberto. A trajetória combina design, audiovisual, desenvolvimento de aplicações, automações e inteligência artificial aplicada, com foco em transformar necessidades concretas em experiências digitais funcionais.
 
 Minha forma de trabalhar resolve um problema comum: quando estratégia, interface, desenvolvimento e publicação ficam desconectados, o produto perde clareza. Eu consigo conduzir essas etapas de forma integrada, mantendo o objetivo do projeto visível do primeiro esboço ao deploy.
 
