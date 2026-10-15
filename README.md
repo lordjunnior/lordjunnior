@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-  <img src="assets/proof-strip.svg" alt="Mais de 17 anos de design e motion, 3 produtos no ar e uma pessoa conduzindo o trabalho do começo ao fim." width="100%" />
+  <img src="assets/proof-strip.svg" alt="Mais de 17 anos de experiência em design e motion; atuação multidisciplinar em estratégia, design, código e IA; produtos digitais, ferramentas autorais e projetos open source." width="100%" />
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@
 
 **Eu conecto estratégia, experiência do usuário, design e código para transformar ideias em produtos digitais funcionais.**
 
-Sou desenvolvedor independente, designer e educador digital em Santa Catarina, Brasil. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios. Meu laboratório reúne **62 repositórios** entre produtos, protótipos e estudos técnicos, com diferentes estágios de maturidade.
+Sou desenvolvedor independente, designer e educador digital em Santa Catarina, Brasil. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios. Meu portfólio reúne produtos digitais publicados, ferramentas autorais, projetos de código aberto, protótipos e estudos técnicos. A experiência acumulada desde 2008 atravessa diferentes formatos e tecnologias, do design e audiovisual ao desenvolvimento de aplicações, automações e inteligência artificial aplicada.
 
 Minha forma de trabalhar resolve um problema comum: quando estratégia, interface, desenvolvimento e publicação ficam desconectados, o produto perde clareza. Eu consigo conduzir essas etapas de forma integrada, mantendo o objetivo do projeto visível do primeiro esboço ao deploy.
 
