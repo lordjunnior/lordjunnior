@@ -67,7 +67,7 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
   <tr>
     <td width="50%" valign="top">
       <a href="https://lordtecaretro.vercel.app/">
-        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Ilustração conceitual de portfólio para um projeto web; não é uma captura de tela do LordTecaRetro." width="100%" />
+        <img src="assets/projects/lordtecaretro.svg?v=20261024" alt="Capa exclusiva do LordTecaRetro, com linguagem visual de jogos retrô." width="100%" />
       </a>
       <h3><a href="https://lordtecaretro.vercel.app/">03 · LordTecaRetro</a></h3>
       **Um centro de entretenimento retrô gratuito, direto no navegador.** Reúna a nostalgia dos jogos clássicos e a praticidade de jogar sem pagar, sem anúncios e sem precisar instalar programas desconhecidos. O LordTecaRetro transforma emuladores e jogos retrô em uma experiência acessível: escolha o jogo, abra e jogue. Para quem procura emuladores online grátis, jogos clássicos no navegador e diversão sem mensalidade, a proposta é simples: voltar aos clássicos sem complicação, cobrança ou interrupções publicitárias.
@@ -76,7 +76,7 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
     </td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/cofre-fantasma">
-        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Cofre Fantasma — projeto de autocustódia de Bitcoin com dispositivo air-gap e troca de dados por QR code." width="100%" />
+        <img src="assets/projects/cofre-fantasma.svg?v=20261024" alt="Capa exclusiva do Cofre Fantasma, sobre autocustódia Bitcoin e isolamento air-gap." width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/cofre-fantasma">04 · Cofre Fantasma</a></h3>
       Manual técnico para estruturar um cofre de Bitcoin isolado da internet com hardware acessível, comunicação por QR code e operação em memória volátil. Um caminho para estudar autocustódia air-gap sem depender exclusivamente de carteiras comerciais.
@@ -87,7 +87,7 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
   <tr>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/zero-rastro">
-        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Zero Rastro — arsenal de privacidade digital, higiene de metadados e ferramentas locais." width="100%" />
+        <img src="assets/projects/zero-rastro.svg?v=20261024" alt="Capa exclusiva do Zero Rastro, dedicada à privacidade e higiene digital." width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/zero-rastro">05 · Zero Rastro</a></h3>
       Arsenal defensivo de privacidade digital para reduzir pegadas, metadados expostos e dependência de serviços em nuvem. Reúne procedimentos e ferramentas locais de código aberto para quem quer recuperar controle sobre os próprios dados.
@@ -96,7 +96,7 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
     </td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/chave-blindada">
-        <img src="assets/projects/lab-digital.svg?v=20261015b" alt="Chave Blindada — arquitetura de custódia de Bitcoin com assinatura por limiar FROST." width="100%" />
+        <img src="assets/projects/chave-blindada.svg?v=20261024" alt="Capa exclusiva da Chave Blindada, sobre assinatura distribuída FROST." width="100%" />
       </a>
       <h3><a href="https://github.com/lordjunnior/chave-blindada">06 · Chave Blindada</a></h3>
       Projeto de estudo e documentação sobre assinatura por limiar FROST, geração distribuída de chaves e regras de autorização M-de-N. A proposta é eliminar o ponto único de falha: nenhum dispositivo isolado deve concentrar todo o poder de movimentar os fundos.
@@ -133,11 +133,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
 <table>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-escritorio-agentes"><img src="assets/projects/lord-escritorio-agentes.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord escritorio agentes." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-escritorio-agentes">Lord Escritório de Agentes</a></h3>
       Ambiente visual para acompanhar agentes de programação em projetos distintos, com salas, personagens e indicadores de atividade. Desenvolvido para tornar o trabalho paralelo de agentes mais observável.
       <p><code>TypeScript</code> <code>Node.js</code> <code>Agentes de IA</code></p>
     </td>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-diretrizes-design"><img src="assets/projects/lord-diretrizes-design.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord diretrizes design." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-diretrizes-design">Lord Diretrizes de Design</a></h3>
       Diretrizes e competências modulares para orientar agentes de IA em tarefas de design, interface e produção digital, com instruções organizadas e reutilizáveis.
       <p><code>Agent Skills</code> <code>Design systems</code> <code>Automação</code></p>
@@ -145,11 +147,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
   </tr>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-padroes-frontend"><img src="assets/projects/lord-padroes-frontend.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord padroes frontend." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-padroes-frontend">Lord Padrões Frontend</a></h3>
       Referência de padrões de engenharia frontend com foco em acessibilidade, desempenho, composição de componentes e manutenção de aplicações modernas.
       <p><code>React</code> <code>Vite</code> <code>WCAG</code></p>
     </td>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-habilidades-gsap"><img src="assets/projects/lord-habilidades-gsap.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord habilidades gsap." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-habilidades-gsap">Lord Habilidades GSAP</a></h3>
       Regras e práticas para animações web com GSAP, incluindo ciclo de vida, uso de propriedades aceleradas por GPU, acessibilidade e integração com agentes de programação.
       <p><code>GSAP</code> <code>React</code> <code>Motion design</code></p>
@@ -157,11 +161,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
   </tr>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-principios-animacao"><img src="assets/projects/lord-principios-animacao.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord principios animacao." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-principios-animacao">Lord Princípios de Animação</a></h3>
       Guia agnóstico de biblioteca para timing, easing, coreografia espacial e intenção visual, estruturado para apoiar pessoas e agentes na criação de movimento para interfaces.
       <p><code>Motion design</code> <code>UI</code> <code>Agent Skills</code></p>
     </td>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-cenas-3d"><img src="assets/projects/lord-cenas-3d.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord cenas 3d." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-cenas-3d">Lord Cenas 3D</a></h3>
       Experimentos de reconstrução procedural de objetos e cenas em Three.js a partir de referências visuais, com geometria e código preparados para exploração em tempo real.
       <p><code>Three.js</code> <code>TypeScript</code> <code>3D procedural</code></p>
@@ -169,11 +175,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
   </tr>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-editor-video"><img src="assets/projects/lord-editor-video.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord editor video." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-editor-video">Lord Editor de Vídeo</a></h3>
       Repositório relacionado ao Concat, editor de vídeo open source. É apresentado como adaptação/curadoria de um projeto existente, não como software inteiramente criado do zero.
       <p><code>Vídeo</code> <code>Open source</code> <code>Audiovisual</code></p>
     </td>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/instagram-agent-skill"><img src="assets/projects/instagram-agent-skill.svg?v=20261024" alt="Capa editorial exclusiva do projeto instagram agent skill." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/instagram-agent-skill">Instagram Agent Skill</a></h3>
       Coleção de competências open source para apoiar pesquisa, planejamento e produção de conteúdo para Instagram. Derivado de um projeto de terceiros; consulte os créditos e a licença no repositório.
       <p><code>Agentes de IA</code> <code>Conteúdo</code> <code>Automação</code></p>
@@ -181,11 +189,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
   </tr>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-encontrador-de-chaves-btc"><img src="assets/projects/lord-encontrador-de-chaves-btc.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord encontrador de chaves btc." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-encontrador-de-chaves-btc">Lord Encontrador de Chaves BTC</a></h3>
       Laboratório de estudo de computação criptográfica, paralelismo e derivação de endereços Bitcoin. O uso deve ficar restrito a testes autorizados, dados próprios e ambientes de pesquisa; não é um método prático para recuperar carteiras de terceiros.
       <p><code>Node.js</code> <code>Worker Threads</code> <code>Criptografia</code></p>
     </td>
     <td width="50%" valign="top">
+      <a href="https://github.com/lordjunnior/lord-cacachaves"><img src="assets/projects/lord-cacachaves.svg?v=20261024" alt="Capa editorial exclusiva do projeto lord cacachaves." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-cacachaves">Lord Caça-Chaves</a> · <a href="https://github.com/lordjunnior/lord-rastreador-btc">Lord Rastreador BTC</a></h3>
       Experimentos de desempenho em C e Go com computação de curvas elípticas e processamento concorrente. Projetos de laboratório para análise técnica, não promessas de encontrar fundos ou quebrar a segurança do Bitcoin.
       <p><code>C</code> <code>Go</code> <code>secp256k1</code></p>
@@ -215,6 +225,7 @@ Além dos projetos de maior escopo, desenvolvo utilitários, simuladores, calcul
 <table>
   <tr>
     <td width="50%" valign="top">
+      <a href="https://lordjunnior.com.br/ferramentas"><img src="assets/projects/ferramentas-bitcoin.svg?v=20261024" alt="Capa editorial das ferramentas de Bitcoin, autocustódia e soberania financeira." width="100%" /></a>
       <h3><a href="https://lordjunnior.com.br/ferramentas">Bitcoin, autocustódia e soberania financeira</a></h3>
       - **Gerador de Entropia BIP-39:** geração local de mnemônicos com aleatoriedade criptográfica do navegador, lista oficial e validação de checksum.
       - **Bitcoin vs. Imóveis:** simulador comparativo de valorização.
@@ -224,6 +235,7 @@ Além dos projetos de maior escopo, desenvolvo utilitários, simuladores, calcul
       <p><a href="https://lordjunnior.com.br/ferramentas">Explorar ferramentas →</a></p>
     </td>
     <td width="50%" valign="top">
+      <a href="https://lordjunnior.com.br/ferramentas"><img src="assets/projects/ferramentas-utilitarios.svg?v=20261024" alt="Capa editorial dos utilitários, ferramentas de análise e experimentação." width="100%" /></a>
       <h3><a href="https://lordjunnior.com.br/ferramentas">Utilitários, análise e experimentação</a></h3>
       - **Calculadora Taxa de Fuga:** estimativa de custos de mudança internacional.
       - **Tradutor de Novilíngua:** dicionário satírico interativo.
