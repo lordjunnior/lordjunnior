@@ -126,6 +126,88 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
   </tr>
 </table>
 
+## Laboratório técnico: novos repositórios
+
+Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que explora privacidade, segurança, engenharia de interfaces, agentes de IA, motion design e ferramentas de criação. A lista abaixo amplia a visão do trabalho sem confundir projetos autorais com referências e bases open source.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-escritorio-agentes">Lord Escritório de Agentes</a></h3>
+      Ambiente visual para acompanhar agentes de programação em projetos distintos, com salas, personagens e indicadores de atividade. Desenvolvido para tornar o trabalho paralelo de agentes mais observável.
+      <p><code>TypeScript</code> <code>Node.js</code> <code>Agentes de IA</code></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-diretrizes-design">Lord Diretrizes de Design</a></h3>
+      Diretrizes e competências modulares para orientar agentes de IA em tarefas de design, interface e produção digital, com instruções organizadas e reutilizáveis.
+      <p><code>Agent Skills</code> <code>Design systems</code> <code>Automação</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-padroes-frontend">Lord Padrões Frontend</a></h3>
+      Referência de padrões de engenharia frontend com foco em acessibilidade, desempenho, composição de componentes e manutenção de aplicações modernas.
+      <p><code>React</code> <code>Vite</code> <code>WCAG</code></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-habilidades-gsap">Lord Habilidades GSAP</a></h3>
+      Regras e práticas para animações web com GSAP, incluindo ciclo de vida, uso de propriedades aceleradas por GPU, acessibilidade e integração com agentes de programação.
+      <p><code>GSAP</code> <code>React</code> <code>Motion design</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-principios-animacao">Lord Princípios de Animação</a></h3>
+      Guia agnóstico de biblioteca para timing, easing, coreografia espacial e intenção visual, estruturado para apoiar pessoas e agentes na criação de movimento para interfaces.
+      <p><code>Motion design</code> <code>UI</code> <code>Agent Skills</code></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-cenas-3d">Lord Cenas 3D</a></h3>
+      Experimentos de reconstrução procedural de objetos e cenas em Three.js a partir de referências visuais, com geometria e código preparados para exploração em tempo real.
+      <p><code>Three.js</code> <code>TypeScript</code> <code>3D procedural</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-editor-video">Lord Editor de Vídeo</a></h3>
+      Repositório relacionado ao Concat, editor de vídeo open source. É apresentado como adaptação/curadoria de um projeto existente, não como software inteiramente criado do zero.
+      <p><code>Vídeo</code> <code>Open source</code> <code>Audiovisual</code></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/instagram-agent-skill">Instagram Agent Skill</a></h3>
+      Coleção de competências open source para apoiar pesquisa, planejamento e produção de conteúdo para Instagram. Derivado de um projeto de terceiros; consulte os créditos e a licença no repositório.
+      <p><code>Agentes de IA</code> <code>Conteúdo</code> <code>Automação</code></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-encontrador-de-chaves-btc">Lord Encontrador de Chaves BTC</a></h3>
+      Laboratório de estudo de computação criptográfica, paralelismo e derivação de endereços Bitcoin. O uso deve ficar restrito a testes autorizados, dados próprios e ambientes de pesquisa; não é um método prático para recuperar carteiras de terceiros.
+      <p><code>Node.js</code> <code>Worker Threads</code> <code>Criptografia</code></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/lordjunnior/lord-cacachaves">Lord Caça-Chaves</a> · <a href="https://github.com/lordjunnior/lord-rastreador-btc">Lord Rastreador BTC</a></h3>
+      Experimentos de desempenho em C e Go com computação de curvas elípticas e processamento concorrente. Projetos de laboratório para análise técnica, não promessas de encontrar fundos ou quebrar a segurança do Bitcoin.
+      <p><code>C</code> <code>Go</code> <code>secp256k1</code></p>
+    </td>
+  </tr>
+</table>
+
+### Referências open source e estudos técnicos
+
+Também mantenho cópias de trabalho e estudos de bases abertas como [Privacy Guides](https://github.com/lordjunnior/privacyguides.org), [Krux](https://github.com/lordjunnior/krux) e outros projetos. Esses repositórios não são apresentados como criações originais: consulte os históricos, autores upstream e licenças antes de atribuir autoria ou redistribuir alterações.
+
+- **[Anula-Rastro](https://github.com/lordjunnior/anula-rastro)** — documentação de limpeza local de metadados por reconstrução de arquivos.
+- **[Perícia Oculta](https://github.com/lordjunnior/pericia-oculta)** — guias de inspeção forense de metadados e auditoria de arquivos digitais.
+- **[Zero Rastro](https://github.com/lordjunnior/zero-rastro)** — materiais e ferramentas voltados à privacidade digital.
+- **[Cofre Fantasma](https://github.com/lordjunnior/cofre-fantasma)** — documentação de arquitetura air-gap para estudo de autocustódia.
+- **[Chave Blindada](https://github.com/lordjunnior/chave-blindada)** — estudo de assinatura por limiar e modelos de autorização distribuída.
+- **[Lord Encontrador de Chaves BTC](https://github.com/lordjunnior/lord-encontrador-de-chaves-btc)**, **[Lord Caça-Chaves](https://github.com/lordjunnior/lord-cacachaves)** e **[Lord Rastreador BTC](https://github.com/lordjunnior/lord-rastreador-btc)** — estudos de algoritmos, processamento concorrente e criptografia aplicados ao ecossistema Bitcoin.
+
+> **Transparência:** este perfil reúne produtos publicados, ferramentas autorais, documentação, laboratórios experimentais e estudos de projetos open source. Cada repositório tem seu próprio escopo, estágio e licença; a descrição individual é a referência para entender o que está implementado.
+
+---
+
 ## Ferramentas autorais: transformar problemas em soluções utilizáveis
 
 Além dos projetos de maior escopo, desenvolvo utilitários, simuladores, calculadoras e experiências interativas no meu site. Eles mostram outra parte do meu trabalho: decompor uma necessidade em regras claras, construir uma interface objetiva e entregar algo que as pessoas possam usar.
