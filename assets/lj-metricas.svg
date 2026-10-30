@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 150" width="1280" height="150" role="img" aria-label="17+ anos de design, 237 páginas, 6 mega-silos, 20 ferramentas, 24 repositórios autorais, 0 rastreadores">
+  <defs>
+    <style>
+      .n{font-family:Impact,'Anton','Arial Black',sans-serif;fill:#e8a33d}
+      .l{font-family:'JetBrains Mono',Consolas,monospace;fill:#cbbfae;font-size:13px;letter-spacing:3px}
+      .c{animation:u 1s ease-out both}@keyframes u{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    </style>
+    <linearGradient id="s" x1="0" x2="1"><stop offset="0" stop-color="#c2410c" stop-opacity="0"/><stop offset=".5" stop-color="#e8a33d"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="1280" height="150" rx="16" fill="#0c0907" stroke="#c2410c" stroke-opacity=".5"/>
+  <rect y="146" width="260" height="3" fill="url(#s)"><animate attributeName="x" values="-260;1280" dur="3.5s" repeatCount="indefinite"/></rect>
+  <g text-anchor="middle">
+    <g class="c"><text x="107" y="80" class="n" font-size="54">17+</text><text x="107" y="112" class="l">ANOS</text></g>
+    <g class="c" style="animation-delay:.1s"><text x="320" y="80" class="n" font-size="54">237</text><text x="320" y="112" class="l">PÁGINAS</text></g>
+    <g class="c" style="animation-delay:.2s"><text x="533" y="80" class="n" font-size="54">6</text><text x="533" y="112" class="l">MEGA-SILOS</text></g>
+    <g class="c" style="animation-delay:.3s"><text x="747" y="80" class="n" font-size="54">20</text><text x="747" y="112" class="l">FERRAMENTAS</text></g>
+    <g class="c" style="animation-delay:.4s"><text x="960" y="80" class="n" font-size="54">24</text><text x="960" y="112" class="l">REPOS AUTORAIS</text></g>
+    <g class="c" style="animation-delay:.5s"><text x="1173" y="80" class="n" font-size="54" fill="#c2410c" style="fill:#c2410c">0</text><text x="1173" y="112" class="l">RASTREADORES</text></g>
+  </g>
+</svg>
