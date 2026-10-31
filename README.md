@@ -37,8 +37,8 @@
 <table>
   <tr>
     <td width="28%" valign="top">
-      <img src="assets/profile-side-panel.svg" alt="Áreas de atuação, tecnologias e processo de trabalho de Lord Junnior." width="100%" />
-    </td>
+      <img src="assets/profile-side-panel-v2.svg" alt="Áreas de atuação, tecnologias e processo de trabalho de Lord Junnior." width="100%" />
+</td>
     <td width="72%" valign="top">
 
 ## ◆ Desenvolvimento web, design de produto e IA aplicada
@@ -51,7 +51,7 @@ Minha forma de trabalhar resolve um problema comum: quando estratégia, interfac
 
 **O que isso significa na prática:** menos ruído entre disciplinas, decisões de produto mais coerentes e soluções pensadas tanto para quem usa quanto para quem precisa manter e evoluir o sistema.
 
-    </td>
+</td>
   </tr>
 </table>
 
@@ -69,14 +69,14 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
       Plataforma editorial com ferramentas interativas sobre autonomia financeira, segurança digital, autocustódia e preparação pessoal. Reúne conteúdo, interface, aplicações e experiências próprias em um único produto.
       <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>Tailwind CSS</code></p>
       <a href="https://lordjunnior.com.br/"><b>Acessar produto →</b></a>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://prisma-ensino.vercel.app/"><img src="assets/projects/prisma-ensino.svg" alt="Prisma Ensino — aplicação educacional para criação de atividades e materiais pedagógicos." width="100%" /></a>
       <h3><a href="https://prisma-ensino.vercel.app/">02 · Prisma Ensino</a></h3>
       Aplicação educacional voltada ao trabalho docente, com fluxos para apoiar a criação de exercícios personalizados alinhados à BNCC e a produção de materiais pedagógicos.
       <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>IA aplicada</code></p>
       <a href="https://prisma-ensino.vercel.app/"><b>Acessar aplicação →</b></a> · <a href="https://github.com/lordjunnior/PrismaEnsino">Ver código →</a>
-    </td>
+</td>
   </tr>
   <tr>
     <td width="50%" valign="top">
@@ -85,14 +85,14 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
       <b>Um centro de entretenimento retrô gratuito, direto no navegador.</b> Reúna a nostalgia dos jogos clássicos e a praticidade de jogar sem pagar, sem anúncios e sem precisar instalar programas desconhecidos. O LordTecaRetro transforma emuladores e jogos retrô em uma experiência acessível: escolha o jogo, abra e jogue. Para quem procura emuladores online grátis, jogos clássicos no navegador e diversão sem mensalidade, a proposta é simples: voltar aos clássicos sem complicação, cobrança ou interrupções publicitárias.
       <p><code>React</code> <code>TypeScript</code> <code>Vite</code> <code>Express</code> <code>Firebase</code></p>
       <a href="https://lordtecaretro.vercel.app/"><b>Acessar projeto →</b></a> · <a href="https://github.com/lordjunnior/lordjunnior">Ver código →</a>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/cofre-fantasma"><img src="assets/projects/cofre-fantasma.svg" alt="Cofre Fantasma — autocustódia Bitcoin e isolamento air-gap." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/cofre-fantasma">04 · Cofre Fantasma</a></h3>
       Manual técnico para estruturar um cofre de Bitcoin isolado da internet com hardware acessível, comunicação por QR code e operação em memória volátil. Um caminho para estudar autocustódia air-gap sem depender exclusivamente de carteiras comerciais.
       <p><code>Bitcoin</code> <code>Air-Gap</code> <code>Autocustódia</code> <code>Segurança</code></p>
       <a href="https://github.com/lordjunnior/cofre-fantasma"><b>Explorar o projeto →</b></a>
-    </td>
+</td>
   </tr>
   <tr>
     <td width="50%" valign="top">
@@ -101,14 +101,14 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
       Arsenal defensivo de privacidade digital para reduzir pegadas, metadados expostos e dependência de serviços em nuvem. Reúne procedimentos e ferramentas locais de código aberto para quem quer recuperar controle sobre os próprios dados.
       <p><code>Privacidade</code> <code>Metadados</code> <code>Open Source</code> <code>Segurança digital</code></p>
       <a href="https://github.com/lordjunnior/zero-rastro"><b>Explorar o projeto →</b></a>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/chave-blindada"><img src="assets/projects/chave-blindada.svg" alt="Chave Blindada — assinatura distribuída FROST." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/chave-blindada">06 · Chave Blindada</a></h3>
       Projeto de estudo e documentação sobre assinatura por limiar FROST, geração distribuída de chaves e regras de autorização M-de-N. A proposta é eliminar o ponto único de falha: nenhum dispositivo isolado deve concentrar todo o poder de movimentar os fundos.
       <p><code>Bitcoin</code> <code>FROST</code> <code>Threshold Signatures</code> <code>Autocustódia</code></p>
       <a href="https://github.com/lordjunnior/chave-blindada"><b>Explorar o projeto →</b></a>
-    </td>
+</td>
   </tr>
   <tr>
     <td width="50%" valign="top">
@@ -117,14 +117,14 @@ Estes projetos mostram diferentes capacidades: construir uma plataforma, resolve
       Ferramenta de análise forense de metadados para investigar a estrutura interna de arquivos digitais e identificar informações que podem passar despercebidas: dados de câmera, coordenadas GPS, software utilizado e timestamps originais. Também permite purgar metadados, ajudando a compreender e controlar o que um arquivo revela sobre sua origem.
       <p><code>Privacidade</code> <code>Metadados</code> <code>Análise forense</code> <code>Arquivos digitais</code></p>
       <a href="https://github.com/lordjunnior/pericia-oculta"><b>Explorar o projeto →</b></a>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/anula-rastro"><img src="assets/projects/anula-rastro.svg" alt="Anula-Rastro — limpeza profunda e remoção de metadados." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/anula-rastro">08 · Anula-Rastro</a></h3>
       Ferramenta de limpeza profunda voltada à remoção ativa de metadados de imagens, áudio, vídeo e documentos PDF. Complementa a inspeção com uma etapa prática de higienização dos arquivos antes do envio ou da publicação, reduzindo a exposição de informações embutidas que podem comprometer a privacidade.
       <p><code>Privacidade digital</code> <code>Limpeza de metadados</code> <code>Imagens</code> <code>Áudio e vídeo</code> <code>PDF</code></p>
       <a href="https://github.com/lordjunnior/anula-rastro"><b>Explorar o projeto →</b></a>
-    </td>
+</td>
   </tr>
 </table>
 
@@ -141,13 +141,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
       <h3><a href="https://github.com/lordjunnior/lord-escritorio-agentes">Lord Escritório de Agentes</a></h3>
       Ambiente visual para acompanhar agentes de programação em projetos distintos, com salas, personagens e indicadores de atividade. Desenvolvido para tornar o trabalho paralelo de agentes mais observável.
       <p><code>TypeScript</code> <code>Node.js</code> <code>Agentes de IA</code></p>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/lord-diretrizes-design"><img src="assets/projects/lord-diretrizes-design.svg" alt="Lord Diretrizes de Design." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-diretrizes-design">Lord Diretrizes de Design</a></h3>
       Diretrizes e competências modulares para orientar agentes de IA em tarefas de design, interface e produção digital, com instruções organizadas e reutilizáveis.
       <p><code>Agent Skills</code> <code>Design systems</code> <code>Automação</code></p>
-    </td>
+</td>
   </tr>
   <tr>
     <td width="50%" valign="top">
@@ -155,13 +155,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
       <h3><a href="https://github.com/lordjunnior/lord-padroes-frontend">Lord Padrões Frontend</a></h3>
       Referência de padrões de engenharia frontend com foco em acessibilidade, desempenho, composição de componentes e manutenção de aplicações modernas.
       <p><code>React</code> <code>Vite</code> <code>WCAG</code></p>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/lord-habilidades-gsap"><img src="assets/projects/lord-habilidades-gsap.svg" alt="Lord Habilidades GSAP." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-habilidades-gsap">Lord Habilidades GSAP</a></h3>
       Regras e práticas para animações web com GSAP, incluindo ciclo de vida, uso de propriedades aceleradas por GPU, acessibilidade e integração com agentes de programação.
       <p><code>GSAP</code> <code>React</code> <code>Motion design</code></p>
-    </td>
+</td>
   </tr>
   <tr>
     <td width="50%" valign="top">
@@ -169,13 +169,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
       <h3><a href="https://github.com/lordjunnior/lord-principios-animacao">Lord Princípios de Animação</a></h3>
       Guia agnóstico de biblioteca para timing, easing, coreografia espacial e intenção visual, estruturado para apoiar pessoas e agentes na criação de movimento para interfaces.
       <p><code>Motion design</code> <code>UI</code> <code>Agent Skills</code></p>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/lord-cenas-3d"><img src="assets/projects/lord-cenas-3d.svg" alt="Lord Cenas 3D." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-cenas-3d">Lord Cenas 3D</a></h3>
       Experimentos de reconstrução procedural de objetos e cenas em Three.js a partir de referências visuais, com geometria e código preparados para exploração em tempo real.
       <p><code>Three.js</code> <code>TypeScript</code> <code>3D procedural</code></p>
-    </td>
+</td>
   </tr>
   <tr>
     <td width="50%" valign="top">
@@ -183,13 +183,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
       <h3><a href="https://github.com/lordjunnior/lord-editor-video">Lord Editor de Vídeo</a></h3>
       Repositório relacionado ao Concat, editor de vídeo open source. É apresentado como adaptação/curadoria de um projeto existente, não como software inteiramente criado do zero.
       <p><code>Vídeo</code> <code>Open source</code> <code>Audiovisual</code></p>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/instagram-agent-skill"><img src="assets/projects/instagram-agent-skill.svg" alt="Instagram Agent Skill." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/instagram-agent-skill">Instagram Agent Skill</a></h3>
       Coleção de competências open source para apoiar pesquisa, planejamento e produção de conteúdo para Instagram. Derivado de um projeto de terceiros; consulte os créditos e a licença no repositório.
       <p><code>Agentes de IA</code> <code>Conteúdo</code> <code>Automação</code></p>
-    </td>
+</td>
   </tr>
   <tr>
     <td width="50%" valign="top">
@@ -197,13 +197,13 @@ Além dos produtos em destaque, mantenho uma coleção de projetos técnicos que
       <h3><a href="https://github.com/lordjunnior/lord-encontrador-de-chaves-btc">Lord Encontrador de Chaves BTC</a></h3>
       Laboratório de estudo de computação criptográfica, paralelismo e derivação de endereços Bitcoin. O uso deve ficar restrito a testes autorizados, dados próprios e ambientes de pesquisa; não é um método prático para recuperar carteiras de terceiros.
       <p><code>Node.js</code> <code>Worker Threads</code> <code>Criptografia</code></p>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://github.com/lordjunnior/lord-cacachaves"><img src="assets/projects/lord-cacachaves.svg" alt="Lord Caça-Chaves." width="100%" /></a>
       <h3><a href="https://github.com/lordjunnior/lord-cacachaves">Lord Caça-Chaves</a> · <a href="https://github.com/lordjunnior/lord-rastreador-btc">Lord Rastreador BTC</a></h3>
       Experimentos de desempenho em C e Go com computação de curvas elípticas e processamento concorrente. Projetos de laboratório para análise técnica, não promessas de encontrar fundos ou quebrar a segurança do Bitcoin.
       <p><code>C</code> <code>Go</code> <code>secp256k1</code></p>
-    </td>
+</td>
   </tr>
 </table>
 
@@ -247,7 +247,7 @@ Além dos projetos de maior escopo, desenvolvo utilitários, simuladores, calcul
 - **Lucro do Bitcoin — Mapa da Alforria:** simulador de preço médio e retorno.
 
 <p><a href="https://lordjunnior.com.br/ferramentas"><b>Explorar ferramentas →</b></a></p>
-    </td>
+</td>
     <td width="50%" valign="top">
       <a href="https://lordjunnior.com.br/ferramentas"><img src="assets/projects/ferramentas-utilitarios.svg" alt="Utilitários, ferramentas de análise e experimentação." width="100%" /></a>
       <h3><a href="https://lordjunnior.com.br/ferramentas">Utilitários, análise e experimentação</a></h3>
@@ -261,7 +261,7 @@ Além dos projetos de maior escopo, desenvolvo utilitários, simuladores, calcul
 - **Amigo CLT:** calculadora de salário líquido, em desenvolvimento.
 
 <p><a href="https://lordjunnior.com.br/ferramentas"><b>Ver o catálogo completo →</b></a></p>
-    </td>
+</td>
   </tr>
 </table>
 
