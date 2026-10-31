@@ -1,12 +1,12 @@
 <!--
   Lord Junnior — desenvolvedor web, designer, educador digital, IA aplicada, Bitcoin, autocustódia,
-  privacidade digital, segurança operacional, soberania individual. Santa Catarina, Brasil.
+  privacidade digital, segurança operacional, soberania individual e infraestrutura privada.
   https://lordjunnior.com.br
 -->
 
 <div align="center">
   <a href="https://lordjunnior.com.br/">
-    <img src="assets/lj-header-3d.svg" alt="Lord Junnior — desenvolvedor web, designer e educador digital. Design, desenvolvimento, inteligência artificial aplicada e soberania digital." width="100%" />
+    <img src="assets/lj-header-3d-v2.svg" alt="Lord Junnior — desenvolvedor web, designer e educador digital. Design, desenvolvimento, inteligência artificial aplicada e soberania digital." width="100%" />
   </a>
 
   <br>
@@ -45,7 +45,7 @@
 
 **Eu conecto estratégia, experiência do usuário, design e código para transformar ideias em produtos digitais funcionais.**
 
-Sou desenvolvedor independente, designer e educador digital em Santa Catarina, Brasil. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios. Meu portfólio reúne produtos digitais publicados, ferramentas autorais e projetos de código aberto. A trajetória combina design, audiovisual, desenvolvimento de aplicações, automações e inteligência artificial aplicada, com foco em transformar necessidades concretas em experiências digitais funcionais.
+Sou arquiteto de sistemas, designer e educador digital independente. Desde 2008 trabalho com design e motion; hoje amplio essa experiência para aplicações web, automações, inteligência artificial aplicada e produtos próprios. Meu portfólio reúne produtos digitais publicados, ferramentas autorais e projetos de código aberto. A trajetória combina design, audiovisual, desenvolvimento de aplicações, automações e inteligência artificial aplicada, com foco em transformar necessidades concretas em experiências digitais funcionais.
 
 Minha forma de trabalhar resolve um problema comum: quando estratégia, interface, desenvolvimento e publicação ficam desconectados, o produto perde clareza. Eu consigo conduzir essas etapas de forma integrada, mantendo o objetivo do projeto visível do primeiro esboço ao deploy.
 
@@ -345,4 +345,4 @@ Se você procura alguém que entenda tanto a experiência quanto a implementaç�
 
 <p align="center">⚡ <b>Apoio via Lightning</b> · <code>securecorn53@walletofsatoshi.com</code></p>
 
-<p align="center"><sub>Lord Junnior · Desenvolvedor web · Designer gráfico e motion · IA aplicada · Automação · Santa Catarina, Brasil</sub></p>
+<p align="center"><sub>Lord Junnior · Desenvolvedor web · Designer gráfico e motion · IA aplicada · Automação · Soberania Digital · Zero Rastro</sub></p>
