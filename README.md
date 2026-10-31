@@ -293,20 +293,48 @@ Não trato essas áreas como serviços isolados. O diferencial está em conectá
   </tr>
 </table>
 
-## ◆ Stack e ferramentas
+## ◆ Arsenal técnico · 17 anos de estrada
 
 <div align="center">
-  <img src="https://skillicons.dev/icons?i=ts,js,react,vite,tailwind,threejs,nodejs,express,supabase,firebase&perline=10&theme=dark" alt="TypeScript, JavaScript, React, Vite, Tailwind CSS, Three.js, Node.js, Express, Supabase, Firebase" />
-  <br><br>
-  <img src="https://skillicons.dev/icons?i=python,c,go,linux,bash,git,github,figma,ps,ai&perline=10&theme=dark" alt="Python, C, Go, Linux, Bash, Git, GitHub, Figma, Photoshop, Illustrator" />
+
+<sub><b>SISTEMAS E DISTRIBUIÇÕES LINUX</b></sub><br>
+<img src="https://skillicons.dev/icons?i=linux,debian,ubuntu,arch,fedora,redhat,kali,bash,powershell&theme=dark" alt="Linux, Debian, Ubuntu, Arch, Fedora, Red Hat, Kali, Bash e PowerShell" />
+
+<sub><b>LINGUAGENS DE NÚCLEO E BACK-END</b></sub><br>
+<img src="https://skillicons.dev/icons?i=c,cpp,cs,java,python,go,rust,nodejs,express,graphql&theme=dark" alt="C, C++, C#, Java, Python, Go, Rust, Node.js, Express e GraphQL" />
+
+<sub><b>MOBILE E DISPOSITIVOS</b></sub><br>
+<img src="https://skillicons.dev/icons?i=androidstudio,kotlin,swift,apple,flutter,dart,react,arduino,raspberrypi,unity&theme=dark" alt="Android, Kotlin, Swift, iOS, Flutter, Dart, React Native, Arduino, Raspberry Pi e Unity" />
+
+<sub><b>INTERFACE, 3D E MOVIMENTO</b></sub><br>
+<img src="https://skillicons.dev/icons?i=html,css,js,ts,angular,nextjs,vite,tailwind,bootstrap,threejs&theme=dark" alt="HTML, CSS, JavaScript, TypeScript, Angular, Next.js, Vite, Tailwind, Bootstrap e Three.js" />
+
+<sub><b>INFRAESTRUTURA, DADOS E NUVEM</b></sub><br>
+<img src="https://skillicons.dev/icons?i=docker,kubernetes,nginx,gcp,firebase,supabase,mongodb,mysql,postgres,redis&theme=dark" alt="Docker, Kubernetes, Nginx, Google Cloud, Firebase, Supabase, MongoDB, MySQL, PostgreSQL e Redis" />
+
+<sub><b>IA, FERRAMENTAS E DESIGN</b></sub><br>
+<img src="https://skillicons.dev/icons?i=tensorflow,pytorch,git,github,postman,vscode,figma,ai,ps,blender&theme=dark" alt="TensorFlow, PyTorch, Git, GitHub, Postman, VS Code, Figma, Illustrator, Photoshop e Blender" />
+
 </div>
 
 <br>
 
-**Front-end:** `TypeScript` · `JavaScript` · `React` · `Vite` · `Tailwind CSS` · `GSAP` · `Three.js`  
-**Back-end e dados:** `Node.js` · `Express` · `Supabase` · `Firebase`  
-**IA e automação:** `Ollama` · `LM Studio` · `ComfyUI` · integrações com modelos  
-**Design e audiovisual:** Photoshop · CorelDRAW · Figma · Canva · motion design · edição de vídeo
+**Sistemas:** Debian · Ubuntu · Arch · Fedora · Red Hat · Kali · Alpine · shell e automação de servidores  
+**Mobile:** Android nativo (Kotlin/Java) · iOS (Swift) · Flutter · React Native  
+**Front-end:** TypeScript · JavaScript · React · Angular · Next.js · Tailwind · GSAP · Three.js  
+**Back-end e dados:** Node.js · Express · Python · Go · C/C++ · MongoDB · MySQL · PostgreSQL · Firebase  
+**IA e automação:** TensorFlow · Ollama · LM Studio · ComfyUI · integrações com modelos  
+**Design e audiovisual:** Photoshop · Illustrator · CorelDRAW · Figma · motion design · edição de vídeo
+
+## ◆ Rastro de código
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/lordjunnior/lordjunnior/output/cobrinha-ouro-brasa.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/lordjunnior/lordjunnior/output/cobrinha-ouro-brasa.svg" />
+    <img alt="Cobrinha em ouro e brasa percorrendo o histórico de contribuições de Lord Junnior" src="https://raw.githubusercontent.com/lordjunnior/lordjunnior/output/cobrinha-ouro-brasa.svg" width="100%" />
+  </picture>
+</div>
 
 <details>
   <summary><strong>▸ Outros projetos, protótipos e laboratório digital</strong></summary>
