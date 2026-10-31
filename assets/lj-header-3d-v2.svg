@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-label="Lord Junnior — Arquiteto de Sistemas, Design, Código, IA aplicada e Soberania Digital">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c0907"/><stop offset="1" stop-color="#1a0f08"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f4c26b"/><stop offset=".5" stop-color="#e8a33d"/><stop offset="1" stop-color="#c2410c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#e8a33d" stop-opacity=".35"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c0907" stop-opacity="1"/><stop offset="1" stop-color="#0c0907" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="c"><rect width="1280" height="420" rx="20"/></clipPath>
+    <style>
+      .t{font-family:Impact,'Anton','Arial Black',sans-serif;letter-spacing:2px}
+      .m{font-family:'JetBrains Mono',Consolas,'Courier New',monospace}
+      .blink{animation:b 1.1s steps(1) infinite}@keyframes b{50%{opacity:0}}
+      .rise{animation:r 1.2s ease-out both}@keyframes r{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+      .d1{animation-delay:.15s}.d2{animation-delay:.35s}.d3{animation-delay:.55s}
+      .pulse{animation:p 3s ease-in-out infinite;transform-origin:1095px 205px}@keyframes p{50%{transform:scale(1.08);opacity:.75}}
+    </style>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="1280" height="420" fill="url(#bg)"/>
+    <!-- grade em perspectiva (piso 3D) em movimento -->
+    <g stroke="#e8a33d" stroke-opacity=".22" stroke-width="1">
+      <path d="M640 250L-400 420M640 250L-100 420M640 250L200 420M640 250L460 420M640 250L640 420M640 250L820 420M640 250L1080 420M640 250L1380 420M640 250L1680 420"/>
+      <g>
+        <path d="M0 262H1280M0 280H1280M0 304H1280M0 336H1280M0 378H1280"/>
+        <animateTransform attributeName="transform" type="translate" values="0 0;0 22;0 0" dur="4s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    <rect width="1280" height="262" fill="url(#fade)"/>
+    <!-- núcleo 3D: giroscópio com anéis em rotação -->
+    <circle cx="1095" cy="205" r="190" fill="url(#glow)" class="pulse"/>
+    <g fill="none" stroke-width="2.2" transform="translate(1095 205)">
+      <ellipse rx="130" ry="130" stroke="#e8a33d" stroke-opacity=".9">
+        <animate attributeName="rx" values="130;8;130" dur="6s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse rx="130" ry="130" stroke="#c2410c" stroke-opacity=".9">
+        <animate attributeName="ry" values="8;130;8" dur="6s" repeatCount="indefinite"/>
+      </ellipse>
+      <g><ellipse rx="150" ry="46" stroke="#f4ebdd" stroke-opacity=".45" stroke-dasharray="6 10"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="18s" repeatCount="indefinite"/></g>
+      <g><ellipse rx="160" ry="30" stroke="#e8a33d" stroke-opacity=".5"/>
+        <circle cx="160" cy="0" r="6" fill="#e8a33d"/>
+        <animateTransform attributeName="transform" type="rotate" values="360;0" dur="10s" repeatCount="indefinite"/></g>
+      <polygon points="0,-62 54,-31 54,31 0,62 -54,31 -54,-31" stroke="#e8a33d" fill="#0c0907" fill-opacity=".8"/>
+      <path d="M0 -62V0M54 31L0 0M-54 31L0 0" stroke="#c2410c" stroke-opacity=".8"/>
+      <text x="0" y="22" text-anchor="middle" class="t" font-size="62" fill="url(#gold)">₿</text>
+    </g>
+    <!-- texto -->
+    <text x="80" y="70" class="m rise" font-size="15" fill="#e8a33d" letter-spacing="4">&gt; SYS://LORDJUNNIOR.COM.BR <tspan class="blink">█</tspan></text>
+    <text x="76" y="170" class="t rise d1" font-size="96" fill="#f4ebdd">LORD JUNNIOR</text>
+    <text x="80" y="222" class="t rise d2" font-size="28" fill="url(#gold)">ARQUITETO DE SISTEMAS · SOBERANIA DIGITAL</text>
+    <text x="80" y="262" class="m rise d3" font-size="18" fill="#cbbfae">Design, código e IA aplicada para quem decidiu não depender de ninguém.</text>
+    <rect x="80" y="292" width="72" height="4" fill="#c2410c"/>
+    <text x="80" y="336" class="m" font-size="14" fill="#8a7c6a" letter-spacing="3">DESDE 2008 · SOBERANIA DIGITAL · ZERO RASTRO · 17+ ANOS DE SISTEMAS</text>
+    <rect x="1" y="1" width="1278" height="418" rx="20" fill="none" stroke="#c2410c" stroke-opacity=".5"/>
+  </g>
+</svg>
