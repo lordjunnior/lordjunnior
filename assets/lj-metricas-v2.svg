@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 150" width="1280" height="150" role="img" aria-label="17+ anos de trajetória, 3.000+ artigos publicados, 8 áreas de atuação, 300+ ferramentas desenvolvidas e 100+ repositórios autorais">
+  <defs>
+    <style>
+      .n{font-family:Impact,'Anton','Arial Black',sans-serif;fill:#e8a33d}
+      .l{font-family:'JetBrains Mono',Consolas,monospace;fill:#cbbfae;font-size:13px;letter-spacing:2px}
+      .c{animation:u 1s ease-out both}@keyframes u{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    </style>
+    <linearGradient id="s" x1="0" x2="1"><stop offset="0" stop-color="#c2410c" stop-opacity="0"/><stop offset=".5" stop-color="#e8a33d"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="1280" height="150" rx="16" fill="#0c0907" stroke="#c2410c" stroke-opacity=".5"/>
+  <rect y="146" width="260" height="3" fill="url(#s)"><animate attributeName="x" values="-260;1280" dur="3.5s" repeatCount="indefinite"/></rect>
+  <g text-anchor="middle">
+    <g class="c"><text x="128" y="80" class="n" font-size="54">17+</text><text x="128" y="112" class="l">ANOS</text></g>
+    <g class="c" style="animation-delay:.1s"><text x="384" y="80" class="n" font-size="48">3.000+</text><text x="384" y="112" class="l">ARTIGOS</text></g>
+    <g class="c" style="animation-delay:.2s"><text x="640" y="80" class="n" font-size="54">8</text><text x="640" y="112" class="l">ÁREAS DE ATUAÇÃO</text></g>
+    <g class="c" style="animation-delay:.3s"><text x="896" y="80" class="n" font-size="54">300+</text><text x="896" y="112" class="l">FERRAMENTAS</text></g>
+    <g class="c" style="animation-delay:.4s"><text x="1152" y="80" class="n" font-size="54">100+</text><text x="1152" y="112" class="l">REPOS AUTORAIS</text></g>
+  </g>
+</svg>
