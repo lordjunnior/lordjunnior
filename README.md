@@ -25,7 +25,7 @@
 
   <br><br>
 
-  <img src="assets/lj-metricas.svg" alt="17+ anos de design, 237 páginas, 6 mega-silos, 20 ferramentas, 24 repositórios autorais e zero rastreadores." width="100%" />
+  <img src="assets/lj-metricas.svg" alt="17+ anos de trajetória, 3.000+ artigos publicados, 8 áreas de atuação, 300+ ferramentas desenvolvidas, 100+ repositórios autorais e 4 etapas de execução." width="100%" />
 </div>
 
 <br>
